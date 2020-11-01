@@ -21,7 +21,7 @@ public class Schedule {
         scheduleMap.put(eventTime, e);
         return true;
     }
-
+    //TODO: Consider cutting out creating event
     public boolean addEvent(String title, String location, String datetime){
         Event e = new Event(title, location, datetime);
         return this.addEvent(e);
