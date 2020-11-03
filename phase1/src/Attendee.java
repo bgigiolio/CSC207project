@@ -36,6 +36,7 @@ public class Attendee {
     }
 
     // test to check class works as expected
+/*
     public static void main(String[] args)
     {
 
@@ -50,6 +51,6 @@ public class Attendee {
                 "password is " + user2.password + "\n" +
                 "userID is " + user2.userid + "\n" + "\n" +
                 "user1 userID is " + user1.userid );
-    }
+    }*/
 }
 
