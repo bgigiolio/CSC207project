@@ -4,6 +4,8 @@ public class Schedule {
     private int endHour;
     private int startHour;
 
+    //This has become a use case
+
     public Schedule(int startHour, int endHour){
         this.endHour = endHour;
         this.startHour = startHour;
@@ -22,10 +24,6 @@ public class Schedule {
         return true;
     }
     //TODO: Consider cutting out creating event
-    public boolean addEvent(String title, String location, String datetime){
-        Event e = new Event(title, location, datetime);
-        return this.addEvent(e);
-    }
 
     public boolean removeEvent(Event e){
         if (scheduleMap.containsKey(e.getDatetime())) {
@@ -39,5 +37,8 @@ public class Schedule {
     public void editHours(int startHour, int endHour){
         this.startHour = startHour;
         this.endHour = endHour;
+    }
+    public boolean isOpen(String datetime){
+        return !scheduleMap.containsKey(datetime);
     }
 }
