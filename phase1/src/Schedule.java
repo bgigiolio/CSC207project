@@ -23,7 +23,6 @@ public class Schedule {
         scheduleMap.put(eventTime, e);
         return true;
     }
-    //TODO: Consider cutting out creating event
 
     public boolean removeEvent(Event e){
         if (scheduleMap.containsKey(e.getDatetime())) {
