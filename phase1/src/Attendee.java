@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +33,11 @@ public class Attendee {
     public List<Event> getRegistration(){
         return this.registration;
     }
+
+    public void sendMessage(String stringMessage, Attendee reciever){
+        new MessageCreator(stringMessage, reciever, this.userid);
+    }
+
 
     // test to check class works as expected
 /*
