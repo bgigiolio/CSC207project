@@ -34,8 +34,8 @@ public class Attendee {
         return this.registration;
     }
 
-    public void sendMessage(String stringMessage, Attendee reciever){
-        new MessageCreator(stringMessage, reciever, this.userid);
+    public void sendMessage(String stringMessage, Attendee receiver){
+        new MessageCreator(stringMessage, receiver, this.userid);
     }
 
 
