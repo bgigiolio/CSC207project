@@ -1,19 +1,16 @@
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 
 public class Event {
     String title;
     String location;
-    String datetime; // "In the format DD.MM.YYYY - HH.MM"
-    List<Attendee> attendees;
+    Calendar datetime; // Calendar.set(year + 1900, month, date, hrs, min)
+    List<String> username;
 
-
-    public Event(String title, String location, String datetime) {
+    public Event(String title, String location, Calendar datetime) {
         this.title = title;
         this.location = location;
         this.datetime = datetime;
-        this.attendees = new ArrayList<Attendee>();
+        this.username = new ArrayList<String>();
     }
     public String getTitle() {
         return this.title;
@@ -23,12 +20,12 @@ public class Event {
         return this.location;
     }
 
-    public String getDatetime() {
+    public Calendar getDatetime() {
         return this.datetime;
     }
 
-    public List<Attendee> getAttendees() {
-        return this.attendees;
+    public List<String> getAttendees() {
+        return this.username;
     }
 
     public void setTitle(String title){
@@ -39,16 +36,16 @@ public class Event {
         this.location = location;
     }
 
-    public void setDatetime(String datetime){
+    public void setDatetime(Calendar datetime){
         this.datetime = datetime;
     }
 
-    public void setAttendees(List<Attendee> attendees) {
-        this.attendees = attendees;
+    public void setAttendees(List<String> username) {
+        this.username = username;
     }
 
     public Object[] getEventInfo(){
-        return new Object[]{this.title, this.location, this.datetime, this.attendees};
+        return new Object[]{this.title, this.location, this.datetime, this.username};
     }
 
 }
