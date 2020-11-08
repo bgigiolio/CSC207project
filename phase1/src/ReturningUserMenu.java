@@ -1,8 +1,8 @@
-package UI;
-import java.util.Scanner;
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
-public class NewUserMenu {
+import java.util.Scanner;
+
+public class ReturningUserMenu implements LoginMenu{
     public String usernamePrompt(){
         Scanner uname = new Scanner(System.in);
         System.out.println("Please enter your username: ");
