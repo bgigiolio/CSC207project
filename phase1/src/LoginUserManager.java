@@ -21,6 +21,9 @@ public class LoginUserManager {
             if (role.equalsIgnoreCase("speaker")){
                 credentialsMap.put(username, new Speaker(username, password));
                 return true;}
+            else{
+                return false;
+            }
         }
     }
 

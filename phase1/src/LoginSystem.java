@@ -19,9 +19,9 @@ public class LoginSystem {
         manager.logoutUser(username);
     }
 
-    public String assignPrivileges(String username) {
-        //need to assign access level based on user role
-    }
+//    public String assignPrivileges(String username) {
+//        //need to assign access level based on user role
+//    }
 }
 /*    public static void main(String[] args)
     {
