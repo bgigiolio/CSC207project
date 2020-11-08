@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class EventController {
     public EventManager manager;
     public EventController(String title, String location, Calendar datetime, Schedule sched){
