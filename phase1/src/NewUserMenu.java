@@ -12,4 +12,8 @@ public class NewUserMenu implements LoginMenu{
         System.out.println("Please enter your password: ");
         return pass.nextLine();
     }
+    public boolean logReg(String username, String password, String role) {
+        LoginSystem log = new LoginSystem();
+        return log.register(username, password, role);
+    }
 }

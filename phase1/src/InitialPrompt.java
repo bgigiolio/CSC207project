@@ -41,9 +41,8 @@ public class InitialPrompt {
         login();
         }
         private void login(){
-            LoginSystem log = new LoginSystem();
-            if (log.register(this.username, this.password, this.role)) {
-                System.out.println("Account Successfully Created");
+            if (Menu.logReg(this.username, this.password, this.role)) {
+                System.out.println("Account successfully logged in to");
             }else{
                 System.out.println("Invalid account, please try again!");
                 startProgram();

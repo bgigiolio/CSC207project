@@ -13,4 +13,10 @@ public class ReturningUserMenu implements LoginMenu{
         System.out.println("Please enter your password: ");
         return pass.nextLine();
     }
+
+    @Override
+    public boolean logReg(String username, String password, String role) {
+        LoginSystem log = new LoginSystem();
+        return (log.login(username, password));
+    }
 }
