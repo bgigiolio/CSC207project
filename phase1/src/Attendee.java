@@ -8,6 +8,8 @@ public class Attendee {
     List<Attendee> friendlist;
     List<Message> messages;
     List<Event> registration;
+    boolean loggedIn;
+    String role;
 
     public Attendee(String username, String password){
         this.username = username;
@@ -16,6 +18,8 @@ public class Attendee {
         this.friendlist = new ArrayList<Attendee>();
         this.messages = new ArrayList<Message>();
         this.registration = new ArrayList<Event>();
+        this.loggedIn = false;
+        this.role = "attendee";
     }
 
     public String getUsername(){
@@ -34,8 +38,20 @@ public class Attendee {
         return this.registration;
     }
 
+    public boolean getLoginStatus(){
+        return this.loggedIn;
+    }
+
+    public String getRole(){
+        return this.role;
+    }
+
     public void sendMessage(String stringMessage, Attendee receiver){
         new MessageCreator(stringMessage, receiver, this.userid);
+    }
+
+    public void setLoggedIn(boolean value){
+        this.loggedIn = value;
     }
 
 

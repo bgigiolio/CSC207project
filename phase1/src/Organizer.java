@@ -8,9 +8,11 @@ public class Organizer extends Attendee {
     List<Attendee> friendlist; // list of username?
     List<Message> messages;
     List<Event> registration;
+    String role;
 
     public Organizer(String username, String password) {
         super(username, password);
+        this.role = "organizer";
     }
 
     // public boolean createRoom;
