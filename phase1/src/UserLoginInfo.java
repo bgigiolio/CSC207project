@@ -31,7 +31,7 @@ public class UserLoginInfo implements Serializable{
             input.close();
         } catch (FileNotFoundException | ClassNotFoundException e){
             e.printStackTrace();
-            System.out.println("Existing version is printed.");
+            System.out.println("Existing version is returned.");
         }
         return LoginInfo;
     }
