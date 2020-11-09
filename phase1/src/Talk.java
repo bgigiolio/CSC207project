@@ -1,8 +1,10 @@
+import java.util.Calendar;
+
 public class Talk extends Event{
     protected String speaker;
-    public Talk(String title, String location, String datetime, String speaker_name) {
+    public Talk(String title, String location, Calendar datetime) {
         super(title, location, datetime);
-        this.speaker = speaker_name;
+        this.speaker = "None";
     }
 
     public String getSpeaker() {
