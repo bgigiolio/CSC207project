@@ -21,8 +21,11 @@ public class Organizer extends Attendee {
     public Speaker createSpeakerAccount (String username, String password) {
         return new Speaker(username, password); }
 
-    public void assignSpeaker (String speakerUsername, Talk talk){
-        talk.setSpeaker(speakerUsername); // implement Speaker first, change later
+    public boolean assignSpeaker (String speakerUsername, Talk talk){
+        if (talk.getSpeaker().equals("None")) {
+        talk.setSpeaker(speakerUsername);
+        return true;
+        } else { return false; }
     }
 
 }
