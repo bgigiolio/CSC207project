@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.*;
 public class Schedule {
     private final HashMap<Object, Event> scheduleMap = new HashMap<>();
@@ -7,16 +8,15 @@ public class Schedule {
     //This has become a use case
 
     public Schedule(int startHour, int endHour){
-        this.endHour = endHour;
-        this.startHour = startHour;
+        this.endHour = endHour; // When the room closes
+        this.startHour = startHour; // When the room opens
     }
     public boolean addEvent(Event e){
-        String eventTime = e.getDatetime();
-        String eventHour = eventTime.substring(13, 15);
-        int hour = Integer.parseInt(eventHour);
+        LocalDateTime eventTime = e.getDatetime();
+
 
         if ((scheduleMap.containsKey(eventTime) && e.getLocation().equals(scheduleMap.get(eventTime).location))
-                || hour >= endHour || hour < startHour) {
+                || eventTime.getHour() >= endHour || eventTime.getHour() < startHour) {
             return false;
         }
 
