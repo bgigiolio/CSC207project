@@ -4,14 +4,24 @@ import java.util.Collections;
 
 public class EventStatus {
 
-    // public void addUser() {
+    public boolean addUser(Event e, Attendee user) {
+        if (e.getAttendees().contains(user.getUsername())) {
+            return false;
+        } else {
+            e.usernames.add(user.getUsername());
+            return true;
+        }
+     }
 
-    // }
+    public boolean removeUser(Event e, Attendee user){
+        if (e.getAttendees().contains(user.getUsername())) {
+            e.usernames.remove(user.getUsername());
+            return true;
+        } else {
+            return false; }
+     }
 
-    // public boolean removeUser(Event e, Attendee user){
-    //    if (e.getAttendees().contains(user.getUsername())) {
-    //        e.removeAttendees();
-    //    }
-    // }
-
+     // Question: do we have to make the attribute username in event class private?
+    // if so, we will not be able to access it in this class, and these methods will have to be
+    // under event class
 }
