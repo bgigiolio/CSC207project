@@ -5,7 +5,7 @@ public class Organizer extends Attendee {
     String username;
     String password;
     String userid;
-    List<Attendee> friendlist; // list of username?
+    List<Attendee> friendList; // list of username?
     List<Message> messages;
     List<Event> registration;
     String role;
@@ -18,8 +18,8 @@ public class Organizer extends Attendee {
     // public boolean createRoom;
     // DO LATER: not sure about how to create room since we're only having one room ?
 
-    // public Speaker createSpeakerAccount (String username, String password) {
-        // return Speaker(username, password) } // implement Speaker first
+    public Speaker createSpeakerAccount (String username, String password) {
+        return new Speaker(username, password); }
 
     public void assignSpeaker (String speakerUsername, Talk talk){
         talk.setSpeaker(speakerUsername); // implement Speaker first, change later
