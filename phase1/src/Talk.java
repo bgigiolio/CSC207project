@@ -1,8 +1,8 @@
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 public class Talk extends Event{
     protected String speaker;
-    public Talk(String title, String location, Calendar datetime) {
+    public Talk(String title, String location, LocalDateTime datetime) {
         super(title, location, datetime);
         this.speaker = "None";
     }
