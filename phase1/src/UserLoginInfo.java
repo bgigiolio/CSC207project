@@ -3,31 +3,31 @@ import java.util.*;
 // GATEWAY
 public class UserLoginInfo implements Serializable{
 
-    private HashMap<String, String> LoginInfo;
+    private HashMap<String, ArrayList<String>> LoginInfo;
 
     public UserLoginInfo(){
-        HashMap<String, String> LoginInfo = new HashMap<>();
+        HashMap<String, ArrayList<String>> LoginInfo = new HashMap<>();
     }
 
-    public HashMap<String, String> getLoginInfo() {
+    public HashMap<String, ArrayList<String>> getLoginInfo() {
         return LoginInfo;
     }
 
-    public void addUserInfo(String username, String password){
-        if(!LoginInfo.containsKey(username)){ LoginInfo.put(username, password); }
+    public void addUserInfo(String username, String password, String role){
+        if(!LoginInfo.containsKey(username)){ LoginInfo.put(username, new ArrayList<>(Arrays.asList(password, role))); }
     }
 
     public void removeUserInfo(String username){
         LoginInfo.remove(username);
     }
 
-    public HashMap<String, String> getFileUserLoginInfo(String filePath) throws IOException {
+    public HashMap<String, ArrayList<String>> getFileUserLoginInfo(String filePath) throws IOException {
         try{
             InputStream file = new FileInputStream(filePath);
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-            LoginInfo = (HashMap<String, String>) input.readObject();
+            LoginInfo = (HashMap<String, ArrayList<String>>) input.readObject();
             input.close();
         } catch (FileNotFoundException | ClassNotFoundException e){
             e.printStackTrace();
