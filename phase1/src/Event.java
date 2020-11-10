@@ -43,20 +43,20 @@ public class Event {
         this.datetime = datetime;
     }
 
-    public void setAttendees(ArrayList<String> username) {
-        this.usernames = username;
+    public void setAttendees(ArrayList<String> usernames) {
+        this.usernames = usernames;
     }
 
-    public void addAttendees(String username) {
+    public void addAttendee(String username) {
         this.usernames.add(username);
     }
-    public void addAttendees(ArrayList<String> usernames) {
+    public void addAttendee(ArrayList<String> usernames) {
         this.usernames.addAll(usernames);
     }
-    public void removeAttendees(String username) {
+    public void removeAttendee(String username) {
         this.usernames.remove(username);
     }
-    public void removeAttendees(ArrayList<String> usernames) {
+    public void removeAttendee(ArrayList<String> usernames) {
         this.usernames.removeAll(usernames);
     }
 
