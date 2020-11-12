@@ -10,7 +10,7 @@ public class EventGateway implements Serializable {
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-            events.add((Event) input.readObject());
+            events = (ArrayList<Event>) input.readObject();
             input.close();
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -22,12 +22,10 @@ public class EventGateway implements Serializable {
         try {
             OutputStream file = new FileOutputStream("Events.txt");
             OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput input = new ObjectOutputStream(buffer);
+            ObjectOutput output = new ObjectOutputStream(buffer);
 
-            for (Event e: events){
-                input.writeObject(e);
-            }
-            input.close();
+            output.writeObject(events);
+            output.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
