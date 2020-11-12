@@ -43,7 +43,7 @@ public class Event {
         this.datetime = datetime;
     }
 
-    public void setAttendees(ArrayList<String> username) {
+    public void setAttendee(ArrayList<String> username) {
         this.usernames = username;
     }
 
