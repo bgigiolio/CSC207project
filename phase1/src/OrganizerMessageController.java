@@ -9,15 +9,15 @@ public class OrganizerMessageController {
     }
 
     public void toOneSpeaker(Speaker oneSpeaker, String inputMessage){
-        MessageCreator message = new MessageCreator(inputMessage, oneSpeaker, this.organizer.username);
+        MessageCreator message = new MessageCreator(inputMessage, oneSpeaker, this.organizer.getUsername());
     }
 
     public void toOneAttendee(Attendee oneAttendee, String inputMessage){
-        MessageCreator message = new MessageCreator(inputMessage, oneAttendee, this.organizer.username);
+        MessageCreator message = new MessageCreator(inputMessage, oneAttendee, this.organizer.getUsername());
     }
 
     public void toFriends(String inputMessage){
-        for(int i = 0; i < this.organizer.friendList.size(); i ++){
+        for(int i = 0; i < this.organizer.getNumOfFriends(); i ++){
             MessageCreator message = new MessageCreator(inputMessage, this.organizer.friendList.get(i),
                     this.organizer.username);
         }

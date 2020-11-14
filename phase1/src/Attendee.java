@@ -5,7 +5,7 @@ public class Attendee {
     protected String username;
     protected String password;
     //String userid;
-    protected List<Attendee> friendList;  //shouldn't contain entities,
+    protected List<String> friendList;  //list of friend's username
     protected List<Message> messages;     //shouldn't contain entities
     List<Event> eventsRegistered;   //shouldn't contain entities
     protected boolean loggedIn;
@@ -55,6 +55,10 @@ public class Attendee {
     public void setLoggedIn(boolean value){
         this.loggedIn = value;
     }
+
+    public int getNumOfFriends() { return this.friendList.size(); }
+
+    public List<String> getFriendList() { return this.friendList; }
 
 
     // test to check class works as expected
