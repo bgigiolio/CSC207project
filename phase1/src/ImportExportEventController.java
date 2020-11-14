@@ -1,14 +1,16 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ImportExportEventController {
 
     private final EventGateway g = new EventGateway();
 
-    public ArrayList<Event> importEvents() throws ClassNotFoundException{
+    public HashMap<LocalDate, ArrayList<Event>> importEvents() throws ClassNotFoundException{
         return g.getEvents();
     }
 
-    public void exportEvents(ArrayList<Event> events){
+    public void exportEvents(HashMap<LocalDate, ArrayList<Event>> events){
         g.setEvents(events);
     }
 

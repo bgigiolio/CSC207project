@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.*;
 import java.time.*;
 
-public class Event {
+public class Event implements Serializable {
     String title;
     String location;
     LocalDateTime datetime;
@@ -9,7 +10,7 @@ public class Event {
     // The ss (seconds) parameter is optional.
     ArrayList<String> usernames;
 
-    public Event(String title, String location, LocalDateTime datetime) {
+    public Event(String title, String location, LocalDateTime datetime){
         this.title = title;
         this.location = location;
         this.datetime = datetime;

@@ -1,19 +1,20 @@
+import java.util.ArrayList;
 import java.util.List;
 
-// Basic Implimentation of speaker, please edit.
-
 public class Speaker extends Attendee {
-
-    String username;
-    String password;
-    String userid;
-    List<Attendee> friendlist; // list of username?
-    List<Message> messages;
-    List<Event> registration;
-    String role;
+    private ArrayList<String> talks;
 
     public Speaker(String username, String password) {
         super(username, password);
         this.role = "speaker";
+        this.talks = new ArrayList<>();
+    }
+
+    public void addTalk(String talkId){
+        this.talks.add(talkId);
+    }
+
+    public Object getTalks(){
+        return this.talks.clone();
     }
 }

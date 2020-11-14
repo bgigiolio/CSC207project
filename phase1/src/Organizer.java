@@ -4,10 +4,10 @@ public class Organizer extends Attendee {
 
     String username;
     String password;
-    String userid;
+    //String userid;
     List<Attendee> friendList; // list of username?
-    List<Message> messages;
-    List<Event> registration;
+    List<Message> messages; //shouldn't contain entities
+    List<Event> registration; //shouldn't contain entities
     String role;
 
     public Organizer(String username, String password) {

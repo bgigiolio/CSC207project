@@ -2,24 +2,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Attendee {
-    String username;
-    String password;
-    String userid;
-    List<Attendee> friendlist;
-    List<Message> messages;
-    List<Event> registration;
-    boolean loggedIn;
-    String role;
+    protected String username;
+    protected String password;
+    //String userid;
+    protected List<Attendee> friendList;  //shouldn't contain entities,
+    protected List<Message> messages;     //shouldn't contain entities
+    List<Event> eventsRegistered;   //shouldn't contain entities
+    protected boolean loggedIn;
+    protected String role;
+    //public static List<Attendee> user; //should be in LoginUserManager
 
     public Attendee(String username, String password){
         this.username = username;
         this.password = password;
-        this.userid = UseridGenerator.getAlphaNumericString(20); //assigns random alphanumeric string of size n to user
-        this.friendlist = new ArrayList<Attendee>();
-        this.messages = new ArrayList<Message>();
-        this.registration = new ArrayList<Event>();
+        //this.userid = UseridGenerator.getAlphaNumericString(20); //assigns random alphanumeric string of size n to user
+        this.friendList = new ArrayList<>();
+        this.messages = new ArrayList<>();
+        this.eventsRegistered = new ArrayList<>();
         this.loggedIn = false;
         this.role = "attendee";
+        //user.add(this);
     }
 
     public String getUsername(){
@@ -30,12 +32,12 @@ public class Attendee {
         return this.password;
     }
 
-    public String getUserid(){
+    /*public String getUserid(){
         return this.userid;
-    }
+    }*/
 
-    public List<Event> getRegistration(){
-        return this.registration;
+    public List<Event> getEventsRegistered(){
+        return this.eventsRegistered;
     }
 
     public boolean getLoginStatus(){
@@ -47,7 +49,7 @@ public class Attendee {
     }
 
     public void sendMessage(String stringMessage, Attendee receiver){
-        new MessageCreator(stringMessage, receiver, this.userid);
+        new MessageCreator(stringMessage, receiver, this.username);
     }
 
     public void setLoggedIn(boolean value){

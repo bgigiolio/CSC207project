@@ -1,16 +1,15 @@
 public class MessageCreator {
-    protected Attendee reciever;
+    protected Attendee receiver;
     protected Message message;
 
-    public MessageCreator(String toBeMessage, Attendee reciever, String senderUserid){
-        this.reciever = reciever;
+    public MessageCreator(String toBeMessage, Attendee receiver, String senderUserid){
+        this.receiver = receiver;
         message = new Message(toBeMessage, senderUserid);
         deliver();
     }
 
     private void deliver(){
-        new MessageController(this.reciever, this.message);
+        new MessageController(this.receiver, this.message);
     }
-
 
 }

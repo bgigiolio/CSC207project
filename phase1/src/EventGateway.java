@@ -1,16 +1,18 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EventGateway implements Serializable {
 
-    public ArrayList<Event> getEvents() throws ClassNotFoundException {
-        ArrayList<Event> events = new ArrayList<>();
+    public HashMap<LocalDate, ArrayList<Event>> getEvents() throws ClassNotFoundException {
+        HashMap<LocalDate, ArrayList<Event>> events = new HashMap<>();
         try {
             InputStream file = new FileInputStream("Events.txt");
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-            events.add((Event) input.readObject());
+            events = (HashMap<LocalDate, ArrayList<Event>>) input.readObject();
             input.close();
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -18,19 +20,18 @@ public class EventGateway implements Serializable {
         return events;
     }
 
-    public void setEvents(ArrayList<Event> events) {
+    public void setEvents(HashMap<LocalDate, ArrayList<Event>> events) {
         try {
             OutputStream file = new FileOutputStream("Events.txt");
             OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput input = new ObjectOutputStream(buffer);
+            ObjectOutput output = new ObjectOutputStream(buffer);
 
-            for (Event e: events){
-                input.writeObject(e);
-            }
-            input.close();
+            output.writeObject(events);
+            output.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
 
 }
