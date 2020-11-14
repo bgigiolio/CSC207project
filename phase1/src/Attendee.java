@@ -10,6 +10,7 @@ public class Attendee {
     List<Event> registration;
     boolean loggedIn;
     String role;
+    public static List<Attendee> user;
 
     public Attendee(String username, String password){
         this.username = username;
@@ -20,6 +21,7 @@ public class Attendee {
         this.registration = new ArrayList<Event>();
         this.loggedIn = false;
         this.role = "attendee";
+        user.add(this);
     }
 
     public String getUsername(){
