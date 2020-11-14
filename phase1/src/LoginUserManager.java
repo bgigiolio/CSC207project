@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class LoginUserManager {
-    private HashMap<Object, Attendee> credentialsMap = new HashMap<>();
+    private HashMap<String, Attendee> credentialsMap;
 
     public LoginUserManager(){
         this.credentialsMap = new HashMap<>();
@@ -14,34 +14,38 @@ public class LoginUserManager {
         else {
             if (role.equalsIgnoreCase("attendee")){
                 credentialsMap.put(username, new Attendee(username, password));
-                return true;}
+                return true;
+            }
             if (role.equalsIgnoreCase("organizer")){
                 credentialsMap.put(username, new Organizer(username, password));
-                return true;}
+                return true;
+            }
             if (role.equalsIgnoreCase("speaker")){
                 credentialsMap.put(username, new Speaker(username, password));
-                return true;}
-            else{
-                return false;
+                return true;
             }
+            else
+                return false;
         }
     }
 
     public boolean loginUser(String username, String password){
-        if (credentialsMap.containsKey(username)) {
-            credentialsMap.get(username).setLoggedIn(true);
-            return credentialsMap.get(username).password.equals(password);
+        Attendee res = credentialsMap.get(username);
+
+        //res is null if username is not found
+        if (res != null && res.getPassword().equals(password)) {
+            res.setLoggedIn(true);
+            return true;
         }
-        else{
+        else
             return false;
-        }
     }
 
     public void logoutUser(String username){
-        credentialsMap.get(username).setLoggedIn(false);
+        credentialsMap.get(username).setLoggedIn(false);    //will this crash if username is not found?
     }
 
     public String userRole(String username){
-        return credentialsMap.get(username).getRole();
+        return credentialsMap.get(username).getRole();  //same for this one
     }
 }

@@ -9,32 +9,32 @@ public class OrganizerMessageController {
     }
 
     public void toOneSpeaker(Speaker oneSpeaker, String inputMessage){
-        MessageCreator message = new MessageCreator(inputMessage, oneSpeaker, this.organizer.userid);
+        MessageCreator message = new MessageCreator(inputMessage, oneSpeaker, this.organizer.username);
     }
 
     public void toOneAttendee(Attendee oneAttendee, String inputMessage){
-        MessageCreator message = new MessageCreator(inputMessage, oneAttendee, this.organizer.userid);
+        MessageCreator message = new MessageCreator(inputMessage, oneAttendee, this.organizer.username);
     }
 
     public void toFriends(String inputMessage){
-        for(int i = 0; i < this.organizer.friendlist.size(); i ++){
-            MessageCreator message = new MessageCreator(inputMessage, this.organizer.friendlist.get(i),
-                    this.organizer.userid);
+        for(int i = 0; i < this.organizer.friendList.size(); i ++){
+            MessageCreator message = new MessageCreator(inputMessage, this.organizer.friendList.get(i),
+                    this.organizer.username);
         }
     }
 
     public void toAllSpeaker(String inputMessage){
-        for (int i = 0; i < Attendee.user.size(); i++){
+        for (int i = 0; i < Attendee.user.size(); i++){ //accessing entities through a controller - no good
             if(Attendee.user.get(i).role.equals("speaker")){
-                MessageCreator message = new MessageCreator(inputMessage, Attendee.user.get(i), this.organizer.userid);
+                MessageCreator message = new MessageCreator(inputMessage, Attendee.user.get(i), this.organizer.username);
             }
         }
     }
 
     public void toAllAttendee(String inputMessage){
-        for (int i = 0; i < Attendee.user.size(); i++){
+        for (int i = 0; i < Attendee.user.size(); i++){ //same here!!
             if(Attendee.user.get(i).role.equals("attendee")){
-                MessageCreator message = new MessageCreator(inputMessage, Attendee.user.get(i), this.organizer.userid);
+                MessageCreator message = new MessageCreator(inputMessage, Attendee.user.get(i), this.organizer.username);
             }
         }
     };
