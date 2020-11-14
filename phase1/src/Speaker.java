@@ -2,7 +2,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Speaker extends Attendee {
-    private ArrayList<String> talks;
+    private String username;
+    private String password;
+    //String userid;
+    private List<Attendee> friendList;  //shouldn't contain entities,
+    private List<Message> messages;     //shouldn't contain entities
+    private List<Event> eventsRegistered;   //shouldn't contain entities
+    private ArrayList<String> talks;    //holds talk ids
+    private boolean loggedIn;
+    private String role;
 
     public Speaker(String username, String password) {
         super(username, password);

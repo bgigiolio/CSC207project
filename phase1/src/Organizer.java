@@ -2,13 +2,14 @@ import java.util.List;
 
 public class Organizer extends Attendee {
 
-    String username;
-    String password;
+    private String username;
+    private String password;
     //String userid;
-    List<Attendee> friendList; // list of username?
-    List<Message> messages; //shouldn't contain entities
-    List<Event> registration; //shouldn't contain entities
-    String role;
+    private List<Attendee> friendList;  //shouldn't contain entities,
+    private List<Message> messages;     //shouldn't contain entities
+    private List<Event> eventsRegistered;   //shouldn't contain entities
+    private boolean loggedIn;
+    private String role;
 
     public Organizer(String username, String password) {
         super(username, password);

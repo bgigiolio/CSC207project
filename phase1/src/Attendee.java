@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Attendee {
-    protected String username;
-    protected String password;
+    private String username;
+    private String password;
     //String userid;
-    protected List<Attendee> friendList;  //shouldn't contain entities,
-    protected List<Message> messages;     //shouldn't contain entities
-    List<Event> eventsRegistered;   //shouldn't contain entities
-    protected boolean loggedIn;
-    protected String role;
+    private List<Attendee> friendList;  //shouldn't contain entities,
+    private List<Message> messages;     //shouldn't contain entities
+    private List<Event> eventsRegistered;   //shouldn't contain entities
+    private boolean loggedIn;
+    private String role;
     //public static List<Attendee> user; //should be in LoginUserManager
 
     public Attendee(String username, String password){
@@ -51,6 +51,8 @@ public class Attendee {
     public void sendMessage(String stringMessage, Attendee receiver){
         new MessageCreator(stringMessage, receiver, this.username);
     }
+
+    public void receiveMessage(Message m) { this.messages.add(m); }
 
     public void setLoggedIn(boolean value){
         this.loggedIn = value;

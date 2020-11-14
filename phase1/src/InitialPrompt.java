@@ -6,12 +6,16 @@ public class InitialPrompt {
     private String username;
     private String role;
     private LoginMenu Menu;
+
     public void startProgram() {
         boolean answered = false;
         boolean answered2 = false;
+
         Scanner uname = new Scanner(System.in);
+
         System.out.println("Are you a new user or a returning user?");
         System.out.println("Type [N] for new.  Type [R] for returning.");
+
         while (!answered) {
             String response = uname.nextLine();
             if (response.equals("N") || response.equals("[N]")) {
@@ -24,8 +28,10 @@ public class InitialPrompt {
                 System.out.println("Invalid response, try again!");
             }
         }
+
         System.out.println("Is this account for a user or an organizer?");
         System.out.println("Type [O] for organizer or type [A] for attendee.");
+
         while(!answered2){
             String response2 = uname.nextLine();
             if(response2.equals("O") || response2.equals("[O]")){
@@ -36,10 +42,13 @@ public class InitialPrompt {
                 this.role = "Attendee";
             }
         }
+
         this.username = this.Menu.usernamePrompt();
         this.password = this.Menu.passwordPrompt();
+
         login();
         }
+
         private void login(){
             if (Menu.logReg(this.username, this.password, this.role)) {
                 System.out.println("Account successfully logged in to");

@@ -8,14 +8,14 @@ public class EventStatus {
         if (e.getAttendees().contains(user.getUsername())) {
             return false;
         } else {
-            e.usernames.add(user.getUsername());
+            e.addUsername(user.getUsername());
             return true;
         }
      }
 
     public boolean removeUser(Event e, Attendee user){
         if (e.getAttendees().contains(user.getUsername())) {
-            e.usernames.remove(user.getUsername());
+            e.removeUsername(user.getUsername());
             return true;
         } else {
             return false; }

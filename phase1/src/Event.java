@@ -3,12 +3,12 @@ import java.util.*;
 import java.time.*;
 
 public class Event implements Serializable {
-    String title;
-    String location;
-    LocalDateTime datetime;
+    private String title;
+    private String location;
+    private LocalDateTime datetime;
     // Ex. LocalDateTime d = LocalDateTime.of(int YYYY, int MM, int DD, int hh, int mm, int ss)
     // The ss (seconds) parameter is optional.
-    ArrayList<String> usernames;
+    private ArrayList<String> usernames;
 
     public Event(String title, String location, LocalDateTime datetime){
         this.title = title;
@@ -45,8 +45,11 @@ public class Event implements Serializable {
     }
 
     public void setAttendees(ArrayList<String> usernames) {
-        this.usernames = usernames;
+        this.usernames = (ArrayList<String>)usernames.clone();
     }
+
+    public void addUsername(String username) {this.usernames.add(username);}
+    public void removeUsername(String username) {this.usernames.remove(username);}
 
     public void addAttendee(String username) {
         this.usernames.add(username);

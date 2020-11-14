@@ -15,7 +15,7 @@ public class Schedule {
         LocalDateTime eventTime = e.getDatetime();
 
 
-        if ((scheduleMap.containsKey(eventTime) && e.getLocation().equals(scheduleMap.get(eventTime).location))
+        if ((scheduleMap.containsKey(eventTime) && e.getLocation().equals(scheduleMap.get(eventTime).getLocation()))
                 || eventTime.getHour() >= endHour || eventTime.getHour() < startHour) {
             return false;
         }
