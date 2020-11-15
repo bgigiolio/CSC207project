@@ -50,10 +50,6 @@ public class Attendee {
         return this.role;
     }
 
-    public void sendMessage(String stringMessage, Attendee receiver){
-        new MessageCreator(stringMessage, receiver, this.username);
-    }
-
     public void setLoggedIn(boolean value){
         this.loggedIn = value;
     }
