@@ -17,6 +17,10 @@ public class UserLoginInfo implements Serializable{
         return LoginInfo;
     }
 
+    public void setLoginInfo(HashMap<String, ArrayList<String>> LoginInfo) {
+        this.LoginInfo = LoginInfo;
+    }
+
     public void addUserInfo(String username, String password, String role){
         if(!LoginInfo.containsKey(username)){ LoginInfo.put(username, new ArrayList<>(Arrays.asList(password, role))); }
     }
@@ -31,21 +35,26 @@ public class UserLoginInfo implements Serializable{
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-            LoginInfo = (HashMap<String, ArrayList<String>>) input.readObject();
+            this.LoginInfo = (HashMap<String, ArrayList<String>>) input.readObject();
             input.close();
         } catch (FileNotFoundException | ClassNotFoundException e){
             e.printStackTrace();
             System.out.println("Existing version is returned.");
         }
-        return LoginInfo;
+        return this.LoginInfo;
     }
 
     public void setFileUserLoginInfo(String filePath) throws IOException {
-        OutputStream file = new FileOutputStream(filePath);
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = new ObjectOutputStream(buffer);
+        try {
+            OutputStream file = new FileOutputStream(filePath);
+            OutputStream buffer = new BufferedOutputStream(file);
+            ObjectOutput output = new ObjectOutputStream(buffer);
 
-        output.writeObject(this.LoginInfo);
-        output.close();
+            output.writeObject(this.LoginInfo);
+            output.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
