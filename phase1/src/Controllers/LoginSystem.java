@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entities.Attendee;
 import UseCases.*;
 
 public class LoginSystem {
@@ -21,20 +22,15 @@ public class LoginSystem {
         manager.logoutUser(username);
     }
 
-//    public String assignPrivileges(String username) {
-//        //need to assign access level based on user role
-//    }
-}
-/*    public static void main(String[] args)
-    {
-        Scanner sc= new Scanner(System.in);    //System.in is a standard input stream
-        System.out.print("Enter first number- ");
-        int a= sc.nextInt();
-        System.out.print("Enter second number- ");
-        int b= sc.nextInt();
-        System.out.print("Enter third number- ");
-        int c= sc.nextInt();
-        int d=a+b+c;
-        System.out.println("Total= " +d);
+    public String assignPrivileges(String username) {
+        return manager.userRole(username);
     }
-}*/
+
+    public Attendee user(String username){
+        return manager.user(username);
+    }
+
+    public String username(Attendee user){
+        return manager.username(user);
+    }
+}
