@@ -63,6 +63,20 @@ public class MessageGateway implements Serializable{
         this.outbox.replace(sender, senderOutbox);
     }
 
+    public void removeMessage(String sender, String receiver, Message message){
+        if (this.outbox.containsKey(sender) && this.outbox.get(sender).contains(message)
+        && this.inbox.containsKey(receiver) && this.inbox.get(receiver).contains(message)){
+            ArrayList<Message> senderOutbox = this.outbox.get(sender);
+            senderOutbox.remove(message);
+            this.outbox.replace(sender, senderOutbox);
+
+            ArrayList<Message> receiverInbox = this.inbox.get(receiver);
+            receiverInbox.remove(message);
+            this.inbox.replace(receiver, receiverInbox);
+        }
+    }
+
+
 
     public HashMap<String, ArrayList<Message>> getInboxFile(String filePath) throws IOException{
         try{
