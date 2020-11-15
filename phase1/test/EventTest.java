@@ -1,3 +1,5 @@
+import Entities.Event;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -8,25 +10,25 @@ public class EventTest {
 
     public void testEvent(){
         LocalDateTime ldt = LocalDateTime.of(2020, 11, 10, 13,30);
-        Event e = new Event("Talk", "A300", ldt);
+        Event e = new Event("Entities.Talk", "A300", ldt);
     }
 
     public void testEventGetters(){
         LocalDateTime ldt = LocalDateTime.of(2020, 11, 10, 13,30);
-        Event e = new Event("Talk", "A300", ldt);
+        Event e = new Event("Entities.Talk", "A300", ldt);
 
-        assertEquals("incorrect title getter", "Talk", e.getTitle());
+        assertEquals("incorrect title getter", "Entities.Talk", e.getTitle());
         assertEquals("incorrect location getter", "A300", e.getLocation());
         assertEquals("incorrect datetime getter",
                 LocalDateTime.of(2020, 11, 10, 13,30), e.getDatetime());
         assertEquals("incorrect usernames getter", new ArrayList<>(), e.getAttendees());
-        assertArrayEquals("incorrect eventinfo getter", new Object[] {"Talk", "A300",ldt,new ArrayList<>()}, e.getEventInfo());
+        assertArrayEquals("incorrect eventinfo getter", new Object[] {"Entities.Talk", "A300",ldt,new ArrayList<>()}, e.getEventInfo());
 
     }
 
     public void testEventSetters(){
         LocalDateTime ldt = LocalDateTime.of(2020, 11, 10, 13,30);
-        Event e = new Event("Talk", "A300", ldt);
+        Event e = new Event("Entities.Talk", "A300", ldt);
 
         e.setTitle("Speech");
         assertEquals("incorrect title setter", "Speech", e.getTitle());

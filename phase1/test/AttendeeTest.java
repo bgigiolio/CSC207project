@@ -1,3 +1,5 @@
+import Entities.Attendee;
+
 import static org.junit.Assert.assertEquals;
 
 

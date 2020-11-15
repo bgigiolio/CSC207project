@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+package UseCases;
+
+import Entities.*;
 
 public class EventStatus {
 

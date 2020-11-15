@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.*;
+
 public class MessageCreator {
     protected Attendee receiver;
     protected Message message;

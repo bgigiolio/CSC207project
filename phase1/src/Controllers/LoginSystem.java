@@ -1,4 +1,6 @@
-import java.util.*;
+package Controllers;
+
+import UseCases.*;
 
 public class LoginSystem {
     public LoginUserManager manager;

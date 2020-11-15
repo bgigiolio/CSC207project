@@ -1,4 +1,8 @@
+package Presenters;
+
 import java.util.Scanner;
+import Controllers.*;
+
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
 public class InitialPrompt {
@@ -30,10 +34,10 @@ public class InitialPrompt {
             String response2 = uname.nextLine();
             if(response2.equals("O") || response2.equals("[O]")){
                 answered2 = true;
-                this.role = "Organizer";
+                this.role = "Entities.Organizer";
             }else if(response2.equals("A") || response2.equals("[A]")){
                 answered2 = true;
-                this.role = "Attendee";
+                this.role = "Entities.Attendee";
             }
         }
         this.username = this.Menu.usernamePrompt();

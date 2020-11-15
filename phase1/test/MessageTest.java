@@ -1,3 +1,5 @@
+import Entities.Message;
+
 import static org.junit.Assert.*;
 
 public class MessageTest {

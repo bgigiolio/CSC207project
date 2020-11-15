@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.*;
+
 import java.util.*;
 
 public class LoginUserManager {

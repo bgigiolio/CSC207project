@@ -1,4 +1,7 @@
+package Presenters;
+
 import java.util.Scanner;
+import Controllers.*;
 
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
@@ -13,8 +16,8 @@ public class AttendeeMenu {
     public void printMenu() {
         System.out.println("Welcome " + this.username + "!");
         System.out.println("---General Actions---");
-        System.out.println("[See Event Schedule]  [Sign Up For Event]  [Cancel Event]  " +
-                "[Send Message]  [Review Messages]");
+        System.out.println("[See Entities.Event UseCases.Schedule]  [Sign Up For Entities.Event]  [Cancel Entities.Event]  " +
+                "[Send Entities.Message]  [Review Messages]");
     }
 
     public void menuSelection() {
@@ -24,7 +27,7 @@ public class AttendeeMenu {
             System.out.println("What would you like to do?");
             String response = uname.nextLine();
             switch (response) {
-                case "See Event Schedule":
+                case "See Entities.Event UseCases.Schedule":
                 case "see event schedule":
                     System.out.println("Which building would you like to see the schedule of?");
                     if(seeEventSchedule(uname.nextLine())){
@@ -33,15 +36,15 @@ public class AttendeeMenu {
                         System.out.println("That is not a valid response. Please try again!");
                     }
                     break;
-                case "Sign Up For Event":
+                case "Sign Up For Entities.Event":
                 case "sign up for event":
                     answered = true;
                     break;
-                case "Cancel Event":
+                case "Cancel Entities.Event":
                 case "cancel event":
                     answered = true;
                     break;
-                case "Send Message":
+                case "Send Entities.Message":
                 case "send message":
                     answered = true;
                     break;
