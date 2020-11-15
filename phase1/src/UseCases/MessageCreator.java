@@ -3,17 +3,18 @@ package UseCases;
 import Entities.*;
 
 public class MessageCreator {
-    protected Attendee receiver;
+    protected String receiver;
     protected Message message;
 
-    public MessageCreator(String toBeMessage, Attendee receiver, String senderUserid){
-        this.receiver = receiver;
+    public MessageCreator(String toBeMessage, String receiver, String senderUserid){
         message = new Message(toBeMessage, senderUserid);
-        deliver();
     }
 
-    private void deliver(){
-        new MessageController(this.receiver, this.message);
+    public java.time.LocalDateTime getTimeSent(){
+        return message.getTime_sent();
     }
 
+    public Message getMessage() {
+        return message;
+    }
 }
