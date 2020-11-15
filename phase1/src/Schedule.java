@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.*;
 public class Schedule {
-    private final HashMap<Object, Event> scheduleMap = new HashMap<>();
+    private final HashMap<LocalDateTime, Event> scheduleMap = new HashMap<>();
     private int endHour;
     private int startHour;
 
@@ -37,7 +37,15 @@ public class Schedule {
         this.startHour = startHour;
         this.endHour = endHour;
     }
-    public boolean isOpen(String datetime){
-        return !scheduleMap.containsKey(datetime);
+    public String toString(){
+        StringBuilder toReturn = new StringBuilder();
+        for(Map.Entry<LocalDateTime, Event> i : this.scheduleMap.entrySet()){
+            String key = i.getKey().toString();
+            String event = i.getValue().getTitle();
+            String location = i.getValue().getLocation();
+            String construct = event + " at " + location + " at " + key + "\n";
+            toReturn.append(construct);
+        }
+        return toReturn.toString();
     }
 }

@@ -39,13 +39,14 @@ public class InitialPrompt {
         this.username = this.Menu.usernamePrompt();
         this.password = this.Menu.passwordPrompt();
         login();
-        }
-        private void login(){
-            if (Menu.logReg(this.username, this.password, this.role)) {
-                System.out.println("Account successfully logged in to");
-            }else{
-                System.out.println("Invalid account, please try again!");
-                startProgram();
-            }
+    }
+    private void login(){
+        if (Menu.logReg(this.username, this.password, this.role)) {
+            System.out.println("Account successfully logged in to");
+
+        }else{
+            System.out.println("Invalid account, please try again!");
+            startProgram();
         }
     }
+}
