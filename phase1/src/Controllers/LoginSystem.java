@@ -1,6 +1,5 @@
 package Controllers;
 
-import Entities.Attendee;
 import UseCases.*;
 
 public class LoginSystem {
@@ -22,15 +21,15 @@ public class LoginSystem {
         manager.logoutUser(username);
     }
 
-    public String assignPrivileges(String username) {
+    public String checkPrivileges(String username) {
         return manager.userRole(username);
     }
 
-    public Attendee user(String username){
-        return manager.user(username);
+/*    public Object user(String username){
+        return manager.getAttendee(username);
     }
 
-    public String username(Attendee user){
-        return manager.username(user);
-    }
+    public String username(Object user){
+        return manager.getUsername(user);
+    }*/
 }

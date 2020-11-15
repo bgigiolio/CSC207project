@@ -64,7 +64,7 @@ public class LoginUserManager {
         }
     }
 
-    public Attendee user(String username){
+    public Attendee getAttendee(String username){
         if (credentialsMap.containsKey(username)) {
             return credentialsMap.get(username);
         }
@@ -73,7 +73,7 @@ public class LoginUserManager {
         }
     }
 
-    public String username(Attendee user){
+    public String getUsername(Attendee user){
         return user.getUsername();
     }
 }
