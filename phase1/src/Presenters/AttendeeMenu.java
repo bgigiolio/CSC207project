@@ -38,7 +38,12 @@ public class AttendeeMenu {
                     break;
                 case "Sign Up For Entities.Event":
                 case "sign up for event":
-                    answered = true;
+                    System.out.println("Which event would you like to sign up for?");
+                    //if(joinEvent(uname.nextLine())){
+                        answered = true;
+                    //}else{
+                    //    System.out.println("That is not a valid response. Please try again!");
+                    //}
                     break;
                 case "Cancel Entities.Event":
                 case "cancel event":

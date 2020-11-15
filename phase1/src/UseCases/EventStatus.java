@@ -6,31 +6,26 @@ import java.util.List;
 
 public class EventStatus {
 
-    private Event event;
-    private List<Attendee> attendees;
+    private Attendee user;
+    private List<Event> eventsRegistered;
 
-    public EventStatus(Event e) {
-        event = e;
-        this.attendees = new ArrayList<>();
+    public EventStatus(Attendee user){
+        this.user = user;
+        this.eventsRegistered = new ArrayList<>();
     }
 
-    public boolean addUser(Attendee user) {
-        if (this.event.getAttendees().contains(user.getUsername())) {
-            return false;
-        } else {
-            this.event.addAttendees(user.getUsername());
-            this.attendees.add(user);
+    public boolean signUp(Event e) {
+        if (!this.eventsRegistered.contains(e)) {
+            this.eventsRegistered.add(e);
             return true;
-        }
-     }
+        } else { return false; }
+    }
 
-    public boolean removeUser(Attendee user){
-        if (this.event.getAttendees().contains(user.getUsername())) {
-            this.event.removeAttendees(user.getUsername());
-            this.attendees.add(user);
+    public boolean cancelEnrolment(Event e) {
+        if (this.eventsRegistered.contains(e)) {
+            this.eventsRegistered.remove(e);
             return true;
-        } else {
-            return false; }
-     }
+        } else { return false; }
+    }
 
 }

@@ -11,6 +11,8 @@ public class MessageGateway implements Serializable{
 
     private HashMap<String, ArrayList<Message>> outbox; //sent messages
 
+    private String filePath;
+
     public MessageGateway(HashMap<String, ArrayList<Message>> inbox, HashMap<String, ArrayList<Message>> outbox){
         this.inbox = inbox;
         this.outbox = outbox;
@@ -27,23 +29,27 @@ public class MessageGateway implements Serializable{
         }
     }
 
+    public MessageGateway(String filePath){
+        this.filePath = filePath;
+    }
+
     public MessageGateway(){
         this.inbox = new HashMap<>();
         this.outbox = new HashMap<>();
     }
 
-    public HashMap<String, ArrayList<Message>> getInbox(){
+    public HashMap<String, ArrayList<Message>> getInboxInProgram(){
         return this.inbox;
     }
-    public HashMap<String, ArrayList<Message>> getOutbox(){
+    public HashMap<String, ArrayList<Message>> getOutboxInProgram(){
         return this.outbox;
     }
 
-    public void setInbox(HashMap<String, ArrayList<Message>> inbox){
+    public void setInboxInProgram(HashMap<String, ArrayList<Message>> inbox){
         this.inbox = inbox;
     }
 
-    public void setOutbox(HashMap<String, ArrayList<Message>> outbox){
+    public void setOutboxInProgram(HashMap<String, ArrayList<Message>> outbox){
         this.outbox = outbox;
     }
 
@@ -76,9 +82,7 @@ public class MessageGateway implements Serializable{
         }
     }
 
-
-
-    public HashMap<String, ArrayList<Message>> getInboxFile(String filePath) throws IOException{
+    public HashMap<String, ArrayList<Message>> getInbox(String filePath) throws IOException{
         try{
             InputStream file = new FileInputStream(filePath);
             InputStream buffer = new BufferedInputStream(file);
@@ -93,7 +97,40 @@ public class MessageGateway implements Serializable{
         }
         return this.inbox;
     }
-    public HashMap<String, ArrayList<Message>> getOutboxFile(String filePath) throws IOException{
+
+    public HashMap<String, ArrayList<Message>> getInbox() throws IOException {
+        try {
+            InputStream file = new FileInputStream(this.filePath);
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInput input = new ObjectInputStream(buffer);
+
+            this.inbox = (HashMap<String, ArrayList<Message>>) input.readObject();
+            input.close();
+        } catch (FileNotFoundException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Existing version of inbox is returned");
+        }
+        return this.inbox;
+    }
+
+    public HashMap<String, ArrayList<Message>> getOutbox(String filePath) throws IOException{
+        try{
+            InputStream file = new FileInputStream(filePath);
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInput input = new ObjectInputStream(buffer);
+
+            this.outbox = (HashMap<String, ArrayList<Message>>) input.readObject();
+            input.close();
+        }
+        catch (FileNotFoundException|ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println("Existing version of outbox is returned");
+        }
+        return this.outbox;
+    }
+
+
+    public HashMap<String, ArrayList<Message>> getOutbox() throws IOException{
         try{
             InputStream file = new FileInputStream(filePath);
             InputStream buffer = new BufferedInputStream(file);
@@ -140,6 +177,20 @@ public class MessageGateway implements Serializable{
         }
     }
 
+    public void setInbox() throws IOException{
+        try{
+            OutputStream file = new FileOutputStream(this.filePath);
+            OutputStream buffer = new BufferedOutputStream(file);
+            ObjectOutput output = new ObjectOutputStream(buffer);
+
+            output.writeObject(inbox);
+            output.close();
+
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 
 
     public void setOutbox(String filePath) throws IOException{
@@ -157,6 +208,21 @@ public class MessageGateway implements Serializable{
         }
     }
     public void setOutbox(String filePath, HashMap<String, ArrayList<Message>> outbox) throws IOException{
+        try{
+            OutputStream file = new FileOutputStream(filePath);
+            OutputStream buffer = new BufferedOutputStream(file);
+            ObjectOutput output = new ObjectOutputStream(buffer);
+
+            output.writeObject(outbox);
+            output.close();
+
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setOutbox() throws IOException{
         try{
             OutputStream file = new FileOutputStream(filePath);
             OutputStream buffer = new BufferedOutputStream(file);
