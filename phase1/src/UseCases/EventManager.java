@@ -1,5 +1,9 @@
+package UseCases;
+
+import Entities.*;
+
 import java.time.LocalDateTime;
-import java.util.*;
+
 public class EventManager {
     private Schedule schedule;
     private final Event event;

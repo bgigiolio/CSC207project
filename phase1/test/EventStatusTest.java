@@ -1,3 +1,6 @@
+import Entities.Event;
+import UseCases.EventStatus;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,12 +12,12 @@ import static org.junit.Assert.*;
 public class EventStatusTest {
 
     public void testEventStatus(){
-        Event e = new Event("Event", "B500", LocalDateTime.of(2020,10,20,13,30));
+        Event e = new Event("Entities.Event", "B500", LocalDateTime.of(2020,10,20,13,30));
         EventStatus eventstatus = EventStatus(e);
     }
 
     public void testEventStatusMethods(){
-        Event e = new Event("Event", "B500", LocalDateTime.of(2020,10,20,13,30))
+        Event e = new Event("Entities.Event", "B500", LocalDateTime.of(2020,10,20,13,30))
         EventStatus eventstatus = EventStatus(e);
 
         eventstatus.addUser("a");

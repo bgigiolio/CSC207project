@@ -1,5 +1,9 @@
+package Gateways;
+
 import java.io.*;
 import java.util.*;
+import UseCases.*;
+import Controllers.*;
 // GATEWAY
 public class UserLoginInfo implements Serializable{
 

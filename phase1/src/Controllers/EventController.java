@@ -1,5 +1,7 @@
+package Controllers;
+
+import UseCases.*;
 import java.time.LocalDateTime;
-import java.util.*;
 
 public class EventController {
     public EventManager manager;

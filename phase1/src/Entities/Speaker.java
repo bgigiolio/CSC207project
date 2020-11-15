@@ -1,5 +1,6 @@
+package Entities;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class Speaker extends Attendee {
     private ArrayList<String> talks;

@@ -1,3 +1,5 @@
+package Entities;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class Attendee {
     List<Event> eventsRegistered;   //shouldn't contain entities
     protected boolean loggedIn;
     protected String role;
-    //public static List<Attendee> user; //should be in LoginUserManager
+    //public static List<Entities.Attendee> user; //should be in UseCases.LoginUserManager
 
     public Attendee(String username, String password){
         this.username = username;
@@ -67,8 +69,8 @@ public class Attendee {
     {
 
         // Generate new user
-        Attendee user1 = new Attendee("user1", "pass");
-        Attendee user2 = new Attendee("user2", "pass");
+        Entities.Attendee user1 = new Entities.Attendee("user1", "pass");
+        Entities.Attendee user2 = new Entities.Attendee("user2", "pass");
 
         // Get and display the alphanumeric string
         System.out.println("username is " + user1.username + "\n" + "password is " + user1.password + "\n" +

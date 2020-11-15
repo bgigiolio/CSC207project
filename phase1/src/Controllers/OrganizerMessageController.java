@@ -1,4 +1,6 @@
-import java.util.List;
+package Controllers;
+
+import UseCases.*;;
 
 public class OrganizerMessageController {
 
@@ -37,7 +39,7 @@ public class OrganizerMessageController {
                 MessageCreator message = new MessageCreator(inputMessage, Attendee.user.get(i), this.organizer.username);
             }
         }
-    };
+    }
 }
 
 

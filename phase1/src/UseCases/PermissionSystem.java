@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.*;
+
 public class PermissionSystem {
 
     public boolean isOrganizer(Attendee user){
