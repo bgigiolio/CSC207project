@@ -1,21 +1,33 @@
 package UseCases;
 
 import Entities.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventStatus {
 
-    public boolean addUser(Event e, Attendee user) {
-        if (e.getAttendees().contains(user.getUsername())) {
+    private Event event;
+    private List<Attendee> attendees;
+
+    public EventStatus(Event e) {
+        event = e;
+        this.attendees = new ArrayList<>();
+    }
+
+    public boolean addUser(Attendee user) {
+        if (this.event.getAttendees().contains(user.getUsername())) {
             return false;
         } else {
-            e.addAttendees(user.getUsername());
+            this.event.addAttendees(user.getUsername());
+            this.attendees.add(user);
             return true;
         }
      }
 
-    public boolean removeUser(Event e, Attendee user){
-        if (e.getAttendees().contains(user.getUsername())) {
-            e.removeAttendees(user.getUsername());
+    public boolean removeUser(Attendee user){
+        if (this.event.getAttendees().contains(user.getUsername())) {
+            this.event.removeAttendees(user.getUsername());
+            this.attendees.add(user);
             return true;
         } else {
             return false; }
