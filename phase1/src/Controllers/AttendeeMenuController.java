@@ -35,7 +35,7 @@ public class AttendeeMenuController {
                 case "Sign Up For Event":
                 case "sign up for event":
                     System.out.println("Which event would you like to sign up for?");
-//                    if(){
+ //                   if(){
 //                        answered = true;
 //                    }else{
 //                        this.menu.invalidResponse();
