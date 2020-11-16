@@ -1,55 +1,51 @@
-package Presenters;
+package Controllers;
 
 import java.util.Scanner;
-import Controllers.*;
+import Presenters.*;
+import UseCases.BuildingManager;
 
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
-public class AttendeeMenu {
+public class AttendeeMenuController {
     private final String username;
-
-    public AttendeeMenu(String username) {
+    private final UserMenu menu;
+    public AttendeeMenuController(String username) {
         this.username = username;
+        this.menu = new UserMenu(this.username);
 
-    }
-
-    public void printMenu() {
-        System.out.println("Welcome " + this.username + "!");
-        System.out.println("---General Actions---");
-        System.out.println("[See Entities.Event UseCases.Schedule]  [Sign Up For Entities.Event]  [Cancel Entities.Event]  " +
-                "[Send Entities.Message]  [Review Messages]");
     }
 
     public void menuSelection() {
         Scanner uname = new Scanner(System.in);
         boolean answered = false;
+        this.menu.optionsAttendee();
         while (!answered) {
-            System.out.println("What would you like to do?");
+            this.menu.awaitResponse();
             String response = uname.nextLine();
             switch (response) {
-                case "See Entities.Event UseCases.Schedule":
+                case "See Event Schedule":
                 case "see event schedule":
                     System.out.println("Which building would you like to see the schedule of?");
                     if(seeEventSchedule(uname.nextLine())){
                         answered = true;
                     }else{
-                        System.out.println("That is not a valid response. Please try again!");
+                        this.menu.invalidResponse();
                     }
                     break;
-                case "Sign Up For Entities.Event":
+                case "Sign Up For Event":
                 case "sign up for event":
                     System.out.println("Which event would you like to sign up for?");
-                    //if(joinEvent(uname.nextLine())){
-                        answered = true;
-                    //}else{
-                    //    System.out.println("That is not a valid response. Please try again!");
-                    //}
+//                    if(){
+//                        answered = true;
+//                    }else{
+//                        this.menu.invalidResponse();
+//                    }
                     break;
-                case "Cancel Entities.Event":
+                case "Cancel Event":
                 case "cancel event":
                     answered = true;
                     break;
-                case "Send Entities.Message":
+                case "Send Message":
                 case "send message":
                     answered = true;
                     break;
@@ -57,14 +53,17 @@ public class AttendeeMenu {
                 case "review messages":
                     answered = true;
                     break;
+                case "Manage Freinds List":
+                case "manage friends list":
+                    answered = true;
+                    break;
                 default:
-                    System.out.println("Invalid response! Please Try again");
+                    this.menu.invalidResponse();
                     break;
             }
         }
     }
     public boolean seeEventSchedule(String building){
-        System.out.println("Doesn't work yet");
         return false;
     }
 }

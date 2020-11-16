@@ -1,10 +1,11 @@
 package Presenters;
-import Controllers.*;
+import Controllers.AttendeeMenuController;
+
 import java.util.Scanner;
 
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
-public class OrganizerMenu extends AttendeeMenu{
+public class OrganizerMenu extends AttendeeMenuController {
     private String username;
     public OrganizerMenu(String username) {
         super(username);
