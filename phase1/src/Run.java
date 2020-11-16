@@ -1,5 +1,3 @@
-package Presenters;
-
 import Controllers.InitialPrompt;
 
 public class Run {

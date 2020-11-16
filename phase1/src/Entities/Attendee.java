@@ -6,7 +6,6 @@ import java.util.List;
 public class Attendee {
     protected String username;
     protected String password;
-    //String userid;
     protected List<String> friendList;  //list of friend's username
     protected List<Message> messages;     //shouldn't contain entities
     List<Event> eventsRegistered;   //shouldn't contain entities
@@ -17,7 +16,6 @@ public class Attendee {
     public Attendee(String username, String password){
         this.username = username;
         this.password = password;
-        //this.userid = UseridGenerator.getAlphaNumericString(20); //assigns random alphanumeric string of size n to user
         this.friendList = new ArrayList<>();
         this.messages = new ArrayList<>();
         this.eventsRegistered = new ArrayList<>();
@@ -33,10 +31,6 @@ public class Attendee {
     public String getPassword(){
         return this.password;
     }
-
-    /*public String getUserid(){
-        return this.userid;
-    }*/
 
     public List<Event> getEventsRegistered(){
         return this.eventsRegistered;
