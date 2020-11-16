@@ -1,5 +1,7 @@
 package Entities;
 
+import UseCases.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class Attendee {
     protected String password;
     protected List<String> friendList;  //list of friend's username
     protected List<Message> messages;     //shouldn't contain entities
-    List<Event> eventsRegistered;   //shouldn't contain entities
+    //protected EventStatus eventsRegistered;
     protected boolean loggedIn;
     protected String role;
     //public static List<Entities.Attendee> user; //should be in UseCases.LoginUserManager
@@ -18,7 +20,7 @@ public class Attendee {
         this.password = password;
         this.friendList = new ArrayList<>();
         this.messages = new ArrayList<>();
-        this.eventsRegistered = new ArrayList<>();
+        //this.eventsRegistered = new EventStatus(this);
         this.loggedIn = false;
         this.role = "attendee";
         //user.add(this);
@@ -32,9 +34,7 @@ public class Attendee {
         return this.password;
     }
 
-    public List<Event> getEventsRegistered(){
-        return this.eventsRegistered;
-    }
+    //public List<Event> getEvents(){ return this.eventsRegistered.getEventsRegistered(this); }
 
     public boolean getLoginStatus(){
         return this.loggedIn;

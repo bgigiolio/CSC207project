@@ -28,4 +28,8 @@ public class EventStatus {
         } else { return false; }
     }
 
+    public List<Event> getEventsRegistered(Attendee user){
+        return this.eventsRegistered;
+    }
+
 }
