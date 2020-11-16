@@ -1,6 +1,12 @@
 package Controllers;
 
-import UseCases.*;;
+import Entities.Attendee;
+import Entities.Organizer;
+import Entities.Speaker;
+import UseCases.*;;import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 public class OrganizerMessageController {
 
@@ -10,33 +16,39 @@ public class OrganizerMessageController {
         this.organizer = organizer;
     }
 
-    public void toOneSpeaker(Speaker oneSpeaker, String inputMessage){
-        MessageCreator message = new MessageCreator(inputMessage, oneSpeaker, this.organizer.getUsername());
+    public void toOneSpeaker(String oneSpeaker, String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
+        MessageController send = new MessageController(this.organizer.getUsername(), oneSpeaker,
+                inputMessage, outboxFilePath, inboxFilePath).sendMessage();
     }
 
-    public void toOneAttendee(Attendee oneAttendee, String inputMessage){
-        MessageCreator message = new MessageCreator(inputMessage, oneAttendee, this.organizer.getUsername());
+    public void toOneAttendee(String oneAttendee, String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
+        MessageController send = new MessageController(this.organizer.getUsername(),
+                oneAttendee, inputMessage, outboxFilePath, inboxFilePath).sendMessage();
     }
 
-    public void toFriends(String inputMessage){
+    public void toFriends(String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
         for(int i = 0; i < this.organizer.getNumOfFriends(); i ++){
-            MessageCreator message = new MessageCreator(inputMessage, this.organizer.friendList.get(i),
-                    this.organizer.username);
+            MessageController send = new MessageController(this.organizer.getUsername(),
+                    this.organizer.getFriendList().get(i), inputMessage, outboxFilePath, inboxFilePath).sendMessage();
         }
     }
 
-    public void toAllSpeaker(String inputMessage){
-        for (int i = 0; i < Attendee.user.size(); i++){ //accessing entities through a controller - no good
-            if(Attendee.user.get(i).role.equals("speaker")){
-                MessageCreator message = new MessageCreator(inputMessage, Attendee.user.get(i), this.organizer.username);
+    public void toAllSpeaker(String inputMessage, String outboxFilePath, String inboxFilePath, LoginUserManager manager) throws IOException {
+        HashMap<String, Attendee> users = manager.credentialsMap;
+        for(String username : users.keySet()){     //accessing entities through a controller - no good
+            if(manager.userRole(username).equals("speaker")){
+                MessageController send = new MessageController(this.organizer.getUsername(), username,
+                        inputMessage, outboxFilePath, inboxFilePath).sendMessage();
             }
         }
     }
 
-    public void toAllAttendee(String inputMessage){
-        for (int i = 0; i < Attendee.user.size(); i++){ //same here!!
-            if(Attendee.user.get(i).role.equals("attendee")){
-                MessageCreator message = new MessageCreator(inputMessage, Attendee.user.get(i), this.organizer.username);
+    public void toAllAttendee(String inputMessage, String outboxFilePath, String inboxFilePath, LoginUserManager manager) throws IOException {
+        HashMap<String, Attendee> users = manager.credentialsMap;
+        for (String username : users.keySet()){ //same here!!
+            if(manager.userRole(username).equals("attendee")){
+                MessageController send = new MessageController(this.organizer.getUsername(), username,
+                        inputMessage, outboxFilePath, inboxFilePath).sendMessage();
             }
         }
     }
