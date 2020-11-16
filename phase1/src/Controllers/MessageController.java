@@ -33,10 +33,11 @@ public class MessageController {
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
     }
 
-    public void sendMessage() throws IOException {
+    public MessageController sendMessage() throws IOException {
         this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setOutbox(this.outboxFilePath);
         this.allMessages.setInbox(this.inboxFilePath);
+        return null;
     }
 
     public void deleteMessage() throws IOException {

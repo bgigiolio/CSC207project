@@ -5,7 +5,7 @@ import Entities.*;
 import java.util.*;
 
 public class LoginUserManager {
-    private HashMap<String, Attendee> credentialsMap;
+    public HashMap<String, Attendee> credentialsMap;  //need for organizer message controller
 
     public LoginUserManager(){
         this.credentialsMap = new HashMap<>();
