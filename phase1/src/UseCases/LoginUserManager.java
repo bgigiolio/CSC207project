@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.*;
+
 import java.util.*;
 
 public class LoginUserManager {
@@ -42,10 +46,34 @@ public class LoginUserManager {
     }
 
     public void logoutUser(String username){
-        credentialsMap.get(username).setLoggedIn(false);    //will this crash if username is not found?
+        Attendee res = credentialsMap.get(username);
+
+        if (res != null) {
+            credentialsMap.get(username).setLoggedIn(false);    //will this crash if username is not found?
+        }
     }
 
     public String userRole(String username){
-        return credentialsMap.get(username).getRole();  //same for this one
+        Attendee res = credentialsMap.get(username);
+
+        if (res != null) {
+            return credentialsMap.get(username).getRole();  //same for this one
+        }
+        else{
+            return "null";
+        }
+    }
+
+    public Attendee getAttendee(String username){
+        if (credentialsMap.containsKey(username)) {
+            return credentialsMap.get(username);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public String getUsername(Attendee user){
+        return user.getUsername();
     }
 }

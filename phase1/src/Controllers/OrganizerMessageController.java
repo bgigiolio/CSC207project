@@ -1,4 +1,6 @@
-import java.util.List;
+package Controllers;
+
+import UseCases.*;;
 
 public class OrganizerMessageController {
 
@@ -17,7 +19,7 @@ public class OrganizerMessageController {
     }
 
     public void toFriends(String inputMessage){
-        for(int i = 0; i < this.organizer.friendList.size(); i ++){
+        for(int i = 0; i < this.organizer.getNumOfFriends(); i ++){
             MessageCreator message = new MessageCreator(inputMessage, this.organizer.friendList.get(i),
                     this.organizer.getUsername());
         }
@@ -37,7 +39,7 @@ public class OrganizerMessageController {
                 MessageCreator message = new MessageCreator(inputMessage, Attendee.user.get(i), this.organizer.username);
             }
         }
-    };
+    }
 }
 
 

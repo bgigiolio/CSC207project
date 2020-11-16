@@ -1,14 +1,16 @@
+package Entities;
+
 import java.io.Serializable;
 import java.util.*;
 import java.time.*;
 
 public class Event implements Serializable {
-    private String title;
-    private String location;
-    private LocalDateTime datetime;
+    String title;
+    String location;
+    LocalDateTime datetime;
     // Ex. LocalDateTime d = LocalDateTime.of(int YYYY, int MM, int DD, int hh, int mm, int ss)
     // The ss (seconds) parameter is optional.
-    private ArrayList<String> usernames;
+    ArrayList<String> usernames;
 
     public Event(String title, String location, LocalDateTime datetime){
         this.title = title;
@@ -44,23 +46,20 @@ public class Event implements Serializable {
         this.datetime = datetime;
     }
 
-    public void setAttendees(ArrayList<String> usernames) {
-        this.usernames = (ArrayList<String>)usernames.clone();
+    public void setAttendees(ArrayList<String> username) {
+        this.usernames = username;
     }
 
-    public void addUsername(String username) {this.usernames.add(username);}
-    public void removeUsername(String username) {this.usernames.remove(username);}
-
-    public void addAttendee(String username) {
+    public void addAttendees(String username) {
         this.usernames.add(username);
     }
-    public void addAttendee(ArrayList<String> usernames) {
+    public void addAttendees(ArrayList<String> usernames) {
         this.usernames.addAll(usernames);
     }
-    public void removeAttendee(String username) {
+    public void removeAttendees(String username) {
         this.usernames.remove(username);
     }
-    public void removeAttendee(ArrayList<String> usernames) {
+    public void removeAttendees(ArrayList<String> usernames) {
         this.usernames.removeAll(usernames);
     }
 

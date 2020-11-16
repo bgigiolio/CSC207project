@@ -1,4 +1,8 @@
+package Controllers;
+
 import java.util.Scanner;
+import Presenters.*;
+
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
 public class InitialPrompt {
@@ -6,32 +10,26 @@ public class InitialPrompt {
     private String username;
     private String role;
     private LoginMenu Menu;
-
+    private StartingMenu presenter;
     public void startProgram() {
         boolean answered = false;
         boolean answered2 = false;
-
         Scanner uname = new Scanner(System.in);
-
-        System.out.println("Are you a new user or a returning user?");
-        System.out.println("Type [N] for new.  Type [R] for returning.");
-
+        StartingMenu presenter = new StartingMenu();
+        this.presenter.initialPrompt();
         while (!answered) {
             String response = uname.nextLine();
             if (response.equals("N") || response.equals("[N]")) {
-                this.Menu = new NewUserMenu();
+                this.Menu = new NewUserController();
                 answered = true;
             } else if (response.equals("R") || response.equals("[R]")) {
-                this.Menu = new ReturningUserMenu();
+                this.Menu = new ReturningUserController();
                 answered = true;
             } else {
-                System.out.println("Invalid response, try again!");
+            this.presenter.failedPrompt();
             }
         }
-
-        System.out.println("Is this account for a user or an organizer?");
-        System.out.println("Type [O] for organizer or type [A] for attendee.");
-
+        this.presenter.rolePrompt();
         while(!answered2){
             String response2 = uname.nextLine();
             if(response2.equals("O") || response2.equals("[O]")){
@@ -42,19 +40,17 @@ public class InitialPrompt {
                 this.role = "Attendee";
             }
         }
-
         this.username = this.Menu.usernamePrompt();
         this.password = this.Menu.passwordPrompt();
-
         login();
-        }
+    }
+    private void login(){
+        if (Menu.logReg(this.username, this.password, this.role)) {
+            this.presenter.loggedInPrompt();
 
-        private void login(){
-            if (Menu.logReg(this.username, this.password, this.role)) {
-                System.out.println("Account successfully logged in to");
-            }else{
-                System.out.println("Invalid account, please try again!");
-                startProgram();
-            }
+        }else{
+            this.presenter.failedPrompt();
+            startProgram();
         }
     }
+}

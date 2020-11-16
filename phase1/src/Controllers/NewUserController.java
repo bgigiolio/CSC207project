@@ -1,15 +1,23 @@
+package Controllers;
+import Presenters.LoginMenu;
+import Presenters.StartingMenu;
+
 import java.util.Scanner;
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
-public class NewUserMenu implements LoginMenu{
+public class NewUserController implements LoginMenu {
+    private final StartingMenu menu;
+    public NewUserController(){
+        this.menu = new StartingMenu();
+    }
     public String usernamePrompt(){
         Scanner uname = new Scanner(System.in);
-        System.out.println("Please enter your username: ");
+        menu.uPrompt();
         return uname.nextLine();
     }
     public String passwordPrompt(){
         Scanner pass = new Scanner(System.in);
-        System.out.println("Please enter your password: ");
+        menu.pPrompt();
         return pass.nextLine();
     }
     public boolean logReg(String username, String password, String role) {
