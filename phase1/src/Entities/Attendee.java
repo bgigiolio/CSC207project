@@ -6,15 +6,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Attendee {
+    /**
+     * The username of current user.
+     */
     protected String username;
+    /**
+     * The password of current user.
+     */
     protected String password;
-    protected List<String> friendList;  //list of friend's username
+    /**
+     * A List that stores friend's username of current user.
+     */
+    protected List<String> friendList;
+
     protected List<Message> messages;     //shouldn't contain entities
+
     //protected EventStatus eventsRegistered;
+
+    /**
+     * The login status of current user.
+     */
     protected boolean loggedIn;
+    /**
+     * The role of current user.
+     */
     protected String role;
+
     //public static List<Entities.Attendee> user; //should be in UseCases.LoginUserManager
 
+    /**
+     * Construct an Attendee object when signed up
+     * Initialized with a username, a password, an empty list of friends, and an empty list of
+     * inbox messages.
+     * loggedIn is initialized to be false and role is initialized to be "attendee".
+     *
+     * @param username the username of the user.
+     * @param password the password of the user.
+     */
     public Attendee(String username, String password){
         this.username = username;
         this.password = password;
@@ -26,30 +54,65 @@ public class Attendee {
         //user.add(this);
     }
 
+    /**
+     * Return username.
+     *
+     * @return username of current user.
+     */
     public String getUsername(){
         return this.username;
     }
 
+    /**
+     * Return password.
+     *
+     * @return password of current user.
+     */
     public String getPassword(){
         return this.password;
     }
 
     //public List<Event> getEvents(){ return this.eventsRegistered.getEventsRegistered(this); }
 
+    /**
+     * Return loggedIn.
+     *
+     * @return login status of current user.
+     */
     public boolean getLoginStatus(){
         return this.loggedIn;
     }
 
+    /**
+     * Return role.
+     *
+     * @return role of current user.
+     */
     public String getRole(){
         return this.role;
     }
 
+    /**
+     * Set loggedIn.
+     *
+     * @param value the login status of current user.
+     */
     public void setLoggedIn(boolean value){
         this.loggedIn = value;
     }
 
+    /**
+     * Return number of friends in friendList of current user.
+     *
+     * @return number of friends in friendList.
+     */
     public int getNumOfFriends() { return this.friendList.size(); }
 
+    /**
+     * Return friendList.
+     *
+     * @return friendList of current user.
+     */
     public List<String> getFriendList() { return this.friendList; }
 
 

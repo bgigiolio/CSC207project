@@ -4,22 +4,19 @@ import java.util.List;
 
 public class Organizer extends Attendee {
 
-    private String username;
-    private String password;
-    //String userid;
-    private List<Attendee> friendList;  //shouldn't contain entities,
-    private List<Message> messages;     //shouldn't contain entities
-    private List<Event> eventsRegistered;   //shouldn't contain entities
-    private boolean loggedIn;
-    private String role;
-
+    /**
+     * Construct an Attendee object when signed up
+     * Initialized with a username, a password, an empty list of friends, and an empty list of
+     * inbox messages.
+     * loggedIn is initialized to be false and role is initialized to be "attendee".
+     *
+     * @param username the username of the user.
+     * @param password the password of the user.
+     */
     public Organizer(String username, String password) {
         super(username, password);
         this.role = "organizer";
     }
-
-    // public boolean createRoom;
-    // DO LATER: not sure about how to create room since we're only having one room ?
 
     public Speaker createSpeakerAccount (String username, String password) {
         return new Speaker(username, password); }
