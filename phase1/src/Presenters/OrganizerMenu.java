@@ -7,11 +7,10 @@ import java.util.Scanner;
 // PLEASE dont be afraid to delete these and change them a bunch!!!
 public class OrganizerMenu extends AttendeeMenuController {
     private String username;
+
     public OrganizerMenu(String username) {
         super(username);
         this.username = username;
-
-
     }
 
     public void printMenu() {

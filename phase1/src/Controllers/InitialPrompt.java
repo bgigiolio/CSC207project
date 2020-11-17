@@ -11,11 +11,12 @@ public class InitialPrompt {
     private String role;
     private LoginMenu Menu;
     private StartingMenu presenter;
+
     public void startProgram() {
         boolean answered = false;
         boolean answered2 = false;
         Scanner uname = new Scanner(System.in);
-        StartingMenu presenter = new StartingMenu();
+        this.presenter = new StartingMenu();
         this.presenter.initialPrompt();
         while (!answered) {
             String response = uname.nextLine();
@@ -43,7 +44,16 @@ public class InitialPrompt {
         this.username = this.Menu.usernamePrompt();
         this.password = this.Menu.passwordPrompt();
         login();
+
+        if (this.role.equals("Organizer")) {
+            OrganizerMenu organizerMenu = new OrganizerMenu(this.username);
+            organizerMenu.printMenu();
+        } else {
+            UserMenu userMenu = new UserMenu(this.username);
+            userMenu.optionsAttendee();
+        }
     }
+
     private void login(){
         if (Menu.logReg(this.username, this.password, this.role)) {
             this.presenter.loggedInPrompt();
