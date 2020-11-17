@@ -21,7 +21,7 @@ public class MessageController {
     protected HashMap<String, ArrayList<Message>> outbox;
     protected HashMap<String, ArrayList<Message>> inbox;
 
-    public MessageController(String sending, String receiving, String inputMessage, String outboxFilePath, String inboxFilePath) {
+    public MessageController(String sending, String receiving, String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
         this.sender = sending;
         this.receiver = receiving;
         this.messageString = inputMessage;
