@@ -49,7 +49,6 @@ public class LoginUserManager implements Serializable {
     }
 
     public boolean loginUser(String username, String password) throws IOException {
-        setCredentialsMap(getFileUserLoginInfo("phase1/src/DB/UserLoginInfo.txt"));
         Attendee res = credentialsMap.get(username);
 
         //res is null if username is not found
@@ -95,32 +94,8 @@ public class LoginUserManager implements Serializable {
 
     // for serializing
 
-    public HashMap<String, Attendee> getFileUserLoginInfo(String filePath) throws IOException {
-        try{
-            InputStream file = new FileInputStream(filePath);
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
-
-            this.credentialsMap = (HashMap<String, Attendee>) input.readObject();
-            input.close();
-        } catch (FileNotFoundException | ClassNotFoundException | EOFException | InvalidClassException e){
-            this.setFileUserLoginInfo(filePath);
-        }
+    public HashMap<String, Attendee> getCredentialsMap() {
         return this.credentialsMap;
-    }
-
-    public void setFileUserLoginInfo(String filePath) throws IOException {
-        try {
-            OutputStream file = new FileOutputStream(filePath);
-            OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput output = new ObjectOutputStream(buffer);
-
-            output.writeObject(this.credentialsMap);
-            output.close();
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public void setCredentialsMap(HashMap<String, Attendee> credentialsMap) {

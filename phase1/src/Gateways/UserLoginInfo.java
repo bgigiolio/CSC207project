@@ -2,53 +2,35 @@ package Gateways;
 
 import java.io.*;
 import java.util.*;
+
+import Entities.Attendee;
 import UseCases.*;
 import Controllers.*;
 // GATEWAY
 public class UserLoginInfo implements Serializable{
 
-    private HashMap<String, ArrayList<String>> LoginInfo;
+    private LoginUserManager loginUserManager;
 
-    public UserLoginInfo(){
-        HashMap<String, ArrayList<String>> LoginInfo = new HashMap<>();
+    public UserLoginInfo() {this.loginUserManager = new LoginUserManager(); }
+
+    public LoginUserManager getLoginUserManager() { return this.loginUserManager; }
+
+    public void setLoginUserManager(LoginUserManager loginUserManager) {
+        this.loginUserManager = loginUserManager;
     }
 
-    public HashMap<String, ArrayList<String>> getLoginInfo() {
-        return LoginInfo;
-    }
-
-    public void setLoginInfo(HashMap<String, ArrayList<String>> LoginInfo) {
-        this.LoginInfo = LoginInfo;
-    }
-
-    public void addUserInfo(String username, String password, String role){
-        HashMap<String, ArrayList<String>> newline = new HashMap<>();
-        ArrayList<String> list = new ArrayList<>();
-        list.add(password);
-        list.add(role);
-        newline.put(username, list);
-        if (LoginInfo == null) {
-            LoginInfo = newline;
-        } else { LoginInfo.put(username, list); }
-    }
-
-    public void removeUserInfo(String username){
-        LoginInfo.remove(username);
-    }
-
-    public HashMap<String, ArrayList<String>> getFileUserLoginInfo(String filePath) throws IOException {
+    public LoginUserManager getFileUserLoginInfo(String filePath) throws IOException {
         try{
             InputStream file = new FileInputStream(filePath);
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-            this.LoginInfo = (HashMap<String, ArrayList<String>>) input.readObject();
+            loginUserManager = ((LoginUserManager) input.readObject());
             input.close();
-        } catch (FileNotFoundException | ClassNotFoundException e){
-            e.printStackTrace();
-            System.out.println("Existing version is returned.");
+        } catch (FileNotFoundException | ClassNotFoundException | EOFException | InvalidClassException e){
+            this.setFileUserLoginInfo(filePath);
         }
-        return this.LoginInfo;
+        return loginUserManager;
     }
 
     public void setFileUserLoginInfo(String filePath) throws IOException {
@@ -57,7 +39,7 @@ public class UserLoginInfo implements Serializable{
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
 
-            output.writeObject(this.LoginInfo);
+            output.writeObject(loginUserManager);
             output.close();
         }
         catch (FileNotFoundException e) {
