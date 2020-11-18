@@ -1,7 +1,9 @@
 package Presenters;
 import Controllers.AttendeeMenuController;
+import Controllers.BuildingController;
 import Controllers.NewUserController;
 import Entities.Speaker;
+import UseCases.BuildingManager;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -36,16 +38,24 @@ public class OrganizerMenu extends AttendeeMenuController {
                 case "create speaker":
                     Scanner sname = new Scanner(System.in);
                     NewUserController menu = new NewUserController();
-                    menu.logReg(sname.nextLine(), "password", "Speaker");
+                    if (menu.logReg(sname.nextLine(), "password", "Speaker")) {
+                        System.out.println("Speaker created");
+                    }else{
+                        System.out.println("Something went wrong, try again!");
+                        menuSelection();
+                    }
                     answered = true;
-                    break;
                 case "Add Room":
                 case "add room":
-
+                    Scanner roomname = new Scanner(System.in);
+                    Scanner starthour = new Scanner(System.in);
+                    Scanner endhour = new Scanner(System.in);
+                    //BuildingController building = new BuildingController();
                     answered = true;
                     break;
                 case "UseCases.Schedule Entities.Speaker":
                 case "schedule speaker":
+
                     answered = true;
                     break;
                 case "Manage Entities.Event":

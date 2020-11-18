@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.io.IOException;
 import java.util.Scanner;
 import Presenters.*;
 import UseCases.BuildingManager;
@@ -15,7 +16,7 @@ public class AttendeeMenuController {
 
     }
 
-    public void menuSelection() {
+    public void menuSelection() throws IOException {
         Scanner uname = new Scanner(System.in);
         boolean answered = false;
         this.menu.optionsAttendee();
