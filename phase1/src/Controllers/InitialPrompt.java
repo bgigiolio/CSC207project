@@ -21,10 +21,10 @@ public class InitialPrompt {
         this.presenter.initialPrompt();
         while (!answered) {
             String response = uname.nextLine();
-            if (response.equals("N") || response.equals("[N]")) {
+            if (response.equalsIgnoreCase("N") || response.equalsIgnoreCase("[N]")) {
                 this.Menu = new NewUserController();
                 answered = true;
-            } else if (response.equals("R") || response.equals("[R]")) {
+            } else if (response.equalsIgnoreCase("R") || response.equalsIgnoreCase("[R]")) {
                 this.Menu = new ReturningUserController();
                 answered = true;
             } else {
@@ -34,10 +34,10 @@ public class InitialPrompt {
         this.presenter.rolePrompt();
         while(!answered2){
             String response2 = uname.nextLine();
-            if(response2.equals("O") || response2.equals("[O]")){
+            if(response2.equalsIgnoreCase("O") || response2.equalsIgnoreCase("[O]")){
                 answered2 = true;
                 this.role = "Organizer";
-            }else if(response2.equals("A") || response2.equals("[A]")){
+            }else if(response2.equalsIgnoreCase("A") || response2.equalsIgnoreCase("[A]")){
                 answered2 = true;
                 this.role = "Attendee";
             }
