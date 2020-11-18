@@ -1,6 +1,9 @@
 package Presenters;
 import Controllers.AttendeeMenuController;
+import Controllers.NewUserController;
+import Entities.Speaker;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 //These UI classes are just thrown together to make running the program a bit easier.
@@ -23,7 +26,7 @@ public class OrganizerMenu extends AttendeeMenuController {
                 "[Send Entities.Message]  [Review Messages]");
     }
 
-    public void menuSelection() {
+    public void menuSelection() throws IOException {
         Scanner uname = new Scanner(System.in);
         boolean answered = false;
         while (!answered) {
@@ -31,10 +34,14 @@ public class OrganizerMenu extends AttendeeMenuController {
             switch (response) {
                 case "Create Entities.Speaker":
                 case "create speaker":
+                    Scanner sname = new Scanner(System.in);
+                    NewUserController menu = new NewUserController();
+                    menu.logReg(sname.nextLine(), "password", "Speaker");
                     answered = true;
                     break;
                 case "Add Room":
                 case "add room":
+
                     answered = true;
                     break;
                 case "UseCases.Schedule Entities.Speaker":

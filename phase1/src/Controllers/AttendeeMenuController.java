@@ -53,7 +53,7 @@ public class AttendeeMenuController {
                 case "review messages":
                     answered = true;
                     break;
-                case "Manage Freinds List":
+                case "Manage Friends List":
                 case "manage friends list":
                     answered = true;
                     break;

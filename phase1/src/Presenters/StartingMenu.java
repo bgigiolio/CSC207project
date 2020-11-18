@@ -8,6 +8,9 @@ public class StartingMenu {
     public void failedPrompt(){
         System.out.println("Invalid response, try again!");
     }
+    public void alreadyRegistered() {
+        System.out.println("User already registered. Try logging in...");
+    }
     public void rolePrompt(){
         System.out.println("Is this account for a user or an organizer?");
         System.out.println("Type [O] for organizer or type [A] for attendee.");
