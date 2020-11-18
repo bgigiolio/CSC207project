@@ -18,7 +18,7 @@ public class LoginSystem {
         return returnVal;
     }
 
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws IOException {
         return manager.loginUser(username, password);
     }
 

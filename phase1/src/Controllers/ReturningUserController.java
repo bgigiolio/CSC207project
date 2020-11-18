@@ -1,12 +1,15 @@
 package Controllers;//These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
+import java.io.IOException;
 import java.util.Scanner;
 import Controllers.*;
 import Presenters.LoginMenu;
 import Presenters.StartingMenu;
 
 public class ReturningUserController implements LoginMenu {
+
     private final StartingMenu menu;
+
     public ReturningUserController(){
         this.menu = new StartingMenu();
     }
@@ -22,7 +25,7 @@ public class ReturningUserController implements LoginMenu {
     }
 
     @Override
-    public boolean logReg(String username, String password, String role) {
+    public boolean logReg(String username, String password, String role) throws IOException {
         LoginSystem log = new LoginSystem();
         return (log.login(username, password));
     }

@@ -2,10 +2,11 @@ package Entities;
 
 import UseCases.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Attendee {
+public class Attendee implements Serializable {
     /**
      * The username of current user.
      */
@@ -30,12 +31,12 @@ public class Attendee {
     /**
      * The role of current user.
      */
-    protected String role;
+    protected final String role;
 
     //public static List<Entities.Attendee> user; //should be in UseCases.LoginUserManager
 
     /**
-     * Construct an Attendee object when signed up
+     * Construct an Attendee object when signed up.
      * Initialized with a username, a password, an empty list of friends, and an empty list of
      * inbox messages.
      * loggedIn is initialized to be false and role is initialized to be "attendee".

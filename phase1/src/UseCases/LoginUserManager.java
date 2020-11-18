@@ -48,7 +48,8 @@ public class LoginUserManager implements Serializable {
         return false;
     }
 
-    public boolean loginUser(String username, String password){
+    public boolean loginUser(String username, String password) throws IOException {
+        setCredentialsMap(getFileUserLoginInfo("UserLoginInfo.txt"));
         Attendee res = credentialsMap.get(username);
 
         //res is null if username is not found
@@ -102,7 +103,7 @@ public class LoginUserManager implements Serializable {
 
             this.credentialsMap = (HashMap<String, Attendee>) input.readObject();
             input.close();
-        } catch (FileNotFoundException | ClassNotFoundException | EOFException e){
+        } catch (FileNotFoundException | ClassNotFoundException | EOFException | InvalidClassException e){
             this.setFileUserLoginInfo(filePath);
         }
         return this.credentialsMap;

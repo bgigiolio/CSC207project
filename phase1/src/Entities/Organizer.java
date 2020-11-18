@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Organizer extends Attendee implements Serializable {
 
-    private String role = "organizer";
+    private final String role = "organizer";
 
     /**
-     * Construct an Attendee object when signed up
+     * Construct an Organizer object when signed up.
      * Initialized with a username, a password, an empty list of friends, and an empty list of
      * inbox messages.
-     * loggedIn is initialized to be false and role is initialized to be "attendee".
+     * loggedIn is initialized to be false and role is initialized to be "organizer".
      *
      * @param username the username of the user.
      * @param password the password of the user.
