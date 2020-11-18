@@ -16,12 +16,14 @@ public class OrganizerMessageController {
         this.organizer = organizer;
     }
 
-    public void toOneSpeaker(String oneSpeaker, String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
+    public void toOneSpeaker(String oneSpeaker, String inputMessage, String outboxFilePath,
+                             String inboxFilePath) throws IOException {
         MessageController send = new MessageController(this.organizer.getUsername(), oneSpeaker,
                 inputMessage, outboxFilePath, inboxFilePath).sendMessage();
     }
 
-    public void toOneAttendee(String oneAttendee, String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
+    public void toOneAttendee(String oneAttendee, String inputMessage, String outboxFilePath,
+                              String inboxFilePath) throws IOException {
         MessageController send = new MessageController(this.organizer.getUsername(),
                 oneAttendee, inputMessage, outboxFilePath, inboxFilePath).sendMessage();
     }
@@ -33,7 +35,8 @@ public class OrganizerMessageController {
         }
     }
 
-    public void toAllSpeaker(String inputMessage, String outboxFilePath, String inboxFilePath, LoginUserManager manager) throws IOException {
+    public void toAllSpeaker(String inputMessage, String outboxFilePath, String inboxFilePath,
+                             LoginUserManager manager) throws IOException {
         HashMap<String, Attendee> users = manager.credentialsMap;
         for(String username : users.keySet()){     //accessing entities through a controller - no good
             if(manager.userRole(username).equals("speaker")){
@@ -43,7 +46,8 @@ public class OrganizerMessageController {
         }
     }
 
-    public void toAllAttendee(String inputMessage, String outboxFilePath, String inboxFilePath, LoginUserManager manager) throws IOException {
+    public void toAllAttendee(String inputMessage, String outboxFilePath, String inboxFilePath,
+                              LoginUserManager manager) throws IOException {
         HashMap<String, Attendee> users = manager.credentialsMap;
         for (String username : users.keySet()){ //same here!!
             if(manager.userRole(username).equals("attendee")){

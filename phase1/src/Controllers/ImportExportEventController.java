@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entities.Event;
 import Gateways.*;
 import UseCases.*;
 import java.time.LocalDate;
