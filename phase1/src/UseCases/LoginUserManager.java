@@ -2,9 +2,10 @@ package UseCases;
 
 import Entities.*;
 
+import java.io.*;
 import java.util.*;
 
-public class LoginUserManager {
+public class LoginUserManager implements Serializable {
     public HashMap<String, Attendee> credentialsMap;  //need for organizer message controller
 
     public LoginUserManager(){
@@ -75,5 +76,34 @@ public class LoginUserManager {
 
     public String getUsername(Attendee user){
         return user.getUsername();
+    }
+
+    public HashMap<String, Attendee> getFileLoginUserManager(String filePath) throws IOException {
+        try{
+            InputStream file = new FileInputStream(filePath);
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInput input = new ObjectInputStream(buffer);
+
+            this.credentialsMap = (HashMap<String, Attendee>) input.readObject();
+            input.close();
+        } catch (FileNotFoundException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println("Existing version is returned.");
+        }
+        return this.credentialsMap;
+    }
+
+    public void setFileUserLoginInfo(String filePath) throws IOException {
+        try {
+            OutputStream file = new FileOutputStream(filePath);
+            OutputStream buffer = new BufferedOutputStream(file);
+            ObjectOutput output = new ObjectOutputStream(buffer);
+
+            output.writeObject(this.credentialsMap);
+            output.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

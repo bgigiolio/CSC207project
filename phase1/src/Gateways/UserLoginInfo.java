@@ -22,7 +22,14 @@ public class UserLoginInfo implements Serializable{
     }
 
     public void addUserInfo(String username, String password, String role){
-        if(!LoginInfo.containsKey(username)){ LoginInfo.put(username, new ArrayList<>(Arrays.asList(password, role))); }
+        HashMap<String, ArrayList<String>> newline = new HashMap<>();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(password);
+        list.add(role);
+        newline.put(username, list);
+        if (LoginInfo == null) {
+            LoginInfo = newline;
+        } else { LoginInfo.put(username, list); }
     }
 
     public void removeUserInfo(String username){
