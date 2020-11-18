@@ -34,9 +34,43 @@ public class BuildingManager {
         return building.get(name);
     }
 
-//    public Event getEvent(String event){
-//
-//    }
+    public Event getEvent(String event){
+        Iterator<Schedule> iterator = new ScheduleIterator();
+        Event e = null;
+        while(iterator.hasNext()){
+            Schedule sched = iterator.next();
+            if(sched.getEvent(event) != null){
+                e = sched.getEvent(event);
+            }
+        }
+        return e;
+    }
+    public Iterator<Schedule> iterator() {
+        return new ScheduleIterator();
+    }
+
+    private class ScheduleIterator implements Iterator<Schedule>{
+        private int current = 0;
+        private final List<String> keys = new ArrayList<>(building.keySet());
+        @Override
+        public boolean hasNext() {
+            return (current < building.size());
+        }
+        @Override
+        public Schedule next() {
+            String room;
+            Schedule res;
+            try {
+
+                room = keys.get(current);
+                res = building.get(room);
+            } catch (IndexOutOfBoundsException e) {
+                throw new NoSuchElementException();
+            }
+            current += 1;
+            return res;
+        }
+    }
 
     public String toString(){
         StringBuilder toReturn = new StringBuilder();
