@@ -49,7 +49,7 @@ public class LoginUserManager implements Serializable {
     }
 
     public boolean loginUser(String username, String password) throws IOException {
-        setCredentialsMap(getFileUserLoginInfo("UserLoginInfo.txt"));
+        setCredentialsMap(getFileUserLoginInfo("phase1/src/DB/UserLoginInfo.txt"));
         Attendee res = credentialsMap.get(username);
 
         //res is null if username is not found
