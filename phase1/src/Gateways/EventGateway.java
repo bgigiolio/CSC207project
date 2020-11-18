@@ -1,22 +1,19 @@
 package Gateways;
 
-import Entities.Event;
-
+import UseCases.BuildingManager;
+import UseCases.Schedule;
 import java.io.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class EventGateway implements Serializable {
 
-    public HashMap<LocalDate, ArrayList<Event>> getEvents() throws ClassNotFoundException {
-        HashMap<LocalDate, ArrayList<Event>> events = new HashMap<>();
+    public BuildingManager getEvents() throws ClassNotFoundException {
+        BuildingManager events = new BuildingManager("0");
         try {
-            InputStream file = new FileInputStream("Events.txt");
+            InputStream file = new FileInputStream("phase1/src/DB/Events.ser");
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-            events = (HashMap<LocalDate, ArrayList<Event>>) input.readObject();
+            events = (BuildingManager) input.readObject();
             input.close();
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -24,9 +21,9 @@ public class EventGateway implements Serializable {
         return events;
     }
 
-    public void setEvents(HashMap<LocalDate, ArrayList<Event>> events) {
+    public void setEvents(BuildingManager events) {
         try {
-            OutputStream file = new FileOutputStream("Events.txt");
+            OutputStream file = new FileOutputStream("phase1/src/DB/Events.ser");
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
 
