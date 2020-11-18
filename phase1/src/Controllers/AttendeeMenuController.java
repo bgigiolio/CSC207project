@@ -26,7 +26,7 @@ public class AttendeeMenuController {
             switch (response) {
                 case "See Event Schedule":
                 case "see event schedule":
-                    this.menu.schedQ();
+                    //this.menu.schedQ();
                     if(seeEventSchedule(uname.nextLine())){
                         answered = true;
                     }else{
@@ -35,7 +35,7 @@ public class AttendeeMenuController {
                     break;
                 case "Sign Up For Event":
                 case "sign up for event":
-                    this.menu.signUpEvent();
+                    //this.menu.signUpEvent();
 
 //                    if(signUpEvent(uname.nextLine())){
 //                        answered = true;

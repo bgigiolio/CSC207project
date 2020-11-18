@@ -72,6 +72,7 @@ public class Schedule {
             LocalDateTime date;
             Event res;
             try {
+
                 date = keys.get(current);
                 res = scheduleMap.get(date);
             } catch (IndexOutOfBoundsException e) {
