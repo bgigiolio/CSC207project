@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.io.IOException;
 import java.util.Scanner;
 import Presenters.*;
 
@@ -12,7 +13,7 @@ public class InitialPrompt {
     private LoginMenu Menu;
     private StartingMenu presenter;
 
-    public void startProgram() {
+    public void startProgram() throws IOException {
         boolean answered = false;
         boolean answered2 = false;
         Scanner uname = new Scanner(System.in);
@@ -54,7 +55,7 @@ public class InitialPrompt {
         }
     }
 
-    private void login(){
+    private void login() throws IOException {
         if (Menu.logReg(this.username, this.password, this.role)) {
             this.presenter.loggedInPrompt();
 

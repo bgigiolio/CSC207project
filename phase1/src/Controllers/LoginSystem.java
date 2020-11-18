@@ -2,6 +2,8 @@ package Controllers;
 
 import UseCases.*;
 
+import java.io.IOException;
+
 public class LoginSystem {
     public LoginUserManager manager;
 
@@ -9,8 +11,11 @@ public class LoginSystem {
         this.manager = new LoginUserManager();
     }
 
-    public boolean register(String username, String password, String role) {
-        return manager.registerUser(username, password, role);
+    public boolean register(String username, String password, String role) throws IOException {
+        manager.getFileUserLoginInfo("UserLoginInfo");
+        boolean returnVal = manager.registerUser(username, password, role);
+        manager.setFileUserLoginInfo("UserLoginInfo");
+        return returnVal;
     }
 
     public boolean login(String username, String password) {

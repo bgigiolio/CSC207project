@@ -12,26 +12,40 @@ public class LoginUserManager implements Serializable {
         this.credentialsMap = new HashMap<>();
     }
 
-    public boolean registerUser(String username, String password, String role){
-        if (credentialsMap.containsKey(username)){
-            return false;
+    //long method, need to simplify later
+    public boolean registerUser(String username, String password, String role) {
+        if (!credentialsMap.containsKey(username)) {
+            HashMap<String, Attendee> newUser = new HashMap<>();
+
+            if (role.equalsIgnoreCase("attendee")) {
+                newUser.put(username, new Attendee(username, password));
+                if (credentialsMap == null) { //to get rid of NullPointerException
+                    credentialsMap = newUser;
+                } else {
+                    credentialsMap.put(username, new Attendee(username, password));
+                    return true;
+                }
+            }
+            if (role.equalsIgnoreCase("organizer")) {
+                newUser.put(username, new Organizer(username, password));
+                if (credentialsMap == null) { //to get rid of NullPointerException
+                    credentialsMap = newUser;
+                } else {
+                    credentialsMap.put(username, new Organizer(username, password));
+                    return true;
+                }
+            }
+            if (role.equalsIgnoreCase("speaker")) {
+                newUser.put(username, new Speaker(username, password));
+                if (credentialsMap == null) { //to get rid of NullPointerException
+                    credentialsMap = newUser;
+                } else {
+                    credentialsMap.put(username, new Speaker(username, password));
+                    return true;
+                }
+            }
         }
-        else {
-            if (role.equalsIgnoreCase("attendee")){
-                credentialsMap.put(username, new Attendee(username, password));
-                return true;
-            }
-            if (role.equalsIgnoreCase("organizer")){
-                credentialsMap.put(username, new Organizer(username, password));
-                return true;
-            }
-            if (role.equalsIgnoreCase("speaker")){
-                credentialsMap.put(username, new Speaker(username, password));
-                return true;
-            }
-            else
-                return false;
-        }
+        return false;
     }
 
     public boolean loginUser(String username, String password){
@@ -78,7 +92,9 @@ public class LoginUserManager implements Serializable {
         return user.getUsername();
     }
 
-    public HashMap<String, Attendee> getFileLoginUserManager(String filePath) throws IOException {
+    // for serializing
+
+    public HashMap<String, Attendee> getFileUserLoginInfo(String filePath) throws IOException {
         try{
             InputStream file = new FileInputStream(filePath);
             InputStream buffer = new BufferedInputStream(file);
@@ -87,8 +103,7 @@ public class LoginUserManager implements Serializable {
             this.credentialsMap = (HashMap<String, Attendee>) input.readObject();
             input.close();
         } catch (FileNotFoundException | ClassNotFoundException e){
-            e.printStackTrace();
-            System.out.println("Existing version is returned.");
+            setFileUserLoginInfo(filePath);
         }
         return this.credentialsMap;
     }
