@@ -1,21 +1,22 @@
 package Controllers;
 
+
 import Entities.Event;
-import Gateways.*;
-import UseCases.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
+import Gateways.EventGateway;
+import UseCases.BuildingManager;
+import UseCases.Schedule;
+
+import java.time.LocalDateTime;
 
 public class ImportExportEventController {
 
     private final EventGateway g = new EventGateway();
 
-    public HashMap<LocalDate, ArrayList<Event>> importEvents() throws ClassNotFoundException{
+    public BuildingManager importEvents() throws ClassNotFoundException{
         return g.getEvents();
     }
 
-    public void exportEvents(HashMap<LocalDate, ArrayList<Event>> events){
+    public void exportEvents(BuildingManager events){
         g.setEvents(events);
     }
 

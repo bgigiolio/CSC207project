@@ -1,6 +1,11 @@
 package Presenters;
 import Controllers.AttendeeMenuController;
+import Controllers.BuildingController;
+import Controllers.NewUserController;
+import Entities.Speaker;
+import UseCases.BuildingManager;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 //These UI classes are just thrown together to make running the program a bit easier.
@@ -23,7 +28,7 @@ public class OrganizerMenu extends AttendeeMenuController {
                 "[Send Entities.Message]  [Review Messages]");
     }
 
-    public void menuSelection() {
+    public void menuSelection() throws IOException {
         Scanner uname = new Scanner(System.in);
         boolean answered = false;
         while (!answered) {
@@ -31,14 +36,26 @@ public class OrganizerMenu extends AttendeeMenuController {
             switch (response) {
                 case "Create Entities.Speaker":
                 case "create speaker":
+                    Scanner sname = new Scanner(System.in);
+                    NewUserController menu = new NewUserController();
+                    if (menu.logReg(sname.nextLine(), "password", "Speaker")) {
+                        System.out.println("Speaker created");
+                    }else{
+                        System.out.println("Something went wrong, try again!");
+                        menuSelection();
+                    }
                     answered = true;
-                    break;
                 case "Add Room":
                 case "add room":
+                    Scanner roomname = new Scanner(System.in);
+                    Scanner starthour = new Scanner(System.in);
+                    Scanner endhour = new Scanner(System.in);
+                    //BuildingController building = new BuildingController();
                     answered = true;
                     break;
                 case "UseCases.Schedule Entities.Speaker":
                 case "schedule speaker":
+
                     answered = true;
                     break;
                 case "Manage Entities.Event":

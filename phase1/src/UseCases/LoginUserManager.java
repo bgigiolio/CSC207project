@@ -23,8 +23,8 @@ public class LoginUserManager implements Serializable {
                     credentialsMap = newUser;
                 } else {
                     credentialsMap.put(username, new Attendee(username, password));
-                    return true;
                 }
+                return true;
             }
             if (role.equalsIgnoreCase("organizer")) {
                 newUser.put(username, new Organizer(username, password));
@@ -32,8 +32,8 @@ public class LoginUserManager implements Serializable {
                     credentialsMap = newUser;
                 } else {
                     credentialsMap.put(username, new Organizer(username, password));
-                    return true;
                 }
+                return true;
             }
             if (role.equalsIgnoreCase("speaker")) {
                 newUser.put(username, new Speaker(username, password));
@@ -41,8 +41,8 @@ public class LoginUserManager implements Serializable {
                     credentialsMap = newUser;
                 } else {
                     credentialsMap.put(username, new Speaker(username, password));
-                    return true;
                 }
+                return true;
             }
         }
         return false;

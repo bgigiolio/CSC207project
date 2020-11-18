@@ -49,9 +49,11 @@ public class InitialPrompt {
         if (this.role.equals("Organizer")) {
             OrganizerMenu organizerMenu = new OrganizerMenu(this.username);
             organizerMenu.printMenu();
+            organizerMenu.menuSelection();
         } else {
             UserMenu userMenu = new UserMenu(this.username);
             userMenu.optionsAttendee();
+            userMenu.menuSelection();
         }
     }
 

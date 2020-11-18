@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.io.IOException;
 import java.util.Scanner;
 import Presenters.*;
 import UseCases.BuildingManager;
@@ -15,7 +16,7 @@ public class AttendeeMenuController {
 
     }
 
-    public void menuSelection() {
+    public void menuSelection() throws IOException {
         Scanner uname = new Scanner(System.in);
         boolean answered = false;
         this.menu.optionsAttendee();
@@ -55,7 +56,7 @@ public class AttendeeMenuController {
                     //MessageController mc = new MessageController();
                     answered = true;
                     break;
-                case "Manage Freinds List":
+                case "Manage Friends List":
                 case "manage friends list":
                     answered = true;
                     break;
