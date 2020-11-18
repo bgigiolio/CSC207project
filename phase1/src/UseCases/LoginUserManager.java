@@ -102,8 +102,8 @@ public class LoginUserManager implements Serializable {
 
             this.credentialsMap = (HashMap<String, Attendee>) input.readObject();
             input.close();
-        } catch (FileNotFoundException | ClassNotFoundException e){
-            setFileUserLoginInfo(filePath);
+        } catch (FileNotFoundException | ClassNotFoundException | EOFException e){
+            this.setFileUserLoginInfo(filePath);
         }
         return this.credentialsMap;
     }
@@ -120,5 +120,9 @@ public class LoginUserManager implements Serializable {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCredentialsMap(HashMap<String, Attendee> credentialsMap) {
+        this.credentialsMap = credentialsMap;
     }
 }

@@ -1,8 +1,11 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Organizer extends Attendee {
+public class Organizer extends Attendee implements Serializable {
+
+    private String role = "organizer";
 
     /**
      * Construct an Attendee object when signed up
@@ -15,7 +18,6 @@ public class Organizer extends Attendee {
      */
     public Organizer(String username, String password) {
         super(username, password);
-        this.role = "organizer";
     }
 
     public Speaker createSpeakerAccount (String username, String password) {

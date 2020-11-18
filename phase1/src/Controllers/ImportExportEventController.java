@@ -10,12 +10,12 @@ public class ImportExportEventController {
 
     private final EventGateway g = new EventGateway();
 
-    public HashMap<LocalDate, ArrayList<Event>> importEvents() throws ClassNotFoundException{
-        return g.getEvents();
-    }
+    //public HashMap<LocalDate, ArrayList<Event>> importEvents() throws ClassNotFoundException{
+    //    return g.getEvents();
+    //}
 
-    public void exportEvents(HashMap<LocalDate, ArrayList<Event>> events){
-        g.setEvents(events);
-    }
+    //public void exportEvents(HashMap<LocalDate, ArrayList<Event>> events){
+    //    g.setEvents(events);
+    //}
 
 }

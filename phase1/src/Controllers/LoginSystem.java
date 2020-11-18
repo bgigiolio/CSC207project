@@ -12,9 +12,9 @@ public class LoginSystem {
     }
 
     public boolean register(String username, String password, String role) throws IOException {
-        manager.getFileUserLoginInfo("UserLoginInfo");
+        manager.getFileUserLoginInfo("UserLoginInfo.txt");
         boolean returnVal = manager.registerUser(username, password, role);
-        manager.setFileUserLoginInfo("UserLoginInfo");
+        manager.setFileUserLoginInfo("UserLoginInfo.txt");
         return returnVal;
     }
 
