@@ -21,4 +21,10 @@ public class UserMenu {
     public void invalidResponse(){
         System.out.println("That is not a valid response. Please try again!");
     }
+    public void schedQ(){
+        System.out.println("Which building would you like to see the schedule of?");
+    }
+    public void signUpEvent(){
+        System.out.println("Which event would you like to sign up for?");
+    }
 }

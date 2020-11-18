@@ -27,6 +27,9 @@ public class Schedule {
         scheduleMap.put(eventTime, e);
         return true;
     }
+//    public Event getEvent(String event){
+//        if(scheduleMap.containsValue())
+//    }
 
     public boolean removeEvent(Event e){
         if (scheduleMap.containsKey(e.getDatetime())) {
@@ -51,5 +54,31 @@ public class Schedule {
             toReturn.append(construct);
         }
         return toReturn.toString();
+    }
+
+    public Iterator<Event> iterator() {
+        return new EventIterator();
+    }
+
+    private class EventIterator implements Iterator<Event>{
+        private int current = 0;
+        private final List<LocalDateTime> keys = new ArrayList<>(scheduleMap.keySet());
+        @Override
+        public boolean hasNext() {
+            return (current < scheduleMap.size());
+        }
+        @Override
+        public Event next() {
+            LocalDateTime date;
+            Event res;
+            try {
+                date = keys.get(current);
+                res = scheduleMap.get(date);
+            } catch (IndexOutOfBoundsException e) {
+                throw new NoSuchElementException();
+            }
+            current += 1;
+            return res;
+        }
     }
 }

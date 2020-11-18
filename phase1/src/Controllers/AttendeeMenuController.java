@@ -25,7 +25,7 @@ public class AttendeeMenuController {
             switch (response) {
                 case "See Event Schedule":
                 case "see event schedule":
-                    System.out.println("Which building would you like to see the schedule of?");
+                    this.menu.schedQ();
                     if(seeEventSchedule(uname.nextLine())){
                         answered = true;
                     }else{
@@ -34,8 +34,9 @@ public class AttendeeMenuController {
                     break;
                 case "Sign Up For Event":
                 case "sign up for event":
-                    System.out.println("Which event would you like to sign up for?");
- //                   if(){
+                    this.menu.signUpEvent();
+
+//                    if(signUpEvent(uname.nextLine())){
 //                        answered = true;
 //                    }else{
 //                        this.menu.invalidResponse();
@@ -51,6 +52,7 @@ public class AttendeeMenuController {
                     break;
                 case "Review Messages":
                 case "review messages":
+                    //MessageController mc = new MessageController();
                     answered = true;
                     break;
                 case "Manage Freinds List":
@@ -66,4 +68,7 @@ public class AttendeeMenuController {
     public boolean seeEventSchedule(String building){
         return false;
     }
+//    public boolean signUpEvent(String event){
+//        EventStatusChanger changer = new EventStatusChanger(event);
+//    }
 }
