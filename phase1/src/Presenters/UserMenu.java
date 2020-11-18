@@ -1,5 +1,7 @@
 package Presenters;
 
+import UseCases.BuildingManager;
+
 import java.util.Scanner;
 
 public class UserMenu {
@@ -22,6 +24,12 @@ public class UserMenu {
     }
     public void invalidResponse(){
         System.out.println("That is not a valid response. Please try again!");
+    }
+    public void printBuildingSchedule(BuildingManager building){
+        System.out.println(building.toString());
+    }
+    public void signUpEvent(){
+        System.out.println("Which event would you like to sign up for?");
     }
 
     public void menuSelection() {

@@ -10,9 +10,11 @@ import UseCases.BuildingManager;
 public class AttendeeMenuController {
     private final String username;
     private final UserMenu menu;
-    public AttendeeMenuController(String username) {
+    private final BuildingManager building;
+    public AttendeeMenuController(String username, BuildingManager building) {
         this.username = username;
         this.menu = new UserMenu(this.username);
+        this.building = building;
 
     }
 
@@ -26,16 +28,12 @@ public class AttendeeMenuController {
             switch (response) {
                 case "See Event Schedule":
                 case "see event schedule":
-                    //this.menu.schedQ();
-                    if(seeEventSchedule(uname.nextLine())){
-                        answered = true;
-                    }else{
-                        this.menu.invalidResponse();
-                    }
+                    this.menu.printBuildingSchedule(this.building);
+                    answered = true;
                     break;
                 case "Sign Up For Event":
                 case "sign up for event":
-                    //this.menu.signUpEvent();
+                    this.menu.signUpEvent();
 
 //                    if(signUpEvent(uname.nextLine())){
 //                        answered = true;
@@ -66,10 +64,9 @@ public class AttendeeMenuController {
             }
         }
     }
-    public boolean seeEventSchedule(String building){
-        return false;
-    }
 //    public boolean signUpEvent(String event){
-//        EventStatusChanger changer = new EventStatusChanger(event);
+//        if(building.getEvent(event) != null){
+//            EventStatusChanger changer = new EventStatusChanger(building.getEvent(event));
+//        }
 //    }
 }
