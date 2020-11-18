@@ -27,9 +27,17 @@ public class Schedule {
         scheduleMap.put(eventTime, e);
         return true;
     }
-//    public Event getEvent(String event){
-//        if(scheduleMap.containsValue())
-//    }
+    public Event getEvent(String event){
+        Iterator<Event> iterator = new EventIterator();
+        Event e = null;
+        while(iterator.hasNext()){
+            Event current = iterator.next();
+            if (current.getTitle().equals(event)){
+                e = current;
+            }
+        }
+        return e;
+    }
 
     public boolean removeEvent(Event e){
         if (scheduleMap.containsKey(e.getDatetime())) {

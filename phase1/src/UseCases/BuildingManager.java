@@ -33,6 +33,11 @@ public class BuildingManager {
     public Schedule getSchedule(String name){
         return building.get(name);
     }
+
+//    public Event getEvent(String event){
+//
+//    }
+
     public String toString(){
         StringBuilder toReturn = new StringBuilder();
         toReturn.append("List of Rooms in ").append(this.buildingName).append(": \n");
