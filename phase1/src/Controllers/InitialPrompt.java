@@ -81,9 +81,10 @@ public class InitialPrompt {
             organizerMenu.printMenu();
             organizerMenu.menuSelection();
         } else {
-            UserMenu userMenu = new UserMenu(this.username, this.role);
-            userMenu.optionsAttendee();
-            userMenu.menuSelection();
+            AttendeeMenuController attendeeMenuController =
+                    new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
+            UserMenu userMenu = new UserMenu(this.username);
+            attendeeMenuController.homepage();
         }
     }
 
