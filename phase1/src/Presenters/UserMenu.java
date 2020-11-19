@@ -88,11 +88,11 @@ public class UserMenu {
         System.out.println("Which event would you like to sign up for?");
         String eventTitle = new Scanner(System.in).nextLine();
         EventStatusChanger eventStatusChanger = new EventStatusChanger();
-        if (eventStatusChanger.signUpForEvent(this.username, eventTitle)) {
+        if (eventStatusChanger.signUpChanger(this.username, eventTitle)) {
             System.out.println("You have successfully signed up for the event " + eventTitle + ".");
         } else {
             System.out.println("Event " + eventTitle + " does not exist. \n" +
-                    "[1] Go back \n [2] Enter another event");
+                    "[1] Go back \n[2] Enter another event");
             String response = new Scanner(System.in).nextLine();
             if (response.equals("1")) {
                 homepage();
@@ -106,11 +106,11 @@ public class UserMenu {
         System.out.println("Please enter the name of event you want to cancel. ");
         String eventTitle = new Scanner(System.in).nextLine();
         EventStatusChanger eventStatusChanger = new EventStatusChanger();
-        if (eventStatusChanger.cancelEvent(this.username, eventTitle)) {
+        if (eventStatusChanger.cancelChanger(this.username, eventTitle)) {
             System.out.println("You have successfully cancelled your enrollment in " + eventTitle + ".");
         } else {
             System.out.println("You did not sign up for the event " + eventTitle + ". \n" +
-                    "[1] Go back \n [2] Enter another event");
+                    "[1] Go back \n[2] Enter another event");
             String response = new Scanner(System.in).nextLine();
             if (response.equals("1")) {
                 homepage();

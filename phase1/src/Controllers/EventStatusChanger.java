@@ -22,9 +22,9 @@ public class EventStatusChanger {
      * iff the user has not signed up for the event yet,
      * and update the file.
      *
-     * @return true if username has successfully signed up for eventTitle.
+     * @return true iff username has successfully signed up for event of eventTitle.
      */
-    public boolean signUpForEvent(String username, String eventTitle) throws IOException {
+    public boolean signUpChanger(String username, String eventTitle) throws IOException {
         String db = "phase1/src/DB/EventStatusData.ser";
         eventStatusGateway.setEventStatus(eventStatusGateway.loadFromFile(db));
         boolean returnVal = eventStatusGateway.getEventStatus().signUpEvent(username,eventTitle);
@@ -38,9 +38,9 @@ public class EventStatusChanger {
      * iff the user had signed up for the event,
      * and update the file.
      *
-     * @return true iff the user did not register for the event, and has successfully signed up.
+     * @return true iff the user has successfully cancel his enrollment in event of eventTitle.
      */
-    public boolean cancelEvent(String username, String eventTitle) throws IOException {
+    public boolean cancelChanger(String username, String eventTitle) throws IOException {
         String db = "phase1/src/DB/EventStatusData.ser";
         eventStatusGateway.setEventStatus(eventStatusGateway.loadFromFile(db));
         boolean returnVal = eventStatusGateway.getEventStatus().cancelEventEnrolment(username,eventTitle);
