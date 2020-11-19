@@ -23,11 +23,16 @@ public class Talk extends Event{
         super(title, location, datetime);
         this.speaker = "None";
     }
-
+    /**
+     * Gets the username of the speaker presenting in the talk as a string
+     * @return speaker username
+     */
     public String getSpeaker() {
         return speaker;
     }
-
+    /**
+     * Sets the username of the speaker presenting in the talk as a string
+     */
     public void setSpeaker(String speaker) {
         this.speaker = speaker;
     }
