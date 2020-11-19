@@ -73,14 +73,19 @@ public class MessageController {
 
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
     }
-
-    public MessageController sendMessage() throws IOException {
+    /**
+     * Sends message and updates inbox and outbox through Message Gateway.
+     *
+     */
+    public void sendMessage() throws IOException {
         this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setOutbox();
         this.allMessages.setInbox();
-        return null;
     }
-
+    /**
+     * Deletes message and updates inbox and outbox through Message Gateway.
+     *
+     */
     public void deleteMessage() throws IOException {
         this.allMessages.removeMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setOutbox();
@@ -98,12 +103,23 @@ public class MessageController {
         return ret;
     }
 
+    /**
+     * Gets all the Messages in the outbox, to be called by Presenter Class
+     *
+     * @return ArrayList with all the messages.
+     */
     public ArrayList<String> getAllMessages(){
         HashMap<String, ArrayList<Message>> ret1;
         ret1 = this.outbox;
         return allMessageHelper(ret1);
     }
 
+    /**
+     * Gets all my messages send to me. Gets my inbox!
+     *
+     * @param me my username entered through presenter
+     * @return ArrayList with all the messages for me.
+     */
     public ArrayList<String> getMessageForMe(String me){
         ArrayList<Message> messageList = new ArrayList<Message>();
         ArrayList<String> ret = new ArrayList<String>();
@@ -114,7 +130,12 @@ public class MessageController {
         return ret;
     }
 
-
+    /**
+     * Gets all my messages that I have sent. Gets my Outbox!
+     *
+     * @param sender username for the sender
+     * @return ArrayList with all the messages sent from me.
+     */
     public ArrayList<String> getMessagesFromSender(String sender){
         ArrayList<Message> messageList = new ArrayList<Message>();
         ArrayList<String> ret = new ArrayList<String>();
@@ -124,7 +145,13 @@ public class MessageController {
         }
         return ret;
     }
-
+    /**
+     * Gets all my messages that I have sent to a specific person. Gets my chat history!
+     *
+     * @param sender username for the sender
+     * @param receiver username for the receiver
+     * @return ArrayList with all the messages sent from me to the receiver.
+     */
     public ArrayList<String> getMessagesToReceiverFromSender(String sender, String receiver){
         ArrayList<Message> messageList = new ArrayList<Message>();
         ArrayList<String> ret = new ArrayList<String>();
@@ -137,6 +164,11 @@ public class MessageController {
         return ret;
     }
 
+    /**
+     * Saves all the messages.
+     *
+     * @throws IOException Throws IO Exception.
+     */
     public void saveMessages() throws IOException {
         this.allMessages.setOutbox();
         this.allMessages.setInbox();
