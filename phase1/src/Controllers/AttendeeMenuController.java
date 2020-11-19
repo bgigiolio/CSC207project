@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import Presenters.*;
 import UseCases.BuildingManager;
+import UseCases.LoginUserManager;
 
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
@@ -11,7 +12,7 @@ public class AttendeeMenuController {
     private final String username;
     private final UserMenu menu;
     private final BuildingManager building;
-    public AttendeeMenuController(String username, BuildingManager building) {
+    public AttendeeMenuController(String username, BuildingManager building, LoginUserManager userManager) {
         this.username = username;
         this.menu = new UserMenu(this.username);
         this.building = building;

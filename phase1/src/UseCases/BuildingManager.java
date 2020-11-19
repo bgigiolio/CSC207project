@@ -49,6 +49,19 @@ public class BuildingManager {
         return new ScheduleIterator();
     }
 
+    public Schedule getScheduleWithEvent(String event){
+        Schedule s = null;
+        Iterator<Schedule> iterator = new ScheduleIterator();
+        while(iterator.hasNext()){
+            Schedule sched = iterator().next();
+            if(sched.getEvent(event) != null){
+                s = sched;
+            }
+        }
+        return s;
+    }
+
+
     private class ScheduleIterator implements Iterator<Schedule>{
         private int current = 0;
         private final List<String> keys = new ArrayList<>(building.keySet());
