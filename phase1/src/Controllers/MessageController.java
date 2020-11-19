@@ -29,6 +29,13 @@ public class MessageController {
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
     }
 
+    public MessageController() throws IOException {
+        this.outbox = new MessageGateway().getOutbox();
+        this.inbox = new MessageGateway().getInbox();
+
+        this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
+    }
+
     public MessageController sendMessage() throws IOException {
         this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setOutbox();
