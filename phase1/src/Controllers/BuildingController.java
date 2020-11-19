@@ -11,4 +11,7 @@ public class BuildingController {
     public String getReadout(){
         return this.building.toString();
     }
+    public BuildingManager getBuilding(){
+        return this.building;
+    }
 }

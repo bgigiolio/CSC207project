@@ -3,6 +3,8 @@ package Controllers;
 import java.io.IOException;
 import java.util.Scanner;
 import Presenters.*;
+import UseCases.BuildingManager;
+import UseCases.LoginUserManager;
 
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
@@ -12,7 +14,11 @@ public class InitialPrompt {
     private String role;
     private LoginMenu Menu;
     private StartingMenu presenter;
+    private BuildingManager buildingManager;
 
+    public InitialPrompt(BuildingManager buildingManager ){
+        this.buildingManager = buildingManager;
+    }
     public void startProgram() throws IOException {
         boolean answered = false;
         boolean answered2 = false;
@@ -45,15 +51,15 @@ public class InitialPrompt {
         this.username = this.Menu.usernamePrompt();
         this.password = this.Menu.passwordPrompt();
         login();
-
+        LoginUserManager manager = new LoginUserManager();
         if (this.role.equals("Organizer")) {
-            OrganizerMenu organizerMenu = new OrganizerMenu(this.username);
+            OrganizerMenu organizerMenu = new OrganizerMenu(this.username, this.buildingManager, manager);
             organizerMenu.printMenu();
             organizerMenu.menuSelection();
         } else {
-            UserMenu userMenu = new UserMenu(this.username);
-            userMenu.optionsAttendee();
-            userMenu.menuSelection();
+//            AttendeeMenuController userMenu = new AttendeeMenuController();
+//            userMenu.optionsAttendee();
+            //userMenu.menuSelection();
         }
     }
 
