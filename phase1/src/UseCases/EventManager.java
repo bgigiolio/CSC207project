@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
  * <h1>Event Manager</h1>
  * The event manager is a class that holds an event and its schedule and allows us to add or remove this
  * event from the given schedule
+ * @author Blake Gigiolio
  */
 public class EventManager {
     private Schedule schedule;
