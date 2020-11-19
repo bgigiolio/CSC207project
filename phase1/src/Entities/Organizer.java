@@ -3,8 +3,17 @@ package Entities;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * <h1>Organizer</h1>
+ * Represents an Organizer in the system.
+ *
+ * @author Morgan Chang
+ */
 public class Organizer extends Attendee implements Serializable {
 
+    /**
+     * The role of the organizer.
+     */
     private final String role = "organizer";
 
     /**
