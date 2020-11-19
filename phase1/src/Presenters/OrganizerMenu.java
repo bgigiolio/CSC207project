@@ -4,6 +4,7 @@ import Controllers.BuildingController;
 import Controllers.NewUserController;
 import Entities.Speaker;
 import UseCases.BuildingManager;
+import UseCases.LoginUserManager;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,8 +14,8 @@ import java.util.Scanner;
 public class OrganizerMenu extends AttendeeMenuController {
     private String username;
 
-    public OrganizerMenu(String username) {
-        super(username);
+    public OrganizerMenu(String username, BuildingManager building, LoginUserManager userManager) {
+        super(username, building, userManager);
         this.username = username;
     }
 
