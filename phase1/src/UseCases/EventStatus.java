@@ -1,35 +1,36 @@
 package UseCases;
 
 import Entities.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class EventStatus {
+public class EventStatus implements Serializable {
 
-    private Attendee user;
-    private List<Event> eventsRegistered;
+    private HashMap<String, List<String>> usernameToEvents;
 
-    public EventStatus(Attendee user){
-        this.user = user;
-        this.eventsRegistered = new ArrayList<>();
+    public EventStatus() {
+        this.usernameToEvents = new HashMap<>();
     }
 
-    public boolean signUp(Event e) {
-        if (!this.eventsRegistered.contains(e)) {
-            this.eventsRegistered.add(e);
+    public boolean signUpEvent(String username, String eventTitle) {
+        List<String> eventsRegistered = usernameToEvents.get(username);
+        if (!eventsRegistered.contains(eventTitle)) {
+            eventsRegistered.add(eventTitle);
+            usernameToEvents.put(username, eventsRegistered);
             return true;
         } else { return false; }
     }
 
-    public boolean cancelEnrolment(Event e) {
-        if (this.eventsRegistered.contains(e)) {
-            this.eventsRegistered.remove(e);
+    public boolean cancelEventEnrolment(String username, String eventTitle) {
+        List<String> eventsRegistered = usernameToEvents.get(username);
+        if (eventsRegistered.contains(eventTitle)) {
+            eventsRegistered.remove(eventTitle);
+            usernameToEvents.put(username, eventsRegistered);
             return true;
         } else { return false; }
-    }
-
-    public List<Event> getEventsRegistered(Attendee user){
-        return this.eventsRegistered;
     }
 
 }

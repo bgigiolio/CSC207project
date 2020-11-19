@@ -1,6 +1,10 @@
 package Presenters;
 
+import Controllers.EventStatusChanger;
 import UseCases.BuildingManager;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * <h1>User Menu</h1>
@@ -68,40 +72,49 @@ public class UserMenu {
     }
 
     //Not really sure why this is here vvvv Might remove.
-//    public void menuSelection() {
-//        Scanner uname = new Scanner(System.in);
-//        boolean answered = false;
-//        while (!answered) {
-//            String response = uname.nextLine();
-//            switch (response) {
-//                case "See Entities.Event UseCases.Schedule":
-//                case "see event schedule": //TODO: implement function to fetch schedule
-//                    answered = true;
-//                    break;
-//                case "Sign Up For Entities.Event":
-//                case "sign up for event":
-//                    answered = true;
-//                    break;
-//                case "Cancel Entities.Event":
-//                case "cancel event":
-//                    answered = true;
-//                    break;
-//                case "Send Entities.Message":
-//                case "send message":
-//                    answered = true;
-//                    break;
-//                case "Review Messages":
-//                case "review messages":
-//                    answered = true;
-//                    break;
-//                case "Manage Friends List":
-//                case "manage friends list":
-//                    answered = true;
-//                    break;
-//                default:
-//                    System.out.println("Invalid response! Please Try again");
-//                    break;
-//            }
-//        }
-//    }
+    public void menuSelection() throws IOException {
+        Scanner uname = new Scanner(System.in);
+        boolean answered = false;
+        while (!answered) {
+            String response = uname.nextLine();
+            switch (response) {
+                case "See Entities.Event UseCases.Schedule":
+                case "see event schedule": //TODO: implement function to fetch schedule
+                    answered = true;
+                    break;
+                case "Sign Up For Entities.Event":
+                case "sign up for event":
+                    answered = true;
+                    signUpEvent();
+                    Scanner eventTitle = new Scanner(System.in);
+                    EventStatusChanger eventStatusChanger = new EventStatusChanger();
+                    if (eventStatusChanger.signUpForEvent(this.username, eventTitle.nextLine())) {
+                        System.out.println("You have successfully signed up for the event " + eventTitle + ".");
+                    } else {
+                        invalidResponse();
+                        // ask event title again here
+                    };
+                    break;
+                case "Cancel Entities.Event":
+                case "cancel event":
+                    answered = true;
+                    break;
+                case "Send Entities.Message":
+                case "send message":
+                    answered = true;
+                    break;
+                case "Review Messages":
+                case "review messages":
+                    answered = true;
+                    break;
+                case "Manage Friends List":
+                case "manage friends list":
+                    answered = true;
+                    break;
+                default:
+                    System.out.println("Invalid response! Please Try again");
+                    break;
+            }
+        }
+    }
 }

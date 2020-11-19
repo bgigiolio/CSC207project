@@ -2,6 +2,8 @@ package Controllers;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import Gateways.UserLoginInfo;
 import Presenters.*;
 import UseCases.BuildingManager;
 import UseCases.LoginUserManager;
@@ -57,9 +59,10 @@ public class InitialPrompt {
             organizerMenu.printMenu();
             organizerMenu.menuSelection();
         } else {
-//            AttendeeMenuController userMenu = new AttendeeMenuController();
+            UserMenu userMenu = new UserMenu(this.username);
 //            userMenu.optionsAttendee();
-            //userMenu.menuSelection();
+            userMenu.optionsAttendee();
+            userMenu.menuSelection();
         }
     }
 

@@ -23,10 +23,15 @@ public class UserLoginInfo implements Serializable{
     /**
      * Return loginUserManager.
      *
-     * @return loginUserManager of this UserLoginInfo.
+     * @return loginUserManager of this UserLoginInfo object.
      */
     public LoginUserManager getLoginUserManager() { return this.loginUserManager; }
 
+    /**
+     * Set loginUserManager.
+     *
+     * @param loginUserManager of this UserLoginInfo object.
+     */
     public void setLoginUserManager(LoginUserManager loginUserManager) {
         this.loginUserManager = loginUserManager;
     }
