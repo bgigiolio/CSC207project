@@ -43,7 +43,7 @@ public class InitialPrompt {
      *  -Initializes the post-login menu
      * @throws IOException Handles Scanners.
      */
-    public void startProgram() throws IOException {
+    public void startProgram() throws IOException, ClassNotFoundException {
         boolean answered = false;
         boolean answered2 = false;
         Scanner uname = new Scanner(System.in);
@@ -92,7 +92,7 @@ public class InitialPrompt {
      * This is how a user will log in. Here we call the log in menu prompt.
      * @throws IOException Handles Scanner.
      */
-    private void login() throws IOException {
+    private void login() throws IOException, ClassNotFoundException {
         if (Menu.logReg(this.username, this.password, this.role)) {
             this.presenter.loggedInPrompt();
             System.out.println("Welcome " + this.username + "!");

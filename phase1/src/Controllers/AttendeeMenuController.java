@@ -16,8 +16,10 @@ import UseCases.LoginUserManager;
  */
 public class AttendeeMenuController {
     private final String username;
+    private String role;
     private final UserMenu menu;
     private final BuildingManager building;
+    private EventStatusChanger eventStatusChanger = new EventStatusChanger();
 
     /**
      * This constructor takes in the parameters needed to operate the menu.
@@ -27,9 +29,55 @@ public class AttendeeMenuController {
      */
     public AttendeeMenuController(String username, String role, BuildingManager building, LoginUserManager userManager) {
         this.username = username;
-        this.menu = new UserMenu(this.username, role);
+        this.role = role;
+        this.menu = new UserMenu(this.username);
         this.building = building;
 
+    }
+
+    public void homepage() throws IOException, ClassNotFoundException {
+        if (role.equals("Attendee")) {
+            menu.optionsAttendee();
+        } else if (role.equals("Organizer")) {
+            menu.optionsOrganizer();
+        }
+        menuSelection();
+    }
+
+    /**
+     * This is what the user should see if they choose to sign up for an event.
+     */
+    public void signUpEvent() throws IOException, ClassCastException, ClassNotFoundException {
+        menu.eventPrompt("sign up");
+        String eventTitle = new Scanner(System.in).nextLine();
+        if (eventStatusChanger.signUpChanger(this.username, eventTitle)) {
+            menu.signUpEventStatus(eventTitle, "1");
+        } else {
+            menu.signUpEventStatus(eventTitle, "0");
+            String response = new Scanner(System.in).nextLine();
+            if (response.equals("1")) {
+                homepage();
+            } else if (response.equals("2")) {
+                signUpEvent();
+            }
+        }
+    }
+
+    public void cancelEnrolEvent() throws IOException, ClassNotFoundException {
+        menu.eventPrompt("cancel");
+        String eventTitle = new Scanner(System.in).nextLine();
+        EventStatusChanger eventStatusChanger = new EventStatusChanger();
+        if (eventStatusChanger.cancelChanger(this.username, eventTitle)) {
+            menu.cancelEnrolStatus(eventTitle, "1");
+        } else {
+            menu.cancelEnrolStatus(eventTitle, "0");
+            String response = new Scanner(System.in).nextLine();
+            if (response.equals("1")) {
+                homepage();
+            } else if (response.equals("2")) {
+                cancelEnrolEvent();
+            }
+        }
     }
 
     /**
@@ -42,44 +90,36 @@ public class AttendeeMenuController {
      * Manage Friends List: Allows the user to add/see/remove friends from their friends list.
      * @throws IOException Handles the Scanner.
      */
-    public void menuSelection() throws IOException {
+    public void menuSelection() throws IOException, ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
         boolean answered = false;
-        this.menu.optionsAttendee();
         while (!answered) {
-            this.menu.awaitResponse();
             String response = uname.nextLine();
             switch (response) {
-                case "See Event Schedule":
-                case "see event schedule":
+                case "1":
                     this.menu.printBuildingSchedule(this.building);
                     answered = true;
                     break;
-                case "Sign Up For Event":
-                case "sign up for event":
-                    this.menu.signUpEvent();
-
-//                    if(signUpEvent(uname.nextLine())){
-//                        answered = true;
-//                    }else{
-//                        this.menu.invalidResponse();
-//                    }
+                case "2":
+                    answered = true; //TODO: implement function to see registered events' schedule
+                case "3":
+                    answered = true;
+                    signUpEvent();
                     break;
-                case "Cancel Event":
-                case "cancel event":
+                case "4":
+                    answered = true;
+                    cancelEnrolEvent();
+                    break;
+                case "5": //send message
                     answered = true;
                     break;
-                case "Send Message":
-                case "send message":
+                case "6": //review messages
                     answered = true;
                     break;
-                case "Review Messages":
-                case "review messages":
-                    //MessageController mc = new MessageController();
+                case "7": //Manage Friends List
                     answered = true;
                     break;
-                case "Manage Friends List":
-                case "manage friends list":
+                case "8": //logout
                     answered = true;
                     break;
                 default:
@@ -88,9 +128,4 @@ public class AttendeeMenuController {
             }
         }
     }
-//    public boolean signUpEvent(String event){
-//        if(building.getEvent(event) != null){
-//            EventStatusChanger changer = new EventStatusChanger(building.getEvent(event));
-//        }
-//    }
-}
+    }
