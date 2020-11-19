@@ -29,11 +29,17 @@ public class MessageCreator {
     public MessageCreator(String toBeMessage, String receiver, String senderUserid){
         message = new Message(toBeMessage, senderUserid);
     }
-
+    /**
+     * Gets the time sent of the specific message
+     * @return time sent of the message
+     */
     public java.time.LocalDateTime getTimeSent(){
         return message.getTime_sent();
     }
-
+    /**
+     * Gets the contents of the Message Entity
+     * @return message entity of use case
+     */
     public Message getMessage() {
         return message;
     }
