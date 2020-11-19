@@ -11,31 +11,15 @@ public class MessageGateway implements Serializable{
 
     private HashMap<String, ArrayList<Message>> outbox; //sent messages
 
-    private String filePath;
+    private final String inboxPath;
+    private final String outboxPath;
 
-    public MessageGateway(HashMap<String, ArrayList<Message>> inbox, HashMap<String, ArrayList<Message>> outbox){
-        this.inbox = inbox;
-        this.outbox = outbox;
-    }
-
-    public MessageGateway(HashMap<String, ArrayList<Message>> box, String boxType){
-        if (boxType.equals("inbox") | boxType.equals("Inbox") | boxType.equals("INBOX")){
-            this.inbox = box;
-            this.outbox = new HashMap<>();
-        }
-        else{
-            this.inbox = new HashMap<>();
-            this.outbox = box;
-        }
-    }
-
-    public MessageGateway(String filePath){
-        this.filePath = filePath;
-    }
 
     public MessageGateway(){
         this.inbox = new HashMap<>();
         this.outbox = new HashMap<>();
+        this.inboxPath = "phase1\\src\\DB\\InboxMessage.ser";
+        this.outboxPath = "phase1\\src\\DB\\OutboxMessage.ser";
     }
 
     public HashMap<String, ArrayList<Message>> getInboxInProgram(){
@@ -82,25 +66,10 @@ public class MessageGateway implements Serializable{
         }
     }
 
-    public HashMap<String, ArrayList<Message>> getInbox(String filePath) throws IOException{
-        try{
-            InputStream file = new FileInputStream(filePath);
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
-
-            this.inbox = (HashMap<String, ArrayList<Message>>) input.readObject();
-            input.close();
-        }
-        catch (FileNotFoundException|ClassNotFoundException e){
-            e.printStackTrace();
-            System.out.println("Existing version of inbox is returned");
-        }
-        return this.inbox;
-    }
 
     public HashMap<String, ArrayList<Message>> getInbox() throws IOException {
         try {
-            InputStream file = new FileInputStream(this.filePath);
+            InputStream file = new FileInputStream(this.inboxPath);
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
@@ -113,26 +82,10 @@ public class MessageGateway implements Serializable{
         return this.inbox;
     }
 
-    public HashMap<String, ArrayList<Message>> getOutbox(String filePath) throws IOException{
-        try{
-            InputStream file = new FileInputStream(filePath);
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
-
-            this.outbox = (HashMap<String, ArrayList<Message>>) input.readObject();
-            input.close();
-        }
-        catch (FileNotFoundException|ClassNotFoundException e){
-            e.printStackTrace();
-            System.out.println("Existing version of outbox is returned");
-        }
-        return this.outbox;
-    }
-
 
     public HashMap<String, ArrayList<Message>> getOutbox() throws IOException{
         try{
-            InputStream file = new FileInputStream(filePath);
+            InputStream file = new FileInputStream(this.outboxPath);
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
@@ -146,10 +99,9 @@ public class MessageGateway implements Serializable{
         return this.outbox;
     }
 
-
-    public void setInbox(String filePath) throws IOException{
+    public void setInbox() throws IOException{
         try{
-            OutputStream file = new FileOutputStream(filePath);
+            OutputStream file = new FileOutputStream(this.inboxPath);
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
 
@@ -162,69 +114,10 @@ public class MessageGateway implements Serializable{
         }
     }
 
-    public void setInbox(String filePath, HashMap<String, ArrayList<Message>> inbox) throws IOException{
-        try{
-            OutputStream file = new FileOutputStream(filePath);
-            OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput output = new ObjectOutputStream(buffer);
-
-            output.writeObject(inbox);
-            output.close();
-
-        }
-        catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void setInbox() throws IOException{
-        try{
-            OutputStream file = new FileOutputStream(this.filePath);
-            OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput output = new ObjectOutputStream(buffer);
-
-            output.writeObject(inbox);
-            output.close();
-
-        }
-        catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-
-
-    public void setOutbox(String filePath) throws IOException{
-        try{
-            OutputStream file = new FileOutputStream(filePath);
-            OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput output = new ObjectOutputStream(buffer);
-
-            output.writeObject(this.outbox);
-            output.close();
-
-        }
-        catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-    public void setOutbox(String filePath, HashMap<String, ArrayList<Message>> outbox) throws IOException{
-        try{
-            OutputStream file = new FileOutputStream(filePath);
-            OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput output = new ObjectOutputStream(buffer);
-
-            output.writeObject(outbox);
-            output.close();
-
-        }
-        catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-    }
 
     public void setOutbox() throws IOException{
         try{
-            OutputStream file = new FileOutputStream(filePath);
+            OutputStream file = new FileOutputStream(this.outboxPath);
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
 

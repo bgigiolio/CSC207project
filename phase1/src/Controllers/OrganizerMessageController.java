@@ -3,7 +3,7 @@ package Controllers;
 import Entities.Attendee;
 import Entities.Organizer;
 import Entities.Speaker;
-import UseCases.*;;import java.io.IOException;
+import UseCases.*;import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -19,19 +19,19 @@ public class OrganizerMessageController {
     public void toOneSpeaker(String oneSpeaker, String inputMessage, String outboxFilePath,
                              String inboxFilePath) throws IOException {
         MessageController send = new MessageController(this.organizer.getUsername(), oneSpeaker,
-                inputMessage, outboxFilePath, inboxFilePath).sendMessage();
+                inputMessage).sendMessage();
     }
 
     public void toOneAttendee(String oneAttendee, String inputMessage, String outboxFilePath,
                               String inboxFilePath) throws IOException {
         MessageController send = new MessageController(this.organizer.getUsername(),
-                oneAttendee, inputMessage, outboxFilePath, inboxFilePath).sendMessage();
+                oneAttendee, inputMessage).sendMessage();
     }
 
     public void toFriends(String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
         for(int i = 0; i < this.organizer.getNumOfFriends(); i ++){
             MessageController send = new MessageController(this.organizer.getUsername(),
-                    this.organizer.getFriendList().get(i), inputMessage, outboxFilePath, inboxFilePath).sendMessage();
+                    this.organizer.getFriendList().get(i), inputMessage).sendMessage();
         }
     }
 
@@ -41,7 +41,7 @@ public class OrganizerMessageController {
         for(String username : users.keySet()){     //accessing entities through a controller - no good
             if(manager.userRole(username).equals("speaker")){
                 MessageController send = new MessageController(this.organizer.getUsername(), username,
-                        inputMessage, outboxFilePath, inboxFilePath).sendMessage();
+                        inputMessage).sendMessage();
             }
         }
     }
@@ -52,7 +52,7 @@ public class OrganizerMessageController {
         for (String username : users.keySet()){ //same here!!
             if(manager.userRole(username).equals("attendee")){
                 MessageController send = new MessageController(this.organizer.getUsername(), username,
-                        inputMessage, outboxFilePath, inboxFilePath).sendMessage();
+                        inputMessage).sendMessage();
             }
         }
     }

@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <h1>Message Controller</h1>
+ * This controller handles all messaging of the program while also connecting with the Message Gateway and Message Creator use case.
+ * @author Utkarsh Mali
+ */
+
 public class MessageController {
 
     protected String sender;
@@ -16,34 +22,37 @@ public class MessageController {
     protected String messageString;
     protected MessageCreator messageSystem;
     protected MessageGateway allMessages;
-    protected String outboxFilePath;
-    protected String inboxFilePath;
     protected HashMap<String, ArrayList<Message>> outbox;
     protected HashMap<String, ArrayList<Message>> inbox;
 
-    public MessageController(String sending, String receiving, String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
+    public MessageController(String sending, String receiving, String inputMessage) throws IOException {
         this.sender = sending;
         this.receiver = receiving;
         this.messageString = inputMessage;
-        this.outboxFilePath = outboxFilePath;
-        this.inboxFilePath = inboxFilePath;
-        this.outbox = new MessageGateway(outboxFilePath).getOutbox();
-        this.inbox = new MessageGateway(inboxFilePath).getOutbox();
+        this.outbox = new MessageGateway().getOutbox();
+        this.inbox = new MessageGateway().getInbox();
+
+        this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
+    }
+
+    public MessageController() throws IOException {
+        this.outbox = new MessageGateway().getOutbox();
+        this.inbox = new MessageGateway().getInbox();
 
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
     }
 
     public MessageController sendMessage() throws IOException {
         this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
-        this.allMessages.setOutbox(this.outboxFilePath);
-        this.allMessages.setInbox(this.inboxFilePath);
+        this.allMessages.setOutbox();
+        this.allMessages.setInbox();
         return null;
     }
 
     public void deleteMessage() throws IOException {
         this.allMessages.removeMessage(this.sender, this.receiver, messageSystem.getMessage());
-        this.allMessages.setOutbox(this.outboxFilePath);
-        this.allMessages.setInbox(this.inboxFilePath);
+        this.allMessages.setOutbox();
+        this.allMessages.setInbox();
     }
 
     private ArrayList<String> allMessageHelper(HashMap<String, ArrayList<Message>> hm){
@@ -97,8 +106,8 @@ public class MessageController {
     }
 
     public void saveMessages() throws IOException {
-        this.allMessages.setOutbox(this.outboxFilePath);
-        this.allMessages.setInbox(this.inboxFilePath);
+        this.allMessages.setOutbox();
+        this.allMessages.setInbox();
     }
 
 
