@@ -42,7 +42,7 @@ public class AttendeeMenuController {
      * Manage Friends List: Allows the user to add/see/remove friends from their friends list.
      * @throws IOException Handles the Scanner.
      */
-    public void menuSelection() throws IOException {
+    public void menuSelection() throws IOException, ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
         boolean answered = false;
         this.menu.optionsAttendee();
