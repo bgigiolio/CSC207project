@@ -2,10 +2,30 @@ package UseCases;
 
 import Entities.*;
 
-public class MessageCreator {
-    protected String receiver;
-    protected Message message;
+/**
+ * <h1>Message Creator</h1>
+ * This use case creates the message of the item at hand and acts as a bridge between the Message entity and
+ * message controller
+ * @author Utkarsh Mali
+ */
 
+public class MessageCreator {
+    /**
+     * The username of sending user as a string.
+     */
+    protected String receiver;
+    /**
+     * The message entity to be created or changed.
+     */
+    protected Message message;
+    /**
+     * To be called by Message Controller, use case creates a Message entity. This use case is saved as an object
+     * inside Message Controller which then changes and manipulates parameters surrounding the message.
+     *
+     * @param toBeMessage the message as a string to be created into a message entity.
+     * @param receiver the username of the receiving user.
+     * @param senderUserid the username of the person sending the message.
+     */
     public MessageCreator(String toBeMessage, String receiver, String senderUserid){
         message = new Message(toBeMessage, senderUserid);
     }

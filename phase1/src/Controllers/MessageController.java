@@ -11,20 +11,52 @@ import java.util.Map;
 
 /**
  * <h1>Message Controller</h1>
- * This controller handles all messaging of the program while also connecting with the Message Gateway and Message Creator use case.
+ * This controller handles all messaging of the program while also connecting with the Message Gateway and
+ * Message Creator use case.
  * @author Utkarsh Mali
  */
 
 public class MessageController {
-
+    /**
+     * The username of sending user as a string.
+     */
     protected String sender;
+    /**
+     * The username of receiving user as a string.
+     */
     protected String receiver;
+    /**
+     * The message to be sent as a string.
+     */
     protected String messageString;
+    /**
+     * An instantiated version of Message Creator as a the message system.
+     */
     protected MessageCreator messageSystem;
+    /**
+     * An instantiated version of Message Gateway as a the message database access point.
+     */
     protected MessageGateway allMessages;
+    /**
+     * Hashmap containing outbox of all messages
+     */
     protected HashMap<String, ArrayList<Message>> outbox;
+    /**
+     * Hashmap containing inbox of all messages
+     */
     protected HashMap<String, ArrayList<Message>> inbox;
 
+
+    /**
+     * Construct an Message Controller object when instantiated.
+     * Initialized with a username of sender and receiver with input string message. If no input is sent then simply
+     * instantiates the inboxes to be accessed.
+     * loggedIn is initialized to be false and role is initialized to be "attendee".
+     *
+     * @param sending the username of the sending user.
+     * @param receiving the username of the receiving user.
+     * @param inputMessage the message to be entered into the system as a string.
+     */
     public MessageController(String sending, String receiving, String inputMessage) throws IOException {
         this.sender = sending;
         this.receiver = receiving;
