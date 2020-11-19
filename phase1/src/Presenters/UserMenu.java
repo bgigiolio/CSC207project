@@ -14,30 +14,46 @@ import java.util.Scanner;
  */
 public class UserMenu {
     private final String username;
+    private String role;
 
     /**
      * This constructor sets up the menu with for a user with a given username.
+     *
      * @param username The username of the user that is using this menu.
      */
-    public UserMenu(String username){
+    public UserMenu(String username, String role) {
         this.username = username;
+        this.role = role;
+    }
+
+    public void homepage() throws IOException {
+        if (this.role.equals("Attendee")) {
+            optionsAttendee();
+        } else if (role.equals("Organizer")) {
+            optionsOrganizer();
+        }
+        menuSelection();
     }
 
     /**
      * Once the user logs in to the program this is the first thing they should see, listing their
      * possible actions.
      */
-    public void optionsAttendee(){
-        System.out.println("Welcome " + this.username + "!");
+    public void optionsAttendee() {
         System.out.println("---General Actions---");
-        System.out.println("[See Entities.Event UseCases.Schedule]  [Sign Up For Entities.Event]  [Cancel Entities.Event]  " +
-                "[Send Entities.Message]  [Review Messages]  [Manage Friends List]");
+        System.out.println("[1] See Entities.Event UseCases.Schedule\n" +
+                "[2] Review Your Events Schedule\n" +
+                "[3] Sign Up For Entities.Event\n" +
+                "[4] Cancel Entities.Event\n" +
+                "[5] Send Entities.Message\n" +
+                "[6] Review Messages\n" +
+                "[7] Manage Friends List");
     }
 
     /**
      * If the user is an organizer, this should also be displayed along with optionsAttendee()
      */
-    public void optionsOrganizer(){
+    public void optionsOrganizer() {
         System.out.println("---Entities.Organizer Specific Actions---");
         System.out.println("[Create Entities.Speaker]  [Add Room]  [UseCases.Schedule Entities.Speaker]  [Manage Entities.Event]  ");
     }
@@ -45,31 +61,65 @@ public class UserMenu {
     /**
      * Prompts the user to input a response
      */
-    public void awaitResponse(){
+    public void awaitResponse() {
         System.out.println("What would you like to do?");
     }
 
     /**
      * This is what the user should see if their response was invalid.
      */
-    public void invalidResponse(){
+    public void invalidResponse() {
         System.out.println("That is not a valid response. Please try again!");
     }
 
     /**
      * This prints the schedule for a given building.
+     *
      * @param building Which building we want to see the schedule of.
      */
-    public void printBuildingSchedule(BuildingManager building){
+    public void printBuildingSchedule(BuildingManager building) {
         System.out.println(building.toString());
     }
 
     /**
      * This is what the user should see if they choose to sign up for an event.
      */
-    public void signUpEvent(){
+    public void signUpEvent() throws IOException {
         System.out.println("Which event would you like to sign up for?");
+        String eventTitle = new Scanner(System.in).nextLine();
+        EventStatusChanger eventStatusChanger = new EventStatusChanger();
+        if (eventStatusChanger.signUpForEvent(this.username, eventTitle)) {
+            System.out.println("You have successfully signed up for the event " + eventTitle + ".");
+        } else {
+            System.out.println("Event " + eventTitle + " does not exist. \n" +
+                    "[1] Go back \n [2] Enter another event");
+            String response = new Scanner(System.in).nextLine();
+            if (response.equals("1")) {
+                homepage();
+            } else if (response.equals("2")) {
+                signUpEvent();
+            }
+        }
     }
+
+    public void cancelEnrolEvent() throws IOException {
+        System.out.println("Please enter the name of event you want to cancel. ");
+        String eventTitle = new Scanner(System.in).nextLine();
+        EventStatusChanger eventStatusChanger = new EventStatusChanger();
+        if (eventStatusChanger.cancelEvent(this.username, eventTitle)) {
+            System.out.println("You have successfully cancelled your enrollment in " + eventTitle + ".");
+        } else {
+            System.out.println("You did not sign up for the event " + eventTitle + ". \n" +
+                    "[1] Go back \n [2] Enter another event");
+            String response = new Scanner(System.in).nextLine();
+            if (response.equals("1")) {
+                homepage();
+            } else if (response.equals("2")) {
+                cancelEnrolEvent();
+            }
+        }
+    }
+
 
     //Not really sure why this is here vvvv Might remove.
     public void menuSelection() throws IOException {
@@ -78,37 +128,26 @@ public class UserMenu {
         while (!answered) {
             String response = uname.nextLine();
             switch (response) {
-                case "See Entities.Event UseCases.Schedule":
-                case "see event schedule": //TODO: implement function to fetch schedule
+                case "1": //TODO: implement function to fetch schedule
                     answered = true;
                     break;
-                case "Sign Up For Entities.Event":
-                case "sign up for event":
+                case "2":
+                    answered = true; //TODO: implement function to see registered events' schedule
+                case "3":
                     answered = true;
                     signUpEvent();
-                    Scanner eventTitle = new Scanner(System.in);
-                    EventStatusChanger eventStatusChanger = new EventStatusChanger();
-                    if (eventStatusChanger.signUpForEvent(this.username, eventTitle.nextLine())) {
-                        System.out.println("You have successfully signed up for the event " + eventTitle + ".");
-                    } else {
-                        invalidResponse();
-                        // ask event title again here
-                    };
                     break;
-                case "Cancel Entities.Event":
-                case "cancel event":
+                case "4":
+                    answered = true;
+                    cancelEnrolEvent();
+                    break;
+                case "5": //send message
                     answered = true;
                     break;
-                case "Send Entities.Message":
-                case "send message":
+                case "6": //review messages
                     answered = true;
                     break;
-                case "Review Messages":
-                case "review messages":
-                    answered = true;
-                    break;
-                case "Manage Friends List":
-                case "manage friends list":
+                case "7": //Manage Friends List
                     answered = true;
                     break;
                 default:

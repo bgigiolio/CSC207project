@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class OrganizerMenu extends AttendeeMenuController {
     private String username;
 
-    public OrganizerMenu(String username, BuildingManager building, LoginUserManager userManager) {
-        super(username, building, userManager);
+    public OrganizerMenu(String username, String role, BuildingManager building, LoginUserManager userManager) {
+        super(username, role, building, userManager);
         this.username = username;
     }
 

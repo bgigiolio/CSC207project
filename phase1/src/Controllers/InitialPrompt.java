@@ -77,12 +77,11 @@ public class InitialPrompt {
         login();
         LoginUserManager manager = new LoginUserManager();
         if (this.role.equals("Organizer")) {
-            OrganizerMenu organizerMenu = new OrganizerMenu(this.username, this.buildingManager, manager);
+            OrganizerMenu organizerMenu = new OrganizerMenu(this.username, this.role, this.buildingManager, manager);
             organizerMenu.printMenu();
             organizerMenu.menuSelection();
         } else {
-            UserMenu userMenu = new UserMenu(this.username);
-//            userMenu.optionsAttendee();
+            UserMenu userMenu = new UserMenu(this.username, this.role);
             userMenu.optionsAttendee();
             userMenu.menuSelection();
         }
@@ -95,7 +94,7 @@ public class InitialPrompt {
     private void login() throws IOException {
         if (Menu.logReg(this.username, this.password, this.role)) {
             this.presenter.loggedInPrompt();
-
+            System.out.println("Welcome " + this.username + "!");
         }else{
             this.presenter.failedPrompt();
             startProgram();

@@ -17,7 +17,7 @@ public class EventStatus implements Serializable {
 
     public boolean signUpEvent(String username, String eventTitle) {
         List<String> eventsRegistered = usernameToEvents.get(username);
-        if (!eventsRegistered.contains(eventTitle)) {
+        if (!(eventsRegistered == null) && !eventsRegistered.contains(eventTitle)) {
             eventsRegistered.add(eventTitle);
             usernameToEvents.put(username, eventsRegistered);
             return true;

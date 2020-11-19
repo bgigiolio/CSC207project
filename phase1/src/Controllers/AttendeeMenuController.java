@@ -25,9 +25,9 @@ public class AttendeeMenuController {
      * @param building This is the Building Manager for the building that the user is interested in.
      * @param userManager This is the user manager for the user that this menu is for.
      */
-    public AttendeeMenuController(String username, BuildingManager building, LoginUserManager userManager) {
+    public AttendeeMenuController(String username, String role, BuildingManager building, LoginUserManager userManager) {
         this.username = username;
-        this.menu = new UserMenu(this.username);
+        this.menu = new UserMenu(this.username, role);
         this.building = building;
 
     }
