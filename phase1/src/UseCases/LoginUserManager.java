@@ -6,6 +6,9 @@ import java.io.*;
 import java.util.*;
 
 public class LoginUserManager implements Serializable {
+    /**
+     * A Hashmap that maps a user's username to its corresponding Attendee object.
+     */
     public HashMap<String, Attendee> credentialsMap;  //need for organizer message controller
 
     public LoginUserManager(){

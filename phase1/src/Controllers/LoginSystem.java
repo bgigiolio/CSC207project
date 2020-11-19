@@ -7,8 +7,15 @@ import java.io.IOException;
 
 public class LoginSystem {
 
-    private UserLoginInfo userLoginInfo; //gateway
+    /**
+     * The UserLoginInfo object that stores the user information.
+     */
+    private UserLoginInfo userLoginInfo = new UserLoginInfo(); //gateway
 
+    /**
+     * Construct a LoginSystem.
+     * Initialized a new UserLoginInfo object.
+     */
     public LoginSystem() {
         this.userLoginInfo = new UserLoginInfo();
     }
