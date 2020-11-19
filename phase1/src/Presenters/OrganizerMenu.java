@@ -2,7 +2,9 @@ package Presenters;
 import Controllers.AttendeeMenuController;
 import Controllers.BuildingController;
 import Controllers.NewUserController;
+import Entities.Event;
 import Entities.Speaker;
+import Gateways.EventGateway;
 import UseCases.BuildingManager;
 import UseCases.LoginUserManager;
 
@@ -29,7 +31,7 @@ public class OrganizerMenu extends AttendeeMenuController {
                 "[Send Entities.Message]  [Review Messages]");
     }
 
-    public void menuSelection() throws IOException {
+    public void menuSelection() throws IOException, ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
         boolean answered = false;
         while (!answered) {
@@ -37,6 +39,7 @@ public class OrganizerMenu extends AttendeeMenuController {
             switch (response) {
                 case "Create Entities.Speaker":
                 case "create speaker":
+                    System.out.println("Enter Speaker name:");
                     Scanner sname = new Scanner(System.in);
                     NewUserController menu = new NewUserController();
                     if (menu.logReg(sname.nextLine(), "password", "Speaker")) {
@@ -46,23 +49,54 @@ public class OrganizerMenu extends AttendeeMenuController {
                         menuSelection();
                     }
                     answered = true;
+                    menuSelection();
                 case "Add Room":
                 case "add room":
+                    System.out.println("Enter building name:");
+                    Scanner buildingname = new Scanner(System.in);
+                    System.out.println("Enter room name:");
                     Scanner roomname = new Scanner(System.in);
+                    System.out.println("Enter start hour for schedule:");
                     Scanner starthour = new Scanner(System.in);
+                    System.out.println("Enter end hour for schedule:");
                     Scanner endhour = new Scanner(System.in);
-                    //BuildingController building = new BuildingController();
+                    BuildingManager building = new BuildingManager(buildingname.nextLine());
+                    System.out.println("Do you have an existing schedule? Enter [Y] for yes or [N] for no:");
+                    boolean answered2 = false;
+                    Scanner response1 = new Scanner(System.in);
+                    while (!answered2){
+                        String res1 = response1.nextLine();
+                        if (res1.equalsIgnoreCase("N") || res1.equalsIgnoreCase("[N]")) {
+                            building.addRoom1(roomname.nextLine(), Integer.parseInt(starthour.nextLine()), Integer.parseInt(endhour.nextLine()));
+                            answered2 = true;
+                        }
+                        else if (response.equalsIgnoreCase("Y") || response.equalsIgnoreCase("[Y]")) {
+                            //TODO: unsure about how to handle this case without directly referencing an Event entity
+                        }
+                    }
+                    System.out.println(building.toString());
                     answered = true;
-                    break;
+                    menuSelection();
                 case "UseCases.Schedule Entities.Speaker":
                 case "schedule speaker":
-
+                    System.out.println("Enter speaker username:");
+                    Scanner speakername = new Scanner(System.in);
+                    System.out.println("Enter building name:");
+                    Scanner bname = new Scanner(System.in);
+                    System.out.println("Enter existing Event name:");
+                    Scanner eventname = new Scanner(System.in);
+                    BuildingManager building1 = new BuildingManager(bname.nextLine());
+                    Event event = building1.getEvent(eventname.nextLine());
+                    //TODO: Convert to Talk and then add Speaker
                     answered = true;
-                    break;
+                    menuSelection();
                 case "Manage Entities.Event":
                 case "manage event":
+                    EventGateway eventmanage = new EventGateway();
+                    System.out.println(eventmanage.getEvents().toString());
+                    System.out.println("Enter event to manage:");
                     answered = true;
-                    break;
+                    menuSelection();
                 case "See Entities.Event UseCases.Schedule":
                 case "see event schedule":
                     answered = true;
