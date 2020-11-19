@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 /**
+ * <h1>Room Schedule</h1>
  * The Schedule class holds a map of events keyed to their corresponding times.
  * This is also equivalent to a 'room' as each schedule represents a room
  *
@@ -91,7 +92,7 @@ public class Schedule {
     }
 
     /**
-     * Prints the schedule in string format. Each event takes up a line in the format of:
+     * Returns the schedule in string format. Each event takes up a line in the format of:
      * [Title] at [Location] at [DateTime]
      *
      * @return returns the string format of the schedule
