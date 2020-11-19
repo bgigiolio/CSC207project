@@ -1,7 +1,6 @@
 package Gateways;
 
 import UseCases.BuildingManager;
-import UseCases.Schedule;
 import java.io.*;
 
 public class EventGateway implements Serializable {

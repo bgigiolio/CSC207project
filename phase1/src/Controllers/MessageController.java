@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <h1>Message Controller</h1>
+ * This controller handles all messaging of the program while also connecting with the Message Gateway and Message Creator use case.
+ * @author Utkarsh Mali
+ */
+
 public class MessageController {
 
     protected String sender;

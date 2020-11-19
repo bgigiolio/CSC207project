@@ -1,10 +1,8 @@
 package Controllers;
 
 
-import Entities.Event;
 import Gateways.EventGateway;
 import UseCases.BuildingManager;
-import UseCases.Schedule;
 
 import java.time.LocalDateTime;
 
