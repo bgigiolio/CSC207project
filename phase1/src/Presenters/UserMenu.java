@@ -95,6 +95,12 @@ public class UserMenu {
                     "[1] Go back \n[2] Enter another event");
         }
     }
+    public void sendMessageUser(){
+        System.out.println("Which user would you like to send a message to?");
+    }
+    public void sendMessageContent(){
+        System.out.println("What would you like to send them?");
+    }
 
 
     //Not really sure why this is here vvvv Might remove.

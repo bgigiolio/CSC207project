@@ -79,15 +79,25 @@ public class AttendeeMenuController {
             }
         }
     }
+    public void sendMessage() throws IOException {
+        this.menu.sendMessageUser();
+        String user = new Scanner(System.in).nextLine();
+        this.menu.sendMessageContent();
+        String content = new Scanner(System.in).nextLine();
+        MessageController message = new MessageController(this.username, user, content);
+        message.sendMessage();
+    }
 
     /**
      * This is where the user will decide what they want to do. The possible options are:
-     * See Event Schedule: Prints the schedule for the building they are in.
-     * Sign Up for Event: Enrolls the user in a specific event.
-     * Cancel Event: Removes the user from a specific event.
-     * Send Message: Sends a message to another user.
-     * Review Message: Prints out the users 'inbox'
-     * Manage Friends List: Allows the user to add/see/remove friends from their friends list.
+     * [1] See Event Schedule
+     * [2] Review Your Events Schedule
+     * [3] Sign Up For Event
+     * [4] Cancel Event
+     * [5] Send Message
+     * [6] Review Messages
+     * [7] Manage Friends List
+     * [8] Logout
      * @throws IOException Handles the Scanner.
      */
     public void menuSelection() throws IOException, ClassNotFoundException {
@@ -111,6 +121,7 @@ public class AttendeeMenuController {
                     cancelEnrolEvent();
                     break;
                 case "5": //send message
+                    sendMessage();
                     answered = true;
                     break;
                 case "6": //review messages
