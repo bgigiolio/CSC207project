@@ -158,6 +158,12 @@ public class UserMenu {
         System.out.println("What hour is this event taking place");
         System.out.println("please answer as a number between 1 and 24");
     }
+    public void createEventSpeaker(){
+        System.out.println("Would you like to add a speaker?");
+    }
+    public void createEventSpeakerName(){
+        System.out.println("What is the speaker's name?");
+    }
 
 
     //Not really sure why this is here vvvv Might remove.
