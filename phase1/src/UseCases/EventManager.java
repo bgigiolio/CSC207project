@@ -37,6 +37,10 @@ public class EventManager {
         this.event = event;
         this.schedule = sched;
     }
+    public EventManager(Event event, BuildingManager building){
+        this.event = event;
+        this.schedule = building.getScheduleWithEvent(this.event.getTitle());
+    }
 
     /**
      * Adds the event being managed to its given schedule.

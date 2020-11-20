@@ -7,6 +7,7 @@ import java.util.*;
 import Gateways.EventGateway;
 import Presenters.*;
 import UseCases.BuildingManager;
+import UseCases.EventManager;
 import UseCases.LoginUserManager;
 
 //These UI classes are just thrown together to make running the program a bit easier.
@@ -132,6 +133,17 @@ public class AttendeeMenuController {
         //Event event = building.getEvent(eventname.nextLine());
         //TODO: Convert to Talk and then add Speaker
     }
+    public boolean removeEvent(){
+        this.menu.manageEvent();
+        String event = new Scanner(System.in).nextLine();
+        if(building.getEvent(event) != null){
+            EventManager manager = new EventManager(building.getEvent(event), this.building);
+            manager.removeEvent();
+            return true;
+        }else{
+            return false;
+        }
+    }
     public boolean createEvent() {
         this.menu.createEventName();
         String eventName = new Scanner(System.in).nextLine();
@@ -195,7 +207,7 @@ public class AttendeeMenuController {
      * [9] Create Speaker Account
      * [10] Add Room
      * [11] Schedule Speaker
-     * [12] Manage Event
+     * [12] Remove Event
      * [13] Message Event Attendees
      * [14] Create Event
      * @throws IOException Handles the Scanner.
@@ -212,8 +224,12 @@ public class AttendeeMenuController {
                 case "2":
                     StringBuilder toPrint = new StringBuilder();
                     toPrint.append("Events you are attending: \n");
-                    for (String i : this.building.eventsAttending(this.username)){
-                        toPrint.append(i).append("\n");
+                    try{
+                        for (String i : this.building.eventsAttending(this.username)){
+                            toPrint.append(i).append("\n");
+                        }
+                    }catch(NullPointerException e){
+                        toPrint.replace(0, toPrint.length(), "You are not attending any events");
                     }
                     String sPrint = toPrint.toString();
                     this.menu.printSomething(sPrint);
@@ -239,7 +255,11 @@ public class AttendeeMenuController {
                     break;
                 case "6": //review messages
                     MessageController message = new MessageController();
-                    this.menu.printMessages(message.getMessageForMe(this.username));
+                    try {
+                        this.menu.printMessages(message.getMessageForMe(this.username));
+                    }catch(NullPointerException e){
+                        this.menu.printSomething("You have no messages");
+                }
                     break;
                 case "7": //Manage Friends List
                     //TODO: Implement this!!
@@ -258,12 +278,11 @@ public class AttendeeMenuController {
                 case "11": //schedule speaker
                     scheduleSpeaker();
                     break;
-                case "12": //Manage Event
-                    EventGateway eventmanage = new EventGateway();
-                    System.out.println(eventmanage.getEvents().toString());
-                    System.out.println("Enter event to manage:");
+                case "12": //Remove Event
+                    if(!removeEvent()){
+                        this.menu.invalidResponse();
+                    }
                     //Not really sure whats happening here
-                    //TODO: Finish this
                     break;
                 case "13": //Message Event Attendees
                     //TODO: Implement this
