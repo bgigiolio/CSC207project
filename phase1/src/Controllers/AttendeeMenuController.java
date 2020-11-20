@@ -16,6 +16,7 @@ import UseCases.LoginUserManager;
  * <h1>Attendee Menu Controller</h1>
  * This controller takes in input from an attendee when they are presented with a menu of options
  * @author Blake Gigiolio
+ * @version phase1
  */
 public class AttendeeMenuController {
     private final String username;
