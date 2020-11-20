@@ -50,7 +50,8 @@ public class UserLoginInfo implements Serializable{
             loginUserManager = ((LoginUserManager) input.readObject());
             input.close();
         } catch (FileNotFoundException | ClassNotFoundException | EOFException | InvalidClassException e){
-            this.setFileUserLoginInfo(filePath);
+            e.printStackTrace();
+            System.out.println("Existing user login info database is returned");
         }
         return loginUserManager;
     }
