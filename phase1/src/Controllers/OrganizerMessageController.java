@@ -19,19 +19,22 @@ public class OrganizerMessageController {
     public void toOneSpeaker(String oneSpeaker, String inputMessage, String outboxFilePath,
                              String inboxFilePath) throws IOException {
         MessageController send = new MessageController(this.organizer.getUsername(), oneSpeaker,
-                inputMessage).sendMessage();
+                inputMessage);
+        send.sendMessage();
     }
 
     public void toOneAttendee(String oneAttendee, String inputMessage, String outboxFilePath,
                               String inboxFilePath) throws IOException {
         MessageController send = new MessageController(this.organizer.getUsername(),
-                oneAttendee, inputMessage).sendMessage();
+                oneAttendee, inputMessage);
+                send.sendMessage();
     }
 
     public void toFriends(String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
         for(int i = 0; i < this.organizer.getNumOfFriends(); i ++){
             MessageController send = new MessageController(this.organizer.getUsername(),
-                    this.organizer.getFriendList().get(i), inputMessage).sendMessage();
+                    this.organizer.getFriendList().get(i), inputMessage);
+            send.sendMessage();
         }
     }
 
@@ -41,7 +44,8 @@ public class OrganizerMessageController {
         for(String username : users.keySet()){     //accessing entities through a controller - no good
             if(manager.userRole(username).equals("speaker")){
                 MessageController send = new MessageController(this.organizer.getUsername(), username,
-                        inputMessage).sendMessage();
+                        inputMessage);
+                send.sendMessage();
             }
         }
     }
@@ -52,7 +56,8 @@ public class OrganizerMessageController {
         for (String username : users.keySet()){ //same here!!
             if(manager.userRole(username).equals("attendee")){
                 MessageController send = new MessageController(this.organizer.getUsername(), username,
-                        inputMessage).sendMessage();
+                        inputMessage);
+                send.sendMessage();
             }
         }
     }

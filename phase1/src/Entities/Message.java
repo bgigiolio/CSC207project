@@ -1,6 +1,7 @@
 package Entities;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class Message {
     private final String content;
@@ -24,4 +25,13 @@ public class Message {
     public LocalDateTime getTime_sent() {
         return time_sent;
     }
+
+    public String toString(){
+        String message = "";
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
+        message += "From: " + this.sender + ", Time Sent: " + this.getTime_sent().format(f) + "\n";
+        message += this.getContent();
+        return message;
+    }
+
 }
