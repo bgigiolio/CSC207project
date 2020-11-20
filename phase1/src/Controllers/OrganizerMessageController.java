@@ -10,9 +10,9 @@ import java.util.List;
 
 public class OrganizerMessageController {
 
-    public Organizer organizer;
+    public Attendee organizer;
 
-    public OrganizerMessageController(Organizer organizer){
+    public OrganizerMessageController(Attendee organizer){
         this.organizer = organizer;
     }
 
