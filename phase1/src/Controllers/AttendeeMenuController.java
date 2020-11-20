@@ -25,6 +25,7 @@ public class AttendeeMenuController {
     private final UserMenu menu;
     private final BuildingManager building;
     private EventStatusChanger eventStatusChanger = new EventStatusChanger();
+    private final LoginUserManager manager;
 
     /**
      * This constructor takes in the parameters needed to operate the menu.
@@ -37,6 +38,7 @@ public class AttendeeMenuController {
         this.role = role;
         this.menu = new UserMenu(this.username);
         this.building = building;
+        this.manager = userManager;
 
     }
 
@@ -143,6 +145,11 @@ public class AttendeeMenuController {
         }else{
             return false;
         }
+    }
+    public boolean messageAttendees(){
+        OrganizerMessageController messager = new OrganizerMessageController(this.manager.getAttendee(this.username));
+        String event = new Scanner(System.in).nextLine();
+        return true;
     }
     public boolean createEvent() {
         this.menu.createEventName();
