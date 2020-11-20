@@ -2,6 +2,9 @@ package Controllers;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import Entities.Event;
+import Gateways.EventGateway;
 import Presenters.*;
 import UseCases.BuildingManager;
 import UseCases.LoginUserManager;
@@ -109,6 +112,24 @@ public class AttendeeMenuController {
         }
         return building.addRoom1(name, start, end);
     }
+    public void addSpeaker() throws IOException {
+        this.menu.createSpeakerName();
+        Scanner sname = new Scanner(System.in);
+        NewUserController newUser = new NewUserController();
+        if (newUser.logReg(sname.nextLine(), "password", "Speaker")) {
+            this.menu.speakerMade();
+        }else{
+            this.menu.invalidResponse();
+        }
+    }
+    public void scheduleSpeaker(){
+        this.menu.createSpeakerName();
+        Scanner speakername = new Scanner(System.in);
+        this.menu.enterEvent();
+        Scanner eventname = new Scanner(System.in);
+        Event event = building.getEvent(eventname.nextLine());
+        //TODO: Convert to Talk and then add Speaker
+    }
 
     /**
      * This is where the user will decide what they want to do. The possible options are:
@@ -156,13 +177,17 @@ public class AttendeeMenuController {
                     sendMessage();
                     break;
                 case "6": //review messages
+                    MessageController message = new MessageController();
+                    this.menu.printMessages(message.getMessageForMe(this.username));
                     break;
                 case "7": //Manage Friends List
+                    //TODO: Implement this!!
                     break;
                 case "8": //logout
                     loggedOut = true;
                     break;
                 case "9": //create speaker account
+                    addSpeaker();
                     break;
                 case "10": //add room
                     if(!addRoom()){
@@ -170,10 +195,17 @@ public class AttendeeMenuController {
                     }
                     break;
                 case "11": //schedule speaker
+                    scheduleSpeaker();
                     break;
                 case "12": //Manage Event
+                    EventGateway eventmanage = new EventGateway();
+                    System.out.println(eventmanage.getEvents().toString());
+                    System.out.println("Enter event to manage:");
+                    //Not really sure whats happening here
+                    //TODO: Finish this
                     break;
                 case "13": //Message Event Attendees
+                    //TODO: Implement this
                     break;
 
                 default:

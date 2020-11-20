@@ -4,6 +4,7 @@ import Controllers.EventStatusChanger;
 import UseCases.BuildingManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -118,6 +119,23 @@ public class UserMenu {
     public void createRoomEnd(int start){
         System.out.println("When should this room close?");
         System.out.println("Please type a number between " + start + " and 24");
+    }
+    public void createSpeakerName(){
+        System.out.println("Enter Speaker name:");
+    }
+    public void speakerMade(){
+        System.out.println("Speaker made!");
+    }
+    public void enterEvent(){
+        System.out.println("Enter existing Event name:");
+    }
+    public void printMessages(ArrayList<String> messages){
+        StringBuilder builder = new StringBuilder();
+        builder.append("Your messages: \n");
+        for (String i : messages){
+            builder.append(i);
+        }
+        System.out.println(builder);
     }
 
 
