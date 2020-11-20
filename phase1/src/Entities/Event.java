@@ -14,8 +14,8 @@ import java.time.*;
 
 public class Event implements Serializable {
     String title;
-    String speaker;
     String location;
+    String speaker;
     LocalDateTime datetime;
     // Ex. LocalDateTime d = LocalDateTime.of(int YYYY, int MM, int DD, int hh, int mm, int ss)
     // The ss (seconds) parameter is optional.
