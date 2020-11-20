@@ -22,7 +22,7 @@ public class Event implements Serializable {
      */
     public Event(String title, String speaker, String location, LocalDateTime datetime){
         this.title = title;
-        this.speaker = speaker
+        this.speaker = speaker;
         this.location = location;
         this.datetime = datetime;
         this.usernames = new ArrayList<>();
