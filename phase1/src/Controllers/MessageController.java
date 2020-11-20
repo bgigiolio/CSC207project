@@ -63,6 +63,7 @@ public class MessageController {
         this.messageString = inputMessage;
         this.outbox = new MessageGateway().getOutbox();
         this.inbox = new MessageGateway().getInbox();
+        this.allMessages = new MessageGateway();
 
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
     }
@@ -70,7 +71,7 @@ public class MessageController {
     public MessageController() throws IOException {
         this.outbox = new MessageGateway().getOutbox();
         this.inbox = new MessageGateway().getInbox();
-
+        this.allMessages = new MessageGateway();
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
     }
     /**
@@ -79,8 +80,9 @@ public class MessageController {
      */
     public void sendMessage() throws IOException {
         this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
-        this.allMessages.setOutbox();
         this.allMessages.setInbox();
+        this.allMessages.setOutbox();
+        System.out.println(this.allMessages.getInbox());
     }
     /**
      * Deletes message and updates inbox and outbox through Message Gateway.
