@@ -15,9 +15,9 @@ import java.util.HashMap;
 
 
 public class MessageGateway implements Serializable{
-    private HashMap<String, ArrayList<Message>> inbox; //received messages
+    protected HashMap<String, ArrayList<Message>> inbox; //received messages
 
-    private HashMap<String, ArrayList<Message>> outbox; //sent messages
+    protected HashMap<String, ArrayList<Message>> outbox; //sent messages
 
     private String inboxPath;
     private String outboxPath;
