@@ -14,7 +14,7 @@ public class Organizer extends Attendee implements Serializable {
     /**
      * The role of the organizer.
      */
-    private final String role = "organizer";
+    private final String role;
 
     /**
      * Construct an Organizer object when signed up.
@@ -27,17 +27,19 @@ public class Organizer extends Attendee implements Serializable {
      */
     public Organizer(String username, String password) {
         super(username, password);
+        this.role = "organizer";
     }
 
-    public Speaker createSpeakerAccount (String username, String password) {
-        return new Speaker(username, password); }
+//    public Speaker createSpeakerAccount (String username, String password) {
+//        return new Speaker(username, password); }
 
-    public boolean assignSpeaker (String speakerUsername, Talk talk){
-        if (talk.getSpeaker().equals("None")) {
-        talk.setSpeaker(speakerUsername);
-        return true;
-        } else { return false; }
-    }
+//    public boolean assignSpeaker (String speakerUsername, Talk talk){
+//        if (talk.getSpeaker().equals("None")) {
+//        talk.setSpeaker(speakerUsername);
+//        return true;
+//        }
+//        return false;
+//    }
 
 }
 
