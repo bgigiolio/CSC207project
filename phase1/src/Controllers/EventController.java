@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 public class EventController {
     public EventManager manager;
-    public EventController(String title, String location, LocalDateTime datetime, Schedule sched){
-        this.manager = new EventManager(title, location, datetime, sched);
+    public EventController(String title, String speaker,String location, LocalDateTime datetime, Schedule sched){
+        this.manager = new EventManager(title, speaker,location, datetime, sched);
     }
 //    public EventController(String event){
 //        this.manager = new EventManager();
