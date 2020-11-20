@@ -135,11 +135,17 @@ public class BuildingManager {
     public String toString(){
         StringBuilder toReturn = new StringBuilder();
         toReturn.append("List of Rooms in ").append(this.buildingName).append(": \n");
-        for(Map.Entry<String, Schedule> i : this.building.entrySet()){
-            String room = i.getKey();
-            String schedule = i.getValue().toString();
-            toReturn.append("[").append(room).append("] \n");
-            toReturn.append(schedule);
+        try {
+            for (Map.Entry<String, Schedule> i : this.building.entrySet()) {
+                if (i != null && i.getValue() != null && i.getKey() != null) {
+                    String room = i.getKey();
+                    String schedule = i.getValue().toString();
+                    toReturn.append("[").append(room).append("] \n");
+                    toReturn.append(schedule);
+                }
+            }
+        }catch (NullPointerException e){
+            return "There are no Scheduled events";
         }
         return toReturn.toString();
     }

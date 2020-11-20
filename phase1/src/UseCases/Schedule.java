@@ -125,12 +125,18 @@ public class Schedule {
      */
     public String toString(){
         StringBuilder toReturn = new StringBuilder();
-        for(Map.Entry<LocalDateTime, Event> i : this.scheduleMap.entrySet()){
-            String key = i.getKey().toString();
-            String event = i.getValue().getTitle();
-            String location = i.getValue().getLocation();
-            String construct = event + " at " + location + " at " + key + "\n";
-            toReturn.append(construct);
+        try {
+            for (Map.Entry<LocalDateTime, Event> i : this.scheduleMap.entrySet()) {
+                if (i != null && i.getValue() != null && i.getKey() != null) {
+                    String key = i.getKey().toString();
+                    String event = i.getValue().getTitle();
+                    String location = i.getValue().getLocation();
+                    String construct = event + " at " + location + " at " + key + "\n";
+                    toReturn.append(construct);
+                }
+            }
+        }catch(NullPointerException e){
+            return "There are no events scheduled";
         }
         return toReturn.toString();
     }
