@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * This Entity is responsible for creating and storing all pf the data associated with a message.
  * This should only be called by the Message Creator.
  * @author Zachary Werle
+ * @version Phase 1
  */
 public class Message {
     private final String content;

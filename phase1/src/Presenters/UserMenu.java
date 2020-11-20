@@ -137,6 +137,27 @@ public class UserMenu {
         }
         System.out.println(builder);
     }
+    public void createEventName(){
+        System.out.println("What should this event be named?");
+    }
+    public void createEventRoom(){
+        System.out.println("Which room is this event taking place?");
+    }
+    public void createEventYear(){
+        System.out.println("What year is this event taking place");
+    }
+    public void createEventMonth(){
+        System.out.println("What month is this event in?");
+        System.out.println("please answer as a number between 1 and 12");
+    }
+    public void createEventDay(){
+        System.out.println("Which day is this event taking place");
+        System.out.println("please answer as a number between 1 and 31");
+    }
+    public void createEventHour(){
+        System.out.println("What hour is this event taking place");
+        System.out.println("please answer as a number between 1 and 24");
+    }
 
 
     //Not really sure why this is here vvvv Might remove.

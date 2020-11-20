@@ -8,6 +8,7 @@ import java.io.IOException;
  * Controls the gateway responsible for storing EventStatus object.
  *
  * @author Morgan Chang
+ * @version phase1
  */
 public class EventStatusChanger {
 

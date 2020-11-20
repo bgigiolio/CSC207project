@@ -8,6 +8,7 @@ import java.io.*;
  * This Gateway class is responsible for retrieving and storing a copy of the building in the Events.ser file.
  * This should only be called by the ImportExportController.
  * @author Zachary Werle
+ * @version Phase 1
  */
 public class EventGateway implements Serializable {
 

@@ -9,6 +9,7 @@ import java.util.*;
  * The Building Manager holds a map of Schedules keyed to their rooms.
  * There should likely be only one building manager per program.
  * @author Blake Gigiolio
+ * @version Phase1
  */
 public class BuildingManager {
     private HashMap<String, Schedule> building;

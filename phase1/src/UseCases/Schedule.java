@@ -10,6 +10,7 @@ import java.util.*;
  * This is also equivalent to a 'room' as each schedule represents a room
  *
  * @author Blake Gigiolio
+ * @version phase1
  */
 public class Schedule {
     private final HashMap<LocalDateTime, Event> scheduleMap = new HashMap<>();

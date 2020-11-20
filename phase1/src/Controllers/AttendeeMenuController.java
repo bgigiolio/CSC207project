@@ -1,9 +1,9 @@
 package Controllers;
 
 import java.io.IOException;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.util.*;
 
-import Entities.Event;
 import Gateways.EventGateway;
 import Presenters.*;
 import UseCases.BuildingManager;
@@ -16,6 +16,7 @@ import UseCases.LoginUserManager;
  * <h1>Attendee Menu Controller</h1>
  * This controller takes in input from an attendee when they are presented with a menu of options
  * @author Blake Gigiolio
+ * @version phase1
  */
 public class AttendeeMenuController {
     private final String username;
@@ -127,8 +128,49 @@ public class AttendeeMenuController {
         Scanner speakername = new Scanner(System.in);
         this.menu.enterEvent();
         Scanner eventname = new Scanner(System.in);
-        Event event = building.getEvent(eventname.nextLine());
+        //Event event = building.getEvent(eventname.nextLine());
         //TODO: Convert to Talk and then add Speaker
+    }
+    public boolean createEvent(){
+        this.menu.createEventName();
+        String eventName = new Scanner(System.in).nextLine();
+        this.menu.createEventRoom();
+        String roomName = new Scanner(System.in).nextLine();
+        this.menu.createEventYear();
+        String yearString = new Scanner(System.in).nextLine();
+        this.menu.createEventMonth();
+        String monthString = new Scanner(System.in).nextLine();
+        this.menu.createEventDay();
+        String dayString = new Scanner(System.in).nextLine();
+        this.menu.createEventHour();
+        String hourString = new Scanner(System.in).nextLine();
+        int year;
+        int month;
+        int day;
+        int hour;
+        try {
+             year = Integer.parseInt(yearString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        try {
+            month = Integer.parseInt(monthString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        try {
+            day = Integer.parseInt(dayString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        try {
+            hour = Integer.parseInt(hourString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
+        EventController event = new EventController(eventName, roomName, d, building.getSchedule(roomName));
+        return event.createEvent();
     }
 
     /**
@@ -147,6 +189,7 @@ public class AttendeeMenuController {
      * [11] Schedule Speaker
      * [12] Manage Event
      * [13] Message Event Attendees
+     * [14] Create Event
      * @throws IOException Handles the Scanner.
      */
     public void menuSelection() throws IOException, ClassNotFoundException {
@@ -206,6 +249,11 @@ public class AttendeeMenuController {
                     break;
                 case "13": //Message Event Attendees
                     //TODO: Implement this
+                    break;
+                case "14": //add event
+                    if(!createEvent()){
+                        this.menu.invalidResponse();
+                    }
                     break;
 
                 default:
