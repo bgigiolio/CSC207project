@@ -13,8 +13,9 @@ public class Talk extends Event{
      * The username of speaker as a string.
      */
     protected String speaker;
+
     /**
-     *
+     * Constructor for <code>Talk</code>
      * @param title the title of the talk which the speaker is going to present.
      * @param speaker who hosts the talk.
      * @param location the location where the talk will happen.
@@ -32,6 +33,7 @@ public class Talk extends Event{
     }
     /**
      * Sets the username of the speaker presenting in the talk as a string
+     * @param speaker the username of the speaker
      */
     public void setSpeaker(String speaker) {
         this.speaker = speaker;

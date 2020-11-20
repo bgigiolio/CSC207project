@@ -13,8 +13,19 @@ import java.util.*;
  * @version phase1
  */
 public class Schedule {
+    /**
+     * Store event and time
+     */
     private final HashMap<LocalDateTime, Event> scheduleMap = new HashMap<>();
+
+    /**
+     * time when last event finishes
+     */
     private int endHour;
+
+    /**
+     * time when first event starts
+     */
     private int startHour;
 
     //This has become a use case
@@ -38,11 +49,9 @@ public class Schedule {
     public boolean addEvent(Event event){
         LocalDateTime eventTime = event.getDatetime();
 
-
         if ((scheduleMap.containsKey(eventTime) && event.getLocation().equals(scheduleMap.get(eventTime).getLocation()))
-                || eventTime.getHour() >= endHour || eventTime.getHour() < startHour) {
+                || eventTime.getHour() >= endHour || eventTime.getHour() < startHour)
             return false;
-        }
 
         scheduleMap.put(eventTime, event);
         return true;
@@ -56,14 +65,13 @@ public class Schedule {
      */
     public Event getEvent(String event){
         Iterator<Event> iterator = new EventIterator();
-        Event e = null;
         while(iterator.hasNext()){
             Event current = iterator.next();
             if (current.getTitle().equals(event)){
-                e = current;
+                return current;
             }
         }
-        return e;
+        return null;
     }
 
     /**
@@ -76,11 +84,16 @@ public class Schedule {
         if (scheduleMap.containsKey(event.getDatetime())) {
             scheduleMap.remove(event.getDatetime());
             return true;
-        }else{
-            return false;
         }
+        else
+            return false;
     }
 
+    /**
+     * Get all events the user with <code>username</code> is attending
+     * @param username user's username
+     * @return list with the IDs of the events the user is attending
+     */
     public ArrayList<String> eventsAttending(String username){
         ArrayList<String> events = new ArrayList<>();
         Iterator<Event> iterator = new EventIterator();
@@ -135,8 +148,16 @@ public class Schedule {
      * This is the Schedule class' implementation of Iterator
      */
     private class EventIterator implements Iterator<Event>{
+        /**
+         * current position in set of datetimes in this schedule
+         */
         private int current = 0;
+
+        /**
+         * The set of datetimes in this schedule
+         */
         private final List<LocalDateTime> keys = new ArrayList<>(scheduleMap.keySet());
+
         @Override
         public boolean hasNext() {
             return (current < scheduleMap.size());
@@ -146,7 +167,6 @@ public class Schedule {
             LocalDateTime date;
             Event res;
             try {
-
                 date = keys.get(current);
                 res = scheduleMap.get(date);
             } catch (IndexOutOfBoundsException e) {

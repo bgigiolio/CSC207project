@@ -11,21 +11,33 @@ import java.time.*;
  * @version Phase1
  */
 
-/**
- * <h1>Event</h1>
- * Event is an entity class which stores information about an event of the conference.
- * @author Qi Zheng
- * @version Phase1
- */
-
-
 public class Event implements Serializable {
+
+    /**
+     * Title of event
+     */
     private String title;
+
+    /**
+     * where this event will take place (room number)
+     */
     private String location;
+
+    /**
+     * Speaker's username
+     */
     private String speaker;
+
+    /**
+     * Time and date of event
+     */
     private LocalDateTime datetime;
     // Ex. LocalDateTime d = LocalDateTime.of(int YYYY, int MM, int DD, int hh, int mm, int ss)
     // The ss (seconds) parameter is optional.
+
+    /**
+     * List of usernames of people attending this event
+     */
     private ArrayList<String> usernames;
 
     /**

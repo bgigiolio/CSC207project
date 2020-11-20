@@ -36,18 +36,19 @@ public class EventStatus implements Serializable {
     }
 
     /**
-     * Cancel the enrollment of the user of username in the event of eventTitle,
-     * iff the user had registered for the event.
+     * Cancel the enrollment of the user of <code>username</code> in the event of
+     * <code>eventTitle</code> if the user had registered for the event.
      *
-     * @return true iff the user has successfully cancel his enrollment in event of eventTitle.
+     * @return true iff the user has successfully cancelled his enrollment in event of eventTitle.
      */
     public boolean cancelEventEnrolment(String username, String eventTitle) {
         List<String> eventsRegistered = usernameToEvents.get(username);
-        if (!(eventsRegistered == null) && eventsRegistered.contains(eventTitle)) {
+        if (eventsRegistered != null && eventsRegistered.contains(eventTitle)) {
             eventsRegistered.remove(eventTitle);
             usernameToEvents.put(username, eventsRegistered);
             return true;
-        } else { return false; }
+        }
+        return false;
     }
 
 }
