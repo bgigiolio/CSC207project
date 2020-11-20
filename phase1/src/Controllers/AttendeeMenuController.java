@@ -44,6 +44,7 @@ public class AttendeeMenuController {
             menu.optionsAttendee();
         }
         if (role.equals("Organizer")) {
+            menu.optionsAttendee();
             menu.optionsOrganizer();
         }
         menuSelection();
