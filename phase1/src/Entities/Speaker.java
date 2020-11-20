@@ -1,24 +1,31 @@
 package Entities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <h1>Speaker</h1>
- * Represents an Speaker in the system.
+ * Represents an Speaker in the system. Inherits from Attendee.
  *
  * @author Konstantinos Papaspyridis
  */
 public class Speaker extends Attendee {
 
-    private ArrayList<String> talks;    //holds talk ids
-    private final String role = "speaker";
+    /**
+     * holds talks IDs
+     */
+    private ArrayList<String> talks;
+
+    /**
+     * set the role to "speaker"
+     */
+    private final String role;
 
     /**
      * Construct an Speaker object when signed up.
      * Initialized with a username, a password, an empty list of friends, and an empty list of
      * inbox messages.
      * loggedIn is initialized to be false and role is initialized to be "speaker".
+     * talks is initialized to an empty array list
      *
      * @param username the username of the user.
      * @param password the password of the user.
@@ -26,12 +33,21 @@ public class Speaker extends Attendee {
     public Speaker(String username, String password) {
         super(username, password);
         this.talks = new ArrayList<>();
+        this.role = "speaker";
     }
 
+    /**
+     * Adds a talk's id to the list of talks attending.
+     * @param talkId the talk's id
+     */
     public void addTalk(String talkId){
         this.talks.add(talkId);
     }
 
+    /**
+     * Returns a shallow copy of the list containing talk IDs
+     * @return shallow copy of <code>talks</code>
+     */
     public Object getTalks(){
         return this.talks.clone();
     }

@@ -28,8 +28,6 @@ public class Attendee implements Serializable {
 
     protected List<Message> messages;     //shouldn't contain entities
 
-    //protected EventStatus eventsRegistered;
-
     /**
      * The login status of current user.
      */
@@ -37,9 +35,8 @@ public class Attendee implements Serializable {
     /**
      * The role of current user.
      */
-    protected final String role;
+    private final String role;
 
-    //public static List<Entities.Attendee> user; //should be in UseCases.LoginUserManager
 
     /**
      * Construct an Attendee object when signed up.
@@ -57,7 +54,6 @@ public class Attendee implements Serializable {
         this.messages = new ArrayList<>();
         this.loggedIn = false;
         this.role = "attendee";
-        //user.add(this);
     }
 
     /**
@@ -77,8 +73,6 @@ public class Attendee implements Serializable {
     public String getPassword(){
         return this.password;
     }
-
-    //public List<Event> getEvents(){ return this.eventsRegistered.getEventsRegistered(this); }
 
     /**
      * Return loggedIn.
