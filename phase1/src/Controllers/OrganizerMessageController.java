@@ -40,7 +40,7 @@ public class OrganizerMessageController {
 
     public void toAllSpeaker(String inputMessage, String outboxFilePath, String inboxFilePath,
                              LoginUserManager manager) throws IOException {
-        HashMap<String, Attendee> users = manager.credentialsMap;
+        HashMap<String, Attendee> users = manager.getCredentialsMap();
         for(String username : users.keySet()){     //accessing entities through a controller - no good
             if(manager.userRole(username).equals("speaker")){
                 MessageController send = new MessageController(this.organizer.getUsername(), username,
@@ -52,7 +52,7 @@ public class OrganizerMessageController {
 
     public void toAllAttendee(String inputMessage, String outboxFilePath, String inboxFilePath,
                               LoginUserManager manager) throws IOException {
-        HashMap<String, Attendee> users = manager.credentialsMap;
+        HashMap<String, Attendee> users = manager.getCredentialsMap();
         for (String username : users.keySet()){ //same here!!
             if(manager.userRole(username).equals("attendee")){
                 MessageController send = new MessageController(this.organizer.getUsername(), username,
