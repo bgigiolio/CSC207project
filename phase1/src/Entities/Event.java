@@ -5,12 +5,12 @@ import java.util.*;
 import java.time.*;
 
 public class Event implements Serializable {
-    String title;
-    String location;
-    LocalDateTime datetime;
+    private String title;
+    private String location;
+    private LocalDateTime datetime;
     // Ex. LocalDateTime d = LocalDateTime.of(int YYYY, int MM, int DD, int hh, int mm, int ss)
     // The ss (seconds) parameter is optional.
-    ArrayList<String> usernames;
+    private ArrayList<String> usernames;
 
     public Event(String title, String location, LocalDateTime datetime){
         this.title = title;
