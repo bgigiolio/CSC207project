@@ -243,7 +243,11 @@ public class AttendeeMenuController {
                     break;
                 case "6": //review messages
                     MessageController message = new MessageController();
-                    this.menu.printMessages(message.getMessageForMe(this.username));
+                    try {
+                        this.menu.printMessages(message.getMessageForMe(this.username));
+                    }catch(NullPointerException e){
+                        this.menu.printSomething("You have no messages");
+                }
                     break;
                 case "7": //Manage Friends List
                     //TODO: Implement this!!
