@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.Serializable;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
@@ -10,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * @author Zachary Werle
  * @version Phase 1
  */
-public class Message {
+public class Message implements Serializable {
     private final String content;
     private final String sender;
     private final LocalDateTime time_sent;
