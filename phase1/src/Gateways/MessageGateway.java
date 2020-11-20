@@ -6,6 +6,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * <h1>Message Gateway</h1>
+ * MessageGateway is a gateway class that interacts with outside file to store messages as inbox and outbox of users.
+ * @author Qi Zheng
+ * @version Phase1
+ */
+
+
 public class MessageGateway implements Serializable{
     private HashMap<String, ArrayList<Message>> inbox; //received messages
 

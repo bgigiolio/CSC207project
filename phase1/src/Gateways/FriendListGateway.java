@@ -3,6 +3,14 @@ package Gateways;
 import java.io.*;
 import java.util.*;
 
+/**
+ * <h1>Friend List Gateway</h1>
+ * FriendlistGateway is a gateway class that interacts with outside file to store friendlists of every user.
+ * @author Qi Zheng
+ * @version Phase1
+ */
+
+
 public class FriendListGateway implements Serializable{
 
     private HashMap<String, ArrayList<String>> friendlist;

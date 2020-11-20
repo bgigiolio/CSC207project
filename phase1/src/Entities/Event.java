@@ -4,6 +4,14 @@ import java.io.Serializable;
 import java.util.*;
 import java.time.*;
 
+/**
+ * <h1>Event</h1>
+ * Event is an entity class which stores information about an event of the conference.
+ * @author Qi Zheng
+ * @version Phase1
+ */
+
+
 public class Event implements Serializable {
     String title;
     String speaker;
