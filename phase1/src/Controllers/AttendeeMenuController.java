@@ -232,6 +232,7 @@ public class AttendeeMenuController {
                     try{message0.sendMessage();}
                     catch (Exception e){
                         System.out.println("Something went wrong! Have you tried checking if both usernames exist?");
+                        break;
                     }
                     System.out.println("Sent!");
                     break;
