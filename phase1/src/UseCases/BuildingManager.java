@@ -31,9 +31,9 @@ public class BuildingManager {
      * @param endHour The desired ending hour for this schedule. (See Schedule for reference)
      * @return Returns true if the room was successfully added and false if it wasn't.
      */
-    public boolean addRoom(String name, int startHour, int endHour){
+    public boolean addRoom1(String name, int startHour, int endHour){
         Schedule addition = new Schedule(startHour, endHour);
-        return addRoom(name, addition);
+        return addRoom2(name, addition);
     }
 
     /**
@@ -42,7 +42,7 @@ public class BuildingManager {
      * @param sched The schedule of the room that we want to add.
      * @return Returns true if the room was successfully added and false if it wasn't.
      */
-    public boolean addRoom(String name, Schedule sched){
+    public boolean addRoom2(String name, Schedule sched){
         if(building.containsKey(name)){
             building.put(name, sched);
             return true;
@@ -106,12 +106,22 @@ public class BuildingManager {
         Schedule s = null;
         Iterator<Schedule> iterator = new ScheduleIterator();
         while(iterator.hasNext()){
-            Schedule sched = iterator().next();
+            Schedule sched = iterator.next();
             if(sched.getEvent(event) != null){
                 s = sched;
             }
         }
         return s;
+    }
+
+    public ArrayList<String> eventsAttending(String username){
+        ArrayList<String> events = new ArrayList<>();
+        Iterator<Schedule> iterator = new ScheduleIterator();
+        while(iterator.hasNext()){
+            Schedule sched = iterator.next();
+            events.addAll(sched.eventsAttending(username));
+        }
+        return events;
     }
 
     /**

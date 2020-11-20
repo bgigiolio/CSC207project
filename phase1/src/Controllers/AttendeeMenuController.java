@@ -2,6 +2,9 @@ package Controllers;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import Entities.Event;
+import Gateways.EventGateway;
 import Presenters.*;
 import UseCases.BuildingManager;
 import UseCases.LoginUserManager;
@@ -16,8 +19,10 @@ import UseCases.LoginUserManager;
  */
 public class AttendeeMenuController {
     private final String username;
+    private String role;
     private final UserMenu menu;
     private final BuildingManager building;
+    private EventStatusChanger eventStatusChanger = new EventStatusChanger();
 
     /**
      * This constructor takes in the parameters needed to operate the menu.
@@ -27,70 +32,186 @@ public class AttendeeMenuController {
      */
     public AttendeeMenuController(String username, String role, BuildingManager building, LoginUserManager userManager) {
         this.username = username;
-        this.menu = new UserMenu(this.username, role);
+        this.role = role;
+        this.menu = new UserMenu(this.username);
         this.building = building;
 
     }
 
+    public void homepage() throws IOException, ClassNotFoundException {
+        if (role.equals("Attendee")) {
+            menu.optionsAttendee();
+        }
+        if (role.equals("Organizer")) {
+            menu.optionsOrganizer();
+        }
+        menuSelection();
+    }
+
+    /**
+     * This is what the user should see if they choose to sign up for an event.
+     */
+    public void signUpEvent() throws IOException, ClassCastException, ClassNotFoundException {
+        menu.eventPrompt("sign up");
+        String eventTitle = new Scanner(System.in).nextLine();
+        if (eventStatusChanger.signUpChanger(this.username, eventTitle)) {
+            menu.signUpEventStatus(eventTitle, "1");
+        } else {
+            menu.signUpEventStatus(eventTitle, "0");
+            String response = new Scanner(System.in).nextLine();
+            if (response.equals("1")) {
+                homepage();
+            } else if (response.equals("2")) {
+                signUpEvent();
+            }
+        }
+    }
+
+    public void cancelEnrolEvent() throws IOException, ClassNotFoundException {
+        menu.eventPrompt("cancel");
+        String eventTitle = new Scanner(System.in).nextLine();
+        EventStatusChanger eventStatusChanger = new EventStatusChanger();
+        if (eventStatusChanger.cancelChanger(this.username, eventTitle)) {
+            menu.cancelEnrolStatus(eventTitle, "1");
+        } else {
+            menu.cancelEnrolStatus(eventTitle, "0");
+            String response = new Scanner(System.in).nextLine();
+            if (response.equals("1")) {
+                homepage();
+            } else if (response.equals("2")) {
+                cancelEnrolEvent();
+            }
+        }
+    }
+    public void sendMessage() throws IOException {
+        this.menu.sendMessageUser();
+        String user = new Scanner(System.in).nextLine();
+        this.menu.sendMessageContent();
+        String content = new Scanner(System.in).nextLine();
+        MessageController message = new MessageController(this.username, user, content);
+        message.sendMessage();
+    }
+    public boolean addRoom(){
+        this.menu.createRoomName();
+        String name = new Scanner(System.in).nextLine();
+        this.menu.createRoomStart();
+        String startString = new Scanner(System.in).nextLine();
+        int start = 0;
+        try {
+            start = Integer.parseInt(startString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        this.menu.createRoomEnd(start);
+        String endString = new Scanner(System.in).nextLine();
+        int end = 0;
+        try {
+            end = Integer.parseInt(endString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        return building.addRoom1(name, start, end);
+    }
+    public void addSpeaker() throws IOException {
+        this.menu.createSpeakerName();
+        Scanner sname = new Scanner(System.in);
+        NewUserController newUser = new NewUserController();
+        if (newUser.logReg(sname.nextLine(), "password", "Speaker")) {
+            this.menu.speakerMade();
+        }else{
+            this.menu.invalidResponse();
+        }
+    }
+    public void scheduleSpeaker(){
+        this.menu.createSpeakerName();
+        Scanner speakername = new Scanner(System.in);
+        this.menu.enterEvent();
+        Scanner eventname = new Scanner(System.in);
+        Event event = building.getEvent(eventname.nextLine());
+        //TODO: Convert to Talk and then add Speaker
+    }
+
     /**
      * This is where the user will decide what they want to do. The possible options are:
-     * See Event Schedule: Prints the schedule for the building they are in.
-     * Sign Up for Event: Enrolls the user in a specific event.
-     * Cancel Event: Removes the user from a specific event.
-     * Send Message: Sends a message to another user.
-     * Review Message: Prints out the users 'inbox'
-     * Manage Friends List: Allows the user to add/see/remove friends from their friends list.
+     * [1] See Event Schedule
+     * [2] Review Your Events Schedule
+     * [3] Sign Up For Event
+     * [4] Cancel Event
+     * [5] Send Message
+     * [6] Review Messages
+     * [7] Manage Friends List
+     * [8] Logout
+     * ---AVAILABLE FOR ORGANIZERS ONLY---
+     * [9] Create Speaker Account
+     * [10] Add Room
+     * [11] Schedule Speaker
+     * [12] Manage Event
+     * [13] Message Event Attendees
      * @throws IOException Handles the Scanner.
      */
-    public void menuSelection() throws IOException {
+    public void menuSelection() throws IOException, ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
-        boolean answered = false;
-        this.menu.optionsAttendee();
-        while (!answered) {
-            this.menu.awaitResponse();
+        boolean loggedOut = false;
+        while (!loggedOut) {
             String response = uname.nextLine();
             switch (response) {
-                case "See Event Schedule":
-                case "see event schedule":
+                case "1":
                     this.menu.printBuildingSchedule(this.building);
-                    answered = true;
                     break;
-                case "Sign Up For Event":
-                case "sign up for event":
-                    this.menu.signUpEvent();
+                case "2":
+                    StringBuilder toPrint = new StringBuilder();
+                    toPrint.append("Events you are attending: \n");
+                    for (String i : this.building.eventsAttending(this.username)){
+                        toPrint.append(i).append("\n");
+                    }
+                    String sPrint = toPrint.toString();
+                    this.menu.printSomething(sPrint);
+                    break;
+                case "3":
+                    signUpEvent();
+                    break;
+                case "4":
+                    cancelEnrolEvent();
+                    break;
+                case "5": //send message
+                    sendMessage();
+                    break;
+                case "6": //review messages
+                    MessageController message = new MessageController();
+                    this.menu.printMessages(message.getMessageForMe(this.username));
+                    break;
+                case "7": //Manage Friends List
+                    //TODO: Implement this!!
+                    break;
+                case "8": //logout
+                    loggedOut = true;
+                    break;
+                case "9": //create speaker account
+                    addSpeaker();
+                    break;
+                case "10": //add room
+                    if(!addRoom()){
+                        this.menu.invalidResponse();
+                    }
+                    break;
+                case "11": //schedule speaker
+                    scheduleSpeaker();
+                    break;
+                case "12": //Manage Event
+                    EventGateway eventmanage = new EventGateway();
+                    System.out.println(eventmanage.getEvents().toString());
+                    System.out.println("Enter event to manage:");
+                    //Not really sure whats happening here
+                    //TODO: Finish this
+                    break;
+                case "13": //Message Event Attendees
+                    //TODO: Implement this
+                    break;
 
-//                    if(signUpEvent(uname.nextLine())){
-//                        answered = true;
-//                    }else{
-//                        this.menu.invalidResponse();
-//                    }
-                    break;
-                case "Cancel Event":
-                case "cancel event":
-                    answered = true;
-                    break;
-                case "Send Message":
-                case "send message":
-                    answered = true;
-                    break;
-                case "Review Messages":
-                case "review messages":
-                    //MessageController mc = new MessageController();
-                    answered = true;
-                    break;
-                case "Manage Friends List":
-                case "manage friends list":
-                    answered = true;
-                    break;
                 default:
                     this.menu.invalidResponse();
                     break;
             }
         }
     }
-//    public boolean signUpEvent(String event){
-//        if(building.getEvent(event) != null){
-//            EventStatusChanger changer = new EventStatusChanger(building.getEvent(event));
-//        }
-//    }
 }

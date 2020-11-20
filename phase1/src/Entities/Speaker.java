@@ -3,6 +3,12 @@ package Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <h1>Speaker</h1>
+ * Represents an Speaker in the system.
+ *
+ * @author Konstantinos Papaspyridis
+ */
 public class Speaker extends Attendee {
 
     private ArrayList<String> talks;    //holds talk ids

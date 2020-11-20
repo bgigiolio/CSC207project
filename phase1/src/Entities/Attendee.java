@@ -6,6 +6,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <h1>Attendee</h1>
+ * Represents an Attendee in the system.
+ *
+ * @author Sehajroop Singh Bath
+ */
 public class Attendee implements Serializable {
     /**
      * The username of current user.
@@ -49,7 +55,6 @@ public class Attendee implements Serializable {
         this.password = password;
         this.friendList = new ArrayList<>();
         this.messages = new ArrayList<>();
-        //this.eventsRegistered = new EventStatus(this);
         this.loggedIn = false;
         this.role = "attendee";
         //user.add(this);

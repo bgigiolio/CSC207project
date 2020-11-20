@@ -3,7 +3,6 @@ package Controllers;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Gateways.UserLoginInfo;
 import Presenters.*;
 import UseCases.BuildingManager;
 import UseCases.LoginUserManager;
@@ -43,7 +42,7 @@ public class InitialPrompt {
      *  -Initializes the post-login menu
      * @throws IOException Handles Scanners.
      */
-    public void startProgram() throws IOException {
+    public void startProgram() throws IOException, ClassNotFoundException {
         boolean answered = false;
         boolean answered2 = false;
         Scanner uname = new Scanner(System.in);
@@ -77,13 +76,15 @@ public class InitialPrompt {
         login();
         LoginUserManager manager = new LoginUserManager();
         if (this.role.equals("Organizer")) {
-            OrganizerMenu organizerMenu = new OrganizerMenu(this.username, this.role, this.buildingManager, manager);
-            organizerMenu.printMenu();
+            AttendeeMenuController organizerMenu =
+                    new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
+            organizerMenu.homepage();
             organizerMenu.menuSelection();
         } else {
-            UserMenu userMenu = new UserMenu(this.username, this.role);
-            userMenu.optionsAttendee();
-            userMenu.menuSelection();
+            AttendeeMenuController attendeeMenuController =
+                    new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
+            UserMenu userMenu = new UserMenu(this.username);
+            attendeeMenuController.homepage();
         }
     }
 
@@ -91,7 +92,7 @@ public class InitialPrompt {
      * This is how a user will log in. Here we call the log in menu prompt.
      * @throws IOException Handles Scanner.
      */
-    private void login() throws IOException {
+    private void login() throws IOException, ClassNotFoundException {
         if (Menu.logReg(this.username, this.password, this.role)) {
             this.presenter.loggedInPrompt();
             System.out.println("Welcome " + this.username + "!");
