@@ -158,6 +158,11 @@ public class MessageGateway implements Serializable{
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
+            File f = new File(this.inboxPath);
+
+            if(f.length()==0)
+                return new HashMap<String, ArrayList<Message>>();
+
             this.inbox = (HashMap<String, ArrayList<Message>>) input.readObject();
             input.close();
         } catch (FileNotFoundException | ClassNotFoundException e) {
