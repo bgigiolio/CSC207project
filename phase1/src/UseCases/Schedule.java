@@ -80,6 +80,18 @@ public class Schedule {
         }
     }
 
+    public ArrayList<String> eventsAttending(String username){
+        ArrayList<String> events = new ArrayList<>();
+        Iterator<Event> iterator = new EventIterator();
+        while(iterator.hasNext()){
+            Event current = iterator.next();
+            if (current.getAttendees().contains(username)){
+                events.add(current.getTitle());
+            }
+        }
+        return events;
+    }
+
     /**
      * Changes the start hour and end hour of this room
      *

@@ -111,7 +111,15 @@ public class AttendeeMenuController {
                     answered = true;
                     break;
                 case "2":
-                    answered = true; //TODO: implement function to see registered events' schedule
+                    StringBuilder toPrint = new StringBuilder();
+                    toPrint.append("Events you are attending: \n");
+                    for (String i : this.building.eventsAttending(this.username)){
+                        toPrint.append(i).append("\n");
+                    }
+                    String sPrint = toPrint.toString();
+                    this.menu.printSomething(sPrint);
+                    answered = true;
+                    break;
                 case "3":
                     answered = true;
                     signUpEvent();

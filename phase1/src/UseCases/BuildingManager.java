@@ -106,12 +106,22 @@ public class BuildingManager {
         Schedule s = null;
         Iterator<Schedule> iterator = new ScheduleIterator();
         while(iterator.hasNext()){
-            Schedule sched = iterator().next();
+            Schedule sched = iterator.next();
             if(sched.getEvent(event) != null){
                 s = sched;
             }
         }
         return s;
+    }
+
+    public ArrayList<String> eventsAttending(String username){
+        ArrayList<String> events = new ArrayList<>();
+        Iterator<Schedule> iterator = new ScheduleIterator();
+        while(iterator.hasNext()){
+            Schedule sched = iterator.next();
+            events.addAll(sched.eventsAttending(username));
+        }
+        return events;
     }
 
     /**

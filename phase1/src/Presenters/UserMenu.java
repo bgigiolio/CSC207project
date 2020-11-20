@@ -101,6 +101,9 @@ public class UserMenu {
     public void sendMessageContent(){
         System.out.println("What would you like to send them?");
     }
+    public void printSomething(String print){
+        System.out.println(print);
+    }
 
 
     //Not really sure why this is here vvvv Might remove.
