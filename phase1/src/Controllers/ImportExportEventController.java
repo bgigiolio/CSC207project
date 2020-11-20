@@ -13,7 +13,7 @@ import UseCases.BuildingManager;
  */
 public class ImportExportEventController {
 
-    private final EventGateway g = new EventGateway();
+    private final EventGateway gateway = new EventGateway();
 
     /**
      * This method calls EventGateway to retrieve a BuildingManager object.
@@ -21,7 +21,7 @@ public class ImportExportEventController {
      * @throws ClassNotFoundException Handles the case where no serializable class is found.
      */
     public BuildingManager importEvents() throws ClassNotFoundException{
-        return g.getEvents();
+        return gateway.getEvents();
     }
 
     /**
@@ -29,7 +29,7 @@ public class ImportExportEventController {
      * @param events A BuildingManager object.
      */
     public void exportEvents(BuildingManager events){
-        g.setEvents(events);
+        gateway.setEvents(events);
     }
 
 }
