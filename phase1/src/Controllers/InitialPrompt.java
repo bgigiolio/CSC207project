@@ -15,6 +15,7 @@ import UseCases.LoginUserManager;
  * This controller facilitates logging in and creating new accounts.
  * This should be the first thing called in the program!
  * @author Blake Gigiolio
+ * @version phase1
  */
 public class InitialPrompt {
     private String password;
