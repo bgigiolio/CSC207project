@@ -153,15 +153,15 @@ public class MessageGateway implements Serializable{
      */
 
     public HashMap<String, ArrayList<Message>> getInbox() throws IOException {
+        File f = new File(this.inboxPath);
+
+        if(f.length()==0)
+            return new HashMap<String, ArrayList<Message>>();
+
         try {
             InputStream file = new FileInputStream(this.inboxPath);
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
-
-            File f = new File(this.inboxPath);
-
-            if(f.length()==0)
-                return new HashMap<String, ArrayList<Message>>();
 
             this.inbox = (HashMap<String, ArrayList<Message>>) input.readObject();
             input.close();
@@ -179,10 +179,16 @@ public class MessageGateway implements Serializable{
      * @throws IOException to catch FileNotFoundException for the corresponding filepath and ClassNotFoundException for the object that is read.
      */
     public HashMap<String, ArrayList<Message>> getOutbox() throws IOException{
+        File f = new File(this.inboxPath);
+
+        if(f.length()==0)
+            return new HashMap<String, ArrayList<Message>>();
+
         try{
             InputStream file = new FileInputStream(this.outboxPath);
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
+
 
             this.outbox = (HashMap<String, ArrayList<Message>>) input.readObject();
             input.close();
