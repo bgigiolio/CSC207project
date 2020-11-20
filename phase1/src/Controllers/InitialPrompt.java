@@ -3,7 +3,6 @@ package Controllers;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Gateways.UserLoginInfo;
 import Presenters.*;
 import UseCases.BuildingManager;
 import UseCases.LoginUserManager;

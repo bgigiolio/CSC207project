@@ -1,4 +1,4 @@
-package Presenters;
+package Controllers;
 import Controllers.AttendeeMenuController;
 import Controllers.BuildingController;
 import Controllers.NewUserController;

@@ -38,7 +38,8 @@ public class AttendeeMenuController {
     public void homepage() throws IOException, ClassNotFoundException {
         if (role.equals("Attendee")) {
             menu.optionsAttendee();
-        } else if (role.equals("Organizer")) {
+        }
+        if (role.equals("Organizer")) {
             menu.optionsOrganizer();
         }
         menuSelection();
@@ -87,6 +88,27 @@ public class AttendeeMenuController {
         MessageController message = new MessageController(this.username, user, content);
         message.sendMessage();
     }
+    public boolean addRoom(){
+        this.menu.createRoomName();
+        String name = new Scanner(System.in).nextLine();
+        this.menu.createRoomStart();
+        String startString = new Scanner(System.in).nextLine();
+        int start = 0;
+        try {
+            start = Integer.parseInt(startString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        this.menu.createRoomEnd(start);
+        String endString = new Scanner(System.in).nextLine();
+        int end = 0;
+        try {
+            end = Integer.parseInt(endString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        return building.addRoom1(name, start, end);
+    }
 
     /**
      * This is where the user will decide what they want to do. The possible options are:
@@ -98,17 +120,22 @@ public class AttendeeMenuController {
      * [6] Review Messages
      * [7] Manage Friends List
      * [8] Logout
+     * ---AVAILABLE FOR ORGANIZERS ONLY---
+     * [9] Create Speaker Account
+     * [10] Add Room
+     * [11] Schedule Speaker
+     * [12] Manage Event
+     * [13] Message Event Attendees
      * @throws IOException Handles the Scanner.
      */
     public void menuSelection() throws IOException, ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
-        boolean answered = false;
-        while (!answered) {
+        boolean loggedOut = false;
+        while (!loggedOut) {
             String response = uname.nextLine();
             switch (response) {
                 case "1":
                     this.menu.printBuildingSchedule(this.building);
-                    answered = true;
                     break;
                 case "2":
                     StringBuilder toPrint = new StringBuilder();
@@ -118,33 +145,41 @@ public class AttendeeMenuController {
                     }
                     String sPrint = toPrint.toString();
                     this.menu.printSomething(sPrint);
-                    answered = true;
                     break;
                 case "3":
-                    answered = true;
                     signUpEvent();
                     break;
                 case "4":
-                    answered = true;
                     cancelEnrolEvent();
                     break;
                 case "5": //send message
                     sendMessage();
-                    answered = true;
                     break;
                 case "6": //review messages
-                    answered = true;
                     break;
                 case "7": //Manage Friends List
-                    answered = true;
                     break;
                 case "8": //logout
-                    answered = true;
+                    loggedOut = true;
                     break;
+                case "9": //create speaker account
+                    break;
+                case "10": //add room
+                    if(!addRoom()){
+                        this.menu.invalidResponse();
+                    }
+                    break;
+                case "11": //schedule speaker
+                    break;
+                case "12": //Manage Event
+                    break;
+                case "13": //Message Event Attendees
+                    break;
+
                 default:
                     this.menu.invalidResponse();
                     break;
             }
         }
     }
-    }
+}
