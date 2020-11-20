@@ -14,4 +14,7 @@ public class BuildingController {
     public BuildingManager getBuilding(){
         return this.building;
     }
+    public boolean addRoom(String name, int startHour, int endHour){
+        return this.building.addRoom1(name, startHour, endHour);
+    }
 }

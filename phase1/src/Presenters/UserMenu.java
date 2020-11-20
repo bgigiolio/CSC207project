@@ -4,6 +4,7 @@ import Controllers.EventStatusChanger;
 import UseCases.BuildingManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -37,15 +38,19 @@ public class UserMenu {
                 "[5] Send Entities.Message\n" +
                 "[6] Review Messages\n" +
                 "[7] Manage Friends List\n" +
-                "[8] Logout");
+                "[8] Logout\n");
     }
 
     /**
      * If the user is an organizer, this should also be displayed along with optionsAttendee()
      */
     public void optionsOrganizer() {
-        System.out.println("---Entities.Organizer Specific Actions---");
-        System.out.println("[Create Entities.Speaker]  [Add Room]  [UseCases.Schedule Entities.Speaker]  [Manage Entities.Event]  ");
+        System.out.println("---Organizer Specific Actions---");
+        System.out.println("[9] Create Speaker\n" +
+                "[10] Add Room\n" +
+                "[11] Schedule Speaker\n" +
+                "[12] Manage Event \n" +
+                "[13] Message Event Attendees");
     }
 
     /**
@@ -94,6 +99,43 @@ public class UserMenu {
             System.out.println("You did not sign up for the event " + eventTitle + ". \n" +
                     "[1] Go back \n[2] Enter another event");
         }
+    }
+    public void sendMessageUser(){
+        System.out.println("Which user would you like to send a message to?");
+    }
+    public void sendMessageContent(){
+        System.out.println("What would you like to send them?");
+    }
+    public void printSomething(String print){
+        System.out.println(print);
+    }
+    public void createRoomName(){
+        System.out.println("What will this room be called?");
+    }
+    public void createRoomStart(){
+        System.out.println("When should this room open?");
+        System.out.println("Please type a number between 0 and 24");
+    }
+    public void createRoomEnd(int start){
+        System.out.println("When should this room close?");
+        System.out.println("Please type a number between " + start + " and 24");
+    }
+    public void createSpeakerName(){
+        System.out.println("Enter Speaker name:");
+    }
+    public void speakerMade(){
+        System.out.println("Speaker made!");
+    }
+    public void enterEvent(){
+        System.out.println("Enter existing Event name:");
+    }
+    public void printMessages(ArrayList<String> messages){
+        StringBuilder builder = new StringBuilder();
+        builder.append("Your messages: \n");
+        for (String i : messages){
+            builder.append(i);
+        }
+        System.out.println(builder);
     }
 
 

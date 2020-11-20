@@ -3,7 +3,6 @@ package Controllers;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Gateways.UserLoginInfo;
 import Presenters.*;
 import UseCases.BuildingManager;
 import UseCases.LoginUserManager;
@@ -77,8 +76,9 @@ public class InitialPrompt {
         login();
         LoginUserManager manager = new LoginUserManager();
         if (this.role.equals("Organizer")) {
-            OrganizerMenu organizerMenu = new OrganizerMenu(this.username, this.role, this.buildingManager, manager);
-            organizerMenu.printMenu();
+            AttendeeMenuController organizerMenu =
+                    new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
+            organizerMenu.homepage();
             organizerMenu.menuSelection();
         } else {
             AttendeeMenuController attendeeMenuController =
