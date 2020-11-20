@@ -131,7 +131,7 @@ public class AttendeeMenuController {
         //Event event = building.getEvent(eventname.nextLine());
         //TODO: Convert to Talk and then add Speaker
     }
-    public boolean createEvent(){
+    public boolean createEvent() {
         this.menu.createEventName();
         String eventName = new Scanner(System.in).nextLine();
         this.menu.createEventRoom();
@@ -144,34 +144,41 @@ public class AttendeeMenuController {
         String dayString = new Scanner(System.in).nextLine();
         this.menu.createEventHour();
         String hourString = new Scanner(System.in).nextLine();
-        int year;
-        int month;
-        int day;
-        int hour;
-        try {
-             year = Integer.parseInt(yearString);
-        }catch(NumberFormatException e){
-            return false;
+        this.menu.createEventSpeaker();
+        String response = new Scanner(System.in).nextLine();
+        String speaker = "None";
+        if (response.equals("Y") || response.equals("y")) {
+            this.menu.createEventSpeakerName();
         }
-        try {
-            month = Integer.parseInt(monthString);
-        }catch(NumberFormatException e){
-            return false;
+            speaker = new Scanner(System.in).nextLine();
+            int year;
+            int month;
+            int day;
+            int hour;
+            try {
+                year = Integer.parseInt(yearString);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            try {
+                month = Integer.parseInt(monthString);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            try {
+                day = Integer.parseInt(dayString);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            try {
+                hour = Integer.parseInt(hourString);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
+            EventController event = new EventController(eventName, speaker, roomName, d, building.getSchedule(roomName));
+            return event.createEvent();
         }
-        try {
-            day = Integer.parseInt(dayString);
-        }catch(NumberFormatException e){
-            return false;
-        }
-        try {
-            hour = Integer.parseInt(hourString);
-        }catch(NumberFormatException e){
-            return false;
-        }
-        LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
-        EventController event = new EventController(eventName, roomName, d, building.getSchedule(roomName));
-        return event.createEvent();
-    }
 
     /**
      * This is where the user will decide what they want to do. The possible options are:
@@ -217,7 +224,16 @@ public class AttendeeMenuController {
                     cancelEnrolEvent();
                     break;
                 case "5": //send message
-                    sendMessage();
+                    System.out.println("What is the username of the person you would like to send this to?");
+                    String receiver = new Scanner(System.in).nextLine();
+                    System.out.println("What is your message?");
+                    String messageString = new Scanner(System.in).nextLine();
+                    MessageController message0 = new MessageController(this.username, receiver, messageString);
+                    try{message0.sendMessage();}
+                    catch (Exception e){
+                        System.out.println("Something went wrong! Have you tried checking if both usernames exist?");
+                    }
+                    System.out.println("Sent!");
                     break;
                 case "6": //review messages
                     MessageController message = new MessageController();
