@@ -100,6 +100,9 @@ public class UserMenu {
                     "[1] Go back \n[2] Enter another event");
         }
     }
+    public void manageEvent(){
+        System.out.println("Which event would you like to remove?");
+    }
     public void sendMessageUser(){
         System.out.println("Which user would you like to send a message to?");
     }
