@@ -212,8 +212,12 @@ public class AttendeeMenuController {
                 case "2":
                     StringBuilder toPrint = new StringBuilder();
                     toPrint.append("Events you are attending: \n");
-                    for (String i : this.building.eventsAttending(this.username)){
-                        toPrint.append(i).append("\n");
+                    try{
+                        for (String i : this.building.eventsAttending(this.username)){
+                            toPrint.append(i).append("\n");
+                        }
+                    }catch(NullPointerException e){
+                        toPrint.replace(0, toPrint.length(), "You are not attending any events");
                     }
                     String sPrint = toPrint.toString();
                     this.menu.printSomething(sPrint);
