@@ -249,17 +249,7 @@ public class AttendeeMenuController {
                     cancelEnrolEvent();
                     break;
                 case "5": //send message
-                    System.out.println("What is the username of the person you would like to send this to?");
-                    String receiver = new Scanner(System.in).nextLine();
-                    System.out.println("What is your message?");
-                    String messageString = new Scanner(System.in).nextLine();
-                    MessageController message0 = new MessageController(this.username, receiver, messageString);
-                    try{message0.sendMessage();}
-                    catch (Exception e){
-                        System.out.println("Something went wrong! Have you tried checking if both usernames exist?");
-                        break;
-                    }
-                    System.out.println("Sent!");
+                    sendMessage();
                     break;
                 case "6": //review messages
                     MessageController message = new MessageController();
