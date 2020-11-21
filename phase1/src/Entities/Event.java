@@ -51,7 +51,6 @@ public class Event implements Serializable {
         this.title = title;
         this.speaker = speaker;
         this.location = location;
-        this.speaker = speaker;
         this.datetime = datetime;
         this.usernames = new ArrayList<>();
     }
@@ -95,11 +94,18 @@ public class Event implements Serializable {
     }
     /**
      * Changes the title of the event. Takes title as an input and replaces with the class attribute this.title.
+     * @param title is the title of the event.
      */
     public void setTitle(String title){
         this.title = title;
     }
-
+    /**
+     * Changes the title of the event. Takes title as an input and replaces with the class attribute this.title.
+     * @param speaker hosts the event
+     */
+    public void setSpeaker(String speaker){
+        this.speaker = speaker;
+    }
     /**
      * Changes the location of the event by replacing the existing location attribute with the input.
      * @param location is a String that tells where the event is held.
