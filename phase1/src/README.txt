@@ -20,7 +20,7 @@ Organizers are able to:
 - schedule the speakers to event in rooms by inputting 11 to select Schedule Speaker. Enter speaker name and enter the name of an existing event to add the speaker to.
 
 Speakers are able to:
-- see a list of talks that they are giving by inputting 15 to select View Lists OF Talks.
+- see a list of talks that they are giving by inputting 15 to select View Lists Of My Events.
 - message all Attendees by inputting 16. Prompts for choosing the event, sending message one attendee or multiple attendees will show up.
 
 Attendees are able to:

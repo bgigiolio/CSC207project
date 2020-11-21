@@ -1,15 +1,14 @@
 package Controllers;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.*;
-
-import Gateways.EventGateway;
-import Presenters.*;
+import Presenters.UserMenu;
 import UseCases.BuildingManager;
 import UseCases.EventManager;
 import UseCases.FriendsListUseCase;
 import UseCases.LoginUserManager;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Scanner;
 
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
@@ -50,6 +49,10 @@ public class AttendeeMenuController {
         if (role.equals("Organizer")) {
             menu.optionsAttendee();
             menu.optionsOrganizer();
+        }
+        if (role.equals("Speaker")){
+            menu.optionsAttendee();
+            menu.optionsSpeaker();
         }
         menuSelection();
     }
