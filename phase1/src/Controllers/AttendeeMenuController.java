@@ -222,6 +222,7 @@ public class AttendeeMenuController {
             return event.createEvent();
         }
 
+
     /**
      * This is where the user will decide what they want to do. The possible options are:
      * [1] See Event Schedule
@@ -334,10 +335,6 @@ public class AttendeeMenuController {
                     }
                     break;
 
-                case "15": //list of events
-                    if(this.role.equals("Speaker")) {
-                        this.menu.g
-                    }
 
                 default:
                     this.menu.invalidResponse();
