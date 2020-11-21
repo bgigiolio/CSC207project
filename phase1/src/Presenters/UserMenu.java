@@ -1,6 +1,7 @@
 package Presenters;
 
 import UseCases.BuildingManager;
+import UseCases.ListUseCase;
 
 import java.util.ArrayList;
 
@@ -50,6 +51,15 @@ public class UserMenu {
                 "[13] Message Event Attendees \n" +
                 "[14] Create Event");
     }
+    /**
+     * If the user is a speaker, this should be displayed along with optionsAttendee()
+     */
+    public void optionsSpeaker() {
+        System.out.println("---Speaker Specific Actions---");
+        System.out.println("[15] View List of My Events\n"+
+                "[16] Send Message");
+    }
+
 
     /**
      * Prompts the user to input a response
@@ -174,7 +184,9 @@ public class UserMenu {
     public void invalidRole(){
         System.out.println("This action is only available for organizers");
     }
-
+    public void EventsOfSpeaker(){
+        System.out.println(ListUseCase);
+    }
     public void logoutSuccess() {
         System.out.println("You Have Successfully Logged Out Of Your Account.");
     }

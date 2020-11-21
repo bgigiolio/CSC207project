@@ -1,15 +1,14 @@
 package Controllers;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.*;
-
-import Gateways.EventGateway;
-import Presenters.*;
+import Presenters.UserMenu;
 import UseCases.BuildingManager;
 import UseCases.EventManager;
-import UseCases.FriendsListUseCase;
+import UseCases.ListUseCase;
 import UseCases.LoginUserManager;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Scanner;
 
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
@@ -50,6 +49,10 @@ public class AttendeeMenuController {
         if (role.equals("Organizer")) {
             menu.optionsAttendee();
             menu.optionsOrganizer();
+        }
+        if (role.equals("Speaker")){
+            menu.optionsAttendee();
+            menu.optionsSpeaker();
         }
         menuSelection();
     }
@@ -155,7 +158,7 @@ public class AttendeeMenuController {
     }
     public void manageFriendsList(){
         this.menu.friendsList();
-        FriendsListUseCase friendsList = new FriendsListUseCase(manager.getAttendee(this.username));
+        ListUseCase friendsList = new ListUseCase(manager.getAttendee(this.username));
         String choice = new Scanner(System.in).nextLine();
         if(choice.equals("A")){
             this.menu.friendsListUsername();
@@ -330,6 +333,11 @@ public class AttendeeMenuController {
                         this.menu.invalidRole();
                     }
                     break;
+
+                case "15": //list of events
+                    if(this.role.equals("Speaker")) {
+                        this.menu.g
+                    }
 
                 default:
                     this.menu.invalidResponse();

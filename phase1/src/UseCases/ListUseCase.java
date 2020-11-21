@@ -1,17 +1,23 @@
 package UseCases;
 
 import Entities.Attendee;
+import Entities.Speaker;
 
-import java.lang.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class FriendsListUseCase {
+public class ListUseCase {
 
     private Attendee attendee;
+    private Speaker speaker;
 
-    public FriendsListUseCase(Attendee attendee){
+    public ListUseCase(Attendee attendee){
         this.attendee = attendee;
     }
+    public ListUseCase(Speaker speaker){
+        this.speaker = speaker;
+    }
+
 
     public Attendee getAttendee(){
         return this.attendee;
@@ -19,6 +25,13 @@ public class FriendsListUseCase {
     public void setAttendee(Attendee attendee){
         this.attendee = attendee;
     }
+    public Attendee getSpeaker(){
+        return this.speaker;
+    }
+    public void setSpeaker(Speaker speaker){
+        this.speaker = speaker;
+    }
+
 
     public void addFriend(String attendee){
         List<String> friendlist = this.attendee.getFriendList();
@@ -32,6 +45,10 @@ public class FriendsListUseCase {
         friendlist.remove(attendee);
         this.attendee.setFriendList(friendlist);
 
+    }
+
+    public ArrayList<String> getSpeakerEvents(){
+        return speaker.getTalks();
     }
 
 }
