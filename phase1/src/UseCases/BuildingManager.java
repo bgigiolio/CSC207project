@@ -26,6 +26,7 @@ public class BuildingManager {
         this.building = building;
     }
 
+
     /**
      * Adds a new (empty) room to this building by creating a new schedule from the parameters.
      * @param name The desired name of the room.
