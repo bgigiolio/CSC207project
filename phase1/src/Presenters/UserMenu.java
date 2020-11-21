@@ -175,40 +175,7 @@ public class UserMenu {
         System.out.println("This action is only available for organizers");
     }
 
-
-    //Not really sure why this is here vvvv Might remove.
-//    public void menuSelection() throws IOException {
-//        Scanner uname = new Scanner(System.in);
-//        boolean answered = false;
-//        while (!answered) {
-//            String response = uname.nextLine();
-//            switch (response) {
-//                case "1":
-//                    answered = true;
-//                    break;
-//                case "2":
-//                    answered = true;
-//                case "3":
-//                    answered = true;
-//                    signUpEvent();
-//                    break;
-//                case "4":
-//                    answered = true;
-//                    cancelEnrolEvent();
-//                    break;
-//                case "5": //send message
-//                    answered = true;
-//                    break;
-//                case "6": //review messages
-//                    answered = true;
-//                    break;
-//                case "7": //Manage Friends List
-//                    answered = true;
-//                    break;
-//                default:
-//                    System.out.println("Invalid response! Please Try again");
-//                    break;
-//            }
-//        }
-//    }
+    public void logoutSuccess() {
+        System.out.println("You Have Successfully Logged Out Of Your Account.");
+    }
 }

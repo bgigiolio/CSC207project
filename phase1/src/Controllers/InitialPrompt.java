@@ -88,7 +88,6 @@ public class InitialPrompt {
         } else {
             AttendeeMenuController attendeeMenuController =
                     new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
-            UserMenu userMenu = new UserMenu(this.username);
             attendeeMenuController.homepage();
         }
     }
