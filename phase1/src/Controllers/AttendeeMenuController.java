@@ -284,19 +284,35 @@ public class AttendeeMenuController {
                     loggedOut = true;
                     break;
                 case "9": //create speaker account
-                    addSpeaker();
+                    if(this.role.equals("Organizer")) {
+                        addSpeaker();
+                    }else{
+                        this.menu.invalidRole();
+                    }
                     break;
                 case "10": //add room
-                    if(!addRoom()){
-                        this.menu.invalidResponse();
+                    if(this.role.equals("Organizer")) {
+                        if(!addRoom()){
+                            this.menu.invalidResponse();
+                        }
+                    }else{
+                        this.menu.invalidRole();
                     }
                     break;
                 case "11": //schedule speaker
-                    scheduleSpeaker();
+                    if(this.role.equals("Organizer")) {
+                        scheduleSpeaker();
+                    }else{
+                        this.menu.invalidRole();
+                    }
                     break;
                 case "12": //Remove Event
-                    if(!removeEvent()){
-                        this.menu.invalidResponse();
+                    if(this.role.equals("Organizer")) {
+                        if(!removeEvent()){
+                            this.menu.invalidResponse();
+                        }
+                    }else{
+                        this.menu.invalidRole();
                     }
                     //Not really sure whats happening here
                     break;
@@ -304,8 +320,12 @@ public class AttendeeMenuController {
                     //TODO: Implement this
                     break;
                 case "14": //add event
-                    if(!createEvent()){
-                        this.menu.invalidResponse();
+                    if(this.role.equals("Organizer")) {
+                        if(!createEvent()){
+                            this.menu.invalidResponse();
+                        }
+                    }else{
+                        this.menu.invalidRole();
                     }
                     break;
 

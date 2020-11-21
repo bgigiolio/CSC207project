@@ -171,6 +171,9 @@ public class UserMenu {
     public void friendsListUsername(){
         System.out.println("What is their username?");
     }
+    public void invalidRole(){
+        System.out.println("This action is only available for organizers");
+    }
 
 
     //Not really sure why this is here vvvv Might remove.
