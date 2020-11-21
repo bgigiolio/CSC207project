@@ -283,6 +283,7 @@ public class AttendeeMenuController {
                 case "8": //logout
                     menu.logoutSuccess();
                     new InitialPrompt(new BuildingController("Building").getBuilding()).startProgram();
+                    loggedOut = true;
                     break;
                 case "9": //create speaker account
                     if(this.role.equals("Organizer")) {
