@@ -42,6 +42,7 @@ public class UserLoginInfo implements Serializable{
      * @return loginUserManager object that stores the existing users' login information.
      */
     public LoginUserManager getFileUserLoginInfo(String filePath) throws IOException {
+
         try{
             InputStream file = new FileInputStream(filePath);
             InputStream buffer = new BufferedInputStream(file);
@@ -49,10 +50,10 @@ public class UserLoginInfo implements Serializable{
 
             loginUserManager = ((LoginUserManager) input.readObject());
             input.close();
-        } catch (FileNotFoundException | ClassNotFoundException  e){
+        } catch (FileNotFoundException | ClassNotFoundException e){
             e.printStackTrace();
             System.out.println("Existing user login info database is returned");
-        }
+        } catch (EOFException ignored) {}
         return loginUserManager;
     }
 
