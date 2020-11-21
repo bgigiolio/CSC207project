@@ -8,6 +8,7 @@ import Gateways.EventGateway;
 import Presenters.*;
 import UseCases.BuildingManager;
 import UseCases.EventManager;
+import UseCases.FriendsListUseCase;
 import UseCases.LoginUserManager;
 
 //These UI classes are just thrown together to make running the program a bit easier.
@@ -151,6 +152,23 @@ public class AttendeeMenuController {
         OrganizerMessageController messager = new OrganizerMessageController(this.manager.getAttendee(this.username));
         String event = new Scanner(System.in).nextLine();
         return true;
+    }
+    public void manageFriendsList(){
+        this.menu.friendsList();
+        FriendsListUseCase friendsList = new FriendsListUseCase(manager.getAttendee(this.username));
+        String choice = new Scanner(System.in).nextLine();
+        if(choice.equals("A")){
+            this.menu.friendsListUsername();
+            String username = new Scanner(System.in).nextLine();
+            friendsList.addFriend(username);
+        }else if(choice.equals("R")){
+            this.menu.friendsListUsername();
+            String username = new Scanner(System.in).nextLine();
+            friendsList.removeFriend(username);
+        }else{
+            this.menu.invalidResponse();
+        }
+
     }
     public boolean createEvent() {
         this.menu.createEventName();

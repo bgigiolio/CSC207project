@@ -165,6 +165,12 @@ public class UserMenu {
     public void createEventSpeakerName(){
         System.out.println("What is the speaker's name?");
     }
+    public void friendsList(){
+        System.out.println("Would you like to add or remove someone from the friends list? Type A or R");
+    }
+    public void friendsListUsername(){
+        System.out.println("What is their username?");
+    }
 
 
     //Not really sure why this is here vvvv Might remove.
