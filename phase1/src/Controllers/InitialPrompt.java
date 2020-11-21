@@ -71,6 +71,9 @@ public class InitialPrompt {
             }else if(response2.equalsIgnoreCase("A") || response2.equalsIgnoreCase("[A]")){
                 answered2 = true;
                 this.role = "Attendee";
+            }else if(response2.equals("S") || response2.equalsIgnoreCase("[S]")){
+                answered2 = true;
+                this.role = "Speaker";
             }
         }
         this.username = this.Menu.usernamePrompt();
