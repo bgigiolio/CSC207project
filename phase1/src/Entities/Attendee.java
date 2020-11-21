@@ -1,7 +1,5 @@
 package Entities;
 
-import UseCases.*;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +112,7 @@ public class Attendee implements Serializable {
      * @return friendList of current user.
      */
     public List<String> getFriendList() { return this.friendList; }
+    public void setFriendList(List<String> friendlist) { this.friendList = friendlist; }
 
 
     // test to check class works as expected
