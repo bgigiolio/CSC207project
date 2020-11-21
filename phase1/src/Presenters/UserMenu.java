@@ -31,7 +31,7 @@ public class UserMenu {
         System.out.println("[1] See Event Schedule\n" +
                 "[2] Review Your Events Schedule\n" +
                 "[3] Sign Up For Event\n" +
-                "[4] Cancel Event attendance\n" +
+                "[4] Cancel Event Attendance\n" +
                 "[5] Send Message\n" +
                 "[6] Review Messages\n" +
                 "[7] Manage Friends List\n" +
