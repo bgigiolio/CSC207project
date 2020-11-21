@@ -3,8 +3,9 @@ package Controllers;
 import Presenters.UserMenu;
 import UseCases.BuildingManager;
 import UseCases.EventManager;
-import UseCases.FriendsListUseCase;
+import UseCases.ListUseCase;
 import UseCases.LoginUserManager;
+import com.sun.tools.corba.se.idl.constExpr.Or;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -158,7 +159,7 @@ public class AttendeeMenuController {
     }
     public void manageFriendsList(){
         this.menu.friendsList();
-        FriendsListUseCase friendsList = new FriendsListUseCase(manager.getAttendee(this.username));
+        ListUseCase friendsList = new ListUseCase(manager.getAttendee(this.username));
         String choice = new Scanner(System.in).nextLine();
         if(choice.equals("A")){
             this.menu.friendsListUsername();
@@ -220,6 +221,19 @@ public class AttendeeMenuController {
             LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
             EventController event = new EventController(eventName, speaker, roomName, d, building.getSchedule(roomName));
             return event.createEvent();
+        }
+
+        public boolean organizerMessageAll() throws IOException {
+            if(this.role.equals("Organizer")) {
+                menu.sendMessageContent();
+                String content = new Scanner(System.in).nextLine();
+                new OrganizerMessageController(this.manager.getAttendee(this.username)).
+                        toAllAttendee(content, manager);
+                return true;
+            } else {
+                this.menu.invalidResponse();
+                return false;
+            }
         }
 
     /**
@@ -321,8 +335,8 @@ public class AttendeeMenuController {
                     }
                     //Not really sure whats happening here
                     break;
-                case "13": //Message Event Attendees
-                    //TODO: Implement this
+                case "13": //Message All Attendees
+                    organizerMessageAll();
                     break;
                 case "14": //add event
                     if(this.role.equals("Organizer")) {
@@ -333,6 +347,11 @@ public class AttendeeMenuController {
                         this.menu.invalidRole();
                     }
                     break;
+
+                case "15": //list of events
+                    if(this.role.equals("Speaker")) {
+                        this.menu.g
+                    }
 
                 default:
                     this.menu.invalidResponse();
