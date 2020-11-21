@@ -281,7 +281,8 @@ public class AttendeeMenuController {
                     manageFriendsList();
                     break;
                 case "8": //logout
-                    loggedOut = true;
+                    menu.logoutSuccess();
+                    new InitialPrompt(new BuildingController("Building").getBuilding()).startProgram();
                     break;
                 case "9": //create speaker account
                     if(this.role.equals("Organizer")) {
