@@ -12,7 +12,7 @@ import java.util.*;
  * @version Phase1
  */
 public class BuildingManager {
-    private HashMap<String, Schedule> building;
+    private final HashMap<String, Schedule> building;
     private final String buildingName;
 
 
