@@ -16,21 +16,19 @@ public class OrganizerMessageController {
         this.organizer = organizer;
     }
 
-    public void toOneSpeaker(String oneSpeaker, String inputMessage, String outboxFilePath,
-                             String inboxFilePath) throws IOException {
+    public void toOneSpeaker(String oneSpeaker, String inputMessage) throws IOException {
         MessageController send = new MessageController(this.organizer.getUsername(), oneSpeaker,
                 inputMessage);
         send.sendMessage();
     }
 
-    public void toOneAttendee(String oneAttendee, String inputMessage, String outboxFilePath,
-                              String inboxFilePath) throws IOException {
+    public void toOneAttendee(String oneAttendee, String inputMessage) throws IOException {
         MessageController send = new MessageController(this.organizer.getUsername(),
                 oneAttendee, inputMessage);
                 send.sendMessage();
     }
 
-    public void toFriends(String inputMessage, String outboxFilePath, String inboxFilePath) throws IOException {
+    public void toFriends(String inputMessage) throws IOException {
         for(int i = 0; i < this.organizer.getNumOfFriends(); i ++){
             MessageController send = new MessageController(this.organizer.getUsername(),
                     this.organizer.getFriendList().get(i), inputMessage);
@@ -38,8 +36,7 @@ public class OrganizerMessageController {
         }
     }
 
-    public void toAllSpeaker(String inputMessage, String outboxFilePath, String inboxFilePath,
-                             LoginUserManager manager) throws IOException {
+    public void toAllSpeaker(String inputMessage, LoginUserManager manager) throws IOException {
         HashMap<String, Attendee> users = manager.getCredentialsMap();
         for(String username : users.keySet()){     //accessing entities through a controller - no good
             if(manager.userRole(username).equals("speaker")){
@@ -50,8 +47,7 @@ public class OrganizerMessageController {
         }
     }
 
-    public void toAllAttendee(String inputMessage, String outboxFilePath, String inboxFilePath,
-                              LoginUserManager manager) throws IOException {
+    public void toAllAttendee(String inputMessage, LoginUserManager manager) throws IOException {
         HashMap<String, Attendee> users = manager.getCredentialsMap();
         for (String username : users.keySet()){ //same here!!
             if(manager.userRole(username).equals("attendee")){
