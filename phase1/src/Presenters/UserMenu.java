@@ -1,11 +1,8 @@
 package Presenters;
 
-import Controllers.EventStatusChanger;
 import UseCases.BuildingManager;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * <h1>User Menu</h1>
@@ -31,11 +28,11 @@ public class UserMenu {
      */
     public void optionsAttendee() {
         System.out.println("---General Actions---");
-        System.out.println("[1] See Entities.Event UseCases.Schedule\n" +
+        System.out.println("[1] See Event Schedule\n" +
                 "[2] Review Your Events Schedule\n" +
-                "[3] Sign Up For Entities.Event\n" +
-                "[4] Cancel Entities.Event\n" +
-                "[5] Send Entities.Message\n" +
+                "[3] Sign Up For Event\n" +
+                "[4] Cancel Event attendance\n" +
+                "[5] Send Message\n" +
                 "[6] Review Messages\n" +
                 "[7] Manage Friends List\n" +
                 "[8] Logout\n");
