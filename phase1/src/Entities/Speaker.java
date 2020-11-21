@@ -33,7 +33,7 @@ public class Speaker extends Attendee {
     public Speaker(String username, String password) {
         super(username, password);
         this.talks = new ArrayList<>();
-        this.role = "speaker";
+        this.role = "Speaker";
     }
 
     /**
@@ -48,7 +48,7 @@ public class Speaker extends Attendee {
      * Returns a shallow copy of the list containing talk IDs
      * @return shallow copy of <code>talks</code>
      */
-    public Object getTalks(){
-        return this.talks.clone();
+    public ArrayList<String> getTalks(){
+        return this.talks;
     }
 }

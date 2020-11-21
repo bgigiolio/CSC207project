@@ -3,7 +3,7 @@ package Controllers;
 import Presenters.UserMenu;
 import UseCases.BuildingManager;
 import UseCases.EventManager;
-import UseCases.FriendsListUseCase;
+import UseCases.ListUseCase;
 import UseCases.LoginUserManager;
 
 import java.io.IOException;
@@ -158,7 +158,7 @@ public class AttendeeMenuController {
     }
     public void manageFriendsList(){
         this.menu.friendsList();
-        FriendsListUseCase friendsList = new FriendsListUseCase(manager.getAttendee(this.username));
+        ListUseCase friendsList = new ListUseCase(manager.getAttendee(this.username));
         String choice = new Scanner(System.in).nextLine();
         if(choice.equals("A")){
             this.menu.friendsListUsername();
@@ -333,6 +333,11 @@ public class AttendeeMenuController {
                         this.menu.invalidRole();
                     }
                     break;
+
+                case "15": //list of events
+                    if(this.role.equals("Speaker")) {
+                        this.menu.g
+                    }
 
                 default:
                     this.menu.invalidResponse();
