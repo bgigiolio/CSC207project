@@ -15,7 +15,6 @@ public class BuildingManager {
     private final HashMap<String, Schedule> building;
     private final String buildingName;
 
-
     /**
      * This constructor takes in the desired name for the building and creates an empty
      * map of schedules.
@@ -24,9 +23,7 @@ public class BuildingManager {
     public BuildingManager(String buildingName){
         HashMap<String, Schedule> building = new HashMap<>();
         this.buildingName = buildingName;
-        this.building = building;
     }
-
 
     /**
      * Adds a new (empty) room to this building by creating a new schedule from the parameters.

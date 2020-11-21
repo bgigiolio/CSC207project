@@ -5,29 +5,17 @@ import Entities.*;
 import java.io.*;
 import java.util.*;
 
-/**
- * Allows a user to log in, log out, and allows other classes to access information about the user
- */
 public class LoginUserManager implements Serializable {
     /**
      * A Hashmap that maps a user's username to its corresponding Attendee object.
      */
     private HashMap<String, Attendee> credentialsMap;  //need for organizer message controller
 
-    /**
-     * Creates a new credentials map
-     */
     public LoginUserManager(){
         this.credentialsMap = new HashMap<>();
     }
 
-    /**
-     * Allows us to create a new user by logging in with new credentials
-     * @param username The username of the new user
-     * @param password The password of the new user
-     * @param role The new users role
-     * @return True if the user was created, false if it wasn't.
-     */
+    //long method, need to simplify later
     public boolean registerUser(String username, String password, String role) {
         if (!credentialsMap.containsKey(username)) {
             HashMap<String, Attendee> newUser = new HashMap<>();
@@ -63,13 +51,6 @@ public class LoginUserManager implements Serializable {
         return false;
     }
 
-    /**
-     * Logs a user in using existing credentials.
-     * @param username The users username
-     * @param password The users password
-     * @return stuff
-     * @throws IOException accounts for input
-     */
     public boolean loginUser(String username, String password) throws IOException {
         Attendee res = credentialsMap.get(username);
 
@@ -77,7 +58,6 @@ public class LoginUserManager implements Serializable {
         if (res != null && res.getPassword().equals(password)) {
             res.setLoggedIn(true);
             return true;
-
         }
         else
             return false;
