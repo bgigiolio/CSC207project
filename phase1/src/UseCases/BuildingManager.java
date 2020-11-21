@@ -23,6 +23,7 @@ public class BuildingManager {
     public BuildingManager(String buildingName){
         HashMap<String, Schedule> building = new HashMap<>();
         this.buildingName = buildingName;
+        this.building = building;
     }
 
     /**
