@@ -2,9 +2,9 @@ package Controllers;
 import UseCases.*;
 
 /**
- * <h1>EventGateway</h1>
- * This Gateway class is responsible for retrieving and storing a copy of the building in the Events.ser file.
- * This should only be called by the ImportExportController.
+ * <h1>BuildingController</h1>
+ * This controller class is responsible for calling the necessary methods in BuildingManager to manage th information of a building.
+ * This should only interact with the BuildingManager class and AttendeeMenuController.
  * @author Zachary Werle
  * @version Phase 1
  */
