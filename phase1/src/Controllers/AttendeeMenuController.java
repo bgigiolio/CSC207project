@@ -278,7 +278,7 @@ public class AttendeeMenuController {
                 }
                     break;
                 case "7": //Manage Friends List
-                    //TODO: Implement this!!
+                    manageFriendsList();
                     break;
                 case "8": //logout
                     loggedOut = true;
