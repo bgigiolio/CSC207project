@@ -85,13 +85,16 @@ public class UserMenu {
     }
 
     /**
-     * This is what the user should see if they choose to sign up for an event.
+     * This is what the user should see if they choose to sign up for or cancel enrollment in an event.
      */
     public void eventPrompt(String action) {
         if (action.equals("sign up")) {
             System.out.println("Please enter the name of event you want to sign up for:");
         } else { System.out.println("Please enter the name of event you want to cancel:"); } }
 
+    /**
+     * This is what the user should see after signing up for an event.
+     */
     public void signUpEventStatus(String eventTitle, String status) {
         if (status.equals("1")) {
         System.out.println("You have successfully signed up for the event " + eventTitle + ".");
@@ -100,6 +103,9 @@ public class UserMenu {
                     "[1] Go back \n[2] Enter another event");}
     }
 
+    /**
+     * This is what the user should see after cancelling their enrollment in an event.
+     */
     public void cancelEnrolStatus(String eventTitle, String status) {
         if (status.equals("1")) {
             System.out.println("You have successfully cancelled your enrollment in " + eventTitle + ".");
@@ -108,21 +114,42 @@ public class UserMenu {
                     "[1] Go back \n[2] Enter another event");
         }
     }
+
+    /**
+     * This is what the user should see if they choose to remove an event.
+     */
     public void manageEvent(){
         System.out.println("Which event would you like to remove?");
     }
+
+    /**
+     * This is what the user should see if they choose to send a message to a specific user.
+     */
     public void sendMessageUser(){
         System.out.println("Which user would you like to send a message to?");
     }
+
+    /**
+     * This is what the user should when they are asked to input a to message content.
+     */
     public void sendMessageContent(){
         System.out.println("What would you like to send them?");
     }
+
+    /**
+     * Print print on screen.
+     */
     public void printSomething(String print){
         System.out.println(print);
     }
+
+    /**
+     * This is what the user should see for inputting a room name if they choose to create a room.
+     */
     public void createRoomName(){
         System.out.println("What will this room be called?");
     }
+
     public void createRoomStart(){
         System.out.println("When should this room open?");
         System.out.println("Please type a number between 0 and 24");
