@@ -5,7 +5,6 @@ import UseCases.BuildingManager;
 import UseCases.EventManager;
 import UseCases.ListUseCase;
 import UseCases.LoginUserManager;
-import com.sun.tools.corba.se.idl.constExpr.Or;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -223,18 +222,6 @@ public class AttendeeMenuController {
             return event.createEvent();
         }
 
-        public boolean organizerMessageAll() throws IOException {
-            if(this.role.equals("Organizer")) {
-                menu.sendMessageContent();
-                String content = new Scanner(System.in).nextLine();
-                new OrganizerMessageController(this.manager.getAttendee(this.username)).
-                        toAllAttendee(content, manager);
-                return true;
-            } else {
-                this.menu.invalidResponse();
-                return false;
-            }
-        }
 
     /**
      * This is where the user will decide what they want to do. The possible options are:
@@ -335,8 +322,8 @@ public class AttendeeMenuController {
                     }
                     //Not really sure whats happening here
                     break;
-                case "13": //Message All Attendees
-                    organizerMessageAll();
+                case "13": //Message Event Attendees
+                    //TODO: Implement this
                     break;
                 case "14": //add event
                     if(this.role.equals("Organizer")) {
@@ -348,10 +335,6 @@ public class AttendeeMenuController {
                     }
                     break;
 
-                case "15": //list of events
-                    if(this.role.equals("Speaker")) {
-                        this.menu.g
-                    }
 
                 default:
                     this.menu.invalidResponse();

@@ -1,7 +1,6 @@
 package Presenters;
 
 import UseCases.BuildingManager;
-import UseCases.ListUseCase;
 
 import java.util.ArrayList;
 
@@ -183,9 +182,6 @@ public class UserMenu {
     }
     public void invalidRole(){
         System.out.println("This action is only available for organizers");
-    }
-    public void EventsOfSpeaker(){
-        System.out.println(ListUseCase);
     }
     public void logoutSuccess() {
         System.out.println("You Have Successfully Logged Out Of Your Account.");

@@ -77,6 +77,7 @@ public class LoginUserManager implements Serializable {
         if (res != null && res.getPassword().equals(password)) {
             res.setLoggedIn(true);
             return true;
+
         }
         else
             return false;
