@@ -115,6 +115,11 @@ public class BuildingManager {
         return s;
     }
 
+    /**
+     * Return events attended by user in this building
+     * @param username user's username
+     * @return list of event titles user is attending
+     */
     public ArrayList<String> eventsAttending(String username){
         ArrayList<String> events = new ArrayList<>();
         Iterator<Schedule> iterator = new ScheduleIterator();

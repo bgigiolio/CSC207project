@@ -49,6 +49,7 @@ public class InitialPrompt {
         Scanner uname = new Scanner(System.in);
         this.presenter = new StartingMenu();
         this.presenter.initialPrompt();
+
         while (!answered) {
             String response = uname.nextLine();
             if (response.equalsIgnoreCase("N") || response.equalsIgnoreCase("[N]")) {
