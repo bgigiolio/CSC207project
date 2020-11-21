@@ -144,16 +144,23 @@ public class UserMenu {
     }
 
     /**
-     * This is what the user should see for inputting a room name if they choose to create a room.
+     * This is what the user should see for inputting a room name if they choose to create an event.
      */
     public void createRoomName(){
         System.out.println("What will this room be called?");
     }
 
+    /**
+     * This is what the user should see for inputting the event start time if they choose to create an event.
+     */
     public void createRoomStart(){
         System.out.println("When should this room open?");
         System.out.println("Please type a number between 0 and 24");
     }
+
+    /**
+     * This is what the user should see for inputting the event end time if they choose to create an event.
+     */
     public void createRoomEnd(int start){
         System.out.println("When should this room close?");
         System.out.println("Please type a number between " + start + " and 24");
