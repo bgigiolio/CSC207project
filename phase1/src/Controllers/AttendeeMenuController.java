@@ -129,11 +129,12 @@ public class AttendeeMenuController {
     }
     public void scheduleSpeaker(){
         this.menu.createSpeakerName();
-        Scanner speakername = new Scanner(System.in);
+        String speakername = new Scanner(System.in).nextLine();
         this.menu.enterEvent();
-        Scanner eventname = new Scanner(System.in);
-        //Event event = building.getEvent(eventname.nextLine());
-        //TODO: Convert to Talk and then add Speaker
+        String eventname = new Scanner(System.in).nextLine();
+        EventManager manager = new EventManager(building.getEvent(eventname), building);
+        manager.addSpeaker(speakername);
+
     }
     public boolean removeEvent(){
         this.menu.manageEvent();
