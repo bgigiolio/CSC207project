@@ -49,7 +49,7 @@ public class UserLoginInfo implements Serializable{
 
             loginUserManager = ((LoginUserManager) input.readObject());
             input.close();
-        } catch (FileNotFoundException | ClassNotFoundException | EOFException | InvalidClassException e){
+        } catch (FileNotFoundException | ClassNotFoundException | EOFException  e){
             e.printStackTrace();
             System.out.println("Existing user login info database is returned");
         }
