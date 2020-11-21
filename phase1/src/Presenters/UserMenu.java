@@ -46,8 +46,9 @@ public class UserMenu {
         System.out.println("[9] Create Speaker\n" +
                 "[10] Add Room\n" +
                 "[11] Schedule Speaker\n" +
-                "[12] Manage Event \n" +
-                "[13] Message Event Attendees");
+                "[12] Remove Event \n" +
+                "[13] Message Event Attendees \n" +
+                "[14] Create Event");
     }
 
     /**
