@@ -254,11 +254,11 @@ public class AttendeeMenuController {
      * @throws IOException Handles the Scanner.
      */
     public void menuSelection() throws IOException, ClassNotFoundException {
+        homepage();
         Scanner uname = new Scanner(System.in);
         boolean loggedOut = false;
         while (!loggedOut) {
             String response = uname.nextLine();
-            homepage();
             switch (response) {
                 case "1":
                     this.menu.printBuildingSchedule(this.building);
@@ -350,6 +350,7 @@ public class AttendeeMenuController {
                     this.menu.invalidResponse();
                     break;
             }
+            homepage();
         }
     }
 }
