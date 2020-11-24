@@ -45,7 +45,7 @@ public class BuildingManager {
      * @return Returns true if the room was successfully added and false if it wasn't.
      */
     public boolean addRoom2(String name, Schedule sched){
-        if(building.containsKey(name)){
+        if(!building.containsKey(name)){
             building.put(name, sched);
             return true;
         }
