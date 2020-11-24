@@ -10,7 +10,7 @@ import java.util.HashMap;
  * <h1>Message Gateway</h1>
  * MessageGateway is a gateway class that interacts with outside file to store messages as inbox and outbox of users.
  * @author Qi Zheng
- * @version Phase1
+ * @version Phase2
  */
 
 
@@ -30,8 +30,8 @@ public class MessageGateway implements Serializable{
     public MessageGateway(){
         this.inbox = new HashMap<>();
         this.outbox = new HashMap<>();
-        this.inboxPath = "phase1\\src\\DB\\InboxMessage.ser";
-        this.outboxPath = "phase1\\src\\DB\\OutboxMessage.ser";
+        this.inboxPath = "phase2\\src\\DB\\InboxMessage.ser";
+        this.outboxPath = "phase2\\src\\DB\\OutboxMessage.ser";
     }
 
     /**
