@@ -187,38 +187,38 @@ public class AttendeeMenuController {
         String hourString = new Scanner(System.in).nextLine();
         this.menu.createEventSpeaker();
         String response = new Scanner(System.in).nextLine();
-        String speaker = "None";
+        String speaker = "John";
         if (response.equals("Y") || response.equals("y")) {
             this.menu.createEventSpeakerName();
-        }
             speaker = new Scanner(System.in).nextLine();
-            int year;
-            int month;
-            int day;
-            int hour;
-            try {
-                year = Integer.parseInt(yearString);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-            try {
-                month = Integer.parseInt(monthString);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-            try {
-                day = Integer.parseInt(dayString);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-            try {
-                hour = Integer.parseInt(hourString);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-            LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
-            EventController event = new EventController(eventName, speaker, roomName, d, building.getSchedule(roomName));
-            return event.createEvent();
+        }
+        int year;
+        int month;
+        int day;
+        int hour;
+        try {
+            year = Integer.parseInt(yearString);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        try {
+            month = Integer.parseInt(monthString);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        try {
+            day = Integer.parseInt(dayString);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        try {
+            hour = Integer.parseInt(hourString);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
+        EventController event = new EventController(eventName, speaker, roomName, d, building.getSchedule(roomName));
+        return event.createEvent();
         }
 
         public boolean organizerMessageAll() throws IOException {

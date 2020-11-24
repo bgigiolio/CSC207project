@@ -26,6 +26,7 @@ public class EventManager {
      */
     public EventManager(String title, String speaker,String location, LocalDateTime datetime, Schedule sched){
         this.event= new Event(title, speaker,location, datetime);
+        this.schedule = sched;
     }
 
     /**
