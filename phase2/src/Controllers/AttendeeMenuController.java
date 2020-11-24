@@ -354,6 +354,8 @@ public class AttendeeMenuController {
                     this.menu.invalidResponse();
                     break;
             }
+            ImportExportEventController saveBuilding = new ImportExportEventController();
+            saveBuilding.exportEvents(this.building);
             this.menu.promptAgain();
 
         }
