@@ -1,6 +1,7 @@
 package UseCases;
 import Entities.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -11,7 +12,7 @@ import java.util.*;
  * @author Blake Gigiolio
  * @version Phase1
  */
-public class BuildingManager {
+public class BuildingManager implements Serializable {
     private final HashMap<String, Schedule> building;
     private final String buildingName;
 
