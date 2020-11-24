@@ -18,7 +18,7 @@ public class EventGateway implements Serializable {
      * @throws ClassNotFoundException Handles the case where no serializable class is found.
      */
     public BuildingManager getEvents() throws ClassNotFoundException {
-        BuildingManager events = new BuildingManager("0");
+        BuildingManager events = new BuildingManager("Building");
         try {
             InputStream file = new FileInputStream("phase2/src/DB/Events.ser");
             InputStream buffer = new BufferedInputStream(file);
@@ -27,7 +27,7 @@ public class EventGateway implements Serializable {
             events = (BuildingManager) input.readObject();
             input.close();
         } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+            return events;
         }
         return events;
     }
