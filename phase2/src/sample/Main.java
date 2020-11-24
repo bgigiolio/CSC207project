@@ -17,8 +17,12 @@ public class Main extends Application {
         primaryStage.setTitle("Login");
         button = new Button();
         button.setText("New user");
-        //primaryStage.setScene(new Scene(root, 300, 275));
-        //primaryStage.show();
+        StackPane layout = new StackPane();
+        layout.getChildren().add(button);
+
+        Scene scene = new Scene(layout, 300, 250);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 
