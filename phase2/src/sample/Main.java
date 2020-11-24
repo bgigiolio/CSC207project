@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
@@ -16,8 +17,8 @@ public class Main extends Application {
         primaryStage.setTitle("Login");
         button = new Button();
         button.setText("New user");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+        //primaryStage.setScene(new Scene(root, 300, 275));
+        //primaryStage.show();
     }
 
 
