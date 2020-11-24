@@ -1,6 +1,8 @@
 package UseCases;
 
 import Entities.*;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -12,7 +14,7 @@ import java.util.*;
  * @author Blake Gigiolio
  * @version phase1
  */
-public class Schedule {
+public class Schedule implements Serializable {
     /**
      * Store event and time
      */
