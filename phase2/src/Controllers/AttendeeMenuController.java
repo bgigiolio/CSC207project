@@ -349,6 +349,7 @@ public class AttendeeMenuController {
                 case"a":
                 case"A":
                     homepage();
+                    break;
                 default:
                     this.menu.invalidResponse();
                     break;
