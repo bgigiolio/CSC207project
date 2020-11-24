@@ -54,7 +54,6 @@ public class AttendeeMenuController {
             menu.optionsAttendee();
             menu.optionsSpeaker();
         }
-        menuSelection();
     }
 
     /**
@@ -259,6 +258,7 @@ public class AttendeeMenuController {
         boolean loggedOut = false;
         while (!loggedOut) {
             String response = uname.nextLine();
+            homepage();
             switch (response) {
                 case "1":
                     this.menu.printBuildingSchedule(this.building);

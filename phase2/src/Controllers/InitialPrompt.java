@@ -80,16 +80,9 @@ public class InitialPrompt {
         this.password = this.Menu.passwordPrompt();
         login();
         LoginUserManager manager = new LoginUserManager();
-        if (this.role.equals("Organizer")) {
-            AttendeeMenuController organizerMenu =
-                    new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
-            organizerMenu.homepage();
-            organizerMenu.menuSelection();
-        } else {
-            AttendeeMenuController attendeeMenuController =
-                    new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
-            attendeeMenuController.homepage();
-        }
+        AttendeeMenuController organizerMenu =
+                new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
+        organizerMenu.menuSelection();
     }
 
     /**
