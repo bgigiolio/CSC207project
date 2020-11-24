@@ -195,6 +195,10 @@ public class UserMenu {
         System.out.println("What month is this event in?");
         System.out.println("please answer as a number between 1 and 12");
     }
+    public void promptAgain(){
+        System.out.println("Operation Completed!");
+        System.out.println("Type A to see menu again, or select another option.");
+    }
     public void createEventDay(){
         System.out.println("Which day is this event taking place");
         System.out.println("please answer as a number between 1 and 31");

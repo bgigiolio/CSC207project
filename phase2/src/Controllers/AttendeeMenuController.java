@@ -346,11 +346,15 @@ public class AttendeeMenuController {
                         this.menu.invalidRole();
                     }
                     break;
+                case"a":
+                case"A":
+                    homepage();
                 default:
                     this.menu.invalidResponse();
                     break;
             }
-            homepage();
+            this.menu.promptAgain();
+
         }
     }
 }
