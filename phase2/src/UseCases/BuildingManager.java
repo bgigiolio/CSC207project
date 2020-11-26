@@ -92,7 +92,7 @@ public class BuildingManager implements Serializable {
         return e;
     }
 
-    // TODO: Utkarsh: Impliment this in order to remove events properly.
+    // TODO: Utkarsh: Implement this in order to remove events properly.
     public Event getEventInRoom(String event, String roomname){
         Iterator<Schedule> iterator = new ScheduleIterator();
         Event e = null;
@@ -105,8 +105,8 @@ public class BuildingManager implements Serializable {
         return e;
     }
 
-    // TODO: Utkarsh: Impliment this in order to remove events properly.
-    public Event getEventInRoomatDatetime(String event, String roomname, LocalDateTime dt){
+    // TODO: Utkarsh: Implement this in order to remove events properly.
+    public Event getEventInRoomAtDatetime(String event, String roomname, LocalDateTime dt){
         Iterator<Schedule> iterator = new ScheduleIterator();
         Event e = null;
         while(iterator.hasNext()){
