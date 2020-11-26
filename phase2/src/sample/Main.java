@@ -2,13 +2,12 @@ package sample;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -26,7 +25,6 @@ public class Main extends Application {
 //        button.setText("New user");
 //        StackPane layout = new StackPane();
 //        layout.getChildren().add(button);
-//
 
         newButton = new Button("New User");
         returningButton = new Button("Returning User");
@@ -46,8 +44,19 @@ public class Main extends Application {
         returningButton.setOnAction(event -> {
             System.out.println("returning button");
         });
+
+//        newButton.setOnAction(this::handle);
+//        returningButton.setOnAction(this::handle);
     }
 
+//    public void handle(ActionEvent event){
+//        if (event.getSource() == newButton){
+//            System.out.println("what's different than setOnAction?");
+//        }
+//        else if (event.getSource() == returningButton){
+//            System.out.println("what's different than setOnAction?");
+//        }
+//    }
 
     public static void main(String[] args) {
         launch(args);
