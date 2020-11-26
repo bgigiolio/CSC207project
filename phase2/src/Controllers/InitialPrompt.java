@@ -74,11 +74,15 @@ public class InitialPrompt {
             }else if(response2.equalsIgnoreCase("S") || response2.equalsIgnoreCase("[S]")){
                 answered2 = true;
                 this.role = "Speaker";
+            } else {
+                this.presenter.failedPrompt();
             }
         }
-        this.username = this.Menu.usernamePrompt();
-        this.password = this.Menu.passwordPrompt();
-        login();
+        if (this.Menu instanceof NewUserController) {
+            register();
+        } else {
+            login();
+        }
         LoginUserManager manager = new LoginUserManager();
         AttendeeMenuController organizerMenu =
                 new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
@@ -90,12 +94,36 @@ public class InitialPrompt {
      * @throws IOException Handles Scanner.
      */
     private void login() throws IOException, ClassNotFoundException {
+        this.username = this.Menu.usernamePrompt();
+        this.password = this.Menu.passwordPrompt();
         if (Menu.logReg(this.username, this.password, this.role)) {
             this.presenter.loggedInPrompt();
             System.out.println("Welcome " + this.username + "!");
-        }else{
+        }
+        else {
             this.presenter.failedPrompt();
             startProgram();
         }
+    }
+
+    private void register() throws IOException {
+        LoginSystem log = new LoginSystem();
+        boolean answered = false;
+        this.presenter.uPrompt();
+        this.username = this.Menu.usernamePrompt();
+        while (!answered) {
+            if (log.usernameExist(username)) {
+                presenter.usernameUsed();
+                this.username = this.Menu.usernamePrompt();
+            } else {
+                answered = true;
+            }
+        }
+        this.password = this.Menu.passwordPrompt();
+        if (Menu.logReg(this.username, this.password, this.role)) {
+            this.presenter.newUserCreated();
+            System.out.println("Welcome " + this.username + "!");
+        }
+
     }
 }

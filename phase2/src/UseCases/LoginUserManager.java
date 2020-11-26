@@ -91,6 +91,17 @@ public class LoginUserManager implements Serializable {
         }
     }
 
+    public boolean checkUsername(String username) {
+        Attendee res = credentialsMap.get(username);
+
+        if (res != null) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public String getUsername(Attendee user){
         return user.getUsername();
     }

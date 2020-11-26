@@ -52,7 +52,6 @@ public class UserLoginInfo implements Serializable{
             input.close();
         } catch (FileNotFoundException | ClassNotFoundException e){
             e.printStackTrace();
-            System.out.println("Existing user login info database is returned");
         } catch (EOFException ignored) {}
         return loginUserManager;
     }

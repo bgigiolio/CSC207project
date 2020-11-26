@@ -41,7 +41,7 @@ public class StartingMenu {
      * This is what the user should see if they properly logged in.
      */
     public void loggedInPrompt(){
-        System.out.println("Account successfully logged in to");
+        System.out.println("Account successfully logged into");
     }
 
     /**
@@ -57,4 +57,8 @@ public class StartingMenu {
     public void pPrompt(){
         System.out.println("Please enter your password: ");
     }
+
+    public void usernameUsed() { System.out.println("Username already exists! Please enter another username: ");}
+
+    public void newUserCreated() {System.out.println("Account successfully created");}
 }

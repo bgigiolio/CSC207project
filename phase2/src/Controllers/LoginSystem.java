@@ -16,9 +16,6 @@ public class LoginSystem {
      * Construct a LoginSystem.
      * Initialized a new UserLoginInfo object.
      */
-    public LoginSystem() {
-        this.userLoginInfo = new UserLoginInfo();
-    }
 
     public boolean register(String username, String password, String role) throws IOException {
         String db = "phase2/src/DB/UserLoginInfo.ser";
@@ -26,6 +23,12 @@ public class LoginSystem {
         boolean returnVal = userLoginInfo.getLoginUserManager().registerUser(username, password, role);
         userLoginInfo.setFileUserLoginInfo(db);
         return returnVal;
+    }
+
+    public boolean usernameExist(String username) throws IOException {
+        String db = "phase2/src/DB/UserLoginInfo.ser";
+        userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
+        return userLoginInfo.getLoginUserManager().checkUsername(username);
     }
 
     public boolean login(String username, String password) throws IOException {

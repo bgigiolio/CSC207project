@@ -27,7 +27,6 @@ public class NewUserController implements LoginMenu {
      */
     public String usernamePrompt(){
         Scanner uname = new Scanner(System.in);
-        menu.uPrompt();
         return uname.nextLine();
     }
 
