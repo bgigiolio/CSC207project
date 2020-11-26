@@ -40,6 +40,12 @@ public class Main extends Application {
         Scene scene = new Scene(vBox, 300, 250);
         primaryStage.setScene(scene);
         primaryStage.show();
+        newButton.setOnAction(event -> {
+            System.out.println("new user button");
+        });
+        returningButton.setOnAction(event -> {
+            System.out.println("returning button");
+        });
     }
 
 
