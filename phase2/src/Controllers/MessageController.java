@@ -82,7 +82,6 @@ public class MessageController {
         this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setInbox();
         this.allMessages.setOutbox();
-        System.out.println(this.allMessages.getInbox());
     }
     /**
      * Deletes message and updates inbox and outbox through Message Gateway.
