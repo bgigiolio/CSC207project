@@ -126,8 +126,9 @@ public class MessageController {
         ArrayList<String> ret = new ArrayList<String>();
         messageList = this.inbox.get(me);
         for(Message m: messageList){
-            ret.add(me + " : " + m.getTime_sent() + " : " + m.getContent());
+            ret.add(m.getSender() + " : " + m.getTime_sent() + " : " + m.getContent());
         }
+        System.out.println(ret);
         return ret;
     }
 

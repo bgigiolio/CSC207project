@@ -28,6 +28,7 @@ public class MessageCreator {
      */
     public MessageCreator(String toBeMessage, String receiver, String senderUserid){
         message = new Message(toBeMessage, senderUserid);
+        this.receiver = receiver;
     }
     /**
      * Gets the time sent of the specific message
@@ -43,4 +44,6 @@ public class MessageCreator {
     public Message getMessage() {
         return message;
     }
+
+    public String getReceiver(){return this.receiver;}
 }
