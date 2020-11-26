@@ -61,4 +61,30 @@ public class StartingMenu {
     public void usernameUsed() { System.out.println("Username already exists! Please enter another username: ");}
 
     public void newUserCreated() {System.out.println("Account successfully created");}
+
+    public void usernameNotFoundPrompt() {
+        System.out.println("That account doesn't exist.\n" +
+                "[1] Enter a different account\n" +
+                "[2] Get a new one");
+    }
+
+    public void wrongPasswordPrompt() {
+        System.out.println("Incorrect password.\n" +
+                "[1] Try again\n" +
+                "[2] Forgot password?");
+    }
+
+    public void resetPasswordPrompt() {
+        System.out.println("Please enter your new password: ");
+    }
+
+    public void wrongRole(String role) {
+        System.out.println("The username you entered belongs to a(n) " + role + " account.\n" +
+                "Please try logging in again.");
+    }
+
+    public void passwordResetSuccess() {
+        System.out.println("You have successfully rest your password.\n" +
+                "You may now use your new password to log in.");
+    }
 }

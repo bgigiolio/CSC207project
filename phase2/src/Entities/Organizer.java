@@ -25,8 +25,8 @@ public class Organizer extends Attendee implements Serializable {
      * @param username the username of the user.
      * @param password the password of the user.
      */
-    public Organizer(String username, String password) {
-        super(username, password);
+    public Organizer(String username, String password, String role) {
+        super(username, password, role);
         this.role = "organizer";
     }
 

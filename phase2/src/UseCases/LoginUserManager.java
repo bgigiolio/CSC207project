@@ -15,52 +15,78 @@ public class LoginUserManager implements Serializable {
         this.credentialsMap = new HashMap<>();
     }
 
-    //long method, need to simplify later
     public boolean registerUser(String username, String password, String role) {
         if (!credentialsMap.containsKey(username)) {
             HashMap<String, Attendee> newUser = new HashMap<>();
-
-            if (role.equalsIgnoreCase("attendee")) {
-                newUser.put(username, new Attendee(username, password));
-                if (credentialsMap == null) { //to get rid of NullPointerException
+            newUser.put(username, new Attendee(username, password, role));
+            if (credentialsMap == null) { //to get rid of NullPointerException
                     credentialsMap = newUser;
                 } else {
-                    credentialsMap.put(username, new Attendee(username, password));
+                    credentialsMap.put(username, new Attendee(username, password, role));
                 }
                 return true;
-            }
-            if (role.equalsIgnoreCase("organizer")) {
-                newUser.put(username, new Organizer(username, password));
-                if (credentialsMap == null) { //to get rid of NullPointerException
-                    credentialsMap = newUser;
-                } else {
-                    credentialsMap.put(username, new Organizer(username, password));
-                }
-                return true;
-            }
-            if (role.equalsIgnoreCase("speaker")) {
-                newUser.put(username, new Speaker(username, password));
-                if (credentialsMap == null) { //to get rid of NullPointerException
-                    credentialsMap = newUser;
-                } else {
-                    credentialsMap.put(username, new Speaker(username, password));
-                }
-                return true;
-            }
-        }
-        return false;
+            } return false;
     }
 
-    public boolean loginUser(String username, String password) throws IOException {
+
+    //long method, need to simplify later
+//    public boolean registerUser(String username, String password, String role) {
+//        if (!credentialsMap.containsKey(username)) {
+//            HashMap<String, Attendee> newUser = new HashMap<>();
+//
+//            if (role.equalsIgnoreCase("attendee")) {
+//                newUser.put(username, new Attendee(username, password));
+//                if (credentialsMap == null) { //to get rid of NullPointerException
+//                    credentialsMap = newUser;
+//                } else {
+//                    credentialsMap.put(username, new Attendee(username, password));
+//                }
+//                return true;
+//            }
+//            if (role.equalsIgnoreCase("organizer")) {
+//                newUser.put(username, new Organizer(username, password));
+//                if (credentialsMap == null) { //to get rid of NullPointerException
+//                    credentialsMap = newUser;
+//                } else {
+//                    credentialsMap.put(username, new Organizer(username, password));
+//                }
+//                return true;
+//            }
+//            if (role.equalsIgnoreCase("speaker")) {
+//                newUser.put(username, new Speaker(username, password));
+//                if (credentialsMap == null) { //to get rid of NullPointerException
+//                    credentialsMap = newUser;
+//                } else {
+//                    credentialsMap.put(username, new Speaker(username, password));
+//                }
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+    public String loginUser(String username, String password, String role) {
         Attendee res = credentialsMap.get(username);
 
         //res is null if username is not found
-        if (res != null && res.getPassword().equals(password)) {
-            res.setLoggedIn(true);
-            return true;
+        if (res == null) {
+            return "usernameNotFound";
+        } else if (!res.getPassword().equals(password)) {
+            return "wrongPassword";
+        } else if (res.getPassword().equals(password) && !res.getRole().equalsIgnoreCase(role)) {
+            return "wrongRole";
+        } else {
+            return "loggedIn";
         }
-        else
-            return false;
+    }
+
+    public boolean resetPassword(String username, String newPassword) {
+        Attendee user = credentialsMap.get(username);
+        if (user != null) {
+            user.setPassword(newPassword);
+            return true;
+        } else {
+            return false; }
     }
 
     public void logoutUser(String username){
@@ -75,7 +101,7 @@ public class LoginUserManager implements Serializable {
         Attendee res = credentialsMap.get(username);
 
         if (res != null) {
-            return credentialsMap.get(username).getRole();  //same for this one
+            return res.getRole();  //same for this one
         }
         else{
             return "null";

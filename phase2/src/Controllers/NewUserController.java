@@ -48,4 +48,6 @@ public class NewUserController implements LoginMenu {
         LoginSystem log = new LoginSystem();
         return log.register(username, password, role);
     }
+
+
 }

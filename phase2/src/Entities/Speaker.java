@@ -30,8 +30,8 @@ public class Speaker extends Attendee {
      * @param username the username of the user.
      * @param password the password of the user.
      */
-    public Speaker(String username, String password) {
-        super(username, password);
+    public Speaker(String username, String password, String role) {
+        super(username, password, role);
         this.talks = new ArrayList<>();
         this.role = "Speaker";
     }

@@ -31,10 +31,24 @@ public class LoginSystem {
         return userLoginInfo.getLoginUserManager().checkUsername(username);
     }
 
-    public boolean login(String username, String password) throws IOException {
+    public String login(String username, String password, String role) throws IOException {
         String db = "phase2/src/DB/UserLoginInfo.ser";
         userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
-        return userLoginInfo.getLoginUserManager().loginUser(username, password);
+        return userLoginInfo.getLoginUserManager().loginUser(username, password, role);
+    }
+
+    public boolean resetPassword(String username, String password) throws IOException {
+        String db = "phase2/src/DB/UserLoginInfo.ser";
+        userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
+        boolean returnVal = userLoginInfo.getLoginUserManager().resetPassword(username, password);
+        userLoginInfo.setFileUserLoginInfo(db);
+        return returnVal;
+    }
+
+    public String roleOfAccount(String username) throws IOException {
+        String db = "phase2/src/DB/UserLoginInfo.ser";
+        userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
+        return userLoginInfo.getLoginUserManager().userRole(username);
     }
 
     public void logout(String username) {
