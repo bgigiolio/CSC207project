@@ -92,6 +92,19 @@ public class BuildingManager implements Serializable {
         return e;
     }
 
+    // TODO: Utkarsh: Impliment this in order to remove events properly.
+    public Event getEventInRoom(String event, String roomname){
+        Iterator<Schedule> iterator = new ScheduleIterator();
+        Event e = null;
+        while(iterator.hasNext()){
+            Schedule sched = iterator.next();
+            if(sched.getEvent(event) != null){
+                e = sched.getEvent(event);
+            }
+        }
+        return e;
+    }
+
     /**
      * Gives the iterator for schedules within this building.
      * @return The given iterator.
