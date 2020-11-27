@@ -16,11 +16,6 @@ public class Speaker extends Attendee {
     private ArrayList<String> talks;
 
     /**
-     * set the role to "speaker"
-     */
-    private final String role;
-
-    /**
      * Construct an Speaker object when signed up.
      * Initialized with a username, a password, an empty list of friends, and an empty list of
      * inbox messages.
@@ -33,7 +28,6 @@ public class Speaker extends Attendee {
     public Speaker(String username, String password, String role) {
         super(username, password, role);
         this.talks = new ArrayList<>();
-        this.role = "Speaker";
     }
 
     /**

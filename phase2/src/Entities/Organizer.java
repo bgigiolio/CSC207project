@@ -12,11 +12,6 @@ import java.util.List;
 public class Organizer extends Attendee implements Serializable {
 
     /**
-     * The role of the organizer.
-     */
-    private final String role;
-
-    /**
      * Construct an Organizer object when signed up.
      * Initialized with a username, a password, an empty list of friends, and an empty list of
      * inbox messages.
@@ -27,7 +22,6 @@ public class Organizer extends Attendee implements Serializable {
      */
     public Organizer(String username, String password, String role) {
         super(username, password, role);
-        this.role = "organizer";
     }
 
 //    public Speaker createSpeakerAccount (String username, String password) {
