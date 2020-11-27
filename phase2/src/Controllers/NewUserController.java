@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author Zachary Werle
  * @version Phase 1
  */
-public class NewUserController implements LoginMenu {
+public class NewUserController {
     private final StartingMenu menu;
 
     /**
@@ -40,14 +40,14 @@ public class NewUserController implements LoginMenu {
         return pass.nextLine();
     }
 
-    /**
-     * This method sends the new user's credentials to storage.
-     * @return The boolean that shows whether the user was logged in successfully or not.
-     */
-    public boolean logReg(String username, String password, String role) throws IOException {
-        LoginSystem log = new LoginSystem();
-        return log.register(username, password, role);
-    }
+//    /**
+//     * This method sends the new user's credentials to storage.
+//     * @return The boolean that shows whether the user was logged in successfully or not.
+//     */
+//    public boolean logReg(String username, String password, String role) throws IOException {
+//        LoginSystem log = new LoginSystem();
+//        return log.register(username, password, role);
+//    }
 
 
 }

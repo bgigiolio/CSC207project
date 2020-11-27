@@ -87,4 +87,8 @@ public class StartingMenu {
         System.out.println("You have successfully rest your password.\n" +
                 "You may now use your new password to log in.");
     }
+
+    public void welcome(String username) {
+        System.out.println("Welcome " + username + "!");
+    }
 }

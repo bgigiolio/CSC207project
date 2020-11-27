@@ -121,10 +121,11 @@ public class AttendeeMenuController {
         return building.addRoom1(name, start, end);
     }
     public void addSpeaker() throws IOException {
+        LoginSystem log = new LoginSystem();
         this.menu.createSpeakerName();
         Scanner sname = new Scanner(System.in);
         NewUserController newUser = new NewUserController();
-        if (newUser.logReg(sname.nextLine(), "password", "Speaker")) {
+        if (log.register(sname.nextLine(), "password", "Speaker")) {
             this.menu.speakerMade();
         }else{
             this.menu.invalidResponse();

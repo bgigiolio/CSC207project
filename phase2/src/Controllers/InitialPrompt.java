@@ -22,7 +22,7 @@ public class InitialPrompt {
     private String username;
     private String role;
     private String userType;
-    private LoginMenu Menu;
+    private NewUserController Menu;
     private StartingMenu presenter;
     private BuildingManager buildingManager;
 
@@ -45,7 +45,6 @@ public class InitialPrompt {
      * @throws IOException Handles Scanners.
      */
     public void startProgram() throws IOException, ClassNotFoundException {
-        Scanner uname = new Scanner(System.in);
         this.presenter = new StartingMenu();
         this.presenter.initialPrompt();
         this.Menu = new NewUserController();
@@ -67,10 +66,10 @@ public class InitialPrompt {
         boolean answered = false;
         while (!answered) {
             String response = new Scanner(System.in).nextLine();
-            if (response.equalsIgnoreCase("N") || response.equalsIgnoreCase("[N]")) {
+            if (response.equalsIgnoreCase("N")) {
                 userType = "N";
                 answered = true;
-            } else if (response.equalsIgnoreCase("R") || response.equalsIgnoreCase("[R]")) {
+            } else if (response.equalsIgnoreCase("R")) {
                 userType = "R";
                 answered = true;
             } else {
@@ -108,7 +107,7 @@ public class InitialPrompt {
         this.password = this.Menu.passwordPrompt();
         if (log.login(this.username, this.password, this.role).equals("loggedIn")) {
             this.presenter.loggedInPrompt();
-            System.out.println("Welcome " + this.username + "!");
+            presenter.welcome(username);
         } else if (log.login(this.username, this.password, this.role).equals("usernameNotFound")) {
             this.presenter.usernameNotFoundPrompt();
             String choice = new Scanner(System.in).nextLine();
@@ -133,7 +132,6 @@ public class InitialPrompt {
             } else {
                 login();
             }
-
         } else if (log.login(this.username, this.password, this.role).equals("wrongRole")) {
             presenter.wrongRole(log.roleOfAccount(username));
             startProgram();
@@ -154,11 +152,10 @@ public class InitialPrompt {
             }
         }
         this.password = this.Menu.passwordPrompt();
-        if (Menu.logReg(this.username, this.password, this.role)) {
-            this.presenter.newUserCreated();
-            System.out.println("Welcome " + this.username + "!");
+        if (log.register(this.username, this.password, this.role)) {
+            presenter.newUserCreated();
+            presenter.welcome(username);
         }
-
     }
 
     public void logReg() throws IOException, ClassNotFoundException {
