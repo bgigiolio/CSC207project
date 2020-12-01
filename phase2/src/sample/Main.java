@@ -8,55 +8,98 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 
 public class Main extends Application {
-    Button button;
+//    Button button;
     Button newButton;
     Button returningButton;
+    Button loginButton;
+
+
+    Scene sceneIntro;
+    Scene sceneNewLogin;
+    Scene sceneReturningLogin;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 //        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-//        primaryStage.setTitle("Login");
+//
 //        button = new Button();
 //        button.setText("New user");
 //        StackPane layout = new StackPane();
 //        layout.getChildren().add(button);
 
+        primaryStage.setTitle("ConfApp");
+        primaryStage.show();
+
+
+        //Opening window
         newButton = new Button("New User");
         returningButton = new Button("Returning User");
+//      New user button
+        newButton.setOnAction(event -> primaryStage.setScene(sceneNewLogin));
+//      Returning user button
+        returningButton.setOnAction(event -> primaryStage.setScene(sceneReturningLogin));
+
+
+
         VBox vBox = new VBox();
         vBox.setSpacing(10);
         ObservableList<Node> buttonList = vBox.getChildren();
         buttonList.addAll(newButton, returningButton);
-
         vBox.setAlignment(Pos.CENTER);
-
-        Scene scene = new Scene(vBox, 300, 250);
-        primaryStage.setScene(scene);
+        sceneIntro = new Scene(vBox, 300, 250);
+        primaryStage.setScene(sceneIntro);
         primaryStage.show();
-        newButton.setOnAction(event -> {
-            System.out.println("new user button");
-        });
-        returningButton.setOnAction(event -> {
-            System.out.println("returning button");
-        });
 
-//        newButton.setOnAction(this::handle);
-//        returningButton.setOnAction(this::handle);
+
+
+        //New login window
+        VBox newLogVBox = new VBox();
+        sceneNewLogin = new Scene(newLogVBox, 300, 250);
+        primaryStage.show();
+        TextField newUsername = new TextField("New Username");
+        TextField newPassword = new TextField("New Password");
+        newUsername.setMaxWidth(150);
+        newPassword.setMaxWidth(150);
+        ObservableList<Node> inputs = newLogVBox.getChildren();
+        loginButton = new Button("Login");
+        inputs.addAll(newUsername, newPassword,loginButton);
+        newLogVBox.setAlignment(Pos.CENTER);
+
+
+        //Returning login window
+        GridPane retLogGrid = new GridPane();
+        retLogGrid.setAlignment(Pos.CENTER);
+        retLogGrid.setHgap(10);
+        retLogGrid.setVgap(10);
+        Label retUsername = new Label("Username");
+        Label retPassword = new Label("Password");
+        retLogGrid.add(retUsername, 0,1);
+        retLogGrid.add(retPassword, 0,2);
+        TextField usernameBox = new TextField();
+        TextField passwordBox = new TextField();
+        usernameBox.setMaxWidth(150);
+        passwordBox.setMaxWidth(150);
+        retLogGrid.add(usernameBox,1,1);
+        retLogGrid.add(passwordBox,1,2);
+        sceneReturningLogin = new Scene(retLogGrid, 300, 250);
+
+
+
+
+
+
+
+
+
     }
 
-//    public void handle(ActionEvent event){
-//        if (event.getSource() == newButton){
-//            System.out.println("what's different than setOnAction?");
-//        }
-//        else if (event.getSource() == returningButton){
-//            System.out.println("what's different than setOnAction?");
-//        }
-//    }
 
     public static void main(String[] args) {
         launch(args);
