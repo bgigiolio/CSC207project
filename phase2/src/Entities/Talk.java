@@ -1,6 +1,7 @@
 package Entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * <h1>Talk</h1>
@@ -8,11 +9,11 @@ import java.time.LocalDateTime;
  * @author Utkarsh Mali
  */
 
-public class Talk extends Event{
+public class Talk extends Event implements EventWithSpeaker{
     /**
      * The username of speaker as a string.
      */
-    protected String speaker;
+    private String speaker;
 
     /**
      * Constructor for <code>Talk</code>
@@ -20,22 +21,28 @@ public class Talk extends Event{
      * @param speaker who hosts the talk.
      * @param location the location where the talk will happen.
      * @param datetime the date and time at which this talk will happen.
+     * @param duration how long this event will be
      */
-    public Talk(String title, String speaker,String location, LocalDateTime datetime) {
-        super(title, speaker, location, datetime);
+    public Talk(String title, String speaker, String location, LocalDateTime datetime, int duration) {
+        super(title, location, datetime, duration);
+        this.speaker = speaker;
     }
     /**
-     * Gets the username of the speaker presenting in the talk as a string
-     * @return speaker username
+     * Returns the username of the speaker presenting in the talk as a string in an ArrayList
+     * @return ArrayList containing speaker username
      */
-    public String getSpeaker() {
-        return speaker;
+    @Override
+    public ArrayList<String> getSpeakers() {
+        ArrayList<String> sp = new ArrayList<>(1);
+        sp.add(this.speaker);
+        return sp;
     }
     /**
      * Sets the username of the speaker presenting in the talk as a string
-     * @param speaker the username of the speaker
+     * @param speaker the username of the speaker in an ArrayList
      */
-    public void setSpeaker(String speaker) {
-        this.speaker = speaker;
+    @Override
+    public void setSpeakers(ArrayList<String> speaker) {
+        this.speaker = speaker.get(0);
     }
 }

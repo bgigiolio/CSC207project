@@ -16,43 +16,50 @@ public class Event implements Serializable {
     /**
      * Title of event
      */
-    private String title;
+    protected String title;
 
     /**
      * where this event will take place (room number)
      */
-    private String location;
+    protected String location;
 
-    /**
-     * Speaker's username
-     */
-    private String speaker;
+//    /**
+//     * Speaker's username
+//     */
+//    private String speaker;
 
     /**
      * Time and date of event
      */
-    private LocalDateTime datetime;
+    protected LocalDateTime datetime;
     // Ex. LocalDateTime d = LocalDateTime.of(int YYYY, int MM, int DD, int hh, int mm, int ss)
     // The ss (seconds) parameter is optional.
 
     /**
      * List of usernames of people attending this event
      */
-    private ArrayList<String> usernames;
+    protected ArrayList<String> usernames;
+
+    /**
+     * The duration of the event in minutes
+     */
+    protected int duration;
 
     /**
      * Instantiates an Event object by taking the inputs title, location and datetime.
      * @param title is the title of the event
-     * @param speaker is the username of the speaker who hosts the event.
+     //* @param speaker is the username of the speaker who hosts the event.
      * @param location is the location where the event will be held.
      * @param datetime tells when the event is happening.
+     * @param duration how long this event will be
      */
-    public Event(String title, String speaker, String location, LocalDateTime datetime){
+    public Event(String title, String location, LocalDateTime datetime, int duration){
         this.title = title;
-        this.speaker = speaker;
+        //this.speaker = speaker;
         this.location = location;
         this.datetime = datetime;
         this.usernames = new ArrayList<>();
+        this.duration = duration;
     }
 
     /**
@@ -63,13 +70,13 @@ public class Event implements Serializable {
         return this.title;
     }
 
-    /**
-     * Returns the speaker of the event.
-     * @return this.speaker
-     */
-    public String getSpeaker(){
-        return this.speaker;
-    }
+//    /**
+//     * Returns the speaker of the event.
+//     * @return this.speaker
+//     */
+//    public String getSpeaker(){
+//        return this.speaker;
+//    }
 
     /**
      * Returns the location of the event.
@@ -92,6 +99,18 @@ public class Event implements Serializable {
     public ArrayList<String> getAttendees() {
         return this.usernames;
     }
+
+    /**
+     * Get this event's duration
+     * @return this.duration
+     */
+    public int getDuration() {return this.duration;}
+
+    /**
+     * Change this event's duration
+     * @param val the new duration value
+     */
+    public void setDuration(int val){this.duration = val;}
     /**
      * Changes the title of the event. Takes title as an input and replaces with the class attribute this.title.
      * @param title is the title of the event.
@@ -99,13 +118,13 @@ public class Event implements Serializable {
     public void setTitle(String title){
         this.title = title;
     }
-    /**
-     * Changes the title of the event. Takes title as an input and replaces with the class attribute this.title.
-     * @param speaker hosts the event
-     */
-    public void setSpeaker(String speaker){
-        this.speaker = speaker;
-    }
+//    /**
+//     * Changes the title of the event. Takes title as an input and replaces with the class attribute this.title.
+//     * @param speaker hosts the event
+//     */
+//    public void setSpeaker(String speaker){
+//        this.speaker = speaker;
+//    }
     /**
      * Changes the location of the event by replacing the existing location attribute with the input.
      * @param location is a String that tells where the event is held.
@@ -127,7 +146,7 @@ public class Event implements Serializable {
      * @param usernames is a list of usernames of attendees that attend the event
      */
     public void setAttendees(ArrayList<String> usernames) {
-        this.usernames = usernames;
+        this.usernames = new ArrayList<>(usernames);
     }
 
     /**
@@ -166,7 +185,7 @@ public class Event implements Serializable {
      * @return Object[]
      */
     public Object[] getEventInfo(){
-        return new Object[]{this.title, this.speaker, this.location, this.datetime, this.usernames};
+        return new Object[]{this.title, this.location, this.datetime, this.usernames};
     }
 
 }
