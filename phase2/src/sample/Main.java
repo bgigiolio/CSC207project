@@ -18,7 +18,8 @@ public class Main extends Application {
 //    Button button;
     Button newButton;
     Button returningButton;
-    Button loginButton;
+    Button newLoginButton;
+    Button retLoginButton;
 
 
     Scene sceneIntro;
@@ -68,12 +69,13 @@ public class Main extends Application {
         newUsername.setMaxWidth(150);
         newPassword.setMaxWidth(150);
         ObservableList<Node> inputs = newLogVBox.getChildren();
-        loginButton = new Button("Login");
-        inputs.addAll(newUsername, newPassword,loginButton);
+        newLoginButton = new Button("Login");
+        inputs.addAll(newUsername, newPassword,newLoginButton);
         newLogVBox.setAlignment(Pos.CENTER);
 
 
         //Returning login window
+        retLoginButton = new Button("Login");
         GridPane retLogGrid = new GridPane();
         retLogGrid.setAlignment(Pos.CENTER);
         retLogGrid.setHgap(10);
@@ -88,6 +90,7 @@ public class Main extends Application {
         passwordBox.setMaxWidth(150);
         retLogGrid.add(usernameBox,1,1);
         retLogGrid.add(passwordBox,1,2);
+        retLogGrid.add(retLoginButton,1,3);
         sceneReturningLogin = new Scene(retLogGrid, 300, 250);
 
 
