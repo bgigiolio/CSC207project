@@ -34,8 +34,8 @@ public class BuildingManager implements Serializable {
      * @param endHour The desired ending hour for this schedule. (See Schedule for reference)
      * @return Returns true if the room was successfully added and false if it wasn't.
      */
-    public boolean addRoom1(String name, int startHour, int endHour){
-        Schedule addition = new Schedule(startHour, endHour);
+    public boolean addRoom1(String name, int startHour, int endHour, int roomCapacity){
+        Schedule addition = new Schedule(startHour, endHour, roomCapacity);
         return addRoom2(name, addition);
     }
 

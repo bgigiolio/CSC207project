@@ -118,7 +118,15 @@ public class AttendeeMenuController {
         }catch(NumberFormatException e){
             return false;
         }
-        return building.addRoom1(name, start, end);
+        this.menu.createRoomCapacity();
+        String roomCapacityString = new Scanner(System.in).nextLine();
+        int roomCapacity = 0;
+        try {
+            roomCapacity = Integer.parseInt(roomCapacityString);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        return building.addRoom1(name, start, end, roomCapacity);
     }
     public void addSpeaker() throws IOException {
         LoginSystem log = new LoginSystem();
@@ -178,6 +186,18 @@ public class AttendeeMenuController {
         String eventName = new Scanner(System.in).nextLine();
         this.menu.createEventRoom();
         String roomName = new Scanner(System.in).nextLine();
+        this.menu.createEventCapacity();
+        String tempEventCapacity = new Scanner(System.in).nextLine();
+        int eventCapacity = 0;
+        try {
+            eventCapacity = Integer.parseInt(tempEventCapacity);
+        }catch(NumberFormatException e){
+            return false;
+        }
+        if (eventCapacity > building.getSchedule(roomName).getRoomCapacity()){
+            System.out.println("Event capacity cannot be greater than room capacity.");
+            return false;
+        }
         this.menu.createEventYear();
         String yearString = new Scanner(System.in).nextLine();
         this.menu.createEventMonth();
@@ -218,7 +238,7 @@ public class AttendeeMenuController {
             return false;
         }
         LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
-        EventController event = new EventController(eventName, speaker, roomName, d, building.getSchedule(roomName));
+        EventController event = new EventController(eventName, speaker, roomName, d, building.getSchedule(roomName), eventCapacity);
         return event.createEvent();
         }
 

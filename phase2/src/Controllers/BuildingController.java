@@ -47,7 +47,7 @@ public class BuildingController {
      * This method is responsible for adding a room to the building.
      * @return A boolean that shows if the room was added or not.
      */
-    public boolean addRoom(String name, int startHour, int endHour){
-        return this.building.addRoom1(name, startHour, endHour);
+    public boolean addRoom(String name, int startHour, int endHour, int roomCapacity){
+        return this.building.addRoom1(name, startHour, endHour, roomCapacity);
     }
 }

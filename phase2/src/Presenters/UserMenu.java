@@ -225,4 +225,12 @@ public class UserMenu {
     public void logoutSuccess() {
         System.out.println("You Have Successfully Logged Out Of Your Account.");
     }
+
+    public void createEventCapacity() {
+        System.out.println("What is the maximum occupancy for this event?");
+    }
+
+    public void createRoomCapacity() {
+        System.out.println("What is the maximum occupancy for this room?");
+    }
 }

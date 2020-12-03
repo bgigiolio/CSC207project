@@ -30,6 +30,8 @@ public class Schedule implements Serializable {
      */
     private int startHour;
 
+    private int roomCapacity;
+
     //This has become a use case
 
     /**
@@ -37,9 +39,10 @@ public class Schedule implements Serializable {
      * @param startHour The first hour (inclusive) that an event can be scheduled
      * @param endHour The hour (exclusive) when an event can not be created in this room
      */
-    public Schedule(int startHour, int endHour){
+    public Schedule(int startHour, int endHour, int roomCapacity){
         this.endHour = endHour; // When the room closes
         this.startHour = startHour; // When the room opens
+        this.roomCapacity = roomCapacity;
     }
 
     /**
@@ -117,6 +120,14 @@ public class Schedule implements Serializable {
     public void editHours(int startHour, int endHour){
         this.startHour = startHour;
         this.endHour = endHour;
+    }
+
+    public void setRoomCapacity(int roomCapacity) {
+        this.roomCapacity = roomCapacity;
+    }
+
+    public int getRoomCapacity() {
+        return roomCapacity;
     }
 
     /**
