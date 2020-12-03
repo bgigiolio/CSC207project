@@ -75,32 +75,6 @@ public class BuildingManager implements Serializable {
         return building.get(name);
     }
 
-    // TODO: Utkarsh: Implement this in order to remove events properly.
-    public Event getEventInRoom(String event, String roomname){
-        Iterator<Schedule> iterator = new ScheduleIterator();
-        Event e = null;
-        while(iterator.hasNext()){
-            Schedule sched = iterator.next();
-            if(sched.getEvent(event) != null){
-                e = sched.getEvent(event);
-            }
-        }
-        return e;
-    }
-
-    // TODO: Utkarsh: Implement this in order to remove events properly.
-    public Event getEventInRoomAtDatetime(String event, String roomname, LocalDateTime dt){
-        Iterator<Schedule> iterator = new ScheduleIterator();
-        Event e = null;
-        while(iterator.hasNext()){
-            Schedule sched = iterator.next();
-            if(sched.getEvent(event) != null){
-                e = sched.getEvent(event);
-            }
-        }
-        return e;
-    }
-
     /**
      * Returns the event object of an event with the given name.
      * @param event The name of the event that we want.
@@ -117,6 +91,35 @@ public class BuildingManager implements Serializable {
         }
         return e;
     }
+
+    // Get event in room
+    public Event getEvent(String event, String roomname){
+        Iterator<Schedule> iterator = new ScheduleIterator();
+        Event e = null;
+        while(iterator.hasNext()){
+            Schedule sched = iterator.next();
+            if(sched.getEvent(event) != null && sched.getEvent(event).getLocation().equals(roomname)){
+                e = sched.getEvent(event);
+            }
+        }
+        return e;
+    }
+
+    // Get event in room at datetime
+    public Event getEvent(String event, String roomname, LocalDateTime dt){
+        Iterator<Schedule> iterator = new ScheduleIterator();
+        Event e = null;
+        while(iterator.hasNext()){
+            Schedule sched = iterator.next();
+            if(sched.getEvent(event) != null &&
+                    sched.getEvent(event).getLocation().equals(roomname) &&
+                    sched.getEvent(event).getDatetime().equals(dt)){
+                e = sched.getEvent(event);
+            }
+        }
+        return e;
+    }
+
     /**
      * Gives the iterator for schedules within this building.
      * @return The given iterator.
