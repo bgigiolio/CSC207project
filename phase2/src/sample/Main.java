@@ -35,7 +35,7 @@ public class Main extends Application {
 //        StackPane layout = new StackPane();
 //        layout.getChildren().add(button);
 
-        primaryStage.setTitle("ConfApp");
+        primaryStage.setTitle("Building Manager");
         primaryStage.show();
 
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AttendeeMenuController">
+   <children>
+      <SplitPane fx:id="multiPane" dividerPositions="0.5" layoutY="244.0" orientation="VERTICAL" prefHeight="531.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane fx:id="topPane" minHeight="0.0" minWidth="0.0" prefHeight="176.0" prefWidth="598.0">
+               <children>
+                  <Text fx:id="welcomeText" layoutX="118.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome ________!">
+                     <font>
+                        <Font size="42.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="instructionPrompt" layoutX="177.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to do?">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <MenuButton fx:id="menuOptions" layoutX="221.0" layoutY="173.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="157.0" text="Actions">
+                    <items>
+                      <MenuItem fx:id="seeEventSchedule" mnemonicParsing="false" onAction="#showSchedule" text="See Event Schedule" />
+                      <MenuItem fx:id="reviewEventSchedule" mnemonicParsing="false" onAction="#reviewSchedule" text="Review Your Events Schedule" />
+                        <MenuItem fx:id="signUpForEvent" mnemonicParsing="false" onAction="#signUp" text="Sign Up for Event" />
+                        <MenuItem fx:id="cancelEvent" mnemonicParsing="false" onAction="#cancel" text="Cancel Event" />
+                        <MenuItem fx:id="sendMessage" mnemonicParsing="false" onAction="#send" text="Send Message" />
+                        <MenuItem fx:id="reviewMessages" mnemonicParsing="false" onAction="#reviewMessage" text="Review Messages" />
+                        <MenuItem fx:id="manageFriendsList" mnemonicParsing="false" onAction="#manageFriends" text="Manage Friends List" />
+                        <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" />
+                    </items>
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MenuButton>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="bottomPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Text fx:id="toPrint" layoutX="163.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="271.5">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

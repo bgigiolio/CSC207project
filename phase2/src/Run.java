@@ -1,6 +1,7 @@
 import Controllers.BuildingController;
 import Controllers.ImportExportEventController;
 import Controllers.InitialPrompt;
+import sample.*;
 
 import java.io.IOException;
 
@@ -10,5 +11,7 @@ public class Run {
         ImportExportEventController eventGateway = new ImportExportEventController();
         InitialPrompt run = new InitialPrompt(eventGateway.importEvents());
         run.startProgram();
+//        Main gui = new Main();
+//        Main.launch();
     }
 }
