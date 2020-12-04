@@ -2,6 +2,8 @@ package UseCases;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 
 import Entities.Event;
@@ -22,17 +24,23 @@ public class Schedule2 implements Serializable {
     /**
      * time when first event starts
      */
-    private int startHour;
+    private LocalTime startTime;
 
     /**
      * time when last event finishes
      */
-    private int endHour;
+    private LocalTime endTime;
 
-    public Schedule2(int startHour, int endHour){
+    /**
+     * This room's capacity
+     */
+    private int roomCapacity;
+
+    public Schedule2(LocalTime startTime, LocalTime endTime, int roomCap){
         this.schedule = new ArrayList<>();
-        this.endHour = endHour; // When the room closes
-        this.startHour = startHour; // When the room opens
+        this.startTime = startTime; // When the room closes
+        this.endTime = endTime; // When the room opens
+        this.roomCapacity = roomCap;
     }
 
     /**
@@ -54,15 +62,33 @@ public class Schedule2 implements Serializable {
      * @return true if the event was successfully added, false if the event couldn't be added
      */
     public boolean addEvent(Event e){
-        int index = getIndex(0, this.schedule.size()-1, e.getDatetime());
-        Event ev2 = this.schedule.get(index);
         LocalDateTime endTime = e.getDatetime().plusMinutes(e.getDuration());
 
-        if(endTime.isBefore(ev2.getDatetime()) || endTime.isEqual(ev2.getDatetime())) {
+        if(endTime.toLocalTime().isAfter(this.endTime) || e.getDatetime().toLocalTime().isBefore(this.startTime)
+                || e.getEventCapacity() > this.roomCapacity)
+            return false;
+
+        if(this.schedule.size()==0) {
             this.schedule.add(e);
             return true;
         }
-        return false;
+
+        int index = getIndex(0, this.schedule.size()-1, e.getDatetime());
+
+        if(index == this.schedule.size()){
+            this.schedule.add(e);
+            return true;
+        }
+        else if(index == -1)
+            return false;
+
+        Event ev2 = this.schedule.get(index); //the event starting right after the event we wanna add
+
+        if(endTime.isAfter(ev2.getDatetime()))
+            return false;
+
+        this.schedule.add(index, e);
+        return true;
     }
 
     /**
@@ -94,12 +120,20 @@ public class Schedule2 implements Serializable {
     /**
      * Changes the start hour and end hour of this room
      *
-     * @param startHour The first hour (inclusive) that an event can be scheduled
-     * @param endHour The hour (exclusive) when an event can not be created in this room
+     * @param startTime The time that the first event can start
+     * @param endTime The time the last event should finish by
      */
-    public void editHours(int startHour, int endHour){
-        this.startHour = startHour;
-        this.endHour = endHour;
+    public void editHours(LocalTime startTime, LocalTime endTime){
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public void setRoomCapacity(int roomCapacity) {
+        this.roomCapacity = roomCapacity;
+    }
+
+    public int getRoomCapacity() {
+        return roomCapacity;
     }
 
     /**
@@ -108,6 +142,7 @@ public class Schedule2 implements Serializable {
      *
      * @return returns the string format of the schedule
      */
+    @Override
     public String toString(){
         StringBuilder toReturn = new StringBuilder();
 
@@ -122,19 +157,90 @@ public class Schedule2 implements Serializable {
      * @param l left index
      * @param r right index
      * @param k date/time of event we are interested in
-     * @return index of event starting after our event
+     * @return index of event starting after our event or -1 if event with same starting time already exists
      */
     private int getIndex(int l, int r, LocalDateTime k){
         int mid;
 
         while(l <= r){
-            mid = l + ((r - l) >>> 1);
+            mid = (l+r)>>>1;
             if(this.schedule.get(mid).getDatetime().isEqual(k))
-                return mid+1;
+                return -1;
             else if(this.schedule.get(mid).getDatetime().isBefore(k))
-                return getIndex(mid+1, r, k);
-            return getIndex(l, mid-1, k);
+                l = mid+1;
+            else
+                r = mid-1;
         }
         return l;
     }
 }
+
+//----------Testing----------
+/*
+class Test{
+    public static void main(String[] args) {
+        Schedule2 s = new Schedule2(LocalTime.of(9,0), LocalTime.of(17,0), 100);
+
+        //normal add-should return true
+        LocalDateTime t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 12, 0);
+        System.out.println(s.addEvent(new Event("test1", "BA12", t1, 60, 50)));
+
+        //normal add-should return true
+        t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 13, 0);
+        System.out.println(s.addEvent(new Event("test2", "BA13", t1, 60, 50)));
+
+        //adding event starting at the same time as already existing event-should return false
+        t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 12, 0);
+        System.out.println(s.addEvent(new Event("test3", "BA12", t1, 60, 50)));
+
+        //Adding event that begins at correct time, but
+        // (1) ends after next event has started (return false)
+        // (2) ends before next event starts (return true)
+        t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 11, 0);
+        System.out.println(s.addEvent(new Event("test4", "BA12", t1, 70, 50)));
+        System.out.println(s.addEvent(new Event("test5", "BA12", t1, 60, 50)));
+
+        //normal add-should return true
+        t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 14, 30);
+        System.out.println(s.addEvent(new Event("test6", "BA12", t1, 60, 50)));
+
+        //add event with valid starting time between 2 events but invalid ending time (return false)
+        t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 14, 0);
+        System.out.println(s.addEvent(new Event("test6", "BA12", t1, 60, 50)));
+
+        //add event that ends after schedule permits (return false)
+        t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 16, 0);
+        System.out.println(s.addEvent(new Event("test8", "BA12", t1, 80, 50)));
+
+        //add event that starts after schedule permits (return false)
+        t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 18, 0);
+        System.out.println(s.addEvent(new Event("test9", "BA12", t1, 80, 50)));
+
+        //add event that starts before schedule permits (return false)
+        t1 = LocalDateTime.of(2020, Month.JANUARY, 1, 8, 0);
+        System.out.println(s.addEvent(new Event("test10", "BA12", t1, 80, 50)));
+
+        //expect 4 events to be printed
+        System.out.println(s);
+
+        System.out.println(s.getEvent("test5").getDatetime());
+
+        System.out.println(s.eventsAttending("user1").size()==0);
+
+        t1 = LocalDateTime.of(2020, Month.FEBRUARY, 1, 12, 0);
+        Event e = new Event("A", "BA2771", t1, 30, 50);
+        e.addAttendees("user1");
+        s.addEvent(e);
+
+        System.out.println(s.eventsAttending("user1"));
+
+        System.out.println(s);
+
+        //should be true
+        System.out.println(s.removeEvent(e));
+
+        //should be false lmao
+        System.out.println(s.removeEvent(e));
+    }
+}
+*/

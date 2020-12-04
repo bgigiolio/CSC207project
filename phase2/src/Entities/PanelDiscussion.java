@@ -16,6 +16,7 @@ public class PanelDiscussion extends Event implements EventWithSpeaker{
      * @param location is the location where the event will be held.
      * @param datetime tells when the event is happening.
      * @param duration how long this event will be
+     * @param capacity max event capacity
      */
     public PanelDiscussion(String title, ArrayList<String> speakers, String location, LocalDateTime datetime, int duration, int capacity) {
         super(title, location, datetime, duration, capacity);
