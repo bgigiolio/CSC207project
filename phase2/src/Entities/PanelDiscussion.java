@@ -17,8 +17,8 @@ public class PanelDiscussion extends Event implements EventWithSpeaker{
      * @param datetime tells when the event is happening.
      * @param duration how long this event will be
      */
-    public PanelDiscussion(String title, ArrayList<String> speakers, String location, LocalDateTime datetime, int duration) {
-        super(title, location, datetime, duration);
+    public PanelDiscussion(String title, ArrayList<String> speakers, String location, LocalDateTime datetime, int duration, int capacity) {
+        super(title, location, datetime, duration, capacity);
         this.speakers = new ArrayList<>(speakers);
     }
     @Override

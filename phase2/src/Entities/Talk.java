@@ -23,8 +23,8 @@ public class Talk extends Event implements EventWithSpeaker{
      * @param datetime the date and time at which this talk will happen.
      * @param duration how long this event will be
      */
-    public Talk(String title, String speaker, String location, LocalDateTime datetime, int duration) {
-        super(title, location, datetime, duration);
+    public Talk(String title, String speaker, String location, LocalDateTime datetime, int duration, int capacity) {
+        super(title, location, datetime, duration, capacity);
         this.speaker = speaker;
     }
     /**
