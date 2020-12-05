@@ -65,6 +65,9 @@ public class Event implements Serializable {
         this.eventCapacity = eventCapacity;
     }
 
+    public Event(String title, String speaker, String location, LocalDateTime datetime, int eventcapacity) {
+    }
+
     /**
      * Returns the title of the event.
      * @return this.title
