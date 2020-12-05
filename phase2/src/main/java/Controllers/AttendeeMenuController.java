@@ -145,7 +145,7 @@ public class AttendeeMenuController {
         this.menu.enterEvent();
         String eventname = new Scanner(System.in).nextLine();
         EventManager manager = new EventManager(building.getEvent(eventname), building);
-        manager.addSpeaker(speakername);
+        //manager.addSpeaker(speakername);
 
     }
     public boolean removeEvent(){
@@ -310,7 +310,7 @@ public class AttendeeMenuController {
                     MessageController message = new MessageController();
                     try {
                         this.menu.printMessages(message.getMessageForMe(this.username));
-                    }catch(NullPointerException e){
+                    } catch(NullPointerException e) {
                         this.menu.printSomething("You have no messages");
                 }
                     break;

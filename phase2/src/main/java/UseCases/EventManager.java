@@ -42,9 +42,9 @@ public class EventManager {
         this.event = event;
         this.schedule = building.getScheduleWithEvent(this.event.getTitle());
     }
-    public void addSpeaker(String speaker){
-        this.event.setSpeaker(speaker);
-    }
+    //public void addSpeaker(String speaker){
+    //    this.event.setSpeaker(speaker);
+    //}
 
     /**
      * Adds the event being managed to its given schedule.

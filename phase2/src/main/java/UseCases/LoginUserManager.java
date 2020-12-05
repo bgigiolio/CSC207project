@@ -5,6 +5,12 @@ import Entities.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * <h1>Login User Manager</h1>
+ * Maps users' username to corresponding Attendee object in a hashmap.
+ * @author Morgan Chang
+ * @version phase2
+ */
 public class LoginUserManager implements Serializable {
     /**
      * A Hashmap that maps a user's username to its corresponding Attendee object.
