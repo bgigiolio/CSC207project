@@ -1,45 +1,50 @@
 package sample;
 
+import Gateways.UserLoginInfo;
+import UseCases.LoginUserManager;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.*;
+import javafx.stage.*;
 
-import java.io.IOException;
+public class Main extends Application{
 
-public class Main extends Application {
-//    Button button;
-    Button newButton;
-    Button returningButton;
-    Button newLoginButton;
-    Button retLoginButton;
-
-
-    Scene sceneIntro;
-    Scene sceneNewLogin;
-    Scene sceneReturningLogin;
-
-    Stage primaryStage;
+    UserLoginInfo userLoginInfo = new UserLoginInfo(); //instantiates with empty class variables.
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("OpeningScene.fxml"));
 
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Scene introScene = new Scene(root, 300, 275);
+        Scene openingScene = new Scene(root, 300, 275);
         primaryStage.setTitle("Building Manager");
-        primaryStage.setScene(introScene);
+        primaryStage.setScene(openingScene);
         primaryStage.show();
 
     }
+    public UserLoginInfo getUserLoginInfo(){
+        return this.userLoginInfo;
+    }
+
+
+
+
+
+
+
+
+
+//    //    Button button;
+//    Button newButton;
+//    Button returningButton;
+//    Button newLoginButton;
+//    Button retLoginButton;
+//
+//
+//    Scene sceneIntro;
+//    Scene sceneNewLogin;
+//    Scene sceneReturningLogin;
+//
+
 
 
 
