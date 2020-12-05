@@ -3,10 +3,10 @@ package UseCases;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.ArrayList;
 
 import Entities.Event;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -18,7 +18,9 @@ import Entities.Event;
  * @version phase2
  */
 public class Schedule2 implements Serializable {
-
+    /**
+     * The list holding the events happening in this room
+     */
     private ArrayList<Event> schedule;
 
     /**
@@ -36,6 +38,12 @@ public class Schedule2 implements Serializable {
      */
     private int roomCapacity;
 
+    /**
+     * Constructor for Schedule2
+     * @param startTime time room opens
+     * @param endTime time room closes
+     * @param roomCap room capacity
+     */
     public Schedule2(LocalTime startTime, LocalTime endTime, int roomCap){
         this.schedule = new ArrayList<>();
         this.startTime = startTime; // When the room closes
@@ -61,7 +69,7 @@ public class Schedule2 implements Serializable {
      * @param e This is the event to be added
      * @return true if the event was successfully added, false if the event couldn't be added
      */
-    public boolean addEvent(Event e){
+    public boolean addEvent(@NotNull Event e){
         LocalDateTime endTime = e.getDatetime().plusMinutes(e.getDuration());
 
         if(endTime.toLocalTime().isAfter(this.endTime) || e.getDatetime().toLocalTime().isBefore(this.startTime)
@@ -128,10 +136,18 @@ public class Schedule2 implements Serializable {
         this.endTime = endTime;
     }
 
+    /**
+     * Change max room capacity
+     * @param roomCapacity
+     */
     public void setRoomCapacity(int roomCapacity) {
         this.roomCapacity = roomCapacity;
     }
 
+    /**
+     * Get room capacity
+     * @return room capacity
+     */
     public int getRoomCapacity() {
         return roomCapacity;
     }
@@ -153,10 +169,10 @@ public class Schedule2 implements Serializable {
     }
 
     /**
-     * Binary search to get the index of the event that starts after the event we want to add
+     * Binary search to get the index of the event that starts right after the event we want to add
      * @param l left index
      * @param r right index
-     * @param k date/time of event we are interested in
+     * @param k date and time of event we want to add
      * @return index of event starting after our event or -1 if event with same starting time already exists
      */
     private int getIndex(int l, int r, LocalDateTime k){
