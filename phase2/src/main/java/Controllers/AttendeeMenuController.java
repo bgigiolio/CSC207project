@@ -10,11 +10,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-//These UI classes are just thrown together to make running the program a bit easier.
-// PLEASE dont be afraid to delete these and change them a bunch!!!
-
 /**
- * <h1>Attendee Menu Controller</h1>
+ * <h1>AttendeeMenuController</h1>
  * This controller takes in input from an attendee when they are presented with a menu of options
  * @author Blake Gigiolio
  * @version phase1
@@ -42,7 +39,10 @@ public class AttendeeMenuController {
 
     }
 
-    public void homepage() throws IOException, ClassNotFoundException {
+    /**
+     * Displays options for each specific kind of user
+     */
+    public void homepage() {
         if (role.equals("Attendee")) {
             menu.optionsAttendee();
         }
@@ -59,7 +59,7 @@ public class AttendeeMenuController {
     /**
      * This is what the user should see if they choose to sign up for an event.
      */
-    public void signUpEvent() throws IOException, ClassCastException, ClassNotFoundException {
+    public void signUpEvent() throws IOException, ClassCastException {
         menu.eventPrompt("sign up");
         String eventTitle = new Scanner(System.in).nextLine();
         if (eventStatusChanger.signUpChanger(this.username, eventTitle)) {
@@ -75,7 +75,7 @@ public class AttendeeMenuController {
         }
     }
 
-    public void cancelEnrolEvent() throws IOException, ClassNotFoundException {
+    public void cancelEnrolEvent() throws IOException {
         menu.eventPrompt("cancel");
         String eventTitle = new Scanner(System.in).nextLine();
         EventStatusChanger eventStatusChanger = new EventStatusChanger();
@@ -91,6 +91,7 @@ public class AttendeeMenuController {
             }
         }
     }
+
     public void sendMessage() throws IOException {
         this.menu.sendMessageUser();
         String user = new Scanner(System.in).nextLine();
@@ -99,35 +100,43 @@ public class AttendeeMenuController {
         MessageController message = new MessageController(this.username, user, content);
         message.sendMessage();
     }
+
     public boolean addRoom(){
         this.menu.createRoomName();
         String name = new Scanner(System.in).nextLine();
         this.menu.createRoomStart();
         String startString = new Scanner(System.in).nextLine();
-        int start = 0;
+        int start;
+
         try {
             start = Integer.parseInt(startString);
         }catch(NumberFormatException e){
             return false;
         }
+
         this.menu.createRoomEnd(start);
         String endString = new Scanner(System.in).nextLine();
-        int end = 0;
+        int end;
+
         try {
             end = Integer.parseInt(endString);
         }catch(NumberFormatException e){
             return false;
         }
+
         this.menu.createRoomCapacity();
         String roomCapacityString = new Scanner(System.in).nextLine();
-        int roomCapacity = 0;
+        int roomCapacity;
+
         try {
             roomCapacity = Integer.parseInt(roomCapacityString);
         }catch(NumberFormatException e){
             return false;
         }
+
         return building.addRoom1(name, start, end, roomCapacity);
     }
+
     public void addSpeaker() throws IOException {
         LoginSystem log = new LoginSystem();
         this.menu.createSpeakerName();
@@ -139,15 +148,17 @@ public class AttendeeMenuController {
             this.menu.invalidResponse();
         }
     }
+
     public void scheduleSpeaker(){
         this.menu.createSpeakerName();
-        String speakername = new Scanner(System.in).nextLine();
+        String speakerName = new Scanner(System.in).nextLine();
         this.menu.enterEvent();
-        String eventname = new Scanner(System.in).nextLine();
-        EventManager manager = new EventManager(building.getEvent(eventname), building);
-        //manager.addSpeaker(speakername);
+        String eventName = new Scanner(System.in).nextLine();
+        EventManager manager = new EventManager(building.getEvent(eventName), building);
+        //manager.addSpeaker(speakerName);
 
     }
+
     public boolean removeEvent(){
         this.menu.manageEvent();
         String event = new Scanner(System.in).nextLine();
@@ -159,11 +170,13 @@ public class AttendeeMenuController {
             return false;
         }
     }
+
     public boolean messageAttendees(){
-        OrganizerMessageController messager = new OrganizerMessageController(this.manager.getAttendee(this.username));
+        OrganizerMessageController messenger = new OrganizerMessageController(this.manager.getAttendee(this.username));
         String event = new Scanner(System.in).nextLine();
         return true;
     }
+
     public void manageFriendsList(){
         this.menu.friendsList();
         ListUseCase friendsList = new ListUseCase(manager.getAttendee(this.username));
@@ -181,6 +194,7 @@ public class AttendeeMenuController {
         }
 
     }
+
     public boolean createEvent() {
         this.menu.createEventName();
         String eventName = new Scanner(System.in).nextLine();
@@ -188,7 +202,8 @@ public class AttendeeMenuController {
         String roomName = new Scanner(System.in).nextLine();
         this.menu.createEventCapacity();
         String tempEventCapacity = new Scanner(System.in).nextLine();
-        int eventCapacity = 0;
+        int eventCapacity;
+
         try {
             eventCapacity = Integer.parseInt(tempEventCapacity);
         }catch(NumberFormatException e){
@@ -242,18 +257,18 @@ public class AttendeeMenuController {
         return event.createEvent();
         }
 
-        public boolean organizerMessageAll() throws IOException {
-            if(this.role.equals("Organizer")) {
-                menu.sendMessageContent();
-                String content = new Scanner(System.in).nextLine();
-                new OrganizerMessageController(this.manager.getAttendee(this.username)).
-                        toAllAttendee(content, manager);
-                return true;
-            } else {
-                this.menu.invalidResponse();
-                return false;
-            }
+    public boolean organizerMessageAll() throws IOException {
+        if(this.role.equals("Organizer")) {
+            menu.sendMessageContent();
+            String content = new Scanner(System.in).nextLine();
+            new OrganizerMessageController(this.manager.getAttendee(this.username)).
+                    toAllAttendee(content, manager);
+            return true;
+        } else {
+            this.menu.invalidResponse();
+            return false;
         }
+    }
 
     /**
      * This is where the user will decide what they want to do. The possible options are:
@@ -265,6 +280,7 @@ public class AttendeeMenuController {
      * [6] Review Messages
      * [7] Manage Friends List
      * [8] Logout
+     * [q]
      * ---AVAILABLE FOR ORGANIZERS ONLY---
      * [9] Create Speaker Account
      * [10] Add Room
@@ -272,12 +288,14 @@ public class AttendeeMenuController {
      * [12] Remove Event
      * [13] Message Event Attendees
      * [14] Create Event
+     * @return true if user chose to exit program, false if user just logged out
      * @throws IOException Handles the Scanner.
      */
-    public void menuSelection() throws IOException, ClassNotFoundException {
+    public boolean menuSelection() throws IOException {
         homepage();
         Scanner uname = new Scanner(System.in);
         boolean loggedOut = false;
+
         while (!loggedOut) {
             String response = uname.nextLine();
             switch (response) {
@@ -319,9 +337,11 @@ public class AttendeeMenuController {
                     break;
                 case "8": //logout
                     menu.logoutSuccess();
-                    new InitialPrompt(new BuildingController("Building").getBuilding()).startProgram();
+                    //new InitialPrompt(new BuildingController("Building").getBuilding()).startProgram();
                     loggedOut = true;
                     break;
+                case "q": //quit program
+                        return true;
                 case "9": //create speaker account
                     if(this.role.equals("Organizer")) {
                         addSpeaker();
@@ -378,7 +398,7 @@ public class AttendeeMenuController {
             ImportExportEventController saveBuilding = new ImportExportEventController();
             saveBuilding.exportEvents(this.building);
             this.menu.promptAgain();
-
         }
+        return false;
     }
 }

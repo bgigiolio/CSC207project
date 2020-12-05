@@ -1,7 +1,6 @@
 package main.java.Presenters;
 
 import main.java.UseCases.BuildingManager;
-import main.java.UseCases.ListUseCase;
 
 import java.util.ArrayList;
 
@@ -36,7 +35,8 @@ public class UserMenu {
                 "[5] Send Message\n" +
                 "[6] Review Messages\n" +
                 "[7] Manage Friends List\n" +
-                "[8] Logout\n");
+                "[8] Logout\n"+
+                "[q] Quit\n");
     }
 
     /**

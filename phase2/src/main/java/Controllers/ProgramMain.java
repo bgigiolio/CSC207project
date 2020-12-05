@@ -7,30 +7,27 @@ import main.java.Presenters.*;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.LoginUserManager;
 
-//These UI classes are just thrown together to make running the program a bit easier.
-// PLEASE dont be afraid to delete these and change them a bunch!!!
-
 /**
- * <h1>Initial Prompt</h1>
+ * <h1>ProgramMain</h1>
  * This controller facilitates logging in and creating new accounts.
  * This should be the first thing called in the program!
  * @author Blake Gigiolio
  * @version phase1
  */
-public class InitialPrompt {
+public class ProgramMain {
     private String password;
     private String username;
     private String role;
     private String userType;
     private NewUserController Menu;
     private StartingMenu presenter;
-    private BuildingManager buildingManager;
+    private final BuildingManager buildingManager;
 
     /**
      * This constructor sets up which building the program is going to run for.
      * @param buildingManager The building manager for the building in question.
      */
-    public InitialPrompt(BuildingManager buildingManager ){
+    public ProgramMain(BuildingManager buildingManager ){
         this.buildingManager = buildingManager;
     }
 
@@ -44,7 +41,7 @@ public class InitialPrompt {
      *  -Initializes the post-login menu
      * @throws IOException Handles Scanners.
      */
-    public void startProgram() throws IOException, ClassNotFoundException {
+    public void start() throws IOException, ClassNotFoundException {
         this.presenter = new StartingMenu();
         this.presenter.initialPrompt();
         this.Menu = new NewUserController();
@@ -55,12 +52,14 @@ public class InitialPrompt {
 
         logReg();
 
-        LoginUserManager manager = new LoginUserManager();
-        AttendeeMenuController organizerMenu =
-                new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
-        organizerMenu.menuSelection();
-    }
+        LoginUserManager manager;
+        AttendeeMenuController organizerMenu;
 
+        do{
+            manager = new LoginUserManager();
+            organizerMenu = new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
+        }while(!organizerMenu.menuSelection());
+    }
 
     private void askUserType() {
         boolean answered = false;
@@ -105,36 +104,44 @@ public class InitialPrompt {
     private void login() throws IOException, ClassNotFoundException {
         LoginSystem log = new LoginSystem();
         this.password = this.Menu.passwordPrompt();
-        if (log.login(this.username, this.password, this.role).equals("loggedIn")) {
-            this.presenter.loggedInPrompt();
-            presenter.welcome(username);
-        } else if (log.login(this.username, this.password, this.role).equals("usernameNotFound")) {
-            this.presenter.usernameNotFoundPrompt();
-            String choice = new Scanner(System.in).nextLine();
-            if (choice.equals("1")) {
-                logReg();
-            } else {
-                askRole();
-                register();
-            }
-        } else if (log.login(this.username, this.password, this.role).equals("wrongPassword")) {
-            presenter.wrongPasswordPrompt();
-            String choice = new Scanner(System.in).nextLine();
-            if (choice.equals("2")) {
-                presenter.resetPasswordPrompt();
-                String newPassword = new Scanner(System.in).nextLine();
-                if (log.resetPassword(this.username, newPassword)) {
-                    presenter.passwordResetSuccess();
+
+        switch (log.login(this.username, this.password, this.role)) {
+            case "loggedIn":
+                this.presenter.loggedInPrompt();
+                presenter.welcome(username);
+                break;
+            case "usernameNotFound": {
+                this.presenter.usernameNotFoundPrompt();
+                String choice = new Scanner(System.in).nextLine();
+                if (choice.equals("1")) {
                     logReg();
                 } else {
-                    System.out.println("failed"); //need to fix later
+                    askRole();
+                    register();
                 }
-            } else {
-                login();
+                break;
             }
-        } else if (log.login(this.username, this.password, this.role).equals("wrongRole")) {
-            presenter.wrongRole(log.roleOfAccount(username));
-            startProgram();
+            case "wrongPassword": {
+                presenter.wrongPasswordPrompt();
+                String choice = new Scanner(System.in).nextLine();
+
+                if (choice.equals("2")) {
+                    presenter.resetPasswordPrompt();
+                    String newPassword = new Scanner(System.in).nextLine();
+
+                    if (log.resetPassword(this.username, newPassword)) {
+                        presenter.passwordResetSuccess();
+                        logReg();
+                    } else
+                        System.out.println("failed"); //need to fix later
+                } else
+                    login();
+                break;
+            }
+            case "wrongRole":
+                presenter.wrongRole(log.roleOfAccount(username));
+                start();
+                break;
         }
     }
 
@@ -143,13 +150,13 @@ public class InitialPrompt {
         boolean answered = false;
         this.presenter.uPrompt();
         this.username = this.Menu.usernamePrompt();
+
         while (!answered) {
             if (log.usernameExist(username)) {
                 presenter.usernameUsed();
                 this.username = this.Menu.usernamePrompt();
-            } else {
+            } else
                 answered = true;
-            }
         }
         this.password = this.Menu.passwordPrompt();
         if (log.register(this.username, this.password, this.role)) {
