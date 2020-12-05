@@ -1,6 +1,6 @@
-package Controllers;
+package main.java.Controllers;
 
-import UseCases.*;
+import main.java.UseCases.*;
 import java.time.LocalDateTime;
 
 /**

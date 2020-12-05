@@ -1,8 +1,8 @@
-package Controllers;
+package main.java.Controllers;
 
 
-import Gateways.EventGateway;
-import UseCases.BuildingManager;
+import main.java.Gateways.EventGateway;
+import main.java.UseCases.BuildingManager;
 
 /**
  * <h1>ImportExportEventController</h1>

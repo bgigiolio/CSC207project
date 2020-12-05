@@ -1,10 +1,10 @@
-package Controllers;
+package main.java.Controllers;
 
-import Presenters.UserMenu;
-import UseCases.BuildingManager;
-import UseCases.EventManager;
-import UseCases.ListUseCase;
-import UseCases.LoginUserManager;
+import main.java.Presenters.UserMenu;
+import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
+import main.java.UseCases.ListUseCase;
+import main.java.UseCases.LoginUserManager;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

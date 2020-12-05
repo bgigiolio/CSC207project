@@ -1,7 +1,7 @@
-package Presenters;
+package main.java.Presenters;
 
-import UseCases.BuildingManager;
-import UseCases.ListUseCase;
+import main.java.UseCases.BuildingManager;
+import main.java.UseCases.ListUseCase;
 
 import java.util.ArrayList;
 

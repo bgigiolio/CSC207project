@@ -1,7 +1,7 @@
-package UseCases;
+package main.java.UseCases;
 
-import Entities.Attendee;
-import Entities.Speaker;
+import main.java.Entities.Attendee;
+import main.java.Entities.Speaker;
 
 import java.util.ArrayList;
 import java.util.List;

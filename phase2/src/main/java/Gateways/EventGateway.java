@@ -1,6 +1,6 @@
-package Gateways;
+package main.java.Gateways;
 
-import UseCases.BuildingManager;
+import main.java.UseCases.BuildingManager;
 import java.io.*;
 
 /**

@@ -1,7 +1,6 @@
-package sample;
+package main.java.sample;
 
-import Gateways.UserLoginInfo;
-import UseCases.LoginUserManager;
+import main.java.Gateways.UserLoginInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;

@@ -1,6 +1,6 @@
-package UseCases;
+package main.java.UseCases;
 
-import Entities.*;
+import main.java.Entities.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;

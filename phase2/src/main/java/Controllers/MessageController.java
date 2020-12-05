@@ -1,8 +1,8 @@
-package Controllers;
+package main.java.Controllers;
 
-import Entities.Message;
-import Gateways.MessageGateway;
-import UseCases.*;
+import main.java.Entities.Message;
+import main.java.Gateways.MessageGateway;
+import main.java.UseCases.*;
 
 import java.io.IOException;
 import java.util.ArrayList;

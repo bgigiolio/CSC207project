@@ -1,6 +1,6 @@
-package Gateways;
+package main.java.Gateways;
 
-import UseCases.EventStatus;
+import main.java.UseCases.EventStatus;
 import java.io.*;
 
 /**

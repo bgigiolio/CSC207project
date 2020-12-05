@@ -1,6 +1,6 @@
-package UseCases;
+package main.java.UseCases;
 
-import Entities.*;
+import main.java.Entities.*;
 
 public class PermissionSystem {
 

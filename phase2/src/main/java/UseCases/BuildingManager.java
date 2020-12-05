@@ -1,5 +1,5 @@
-package UseCases;
-import Entities.*;
+package main.java.UseCases;
+import main.java.Entities.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,6 +1,6 @@
-package Gateways;
+package main.java.Gateways;
 
-import Entities.Message;
+import main.java.Entities.Message;
 
 import java.io.*;
 import java.util.*;

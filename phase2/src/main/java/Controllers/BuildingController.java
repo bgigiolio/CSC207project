@@ -1,5 +1,5 @@
-package Controllers;
-import UseCases.*;
+package main.java.Controllers;
+import main.java.UseCases.*;
 
 /**
  * <h1>BuildingController</h1>

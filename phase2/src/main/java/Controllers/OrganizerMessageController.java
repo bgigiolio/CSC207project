@@ -1,9 +1,10 @@
-package Controllers;
+package main.java.Controllers;
 
-import Entities.Attendee;
-import Entities.Organizer;
-import Entities.Speaker;
-import UseCases.*;import java.io.IOException;
+import main.java.Entities.Attendee;
+import main.java.Entities.Organizer;
+import main.java.Entities.Speaker;
+import main.java.UseCases.*;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;

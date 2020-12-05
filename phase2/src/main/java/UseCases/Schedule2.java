@@ -1,11 +1,11 @@
-package UseCases;
+package main.java.UseCases;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import Entities.Event;
+import main.java.Entities.Event;
 import org.jetbrains.annotations.NotNull;
 
 

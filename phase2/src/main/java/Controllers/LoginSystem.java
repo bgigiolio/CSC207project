@@ -1,7 +1,7 @@
-package Controllers;
+package main.java.Controllers;
 
-import Gateways.UserLoginInfo;
-import UseCases.*;
+import main.java.Gateways.UserLoginInfo;
+import main.java.UseCases.*;
 
 import java.io.IOException;
 

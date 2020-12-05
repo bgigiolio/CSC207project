@@ -1,9 +1,10 @@
-package Controllers;//These UI classes are just thrown together to make running the program a bit easier.
+package main.java.Controllers;//These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
+
 import java.io.IOException;
 import java.util.Scanner;
 
-import Presenters.StartingMenu;
+import main.java.Presenters.StartingMenu;
 
 /**
  * <h1>ReturningUserController</h1>

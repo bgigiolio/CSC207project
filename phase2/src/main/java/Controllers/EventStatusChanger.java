@@ -1,6 +1,6 @@
-package Controllers;
+package main.java.Controllers;
 
-import Gateways.*;
+import main.java.Gateways.*;
 import java.io.IOException;
 
 /**

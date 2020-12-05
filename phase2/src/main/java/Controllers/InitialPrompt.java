@@ -1,11 +1,11 @@
-package Controllers;
+package main.java.Controllers;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import Presenters.*;
-import UseCases.BuildingManager;
-import UseCases.LoginUserManager;
+import main.java.Presenters.*;
+import main.java.UseCases.BuildingManager;
+import main.java.UseCases.LoginUserManager;
 
 //These UI classes are just thrown together to make running the program a bit easier.
 // PLEASE dont be afraid to delete these and change them a bunch!!!
