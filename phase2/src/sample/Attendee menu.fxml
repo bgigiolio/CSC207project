@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AttendeeMenuController">
    <children>
-      <SplitPane fx:id="multiPane" dividerPositions="0.5" layoutY="244.0" orientation="VERTICAL" prefHeight="531.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="multiPane" dividerPositions="0.5" orientation="VERTICAL" prefHeight="531.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane fx:id="topPane" minHeight="0.0" minWidth="0.0" prefHeight="176.0" prefWidth="598.0">
                <children>
@@ -43,7 +43,7 @@
             </AnchorPane>
           <AnchorPane fx:id="bottomPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Text fx:id="toPrint" layoutX="163.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="271.5">
+                  <Text fx:id="toPrint" layoutX="-1.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="600.0">
                      <font>
                         <Font size="24.0" />
                      </font>

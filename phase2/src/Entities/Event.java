@@ -45,7 +45,7 @@ public class Event implements Serializable {
      */
     protected int duration;
 
-    protected int eventcapacity;
+    protected int eventCapacity;
 
     /**
      * Instantiates an Event object by taking the inputs title, location and datetime.
@@ -55,14 +55,14 @@ public class Event implements Serializable {
      * @param datetime tells when the event is happening.
      * @param duration how long this event will be
      */
-    public Event(String title, String location, LocalDateTime datetime, int duration, int eventcapacity){
+    public Event(String title, String location, LocalDateTime datetime, int duration, int eventCapacity){
         this.title = title;
         //this.speaker = speaker;
         this.location = location;
         this.datetime = datetime;
         this.usernames = new ArrayList<>();
         this.duration = duration;
-        this.eventcapacity = eventcapacity;
+        this.eventCapacity = eventCapacity;
     }
 
     /**
@@ -100,7 +100,7 @@ public class Event implements Serializable {
      * @return this.usernames
      */
     public ArrayList<String> getAttendees() {
-        return this.usernames;
+        return new ArrayList<>(this.usernames);
     }
 
     /**
@@ -191,12 +191,12 @@ public class Event implements Serializable {
         return new Object[]{this.title, this.location, this.datetime, this.usernames};
     }
 
-    public int getEventcapacity(){
-        return this.eventcapacity;
+    public int getEventCapacity(){
+        return this.eventCapacity;
     }
 
-    public void setEventcapacity(int newcapacity){
-        this.eventcapacity = newcapacity;
+    public void setEventCapacity(int newCapacity){
+        this.eventCapacity = newCapacity;
     }
 
 }

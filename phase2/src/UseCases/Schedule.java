@@ -32,8 +32,6 @@ public class Schedule implements Serializable {
 
     private int roomCapacity;
 
-    //This has become a use case
-
     /**
      * The constructor requires a start hour and end hour for how long the room is available
      * @param startHour The first hour (inclusive) that an event can be scheduled
