@@ -48,6 +48,7 @@ public class ProgramMain {
         String username;
         String role;
         String userType;
+        boolean didQuit;
 
         do {
             do{
@@ -65,7 +66,10 @@ public class ProgramMain {
 
             manager = new LoginUserManager();
             currentSession = new AttendeeMenuController(username, role, buildingManager, manager);
-        } while(!currentSession.menuSelection());
+
+            didQuit = currentSession.menuSelection();
+            logSys.logout();
+        } while(!didQuit);
     }
 
     /**

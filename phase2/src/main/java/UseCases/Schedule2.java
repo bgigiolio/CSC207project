@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import main.java.Entities.Event;
-import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -69,7 +68,7 @@ public class Schedule2 implements Serializable {
      * @param e This is the event to be added
      * @return true if the event was successfully added, false if the event couldn't be added
      */
-    public boolean addEvent(@NotNull Event e){
+    public boolean addEvent(Event e){
         LocalDateTime endTime = e.getDatetime().plusMinutes(e.getDuration());
 
         if(endTime.toLocalTime().isAfter(this.endTime) || e.getDatetime().toLocalTime().isBefore(this.startTime)
@@ -138,7 +137,7 @@ public class Schedule2 implements Serializable {
 
     /**
      * Change max room capacity
-     * @param roomCapacity
+     * @param roomCapacity new room capacity
      */
     public void setRoomCapacity(int roomCapacity) {
         this.roomCapacity = roomCapacity;

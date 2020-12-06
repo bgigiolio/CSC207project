@@ -40,7 +40,7 @@ public class LoginSystem {
         return userLoginInfo.getUserRole(username);
     }
 
-    public void logout(String username) {
+    public void logout() {
         userLoginInfo.logout();
     }
 
