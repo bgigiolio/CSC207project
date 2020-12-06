@@ -43,7 +43,8 @@ public class UserMenu {
                 "[11] Schedule Speaker\n" +
                 "[12] Remove Event \n" +
                 "[13] Message Event Attendees \n" +
-                "[14] Create Event");
+                "[14] Create Event\n" +
+                "[15] Modify Event Capacity.");
     }
     /**
      * If the user is a speaker, this should be displayed along with optionsAttendee()

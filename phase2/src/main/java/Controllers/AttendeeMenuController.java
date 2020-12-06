@@ -434,7 +434,7 @@ public class AttendeeMenuController {
                         this.menu.invalidRole();
                     }
                     break;
-                case "m":
+                case "15":
                     modifyCapacity();
                     break;
                 case"a":
