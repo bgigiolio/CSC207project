@@ -1,14 +1,14 @@
 package main.java.sample;
 
-import main.java.Gateways.UserLoginInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.stage.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 
 public class Main extends Application{
 
-    UserLoginInfo userLoginInfo = new UserLoginInfo(); //instantiates with empty class variables.
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -19,12 +19,12 @@ public class Main extends Application{
         primaryStage.show();
 
     }
-    public UserLoginInfo getUserLoginInfo(){
-        return this.userLoginInfo;
+
+
+    public static void main(String[] args) {
+        launch(args);
     }
-
-
-
+}
 
 
 
@@ -114,7 +114,4 @@ public class Main extends Application{
 //    }
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
+
