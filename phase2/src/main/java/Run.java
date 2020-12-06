@@ -2,7 +2,6 @@ package main.java;
 
 import main.java.Controllers.ImportExportEventController;
 import main.java.Controllers.ProgramMain;
-import main.java.sample.*;
 
 import java.io.IOException;
 
