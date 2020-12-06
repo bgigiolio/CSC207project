@@ -137,6 +137,9 @@ public class AttendeeMenuController {
         return building.addRoom1(name, start, end, roomCapacity);
     }
 
+    // Merged with createUser() method
+
+    /*
     public void addSpeaker() throws IOException {
         LoginSystem log = new LoginSystem();
         this.menu.createSpeakerName();
@@ -148,6 +151,7 @@ public class AttendeeMenuController {
             this.menu.invalidResponse();
         }
     }
+     */
 
     public void scheduleSpeaker(){
         this.menu.createSpeakerName();
@@ -193,6 +197,36 @@ public class AttendeeMenuController {
             this.menu.invalidResponse();
         }
 
+    }
+
+    public void createUser() throws  IOException{
+        LoginSystem log = new LoginSystem();
+        this.menu.createUserType();
+        String userType = new Scanner(System.in).nextLine();
+        this.menu.createUserName();
+        String userName = new Scanner(System.in).nextLine();
+        NewUserController newUser = new NewUserController();
+        if (userType.equals("O") || userType.equals("o")) {
+            if (log.register(userName, "password", "Organizer")) {
+                this.menu.organizerMade(userName);
+            }else{
+                this.menu.invalidResponse();
+            }
+        }
+        if (userType.equals("A") || userType.equals("a")) {
+            if (log.register(userName, "password", "Attendee")) {
+                this.menu.attendeeMade(userName);
+            }else{
+                this.menu.invalidResponse();
+            }
+        }
+        if (userType.equals("S") || userType.equals("s")) {
+            if (log.register(userName, "password", "Speaker")) {
+                this.menu.speakerMade(userName);
+            }else{
+                this.menu.invalidResponse();
+            }
+        }
     }
 
     public boolean createEvent() {
@@ -282,7 +316,7 @@ public class AttendeeMenuController {
      * [8] Logout
      * [q] Quit
      * ---AVAILABLE FOR ORGANIZERS ONLY---
-     * [9] Create Speaker Account
+     * [9] Create User Account
      * [10] Add Room
      * [11] Schedule Speaker
      * [12] Remove Event
@@ -340,9 +374,9 @@ public class AttendeeMenuController {
                     return false;
                 case "q": //quit program
                         return true;
-                case "9": //create speaker account
+                case "9": //create user account
                     if(this.role.equals("Organizer")) {
-                        addSpeaker();
+                        createUser();
                     }else{
                         this.menu.invalidRole();
                     }

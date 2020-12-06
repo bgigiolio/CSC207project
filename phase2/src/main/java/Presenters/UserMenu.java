@@ -44,7 +44,7 @@ public class UserMenu {
      */
     public void optionsOrganizer() {
         System.out.println("---Organizer Specific Actions---");
-        System.out.println("[9] Create Speaker\n" +
+        System.out.println("[9] Create User\n" +
                 "[10] Add Room\n" +
                 "[11] Schedule Speaker\n" +
                 "[12] Remove Event \n" +
@@ -165,15 +165,29 @@ public class UserMenu {
         System.out.println("When should this room close?");
         System.out.println("Please type a number between " + start + " and 24");
     }
+    public void createUserType() {
+        System.out.println("Is the new user an Attendee, Speaker or Organizer?");
+        System.out.println("Enter 'A' for Attendee, 'S' for Speaker, or 'O' for Organizer:");
+    }
     public void createSpeakerName(){
         System.out.println("Enter Speaker name:");
     }
-    public void speakerMade(){
-        System.out.println("Speaker made!");
+    public void createUserName(){
+        System.out.println("Enter User name:");
     }
-    public void enterEvent(){
-        System.out.println("Enter existing Event name:");
+    public void speakerMade(String uname){
+        System.out.println("Speaker account for " + uname + " successfully created!");
+        System.out.println("Default password is 'password'");
     }
+    public void organizerMade(String uname){
+        System.out.println("Organizer account for " + uname + " successfully created!");
+        System.out.println("Default password is 'password'");
+    }
+    public void attendeeMade(String uname){
+        System.out.println("Attendee account for " + uname + " successfully created!");
+        System.out.println("Default password is 'password'");
+    }
+    public void enterEvent(){ System.out.println("Enter existing Event name:"); }
     public void printMessages(ArrayList<String> messages){
         StringBuilder builder = new StringBuilder();
         builder.append("Your messages: \n");
