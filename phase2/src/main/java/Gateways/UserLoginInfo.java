@@ -4,8 +4,10 @@ import java.io.*;
 
 import main.java.UseCases.*;
 
-// GATEWAY
-@SuppressWarnings("DuplicatedCode")
+/**
+ * <h1>UserLoginInfo</h1>
+ * Responsible for accessing database that stores user info and modifying their data
+ */
 public class UserLoginInfo implements Serializable{
 
     /**
@@ -14,53 +16,77 @@ public class UserLoginInfo implements Serializable{
     private LoginUserManager loginUserManager;
 
     /**
-     * Construct an UserLoginInfo object.
-     * Initialized with a new LoginUserManager.
+     * Stores the path to the database file
      */
-    public UserLoginInfo() {this.loginUserManager = new LoginUserManager(); }
+    private final String dbPath;
 
-    /**
-     * Return loginUserManager.
-     *
-     * @return loginUserManager of this UserLoginInfo object.
-     */
-    public LoginUserManager getLoginUserManager() { return this.loginUserManager; }
+    public UserLoginInfo(){
+        dbPath = "phase2/src/main/java/DB/UserLoginInfo.ser";
+        getFileUserLoginInfo();
+    }
 
-    /**
-     * Set loginUserManager.
-     *
-     * @param loginUserManager of this UserLoginInfo object.
-     */
-    public void setLoginUserManager(LoginUserManager loginUserManager) {
-        this.loginUserManager = loginUserManager;
+    public boolean createUser(String username, String password, String role){
+        return loginUserManager.registerUser(username, password, role);
+    }
+
+    public boolean userExists(String username){
+        return loginUserManager.checkUsername(username);
+    }
+
+    public String login(String username, String password){
+        return loginUserManager.loginUser(username, password);
+    }
+
+    public boolean resetPassword(String username, String newPassword){
+        return loginUserManager.resetPassword(username, newPassword);
+    }
+
+    public String getUserRole(String username){
+        return loginUserManager.userRole(username);
     }
 
     /**
-     * Load filepath and update loginUserManager with existing users' login information.
-     *
-     * @return loginUserManager object that stores the existing users' login information.
+     * Clear contents of database file and save loginUserManager again to update
      */
-    public LoginUserManager getFileUserLoginInfo(String filePath) throws IOException {
-
+    public void logout(){
         try{
-            InputStream file = new FileInputStream(filePath);
+            PrintWriter writer = new PrintWriter(dbPath);
+            writer.print("");
+            writer.close();
+            setFileUserLoginInfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Update LoginUserManager with existing users' login information.
+     */
+    private void getFileUserLoginInfo(){
+        try{
+            InputStream file = new FileInputStream(dbPath);
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
             loginUserManager = ((LoginUserManager) input.readObject());
             input.close();
-        } catch (FileNotFoundException | ClassNotFoundException e){
+        }catch(EOFException e){
+            loginUserManager = new LoginUserManager();
+        }catch(ClassNotFoundException e){
+            System.err.println("Error when reading from database");
+            loginUserManager = new LoginUserManager();
+        }
+        catch (IOException e){
             e.printStackTrace();
-        } catch (EOFException ignored) {}
-        return loginUserManager;
+        }
     }
 
     /**
      * Save loginUserManager to filepath.
      */
-    public void setFileUserLoginInfo(String filePath) throws IOException {
+    private void setFileUserLoginInfo() throws IOException {
         try {
-            OutputStream file = new FileOutputStream(filePath);
+            OutputStream file = new FileOutputStream(dbPath);
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
 

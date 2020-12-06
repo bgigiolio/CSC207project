@@ -4,58 +4,44 @@ import main.java.Gateways.UserLoginInfo;
 
 import java.io.IOException;
 
+/**
+ * <h1>LoginSystem</h1>
+ * Responsible for interacting with <code>UserLoginInfo</code> gateway to retrieve and modify
+ * data about users stored in the database
+ */
 public class LoginSystem {
 
     /**
-     * The UserLoginInfo object that stores the user information.
+     * The UserLoginInfo (Gateway) object that stores the user information.
      */
-    private UserLoginInfo userLoginInfo = new UserLoginInfo(); //gateway
+    private final UserLoginInfo userLoginInfo;
 
-    /**
-     * Construct a LoginSystem.
-     * Initialized a new UserLoginInfo object.
-     */
+    public LoginSystem(){
+        userLoginInfo = new UserLoginInfo();
+    }
 
     public boolean register(String username, String password, String role) throws IOException {
-        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
-        userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
-        boolean returnVal = userLoginInfo.getLoginUserManager().registerUser(username, password, role);
-        userLoginInfo.setFileUserLoginInfo(db);
-        return returnVal;
+        return userLoginInfo.createUser(username, password, role);
     }
 
-    public boolean usernameExist(String username) throws IOException {
-        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
-        userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
-        return userLoginInfo.getLoginUserManager().checkUsername(username);
+    public boolean usernameExist(String username){
+        return userLoginInfo.userExists(username);
     }
 
-    public String login(String username, String password, String role) throws IOException {
-        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
-        userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
-        return userLoginInfo.getLoginUserManager().loginUser(username, password, role);
+    public String login(String username, String password) throws IOException {
+        return userLoginInfo.login(username, password);
     }
 
-    public boolean resetPassword(String username, String password) throws IOException {
-        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
-        userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
-        boolean returnVal = userLoginInfo.getLoginUserManager().resetPassword(username, password);
-        userLoginInfo.setFileUserLoginInfo(db);
-        return returnVal;
+    public boolean resetPassword(String username, String password) {
+        return userLoginInfo.resetPassword(username, password);
     }
 
-    public String roleOfAccount(String username) throws IOException {
-        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
-        userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
-        return userLoginInfo.getLoginUserManager().userRole(username);
+    public String roleOfAccount(String username) {
+        return userLoginInfo.getUserRole(username);
     }
 
     public void logout(String username) {
-        userLoginInfo.getLoginUserManager().logoutUser(username);
-    }
-
-    public String checkPrivileges(String username) {
-        return userLoginInfo.getLoginUserManager().userRole(username);
+        userLoginInfo.logout();
     }
 
 /*    public Object user(String username){

@@ -18,10 +18,10 @@ import java.util.Scanner;
  */
 public class AttendeeMenuController {
     private final String username;
-    private String role;
+    private final String role;
     private final UserMenu menu;
     private final BuildingManager building;
-    private EventStatusChanger eventStatusChanger = new EventStatusChanger();
+    private final EventStatusChanger eventStatusChanger;
     private final LoginUserManager manager;
 
     /**
@@ -33,10 +33,10 @@ public class AttendeeMenuController {
     public AttendeeMenuController(String username, String role, BuildingManager building, LoginUserManager userManager) {
         this.username = username;
         this.role = role;
-        this.menu = new UserMenu(this.username);
+        this.menu = new UserMenu();
         this.building = building;
         this.manager = userManager;
-
+        this.eventStatusChanger = new EventStatusChanger();
     }
 
     /**
@@ -370,6 +370,7 @@ public class AttendeeMenuController {
                     manageFriendsList();
                     break;
                 case "8": //logout
+
                     menu.logoutSuccess();
                     return false;
                 case "q": //quit program

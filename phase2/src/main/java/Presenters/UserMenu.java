@@ -11,16 +11,10 @@ import java.util.ArrayList;
  * @author Blake Gigiolio
  */
 public class UserMenu {
-    private final String username;
 
     /**
      * This constructor sets up the menu with for a user with a given username.
-     *
-     * @param username The username of the user that is using this menu.
      */
-    public UserMenu(String username) {
-        this.username = username;
-    }
 
     /**
      * Once the user logs in to the program this is the first thing they should see, listing their
