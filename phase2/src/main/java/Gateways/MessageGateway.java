@@ -30,8 +30,8 @@ public class MessageGateway implements Serializable{
     public MessageGateway(){
         this.inbox = new HashMap<>();
         this.outbox = new HashMap<>();
-        this.inboxPath = "phase2\\src\\DB\\InboxMessage.ser";
-        this.outboxPath = "phase2\\src\\DB\\OutboxMessage.ser";
+        this.inboxPath = "phase2\\src\\main\\java\\DB\\InboxMessage.ser";
+        this.outboxPath = "phase2\\src\\main\\java\\DB\\OutboxMessage.ser";
     }
 
     /**
@@ -156,7 +156,7 @@ public class MessageGateway implements Serializable{
         File f = new File(this.inboxPath);
 
         if(f.length()==0)
-            return new HashMap<String, ArrayList<Message>>();
+            return new HashMap<>();
 
         try {
             InputStream file = new FileInputStream(this.inboxPath);
@@ -182,7 +182,7 @@ public class MessageGateway implements Serializable{
         File f = new File(this.inboxPath);
 
         if(f.length()==0)
-            return new HashMap<String, ArrayList<Message>>();
+            return new HashMap<>();
 
         try{
             InputStream file = new FileInputStream(this.outboxPath);

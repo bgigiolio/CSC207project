@@ -17,7 +17,7 @@ public class LoginSystem {
      */
 
     public boolean register(String username, String password, String role) throws IOException {
-        String db = "phase2/src/DB/UserLoginInfo.ser";
+        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
         userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
         boolean returnVal = userLoginInfo.getLoginUserManager().registerUser(username, password, role);
         userLoginInfo.setFileUserLoginInfo(db);
@@ -25,19 +25,19 @@ public class LoginSystem {
     }
 
     public boolean usernameExist(String username) throws IOException {
-        String db = "phase2/src/DB/UserLoginInfo.ser";
+        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
         userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
         return userLoginInfo.getLoginUserManager().checkUsername(username);
     }
 
     public String login(String username, String password, String role) throws IOException {
-        String db = "phase2/src/DB/UserLoginInfo.ser";
+        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
         userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
         return userLoginInfo.getLoginUserManager().loginUser(username, password, role);
     }
 
     public boolean resetPassword(String username, String password) throws IOException {
-        String db = "phase2/src/DB/UserLoginInfo.ser";
+        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
         userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
         boolean returnVal = userLoginInfo.getLoginUserManager().resetPassword(username, password);
         userLoginInfo.setFileUserLoginInfo(db);
@@ -45,7 +45,7 @@ public class LoginSystem {
     }
 
     public String roleOfAccount(String username) throws IOException {
-        String db = "phase2/src/DB/UserLoginInfo.ser";
+        String db = "phase2/src/main/java/DB/UserLoginInfo.ser";
         userLoginInfo.setLoginUserManager(userLoginInfo.getFileUserLoginInfo(db));
         return userLoginInfo.getLoginUserManager().userRole(username);
     }

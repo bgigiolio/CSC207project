@@ -20,7 +20,7 @@ public class EventGateway implements Serializable {
     public BuildingManager getEvents() throws ClassNotFoundException {
         BuildingManager events = new BuildingManager("Building");
         try {
-            InputStream file = new FileInputStream("phase2/src/DB/Events.ser");
+            InputStream file = new FileInputStream("phase2/src/main/java/DB/Events.ser");
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
@@ -38,7 +38,7 @@ public class EventGateway implements Serializable {
      */
     public void setEvents(BuildingManager events) {
         try {
-            OutputStream file = new FileOutputStream("phase2/src/DB/Events.ser");
+            OutputStream file = new FileOutputStream("phase2/src/main/java/DB/Events.ser");
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
 
@@ -48,6 +48,4 @@ public class EventGateway implements Serializable {
             ex.printStackTrace();
         }
     }
-
-
 }

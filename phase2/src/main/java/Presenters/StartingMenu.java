@@ -12,7 +12,7 @@ public class StartingMenu {
      */
     public void initialPrompt(){
         System.out.println("Are you a new user or a returning user?");
-        System.out.println("Type [N] for new.  Type [R] for returning.");
+        System.out.println("Type:\n\t[N] for new\n\t[R] for returning");
     }
 
     /**
@@ -63,15 +63,11 @@ public class StartingMenu {
     public void newUserCreated() {System.out.println("Account successfully created");}
 
     public void usernameNotFoundPrompt() {
-        System.out.println("That account doesn't exist.\n" +
-                "[1] Enter a different account\n" +
-                "[2] Get a new one");
+        System.out.println("That account doesn't exist.\n[1] Enter a different account\n[2] Get a new one");
     }
 
     public void wrongPasswordPrompt() {
-        System.out.println("Incorrect password.\n" +
-                "[1] Try again\n" +
-                "[2] Forgot password?");
+        System.out.println("Incorrect password.\n[1] Try again\n[2] Forgot password?");
     }
 
     public void resetPasswordPrompt() {
@@ -79,13 +75,11 @@ public class StartingMenu {
     }
 
     public void wrongRole(String role) {
-        System.out.println("The username you entered belongs to a(n) " + role + " account.\n" +
-                "Please try logging in again.");
+        System.out.println("The username entered belongs to a(n) " + role + " account. Please try logging in again.");
     }
 
     public void passwordResetSuccess() {
-        System.out.println("You have successfully rest your password.\n" +
-                "You may now use your new password to log in.");
+        System.out.println("You have successfully reset your password. You may now use your new password to log in.");
     }
 
     public void welcome(String username) {

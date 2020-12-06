@@ -280,7 +280,7 @@ public class AttendeeMenuController {
      * [6] Review Messages
      * [7] Manage Friends List
      * [8] Logout
-     * [q]
+     * [q] Quit
      * ---AVAILABLE FOR ORGANIZERS ONLY---
      * [9] Create Speaker Account
      * [10] Add Room
@@ -292,11 +292,11 @@ public class AttendeeMenuController {
      * @throws IOException Handles the Scanner.
      */
     public boolean menuSelection() throws IOException {
-        homepage();
         Scanner uname = new Scanner(System.in);
-        boolean loggedOut = false;
 
-        while (!loggedOut) {
+        homepage();
+
+        while (true) {
             String response = uname.nextLine();
             switch (response) {
                 case "1":
@@ -337,9 +337,7 @@ public class AttendeeMenuController {
                     break;
                 case "8": //logout
                     menu.logoutSuccess();
-                    //new InitialPrompt(new BuildingController("Building").getBuilding()).startProgram();
-                    loggedOut = true;
-                    break;
+                    return false;
                 case "q": //quit program
                         return true;
                 case "9": //create speaker account
@@ -399,6 +397,5 @@ public class AttendeeMenuController {
             saveBuilding.exportEvents(this.building);
             this.menu.promptAgain();
         }
-        return false;
     }
 }

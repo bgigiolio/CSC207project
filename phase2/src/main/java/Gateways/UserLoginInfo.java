@@ -1,13 +1,11 @@
 package main.java.Gateways;
 
 import java.io.*;
-import java.util.*;
 
-import main.java.Entities.Attendee;
 import main.java.UseCases.*;
-import main.java.Controllers.*;
 
 // GATEWAY
+@SuppressWarnings("DuplicatedCode")
 public class UserLoginInfo implements Serializable{
 
     /**

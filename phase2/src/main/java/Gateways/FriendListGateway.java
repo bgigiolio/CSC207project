@@ -25,7 +25,7 @@ public class FriendListGateway implements Serializable{
      */
     public FriendListGateway(){
         friendlist = new HashMap<>();
-        this.filePath = "phase2\\src\\DB\\Friendlist.ser";
+        this.filePath = "phase2\\src\\main\\java\\DB\\Friendlist.ser";
 
     }
 
@@ -75,7 +75,7 @@ public class FriendListGateway implements Serializable{
         File f = new File(this.filePath);
 
         if(f.length()==0)
-            return new HashMap<String, ArrayList<String>>();
+            return new HashMap<>();
 
 
         try{
