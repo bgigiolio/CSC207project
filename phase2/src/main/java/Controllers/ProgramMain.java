@@ -1,6 +1,8 @@
 package main.java.Controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import main.java.Presenters.*;
@@ -41,10 +43,11 @@ public class ProgramMain {
      *  -Initializes the post-login menu
      * @throws IOException Handles Scanners.
      */
-    public void start() throws IOException, ClassNotFoundException {
+    public void start() throws IOException{
         LoginUserManager manager;
         AttendeeMenuController currentSession;
 
+        String password;
         String username;
         String role;
         String userType;
@@ -54,10 +57,12 @@ public class ProgramMain {
                 presenter.initialPrompt();
                 userType = askUserType();
                 role = askRole();
-                username = logReg(userType, role);
+                username = logReg(userType, role).get(0);
+                password = logReg(userType, role).get(1);
             } while(username == null);
 
             manager = new LoginUserManager();
+            manager.registerUser(username, password, role);
             currentSession = new AttendeeMenuController(username, role, this.buildingManager, manager);
         } while(!currentSession.menuSelection());
     }
@@ -103,21 +108,24 @@ public class ProgramMain {
         return role;
     }
 
-    private String logReg(String userType, String role) throws IOException, ClassNotFoundException {
+    private List<String> logReg(String userType, String role) throws IOException {
         if (userType.equals("N"))
             return register(role);
 
         this.presenter.uPrompt();
         String username = this.menu.usernamePrompt();
 
-        if(login(username, role))
-            return username;
+        List<String> login_return = login(username, role);
+        if(login_return.size() != 0) {
+            return login_return;
+        }
 
         return null;
     }
 
-    private String register(String role) throws IOException {
+    private List<String> register(String role) throws IOException {
         String username, password;
+        List<String> user_details = new ArrayList<>();
 
         this.presenter.uPrompt();
         username = this.menu.usernamePrompt();
@@ -130,25 +138,30 @@ public class ProgramMain {
         password = this.menu.passwordPrompt();
 
         if (logSys.register(username, password, role)) {
+
             presenter.newUserCreated();
             presenter.welcome(username);
         }
-
-        return username;
+        user_details.add(username);
+        user_details.add(password);
+        return user_details;
     }
 
     /**
      * This is how a user will log in. Here we call the log in menu prompt.
      * @throws IOException Handles Scanner.
      */
-    private boolean login(String username, String role) throws IOException {
+    private List<String> login(String username, String role) throws IOException {
+        List<String> user_details = new ArrayList<>();
         String password = this.menu.passwordPrompt();
 
         switch (logSys.login(username, password, role)) {
             case "loggedIn":
                 this.presenter.loggedInPrompt();
                 presenter.welcome(username);
-                return true;
+                user_details.add(username);
+                user_details.add(password);
+                return user_details;
 
             case "usernameNotFound": {
                 this.presenter.usernameNotFoundPrompt();
@@ -179,6 +192,6 @@ public class ProgramMain {
             default:
                 break;
         }
-        return false;
+        return user_details;
     }
 }
