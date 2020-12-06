@@ -3,7 +3,7 @@
 
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="center" spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OpeningController">
+<VBox alignment="center" spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.OpeningController">
 
    <Button text="New User" fx:id="newUserButton" onAction="#handleNewUserButton"/>
    <Button text="Returning User" fx:id="retUserButton" onAction="#handleRetUserButton"/>
