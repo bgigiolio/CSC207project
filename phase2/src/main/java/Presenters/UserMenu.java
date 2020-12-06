@@ -92,7 +92,10 @@ public class UserMenu {
     public void signUpEventStatus(String eventTitle, String status) {
         if (status.equals("1")) {
         System.out.println("You have successfully signed up for the event " + eventTitle + ".");
-        } else {
+        } else if (status.equals("2")) {
+            System.out.println("Event is at capacity. Please choose a different event.\n" +
+                    "[1] Go back \n[2] Enter another event");
+        }else{
             System.out.println("Event " + eventTitle + " does not exist.\n" +
                     "[1] Go back \n[2] Enter another event");}
     }
