@@ -61,4 +61,8 @@ public class EventManager {
     public boolean removeEvent(){
         return schedule.removeEvent(this.event);
     }
+
+    public void modifyCapacity(int newCapacity){
+        event.setEventCapacity(newCapacity);
+    }
 }

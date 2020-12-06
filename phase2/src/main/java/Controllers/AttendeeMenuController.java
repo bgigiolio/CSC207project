@@ -62,10 +62,15 @@ public class AttendeeMenuController {
     public void signUpEvent() throws IOException, ClassCastException {
         menu.eventPrompt("sign up");
         String eventTitle = new Scanner(System.in).nextLine();
-        if (eventStatusChanger.signUpChanger(this.username, eventTitle)) {
+        int signUpSuccessful = eventStatusChanger.signUpChanger(this.username, eventTitle, this.building);
+        if (signUpSuccessful == 0) {
             menu.signUpEventStatus(eventTitle, "1");
         } else {
-            menu.signUpEventStatus(eventTitle, "0");
+            if (signUpSuccessful == 1){
+                menu.signUpEventStatus(eventTitle, "0");
+            } else {
+                menu.signUpEventStatus(eventTitle, "2");
+            }
             String response = new Scanner(System.in).nextLine();
             if (response.equals("1")) {
                 homepage();
@@ -161,6 +166,15 @@ public class AttendeeMenuController {
         EventManager manager = new EventManager(building.getEvent(eventName), building);
         //manager.addSpeaker(speakerName);
 
+    }
+
+    public void modifyCapacity(){
+        this.menu.enterEvent();
+        String eventName = new Scanner(System.in).nextLine();
+        this.menu.modifyEventCapacity();
+        int newCapacity = new Scanner(System.in).nextInt();
+        EventManager manager = new EventManager(building.getEvent(eventName), building);
+        manager.modifyCapacity(newCapacity);
     }
 
     public boolean removeEvent(){
@@ -419,6 +433,9 @@ public class AttendeeMenuController {
                     }else{
                         this.menu.invalidRole();
                     }
+                    break;
+                case "m":
+                    modifyCapacity();
                     break;
                 case"a":
                 case"A":

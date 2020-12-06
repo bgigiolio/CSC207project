@@ -241,4 +241,8 @@ public class UserMenu {
     public void createRoomCapacity() {
         System.out.println("What is the maximum occupancy for this room?");
     }
+
+    public void modifyEventCapacity(){
+        System.out.println("What is the new Capacity?");
+    }
 }

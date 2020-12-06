@@ -1,6 +1,8 @@
 package main.java.Controllers;
 
 import main.java.Gateways.*;
+import main.java.UseCases.BuildingManager;
+
 import java.io.IOException;
 
 /**
@@ -25,10 +27,10 @@ public class EventStatusChanger {
      *
      * @return true iff username has successfully signed up for event of eventTitle.
      */
-    public boolean signUpChanger(String username, String eventTitle) throws IOException {
+    public int signUpChanger(String username, String eventTitle, BuildingManager building) throws IOException {
         String db = "phase2/src/DB/EventStatusData.ser";
         eventStatusGateway.setEventStatus(eventStatusGateway.loadFromFile(db));
-        boolean returnVal = eventStatusGateway.getEventStatus().signUpEvent(username,eventTitle);
+        int returnVal = eventStatusGateway.getEventStatus().signUpEvent(username,eventTitle, building);
         eventStatusGateway.saveToFile(db);
         return returnVal;
     }

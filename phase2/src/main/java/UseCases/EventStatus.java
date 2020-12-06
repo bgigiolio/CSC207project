@@ -26,13 +26,16 @@ public class EventStatus implements Serializable {
      *
      * @return true iff user of username has successfully signed up for event of eventTitle.
      */
-    public boolean signUpEvent(String username, String eventTitle) {
+    public int signUpEvent(String username, String eventTitle, BuildingManager building) {
         List<String> eventsRegistered = usernameToEvents.get(username);
         if (!(eventsRegistered == null) && !eventsRegistered.contains(eventTitle)) {
+            if (building.getEvent(eventTitle).getAttendees().size() >= building.getEvent(eventTitle).getEventCapacity()) {
+                return 2;
+            }
             eventsRegistered.add(eventTitle);
             usernameToEvents.put(username, eventsRegistered);
-            return true;
-        } else { return false; }
+            return 0;
+        } else { return 1; }
     }
 
     /**
