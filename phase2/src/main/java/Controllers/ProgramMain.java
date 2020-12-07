@@ -38,7 +38,7 @@ public class ProgramMain {
      *  -Logs the user in
      *  -Initializes the post-login menu
      */
-    public void start(){
+    public void start() throws ClassNotFoundException {
         AttendeeMenuController currentSession;
         StartingMenu menuPresenter = new StartingMenu();
         UserLoginGateway userLoginGateway = new UserLoginGateway();
@@ -152,7 +152,7 @@ public class ProgramMain {
      * This is how a user will log in. Here we call the log in menu prompt.
      * @return username of user logged. Null if couldn't log in.
      */
-    private String login(){
+    private String login() throws ClassNotFoundException {
         NewUserController credentialsPrompt = new NewUserController();
         StartingMenu menuPresenter = new StartingMenu();
 
