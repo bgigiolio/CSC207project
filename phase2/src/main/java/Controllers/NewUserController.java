@@ -1,7 +1,6 @@
 package main.java.Controllers;
 import main.java.Presenters.StartingMenu;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**

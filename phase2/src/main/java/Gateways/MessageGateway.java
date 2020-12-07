@@ -26,7 +26,6 @@ public class MessageGateway implements Serializable{
      * Instantiated without any arguments.
      * Creates an instance of MessageGateway to access the file named Message.ser outside the program.
      */
-
     public MessageGateway(){
         this.inbox = new HashMap<>();
         this.outbox = new HashMap<>();
@@ -74,6 +73,7 @@ public class MessageGateway implements Serializable{
     public HashMap<String, ArrayList<Message>> getInboxInProgram(){
         return this.inbox;
     }
+
     /**
      * Takes no argument.
      * Returns a hashmap that is assigned to the class attribute named outbox.
@@ -90,6 +90,7 @@ public class MessageGateway implements Serializable{
     public void setInboxInProgram(HashMap<String, ArrayList<Message>> inbox){
         this.inbox = inbox;
     }
+
     /**
      * Saves the input outbox to the class attribute named outbox
      * @param outbox which is a hashmap whose keys are usernames and values are arraylists of sent messages.
@@ -131,7 +132,6 @@ public class MessageGateway implements Serializable{
      * @param receiver is the user that received the message
      * @param message is the object that is created by sender, sent to receiver.
      */
-
     public void removeMessage(String sender, String receiver, Message message){
         if (this.outbox.containsKey(sender) && this.outbox.get(sender).contains(message)
         && this.inbox.containsKey(receiver) && this.inbox.get(receiver).contains(message)){
@@ -149,10 +149,8 @@ public class MessageGateway implements Serializable{
      * Retrieve and return the inbox hashmap that is stored in the file located outside the program.
      * Takes no argument.
      * @return inbox
-     * @throws IOException to catch FileNotFoundException for the corresponding filepath and ClassNotFoundException for the object that is read.
      */
-
-    public HashMap<String, ArrayList<Message>> getInbox() throws IOException {
+    public HashMap<String, ArrayList<Message>> getInbox() {
         File f = new File(this.inboxPath);
 
         if(f.length()==0)
@@ -163,11 +161,18 @@ public class MessageGateway implements Serializable{
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-            this.inbox = (HashMap<String, ArrayList<Message>>) input.readObject();
+            inbox = (HashMap<String, ArrayList<Message>>) input.readObject();
             input.close();
-        } catch (FileNotFoundException | ClassNotFoundException e) {
+        }  catch (EOFException e) { //database file is empty
+            inbox = new HashMap<>();
+        } catch (ClassNotFoundException | StreamCorruptedException e) {   //incorrect class format
+            System.err.println("Corrupted file contents in inbox database. Clearing file...");
+            clearFileContentsUtil(inboxPath);
+            inbox = new HashMap<>();
+        } catch (IOException e) {  //other IO exception
+            System.err.println("Unknown error when reading from inbox database file.");
             e.printStackTrace();
-            System.out.println("Existing version of inbox is returned");
+            inbox = new HashMap<>();
         }
         return this.inbox;
     }
@@ -176,9 +181,8 @@ public class MessageGateway implements Serializable{
      * Retrieve and return the outbox hashmap that is stored in the file located outside the program.
      * Takes no argument.
      * @return outbox
-     * @throws IOException to catch FileNotFoundException for the corresponding filepath and ClassNotFoundException for the object that is read.
      */
-    public HashMap<String, ArrayList<Message>> getOutbox() throws IOException{
+    public HashMap<String, ArrayList<Message>> getOutbox(){
         File f = new File(this.inboxPath);
 
         if(f.length()==0)
@@ -189,22 +193,26 @@ public class MessageGateway implements Serializable{
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-
             this.outbox = (HashMap<String, ArrayList<Message>>) input.readObject();
             input.close();
-        }
-        catch (FileNotFoundException|ClassNotFoundException e){
+        }catch (EOFException e) { //database file is empty
+            outbox = new HashMap<>();
+        } catch (ClassNotFoundException | StreamCorruptedException e) {   //incorrect class format
+            System.err.println("Corrupted file contents in outbox database. Clearing file...");
+            clearFileContentsUtil(outboxPath);
+            outbox = new HashMap<>();
+        } catch (IOException e) {  //other IO exception
+            System.err.println("Unknown error when reading from outbox database file.");
             e.printStackTrace();
-            System.out.println("Existing version of outbox is returned");
+            outbox = new HashMap<>();
         }
         return this.outbox;
     }
 
     /**
      * Saves the current inbox hashmap, that is stored in the inbox attribute, into the file located at inboxPath.
-     * @throws IOException checks if there is a file in the specified filepath assigned to inboxPath.
      */
-    public void setInbox() throws IOException{
+    public void setInbox() {
         try{
             OutputStream file = new FileOutputStream(this.inboxPath);
             OutputStream buffer = new BufferedOutputStream(file);
@@ -214,17 +222,16 @@ public class MessageGateway implements Serializable{
             output.close();
 
         }
-        catch (FileNotFoundException e){
+        catch (IOException e){
+            System.err.println("Could not save inbox data to database.");
             e.printStackTrace();
         }
     }
 
     /**
      * Saves the current outbox hashmap, that is stored in the outbox attribute, into the file located at outboxPath.
-     * @throws IOException checks if there is a file in the specified filepath assigned to outboxPath.
      */
-
-    public void setOutbox() throws IOException{
+    public void setOutbox() {
         try{
             OutputStream file = new FileOutputStream(this.outboxPath);
             OutputStream buffer = new BufferedOutputStream(file);
@@ -233,8 +240,22 @@ public class MessageGateway implements Serializable{
             output.writeObject(outbox);
             output.close();
 
+        }catch (IOException e){
+            System.err.println("Could not save outbox data to database.");
+            e.printStackTrace();
         }
-        catch (FileNotFoundException e){
+    }
+
+    /**
+     * Utility method to clear file contents if file contains corrupt data
+     */
+    private void clearFileContentsUtil(String dbPath) {
+        try {
+            PrintWriter writer = new PrintWriter(dbPath);
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("Unexpected error when accessing the user database file.");
             e.printStackTrace();
         }
     }

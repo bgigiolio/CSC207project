@@ -4,7 +4,6 @@ import main.java.Entities.Attendee;
 import main.java.Entities.Organizer;
 import main.java.Entities.Speaker;
 import main.java.UseCases.*;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +32,7 @@ public class OrganizerMessageController {
      * @param oneSpeaker The Speaker receiving the Message.
      * @param inputMessage The Message the speaker is to receive.
      */
-    public void toOneSpeaker(String oneSpeaker, String inputMessage) throws IOException {
+    public void toOneSpeaker(String oneSpeaker, String inputMessage) {
         MessageController send = new MessageController(this.organizer.getUsername(), oneSpeaker,
                 inputMessage);
         send.sendMessage();
@@ -44,7 +43,7 @@ public class OrganizerMessageController {
      * @param oneAttendee The Attendee receiving the Message.
      * @param inputMessage The Message the Attendee is to receive.
      */
-    public void toOneAttendee(String oneAttendee, String inputMessage) throws IOException {
+    public void toOneAttendee(String oneAttendee, String inputMessage) {
         MessageController send = new MessageController(this.organizer.getUsername(),
                 oneAttendee, inputMessage);
                 send.sendMessage();
@@ -54,7 +53,7 @@ public class OrganizerMessageController {
      * This method sends Messages to Attendees' Friends.
      * @param inputMessage The Message the Friends are receiving.
      */
-    public void toFriends(String inputMessage) throws IOException {
+    public void toFriends(String inputMessage) {
         for(int i = 0; i < this.organizer.getNumOfFriends(); i ++){
             MessageController send = new MessageController(this.organizer.getUsername(),
                     this.organizer.getFriendList().get(i), inputMessage);
@@ -67,10 +66,10 @@ public class OrganizerMessageController {
      * @param inputMessage The Message the Speakers are to receive.
      * @param manager The LoginUserManager that will be used to send the Messages to the Speakers.
      */
-    public void toAllSpeaker(String inputMessage, LoginUserManager manager) throws IOException {
+    public void toAllSpeaker(String inputMessage, LoginUserManager manager) {
         HashMap<String, Attendee> users = manager.getCredentialsMap();
         for(String username : users.keySet()){     //accessing entities through a controller - no good
-            if(manager.userRole(username).equals("speaker")){
+            if(manager.getUserRole(username).equals("speaker")){
                 MessageController send = new MessageController(this.organizer.getUsername(), username,
                         inputMessage);
                 send.sendMessage();
@@ -83,10 +82,10 @@ public class OrganizerMessageController {
      * @param inputMessage The Message the Attendees are to receive.
      * @param manager The LoginUserManager that will be used to send the Messages to the Attendees.
      */
-    public void toAllAttendee(String inputMessage, LoginUserManager manager) throws IOException {
+    public void toAllAttendee(String inputMessage, LoginUserManager manager) {
         HashMap<String, Attendee> users = manager.getCredentialsMap();
         for (String username : users.keySet()){ //same here!!
-            if(manager.userRole(username).equals("attendee")){
+            if(manager.getUserRole(username).equals("attendee")){
                 MessageController send = new MessageController(this.organizer.getUsername(), username,
                         inputMessage);
                 send.sendMessage();

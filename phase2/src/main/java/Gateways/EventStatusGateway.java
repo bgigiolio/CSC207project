@@ -1,6 +1,7 @@
 package main.java.Gateways;
 
 import main.java.UseCases.EventStatus;
+
 import java.io.*;
 
 /**
@@ -35,7 +36,7 @@ public class EventStatusGateway {
      *
      * @return eventStatus the EventStatus object with existing data about event registrations of users
      */
-    public EventStatus loadFromFile(String filePath) throws IOException {
+    public EventStatus loadFromFile(String filePath){
         try{
             InputStream file = new FileInputStream(filePath);
             InputStream buffer = new BufferedInputStream(file);
@@ -43,8 +44,16 @@ public class EventStatusGateway {
 
             eventStatus = ((EventStatus) input.readObject());
             input.close();
-        } catch (FileNotFoundException | ClassNotFoundException | EOFException | InvalidClassException e){
-            this.saveToFile(filePath);
+        } catch (EOFException e){
+            eventStatus = new EventStatus();
+        } catch (ClassNotFoundException | StreamCorruptedException e) {
+            System.err.println("Corrupted file contents in event database. Clearing file...");
+            clearFileContentsUtil(filePath);
+            eventStatus = new EventStatus();
+        }catch (IOException e) {  //other IO exception
+            System.err.println("Unknown error when reading from event database file.");
+            e.printStackTrace();
+            eventStatus = new EventStatus();
         }
         return eventStatus;
     }
@@ -54,7 +63,7 @@ public class EventStatusGateway {
      *
      * @param filePath the name of the file
      */
-    public void saveToFile(String filePath) throws IOException {
+    public void saveToFile(String filePath){
         try {
             OutputStream file = new FileOutputStream(filePath);
             OutputStream buffer = new BufferedOutputStream(file);
@@ -63,7 +72,22 @@ public class EventStatusGateway {
             output.writeObject(eventStatus);
             output.close();
         }
-        catch (FileNotFoundException e) {
+        catch (IOException e) {
+            System.err.println("Could not save event data to file.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Utility method to clear file contents if file contains corrupt data
+     */
+    private void clearFileContentsUtil(String dbPath) {
+        try {
+            PrintWriter writer = new PrintWriter(dbPath);
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("Unexpected error when accessing the event database file.");
             e.printStackTrace();
         }
     }
