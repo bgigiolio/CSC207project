@@ -242,7 +242,7 @@ public class AttendeeMenuController {
         }
     }
 
-    public boolean createEvent() {
+    public boolean createEvent() throws ClassNotFoundException {
         this.menu.createEventName();
         String eventName = new Scanner(System.in).nextLine();
         this.menu.createEventRoom();
@@ -300,8 +300,12 @@ public class AttendeeMenuController {
             return false;
         }
         LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
-        EventController event = new EventController(eventName, speaker, roomName, d, building.getSchedule(roomName), eventCapacity);
-        return event.createEvent();
+        EventController event = new EventController(eventName, speaker, roomName, d,
+                building.getSchedule(roomName), eventCapacity);
+
+        boolean returnValue = event.createEvent();
+        new ScheduleSystem().updateEventDB(roomName, event.getSchedule());
+        return returnValue;
     }
 
     public boolean organizerMessageAll() {
@@ -337,7 +341,7 @@ public class AttendeeMenuController {
      *
      * @return true if user chose to exit program, false if user just logged out
      */
-    public boolean menuSelection() {
+    public boolean menuSelection() throws ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
 
         homepage();

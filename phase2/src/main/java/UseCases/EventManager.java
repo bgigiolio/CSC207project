@@ -65,4 +65,8 @@ public class EventManager {
     public void modifyCapacity(int newCapacity){
         event.setEventCapacity(newCapacity);
     }
+
+    public Schedule getSchedule() {
+        return this.schedule;
+    }
 }

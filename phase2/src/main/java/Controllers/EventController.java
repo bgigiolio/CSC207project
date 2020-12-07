@@ -41,4 +41,8 @@ public class EventController {
     public boolean removeEvent(){
         return this.manager.removeEvent();
     }
+
+    public Schedule getSchedule() {
+        return this.manager.getSchedule();
+    }
 }

@@ -215,4 +215,9 @@ public class BuildingManager implements Serializable {
         }
     }
 
+    public void updateScheduleOfRoom(String room, Schedule schedule) {
+        getSchedule(room);
+        this.building.put(room, schedule);
+    }
+
 }

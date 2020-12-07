@@ -55,7 +55,6 @@ public class Schedule implements Serializable {
 //        if ((scheduleMap.containsKey(eventTime) && event.getLocation().equals(scheduleMap.get(eventTime).getLocation()))
 //                || eventTime.getHour() >= endHour || eventTime.getHour() < startHour)
 //            return false;
-
         scheduleMap.put(eventTime, event);
         return true;
     }
