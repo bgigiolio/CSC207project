@@ -23,7 +23,7 @@ public class ProgramMain {
      * This constructor sets up which building the program is going to run for.
      * @param buildingManager The building manager for the building in question.
      */
-    public ProgramMain(BuildingManager buildingManager ) {
+    public ProgramMain(BuildingManager buildingManager) {
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = buildingManager;
         this.userManager = userLoginGateway.getStoredUserData();

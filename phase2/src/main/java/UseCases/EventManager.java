@@ -24,7 +24,7 @@ public class EventManager {
      * @param datetime Time the event will occur.
      * @param sched The schedule this event should be a part of.
      */
-    public EventManager(String title, String speaker,String location, LocalDateTime datetime, Schedule sched, int eventcapacity){
+    public EventManager(String title, String speaker, String location, LocalDateTime datetime, Schedule sched, int eventcapacity){
         this.event= new Event(title, speaker,location, datetime, eventcapacity);
         this.schedule = sched;
     }

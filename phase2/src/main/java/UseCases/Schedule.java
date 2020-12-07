@@ -59,6 +59,8 @@ public class Schedule implements Serializable {
         return true;
     }
 
+
+
     /**
      * Get an event object from its title
      *
@@ -135,19 +137,25 @@ public class Schedule implements Serializable {
      */
     public String toString(){
         StringBuilder toReturn = new StringBuilder();
-        try {
-            for (Map.Entry<LocalDateTime, Event> i : this.scheduleMap.entrySet()) {
-                if (i != null && i.getValue() != null && i.getKey() != null) {
-                    String key = i.getKey().toString();
-                    String event = i.getValue().getTitle();
-                    String location = i.getValue().getLocation();
-                    String construct = event + " at " + location + " at " + key + "\n";
-                    toReturn.append(construct);
-                }
-            }
-        } catch(NullPointerException e){
-            return "There are no events scheduled";
-        }
+//        try {
+            for (LocalDateTime time : scheduleMap.keySet()){
+                String event = scheduleMap.get(time).getTitle();
+                String location = scheduleMap.get(time).getLocation();
+                String construct = event + " at " + location + " at " + time + "\n";
+                toReturn.append(construct); }
+//            for (Map.Entry<LocalDateTime, Event> i : this.scheduleMap.entrySet()) {
+//                if (i != null && i.getValue() != null && i.getKey() != null) {
+//                    String key = i.getKey().toString();
+//                    String event = i.getValue().getTitle();
+//                    String location = i.getValue().getLocation();
+//                    String construct = event + " at " + location + " at " + key + "\n";
+//                    toReturn.append(construct);
+//                }
+
+
+        //catch(NullPointerException e){
+         //   return "There are no events scheduled";
+        //}
         return toReturn.toString();
     }
 
@@ -191,5 +199,9 @@ public class Schedule implements Serializable {
             current += 1;
             return res;
         }
+    }
+
+    public HashMap<LocalDateTime, Event> getScheduleMap(){
+        return this.scheduleMap;
     }
 }

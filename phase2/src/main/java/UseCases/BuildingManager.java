@@ -27,6 +27,14 @@ public class BuildingManager implements Serializable {
         this.building = building;
     }
 
+    public HashMap<String, Schedule> getBuilding() {
+        return this.building;
+    }
+
+    public void updateBuildingManager(String room, Schedule schedule) {
+        this.building.put(room, schedule);
+    }
+
     /**
      * Adds a new (empty) room to this building by creating a new schedule from the parameters.
      * @param name The desired name of the room.
@@ -170,12 +178,12 @@ public class BuildingManager implements Serializable {
     public String toString(){
         StringBuilder toReturn = new StringBuilder();
         toReturn.append("List of Rooms in ").append(this.buildingName).append(": \n");
-        try {
-            for (String room : building.keySet()){
+//        try {
+            for (String room : building.keySet()) {
                 toReturn.append("[").append(room).append("] \n");
                 String schedule = building.get(room).toString();
                 toReturn.append(schedule);
-            }
+                //           }
 //            for (Map.Entry<String, Schedule> i : this.building.entrySet()) {
 //                if (i != null && i.getValue() != null && i.getKey() != null) {
 //                    String room = i.getKey();
@@ -183,9 +191,10 @@ public class BuildingManager implements Serializable {
 //                    toReturn.append("[").append(room).append("] \n");
 //                    toReturn.append(schedule);
 //                }
-        } catch (NullPointerException e){
-            return "There are no Scheduled events";
-        }
+            }
+//        } catch (NullPointerException e){
+//            return "There are no Scheduled events";
+//        }
         return toReturn.toString();
     }
 
@@ -216,7 +225,6 @@ public class BuildingManager implements Serializable {
     }
 
     public void updateScheduleOfRoom(String room, Schedule schedule) {
-        getSchedule(room);
         this.building.put(room, schedule);
     }
 

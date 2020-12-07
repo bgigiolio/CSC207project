@@ -1,8 +1,11 @@
 package main.java.Controllers;
 
+import main.java.Entities.Event;
+import main.java.Gateways.EventGateway;
 import main.java.Presenters.UserMenu;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
+import main.java.UseCases.Schedule;
 import main.java.UseCases.UserManager;
 
 import java.time.LocalDateTime;
@@ -242,24 +245,29 @@ public class AttendeeMenuController {
         }
     }
 
+    // TODO: this method is getting error saving event, i'll fix later!
     public boolean createEvent() throws ClassNotFoundException {
         this.menu.createEventName();
         String eventName = new Scanner(System.in).nextLine();
+        System.out.println(eventName);
         this.menu.createEventRoom();
         String roomName = new Scanner(System.in).nextLine();
+        System.out.println(roomName);
         this.menu.createEventCapacity();
         String tempEventCapacity = new Scanner(System.in).nextLine();
         int eventCapacity;
 
-        try {
+//        try {
             eventCapacity = Integer.parseInt(tempEventCapacity);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        if (eventCapacity > building.getSchedule(roomName).getRoomCapacity()) {
-            System.out.println("Event capacity cannot be greater than room capacity.");
-            return false;
-        }
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
+//        if (eventCapacity > building.getSchedule(roomName).getRoomCapacity()) {
+//            System.out.println("Event capacity cannot be greater than room capacity.");
+//            return false;
+//        }
+        System.out.println(eventCapacity);
+
         this.menu.createEventYear();
         String yearString = new Scanner(System.in).nextLine();
         this.menu.createEventMonth();
@@ -279,33 +287,46 @@ public class AttendeeMenuController {
         int month;
         int day;
         int hour;
-        try {
+//        try {
             year = Integer.parseInt(yearString);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        try {
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
+//        try {
             month = Integer.parseInt(monthString);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        try {
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
+//        try {
             day = Integer.parseInt(dayString);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        try {
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
+//        try {
             hour = Integer.parseInt(hourString);
-        } catch (NumberFormatException e) {
-            return false;
-        }
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
         LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
-        EventController event = new EventController(eventName, speaker, roomName, d,
-                building.getSchedule(roomName), eventCapacity);
+        System.out.println(d);
 
-        boolean returnValue = event.createEvent();
-        new ScheduleSystem().updateEventDB(roomName, event.getSchedule());
-        return returnValue;
+//        EventController event = new EventController(eventName, speaker, roomName, d,
+//                new EventGateway().getEvents().getSchedule(roomName), eventCapacity);
+//
+//        EventManager eventManager = new EventManager(eventName, speaker, roomName, d,
+//                new EventGateway().getEvents().getSchedule(roomName), eventCapacity);
+//        eventManager.addToSched();
+
+        Event createdEvent = new Event(eventName, roomName, d, 1, eventCapacity);
+        Schedule schedule = new EventGateway().getEvents().getSchedule(roomName);
+        schedule.addEvent(createdEvent);
+        BuildingManager buildingManager = new EventGateway().getEvents();
+        buildingManager.updateBuildingManager(roomName, schedule);
+        new EventGateway().setEvents(buildingManager);
+
+//        boolean returnValue = event.createEvent();
+        // new ScheduleSystem().updateEventDB(roomName, schedule);
+        return true;
     }
 
     public boolean organizerMessageAll() {
@@ -447,8 +468,8 @@ public class AttendeeMenuController {
                     this.menu.invalidResponse();
                     break;
             }
-            ImportExportEventController saveBuilding = new ImportExportEventController();
-            saveBuilding.exportEvents(this.building);
+//            ImportExportEventController saveBuilding = new ImportExportEventController();
+//            saveBuilding.exportEvents(this.building);
             this.menu.promptAgain();
         }
     }
