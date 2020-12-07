@@ -58,7 +58,7 @@ public class ProgramMain {
                 if(userType.equals("N")) {
                     role = askRole();
                     username = register(role);
-                }else {
+                } else {
                     username = login();
                     role = logSys.roleOfAccount(username);
                 }
@@ -153,7 +153,7 @@ public class ProgramMain {
      * @return username of user logged. Null if couldn't log in.
      * @throws IOException Handles Scanner.
      */
-    private String login() throws IOException {
+    private String login() throws IOException, ClassNotFoundException {
         this.presenter.uPrompt();
         String username = this.menu.usernamePrompt();
         String password = this.menu.passwordPrompt();
@@ -166,6 +166,10 @@ public class ProgramMain {
 
             case "usernameNotFound": {
                 this.presenter.usernameNotFoundPrompt();
+                String choice = new Scanner(System.in).nextLine();
+                if (choice.equals("1")) {
+                    login();
+                } else { start(); }
                 break;
             }
 

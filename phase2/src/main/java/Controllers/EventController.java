@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
  * @version Phase 1
  */
 public class EventController {
-    public EventManager manager;
+
+    private EventManager manager;
 
     /**
      * This controller is responsible for creating an instance of EventController.

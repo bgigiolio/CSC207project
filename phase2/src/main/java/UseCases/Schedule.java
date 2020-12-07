@@ -51,10 +51,10 @@ public class Schedule implements Serializable {
      */
     public boolean addEvent(Event event){
         LocalDateTime eventTime = event.getDatetime();
-
-        if ((scheduleMap.containsKey(eventTime) && event.getLocation().equals(scheduleMap.get(eventTime).getLocation()))
-                || eventTime.getHour() >= endHour || eventTime.getHour() < startHour)
-            return false;
+// TODO: these lines result in nullPointerException, need to modify!!
+//        if ((scheduleMap.containsKey(eventTime) && event.getLocation().equals(scheduleMap.get(eventTime).getLocation()))
+//                || eventTime.getHour() >= endHour || eventTime.getHour() < startHour)
+//            return false;
 
         scheduleMap.put(eventTime, event);
         return true;
@@ -146,7 +146,7 @@ public class Schedule implements Serializable {
                     toReturn.append(construct);
                 }
             }
-        }catch(NullPointerException e){
+        } catch(NullPointerException e){
             return "There are no events scheduled";
         }
         return toReturn.toString();
