@@ -32,11 +32,13 @@ public class UserManager implements Serializable {
     public boolean registerUser(String username, String password, String role) {
         if (!credentialsMap.containsKey(username)) {
             if(role.equalsIgnoreCase("attendee"))
-                credentialsMap.put(username, new Attendee(username, password, role));
+                credentialsMap.put(username, new Attendee(username, password));
             else if(role.equalsIgnoreCase("speaker"))
-                credentialsMap.put(username, new Speaker(username, password, role));
+                credentialsMap.put(username, new Speaker(username, password));
             else if(role.equalsIgnoreCase("organizer"))
-                credentialsMap.put(username, new Organizer(username, password, role));
+                credentialsMap.put(username, new Organizer(username, password));
+            else if(role.equalsIgnoreCase("admin"))
+                credentialsMap.put(username, new Admin(username, password));
             else
                 return false;
             return true;
@@ -59,7 +61,6 @@ public class UserManager implements Serializable {
         } else if (!res.getPassword().equals(password)) {
             return "wrongPassword";
         }else {
-            res.setLoggedIn(true);
             return "loggedIn";
         }
     }

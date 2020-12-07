@@ -16,7 +16,7 @@ import java.util.Scanner;
  * This controller takes in input from an attendee when they are presented with a menu of options
  *
  * @author Blake Gigiolio
- * @version phase1
+ * @version phase2
  */
 public class AttendeeMenuController {
     private final String username;

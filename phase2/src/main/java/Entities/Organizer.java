@@ -1,15 +1,17 @@
 package main.java.Entities;
 
-import java.io.Serializable;
-import java.util.List;
-
 /**
  * <h1>Organizer</h1>
  * Represents an Organizer in the system.
  *
  * @author Morgan Chang
  */
-public class Organizer extends Attendee implements Serializable {
+public class Organizer extends Attendee{
+
+    /**
+     * The role of current user.
+     */
+    private final String role;
 
     /**
      * Construct an Organizer object when signed up.
@@ -20,20 +22,9 @@ public class Organizer extends Attendee implements Serializable {
      * @param username the username of the user.
      * @param password the password of the user.
      */
-    public Organizer(String username, String password, String role) {
-        super(username, password, role);
+    public Organizer(String username, String password) {
+        super(username, password);
+        this.role = "organizer";
     }
-
-//    public Speaker createSpeakerAccount (String username, String password) {
-//        return new Speaker(username, password); }
-
-//    public boolean assignSpeaker (String speakerUsername, Talk talk){
-//        if (talk.getSpeaker().equals("None")) {
-//        talk.setSpeaker(speakerUsername);
-//        return true;
-//        }
-//        return false;
-//    }
-
 }
 

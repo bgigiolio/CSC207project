@@ -11,6 +11,11 @@ import java.util.ArrayList;
 public class Speaker extends Attendee {
 
     /**
+     * The role of current user.
+     */
+    private final String role;
+
+    /**
      * holds talks IDs
      */
     private ArrayList<String> talks;
@@ -25,9 +30,10 @@ public class Speaker extends Attendee {
      * @param username the username of the user.
      * @param password the password of the user.
      */
-    public Speaker(String username, String password, String role) {
-        super(username, password, role);
+    public Speaker(String username, String password) {
+        super(username, password);
         this.talks = new ArrayList<>();
+        this.role = "speaker";
     }
 
     /**

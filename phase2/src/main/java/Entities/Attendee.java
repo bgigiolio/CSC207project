@@ -1,6 +1,5 @@
 package main.java.Entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,29 +9,24 @@ import java.util.List;
  *
  * @author Sehajroop Singh Bath
  */
-public class Attendee implements Serializable {
+public class Attendee {
 
     /**
      * The username of current user.
      */
-    protected String username;
+    private String username;
 
     /**
      * The password of current user.
      */
-    protected String password;
+    private String password;
 
     /**
      * A List that stores friend's username of current user.
      */
-    protected List<String> friendList;
+    private List<String> friendList;
 
-    protected List<Message> messages;     //shouldn't contain entities
-
-    /**
-     * The login status of current user.
-     */
-    protected boolean loggedIn;
+    private List<Message> messages;     //shouldn't contain entities
 
     /**
      * The role of current user.
@@ -49,13 +43,12 @@ public class Attendee implements Serializable {
      * @param username the username of the user.
      * @param password the password of the user.
      */
-    public Attendee(String username, String password, String role){
+    public Attendee(String username, String password){
         this.username = username;
         this.password = password;
         this.friendList = new ArrayList<>();
         this.messages = new ArrayList<>();
-        this.loggedIn = false;
-        this.role = role;
+        this.role = "attendee";
     }
 
     /**
@@ -90,24 +83,6 @@ public class Attendee implements Serializable {
     }
 
     /**
-     * Return loggedIn.
-     *
-     * @return login status of current user.
-     */
-    public boolean getLoginStatus(){
-        return this.loggedIn;
-    }
-
-    /**
-     * Set loggedIn.
-     *
-     * @param value the login status of current user.
-     */
-    public void setLoggedIn(boolean value){
-        this.loggedIn = value;
-    }
-
-    /**
      * Return number of friends in friendList of current user.
      *
      * @return number of friends in friendList.
@@ -120,9 +95,6 @@ public class Attendee implements Serializable {
      * @return friendList of current user.
      */
     public List<String> getFriendList() { return this.friendList; }
-
-    public void setFriendList(List<String> friendList) { this.friendList = friendList; }
-
 
     // test to check class works as expected
 /*
