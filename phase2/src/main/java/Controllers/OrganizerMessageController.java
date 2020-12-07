@@ -16,7 +16,7 @@ public class OrganizerMessageController {
     /**
      * The username of the organizer
      */
-    private String organizer;
+    private final String organizer;
 
     /**
      * This constructor creates a new instance of OrganizerMessageController given the current Organizer.
@@ -50,12 +50,12 @@ public class OrganizerMessageController {
      * This method sends Messages to Attendees' Friends.
      * @param inputMessage The Message the Friends are receiving.
      */
-    public void toFriends(String inputMessage, int numOfFriends) {
-        for(int i = 0; i < numOfFriends; i ++){
-            MessageController send = new MessageController(organizer, this.organizer.getFriendList().get(i), inputMessage);
-            send.sendMessage();
-        }
-    }
+//    public void toFriends(String inputMessage, int numOfFriends) {
+//        for(int i = 0; i < numOfFriends; i ++){
+//            MessageController send = new MessageController(organizer, , inputMessage);
+//            send.sendMessage();
+//        }
+//    }
 
     /**
      * This method sends Messages to all Speakers.

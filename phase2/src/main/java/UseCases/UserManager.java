@@ -146,7 +146,7 @@ public class UserManager implements Serializable {
         return credentialsMap.getOrDefault(username, null);
     }
 
-    protected HashMap<String, Attendee> getCredentialsMap() {
+    public HashMap<String, Attendee> getCredentialsMap() {
         return this.credentialsMap;
     }
 }
