@@ -169,6 +169,10 @@ public class ProgramMain {
 
             case "usernameNotFound": {
                 menuPresenter.usernameNotFoundPrompt();
+                String choice = new Scanner(System.in).nextLine();
+                if (choice.equals("1")) {
+                    login();
+                } else { start(); }
                 break;
             }
 
