@@ -3,8 +3,6 @@ package main.java.Controllers;
 import main.java.Gateways.*;
 import main.java.UseCases.BuildingManager;
 
-import java.io.IOException;
-
 /**
  * <h1>Event Status Changer</h1>
  * Controls the gateway responsible for storing EventStatus object.
@@ -27,7 +25,7 @@ public class EventStatusChanger {
      *
      * @return true iff username has successfully signed up for event of eventTitle.
      */
-    public int signUpChanger(String username, String eventTitle, BuildingManager building) throws IOException {
+    public int signUpChanger(String username, String eventTitle, BuildingManager building){
         String db = "phase2/src/DB/EventStatusData.ser";
         eventStatusGateway.setEventStatus(eventStatusGateway.loadFromFile(db));
         int returnVal = eventStatusGateway.getEventStatus().signUpEvent(username,eventTitle, building);
@@ -43,7 +41,7 @@ public class EventStatusChanger {
      *
      * @return true iff the user has successfully cancel his enrollment in event of eventTitle.
      */
-    public boolean cancelChanger(String username, String eventTitle) throws IOException {
+    public boolean cancelChanger(String username, String eventTitle) {
         String db = "phase2/src/DB/EventStatusData.ser";
         eventStatusGateway.setEventStatus(eventStatusGateway.loadFromFile(db));
         boolean returnVal = eventStatusGateway.getEventStatus().cancelEventEnrolment(username,eventTitle);

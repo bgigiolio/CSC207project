@@ -3,10 +3,9 @@ package main.java;
 import main.java.Controllers.ImportExportEventController;
 import main.java.Controllers.ProgramMain;
 
-import java.io.IOException;
 
 public class Run {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException {
 
         ImportExportEventController eventGateway = new ImportExportEventController();
 

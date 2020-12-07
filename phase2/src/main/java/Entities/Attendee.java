@@ -11,14 +11,17 @@ import java.util.List;
  * @author Sehajroop Singh Bath
  */
 public class Attendee implements Serializable {
+
     /**
      * The username of current user.
      */
     protected String username;
+
     /**
      * The password of current user.
      */
     protected String password;
+
     /**
      * A List that stores friend's username of current user.
      */
@@ -30,6 +33,7 @@ public class Attendee implements Serializable {
      * The login status of current user.
      */
     protected boolean loggedIn;
+
     /**
      * The role of current user.
      */
@@ -77,21 +81,21 @@ public class Attendee implements Serializable {
     }
 
     /**
-     * Return loggedIn.
-     *
-     * @return login status of current user.
-     */
-    public boolean getLoginStatus(){
-        return this.loggedIn;
-    }
-
-    /**
      * Return role.
      *
      * @return role of current user.
      */
     public String getRole(){
         return this.role;
+    }
+
+    /**
+     * Return loggedIn.
+     *
+     * @return login status of current user.
+     */
+    public boolean getLoginStatus(){
+        return this.loggedIn;
     }
 
     /**
@@ -116,7 +120,8 @@ public class Attendee implements Serializable {
      * @return friendList of current user.
      */
     public List<String> getFriendList() { return this.friendList; }
-    public void setFriendList(List<String> friendlist) { this.friendList = friendlist; }
+
+    public void setFriendList(List<String> friendList) { this.friendList = friendList; }
 
 
     // test to check class works as expected
