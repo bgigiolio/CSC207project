@@ -199,21 +199,29 @@ public class AttendeeMenuController {
     }
 
     public void manageFriendsList() {
-        this.menu.friendsList();
+        menu.friendsList();
         String choice = new Scanner(System.in).nextLine();
         String user2;
-        if (choice.equals("A")) {
+
+        if (choice.equalsIgnoreCase("A")) {
+            menu.friendsListUsername();
+            user2 = new Scanner(System.in).nextLine();
+
+            if(!userManager.checkUsername(user2))
+                menu.invalidResponse();
+            else
+                userManager.addFriend(this.username, user2);
+        } else if (choice.equalsIgnoreCase("R")) {
             this.menu.friendsListUsername();
             user2 = new Scanner(System.in).nextLine();
-            userManager.addFriend(this.username, user2);
-        } else if (choice.equals("R")) {
-            this.menu.friendsListUsername();
-            user2 = new Scanner(System.in).nextLine();
-            userManager.removeFriend(this.username, user2);
+
+            if(!userManager.checkUsername(user2))
+                menu.invalidResponse();
+            else
+                userManager.removeFriend(this.username, user2);
         } else {
             this.menu.invalidResponse();
         }
-
     }
 
     public void createUser(){

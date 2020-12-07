@@ -115,11 +115,14 @@ public class UserManager implements Serializable {
      */
     public void addFriend(String user1, String user2){
         Attendee at1 = credentialsMap.get(user1);
+
+        if(at1 == null || getAttendee(user2) == null)
+            return;
+
         List<String> friendList = at1.getFriendList();
 
-        if (!friendList.contains(user2)){
+        if (!friendList.contains(user2))
             friendList.add(user2);
-        }
     }
 
     /**
@@ -129,20 +132,24 @@ public class UserManager implements Serializable {
      */
     public void removeFriend(String user1, String user2){
         Attendee at1 = credentialsMap.get(user1);
+
+        if(at1 == null || getAttendee(user2) == null)
+            return;
+
         List<String> friendList = at1.getFriendList();
 
         friendList.remove(user2);
     }
 
     public int getNumOfFriends(String username){
-        Attendee user = this.getAttendee(username);
+        Attendee user = getAttendee(username);
 
         if(user != null)
             return user.getFriendList().size();
         return -1;
     }
 
-    protected Attendee getAttendee(String username){
+    private Attendee getAttendee(String username){
         return credentialsMap.getOrDefault(username, null);
     }
 

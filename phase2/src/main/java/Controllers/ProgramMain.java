@@ -1,6 +1,5 @@
 package main.java.Controllers;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import main.java.Gateways.UserLoginGateway;
@@ -152,7 +151,7 @@ public class ProgramMain {
      * This is how a user will log in. Here we call the log in menu prompt.
      * @return username of user logged. Null if couldn't log in.
      */
-    private String login() throws ClassNotFoundException {
+    private String login() {
         NewUserController credentialsPrompt = new NewUserController();
         StartingMenu menuPresenter = new StartingMenu();
 
@@ -170,9 +169,8 @@ public class ProgramMain {
             case "usernameNotFound": {
                 menuPresenter.usernameNotFoundPrompt();
                 String choice = new Scanner(System.in).nextLine();
-                if (choice.equals("1")) {
-                    login();
-                } else { start(); }
+                if (choice.equals("1"))
+                    return login();
                 break;
             }
 

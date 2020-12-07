@@ -16,7 +16,6 @@ public class ScheduleSystem {
         eventGateway.setEvents(buildingManager);
     }
 
-
     public void constructScheduleTxt() throws ClassNotFoundException {
         BuildingManager buildingManager = eventGateway.getEvents();
     }
