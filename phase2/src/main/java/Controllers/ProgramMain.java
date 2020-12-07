@@ -3,9 +3,10 @@ package main.java.Controllers;
 import java.io.IOException;
 import java.util.Scanner;
 
+import main.java.Gateways.UserLoginGateway;
 import main.java.Presenters.*;
 import main.java.UseCases.BuildingManager;
-import main.java.UseCases.LoginUserManager;
+import main.java.UseCases.UserManager;
 
 /**
  * <h1>ProgramMain</h1>
@@ -15,20 +16,17 @@ import main.java.UseCases.LoginUserManager;
  * @version phase2
  */
 public class ProgramMain {
-    private final StartingMenu presenter;
     private final BuildingManager buildingManager;
-    private final NewUserController menu;
-    private final LoginSystem logSys;
+    private final UserManager userManager;
 
     /**
      * This constructor sets up which building the program is going to run for.
      * @param buildingManager The building manager for the building in question.
      */
     public ProgramMain(BuildingManager buildingManager ) {
+        UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = buildingManager;
-        this.presenter = new StartingMenu();
-        this.menu = new NewUserController();
-        this.logSys =  new LoginSystem();
+        this.userManager = userLoginGateway.getStoredUserData();
     }
 
     /**
@@ -39,12 +37,11 @@ public class ProgramMain {
      *  -Asks user whether they are an organizer or an attendee
      *  -Logs the user in
      *  -Initializes the post-login menu
-     * @throws IOException Handles Scanners.
      */
-    public void start() throws IOException, ClassNotFoundException {
-        LoginUserManager manager;
+    public void start(){
         AttendeeMenuController currentSession;
-
+        StartingMenu menuPresenter = new StartingMenu();
+        UserLoginGateway userLoginGateway = new UserLoginGateway();
         String username;
         String role;
         String userType;
@@ -52,7 +49,7 @@ public class ProgramMain {
 
         do {
             do{
-                presenter.initialPrompt();
+                menuPresenter.initialPrompt();
                 userType = askUserType();
 
                 if(userType.equals("N")) {
@@ -60,15 +57,14 @@ public class ProgramMain {
                     username = register(role);
                 }else {
                     username = login();
-                    role = logSys.roleOfAccount(username);
+                    role = userManager.getUserRole(username);
                 }
             } while(username == null);
 
-            manager = new LoginUserManager();
-            currentSession = new AttendeeMenuController(username, role, buildingManager, manager);
+            currentSession = new AttendeeMenuController(username, role, buildingManager, userManager);
 
             didQuit = currentSession.menuSelection();
-            logSys.logout();
+            userLoginGateway.saveUserLoginInfo(userManager);
         } while(!didQuit);
     }
 
@@ -77,6 +73,7 @@ public class ProgramMain {
      * @return "N" for new user, "R" for returning user
      */
     private String askUserType() {
+        StartingMenu menuPresenter = new StartingMenu();
         boolean answered = false;
         String userType = "";
 
@@ -89,7 +86,7 @@ public class ProgramMain {
                 userType = "R";
                 answered = true;
             } else {
-                this.presenter.failedPrompt();
+                menuPresenter.failedPrompt();
             }
         }
         return userType;
@@ -102,7 +99,9 @@ public class ProgramMain {
     private String askRole() {
         boolean answered2 = false;
         String role = "";
-        this.presenter.rolePrompt();
+        StartingMenu menuPresenter = new StartingMenu();
+
+        menuPresenter.rolePrompt();
 
         while(!answered2){
             String response2 = new Scanner(System.in).nextLine();
@@ -116,7 +115,7 @@ public class ProgramMain {
                 answered2 = true;
                 role = "Speaker";
             } else
-                this.presenter.failedPrompt();
+                menuPresenter.failedPrompt();
         }
         return role;
     }
@@ -125,24 +124,25 @@ public class ProgramMain {
      * Register a new user
      * @param role user's roles
      * @return the username of the registered user
-     * @throws IOException Handles IO Exception by Scanner
      */
-    private String register(String role) throws IOException {
+    private String register(String role){
         String username, password;
+        NewUserController credentialsPrompt = new NewUserController();
+        StartingMenu menuPresenter = new StartingMenu();
 
-        this.presenter.uPrompt();
-        username = this.menu.usernamePrompt();
+        menuPresenter.uPrompt();
+        username = credentialsPrompt.usernamePrompt();
 
-        while(this.logSys.usernameExist(username)){
-            presenter.usernameUsed();
-            username = this.menu.usernamePrompt();
+        while(this.userManager.checkUsername(username)){
+            menuPresenter.usernameUsed();
+            username = credentialsPrompt.usernamePrompt();
         }
 
-        password = this.menu.passwordPrompt();
+        password = credentialsPrompt.passwordPrompt();
 
-        if (logSys.register(username, password, role)) {
-            presenter.newUserCreated();
-            presenter.welcome(username);
+        if (this.userManager.registerUser(username, password, role)) {
+            menuPresenter.newUserCreated();
+            menuPresenter.welcome(username);
         }
 
         return username;
@@ -151,34 +151,37 @@ public class ProgramMain {
     /**
      * This is how a user will log in. Here we call the log in menu prompt.
      * @return username of user logged. Null if couldn't log in.
-     * @throws IOException Handles Scanner.
      */
-    private String login() throws IOException {
-        this.presenter.uPrompt();
-        String username = this.menu.usernamePrompt();
-        String password = this.menu.passwordPrompt();
+    private String login(){
+        NewUserController credentialsPrompt = new NewUserController();
+        StartingMenu menuPresenter = new StartingMenu();
 
-        switch (logSys.login(username, password)) {
+        menuPresenter.uPrompt();
+
+        String username = credentialsPrompt.usernamePrompt();
+        String password = credentialsPrompt.passwordPrompt();
+
+        switch (this.userManager.loginUser(username, password)) {
             case "loggedIn":
-                this.presenter.loggedInPrompt();
-                presenter.welcome(username);
+                menuPresenter.loggedInPrompt();
+                menuPresenter.welcome(username);
                 return username;
 
             case "usernameNotFound": {
-                this.presenter.usernameNotFoundPrompt();
+                menuPresenter.usernameNotFoundPrompt();
                 break;
             }
 
             case "wrongPassword": {
-                presenter.wrongPasswordPrompt();
+                menuPresenter.wrongPasswordPrompt();
                 String choice = new Scanner(System.in).nextLine();
 
                 if (choice.equals("2")) {
-                    presenter.resetPasswordPrompt();
+                    menuPresenter.resetPasswordPrompt();
                     String newPassword = new Scanner(System.in).nextLine();
 
-                    if (logSys.resetPassword(username, newPassword)) {
-                        presenter.passwordResetSuccess();
+                    if (this.userManager.resetPassword(username, newPassword)) {
+                        menuPresenter.passwordResetSuccess();
                     } else {
                         System.out.println("failed"); //need to fix later
                     }

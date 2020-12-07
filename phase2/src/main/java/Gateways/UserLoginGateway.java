@@ -2,93 +2,69 @@ package main.java.Gateways;
 
 import java.io.*;
 
-import main.java.UseCases.*;
+import main.java.UseCases.UserManager;
 
 /**
  * <h1>UserLoginInfo</h1>
- * Responsible for accessing database that stores user info and modifying their data.
+ * Responsible for accessing database that stores user info
  * @version phase2
  * @author Konstantinos Papaspyridis
  */
-public class UserLoginInfo implements Serializable {
-
-    /**
-     * The LoginUserManager object that stores the user information.
-     */
-    private LoginUserManager loginUserManager;
+public class UserLoginGateway {
 
     /**
      * Stores the path to the database file
      */
-    private final String dbPath;
-
-    public UserLoginInfo() {
-        dbPath = "phase2/src/main/java/DB/UserLoginInfo.ser";
-        getFileUserLoginInfo();
-    }
-
-    public boolean createUser(String username, String password, String role) {
-        return loginUserManager.registerUser(username, password, role);
-    }
-
-    public boolean userExists(String username) {
-        return loginUserManager.checkUsername(username);
-    }
-
-    public String login(String username, String password) {
-        return loginUserManager.loginUser(username, password);
-    }
-
-    public boolean resetPassword(String username, String newPassword) {
-        return loginUserManager.resetPassword(username, newPassword);
-    }
-
-    public String getUserRole(String username) {
-        return loginUserManager.userRole(username);
-    }
+    private final String dbPath = "phase2/src/main/java/DB/UserLoginInfo.ser";
 
     /**
-     * Clear contents of database file and save loginUserManager again to update
+     * Clear contents of database file and write LoginUserManager to database
+     * @param ob The LoginUserManager object to store
      */
-    public void logout() {
+    public void saveUserLoginInfo(UserManager ob) {
         clearFileContentsUtil();
-        setFileUserLoginInfo();
+        saveUtil(ob);
     }
 
     /**
      * Read user data from database.
+     * @return A LoginUserManager object
      */
-    private void getFileUserLoginInfo() {
+    public UserManager getStoredUserData() {
+        UserManager loginUserManager;
+
         try {
             InputStream file = new FileInputStream(dbPath);
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
-            loginUserManager = ((LoginUserManager) input.readObject());
+            loginUserManager = (UserManager) input.readObject();
             input.close();
         } catch (EOFException e) { //database file is empty
-            loginUserManager = new LoginUserManager();
+            loginUserManager = new UserManager();
         } catch (ClassNotFoundException | StreamCorruptedException e) {   //incorrect class format
             System.err.println("Corrupted file contents in user database. Clearing file...");
             clearFileContentsUtil();
-            loginUserManager = new LoginUserManager();
+            loginUserManager = new UserManager();
         } catch (IOException e) {  //other IO exception
             System.err.println("Unknown error when reading from user database file.");
             e.printStackTrace();
-            loginUserManager = new LoginUserManager();
+            loginUserManager = new UserManager();
         }
+
+        return loginUserManager;
     }
 
     /**
      * Save loginUserManager to database.
      */
-    private void setFileUserLoginInfo() {
+    private void saveUtil(UserManager ob) {
         try {
             OutputStream file = new FileOutputStream(dbPath);
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
 
-            output.writeObject(loginUserManager);
+            output.writeObject(ob);
             output.close();
         } catch (IOException e) {
             System.err.println("Could not save user data to database.");

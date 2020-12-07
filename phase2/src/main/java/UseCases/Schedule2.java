@@ -1,11 +1,11 @@
 package main.java.UseCases;
 
+import main.java.Entities.Event;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import main.java.Entities.Event;
 
 
 /**
@@ -20,7 +20,7 @@ public class Schedule2 implements Serializable {
     /**
      * The list holding the events happening in this room
      */
-    private ArrayList<Event> schedule;
+    private final ArrayList<Event> schedule;
 
     /**
      * time when first event starts
@@ -39,11 +39,12 @@ public class Schedule2 implements Serializable {
 
     /**
      * Constructor for Schedule2
+     *
      * @param startTime time room opens
-     * @param endTime time room closes
-     * @param roomCap room capacity
+     * @param endTime   time room closes
+     * @param roomCap   room capacity
      */
-    public Schedule2(LocalTime startTime, LocalTime endTime, int roomCap){
+    public Schedule2(LocalTime startTime, LocalTime endTime, int roomCap) {
         this.schedule = new ArrayList<>();
         this.startTime = startTime; // When the room closes
         this.endTime = endTime; // When the room opens
@@ -52,12 +53,13 @@ public class Schedule2 implements Serializable {
 
     /**
      * Get an event object from its title
+     *
      * @param event A string that is the name of an event.
      * @return Returns an event if the specified event is within this schedule, returns null if it isn't
      */
-    public Event getEvent(String event){
+    public Event getEvent(String event) {
         for (Event e : this.schedule) {
-            if(e.getTitle().equals(event))
+            if (e.getTitle().equals(event))
                 return e;
         }
         return null;
@@ -65,33 +67,33 @@ public class Schedule2 implements Serializable {
 
     /**
      * Add an event to this schedule of this room
+     *
      * @param e This is the event to be added
      * @return true if the event was successfully added, false if the event couldn't be added
      */
-    public boolean addEvent(Event e){
+    public boolean addEvent(Event e) {
         LocalDateTime endTime = e.getDatetime().plusMinutes(e.getDuration());
 
-        if(endTime.toLocalTime().isAfter(this.endTime) || e.getDatetime().toLocalTime().isBefore(this.startTime)
+        if (endTime.toLocalTime().isAfter(this.endTime) || e.getDatetime().toLocalTime().isBefore(this.startTime)
                 || e.getEventCapacity() > this.roomCapacity)
             return false;
 
-        if(this.schedule.size()==0) {
+        if (this.schedule.size() == 0) {
             this.schedule.add(e);
             return true;
         }
 
-        int index = getIndex(0, this.schedule.size()-1, e.getDatetime());
+        int index = getIndex(0, this.schedule.size() - 1, e.getDatetime());
 
-        if(index == this.schedule.size()){
+        if (index == this.schedule.size()) {
             this.schedule.add(e);
             return true;
-        }
-        else if(index == -1)
+        } else if (index == -1)
             return false;
 
         Event ev2 = this.schedule.get(index); //the event starting right after the event we wanna add
 
-        if(endTime.isAfter(ev2.getDatetime()))
+        if (endTime.isAfter(ev2.getDatetime()))
             return false;
 
         this.schedule.add(index, e);
@@ -104,20 +106,21 @@ public class Schedule2 implements Serializable {
      * @param event The event to be removed.
      * @return true if the event was removed, false if the event couldn't be removed
      */
-    public boolean removeEvent(Event event){
+    public boolean removeEvent(Event event) {
         return this.schedule.remove(event);
     }
 
     /**
      * Get all events the user with <code>username</code> is attending
+     *
      * @param username user's username
      * @return list with the IDs of the events the user is attending
      */
     public ArrayList<String> eventsAttending(String username) {
         ArrayList<String> events = new ArrayList<>();
 
-        for (Event e:this.schedule) {
-            if(e.getAttendees().contains(username))
+        for (Event e : this.schedule) {
+            if (e.getAttendees().contains(username))
                 events.add(e.getTitle());
         }
 
@@ -128,27 +131,29 @@ public class Schedule2 implements Serializable {
      * Changes the start hour and end hour of this room
      *
      * @param startTime The time that the first event can start
-     * @param endTime The time the last event should finish by
+     * @param endTime   The time the last event should finish by
      */
-    public void editHours(LocalTime startTime, LocalTime endTime){
+    public void editHours(LocalTime startTime, LocalTime endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
     /**
-     * Change max room capacity
-     * @param roomCapacity new room capacity
-     */
-    public void setRoomCapacity(int roomCapacity) {
-        this.roomCapacity = roomCapacity;
-    }
-
-    /**
      * Get room capacity
+     *
      * @return room capacity
      */
     public int getRoomCapacity() {
         return roomCapacity;
+    }
+
+    /**
+     * Change max room capacity
+     *
+     * @param roomCapacity new room capacity
+     */
+    public void setRoomCapacity(int roomCapacity) {
+        this.roomCapacity = roomCapacity;
     }
 
     /**
@@ -158,33 +163,34 @@ public class Schedule2 implements Serializable {
      * @return returns the string format of the schedule
      */
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder toReturn = new StringBuilder();
 
-        for(Event e:schedule)
-            toReturn.append(e.getTitle() + " at " +e.getLocation() + ", " + e.getDatetime().toString() + "\n");
+        for (Event e : schedule)
+            toReturn.append(e.getTitle() + " at " + e.getLocation() + ", " + e.getDatetime().toString() + "\n");
 
         return toReturn.toString();
     }
 
     /**
      * Binary search to get the index of the event that starts right after the event we want to add
+     *
      * @param l left index
      * @param r right index
      * @param k date and time of event we want to add
      * @return index of event starting after our event or -1 if event with same starting time already exists
      */
-    private int getIndex(int l, int r, LocalDateTime k){
+    private int getIndex(int l, int r, LocalDateTime k) {
         int mid;
 
-        while(l <= r){
-            mid = (l+r)>>>1;
-            if(this.schedule.get(mid).getDatetime().isEqual(k))
+        while (l <= r) {
+            mid = (l + r) >>> 1;
+            if (this.schedule.get(mid).getDatetime().isEqual(k))
                 return -1;
-            else if(this.schedule.get(mid).getDatetime().isBefore(k))
-                l = mid+1;
+            else if (this.schedule.get(mid).getDatetime().isBefore(k))
+                l = mid + 1;
             else
-                r = mid-1;
+                r = mid - 1;
         }
         return l;
     }
