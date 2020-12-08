@@ -52,7 +52,7 @@ public class UserLoginGateway extends DatabaseGateway<UserManager>{
             input.close();
         } catch (EOFException e) { //database file is empty
             loginUserManager = new UserManager();
-        } catch (ClassNotFoundException | StreamCorruptedException e) {   //incorrect class format
+        } catch (ClassNotFoundException | StreamCorruptedException | InvalidClassException e) {   //incorrect class format
             System.err.println("Corrupted file contents in user database. Clearing file...");
             clearFileContentsUtil("user");
             loginUserManager = new UserManager();

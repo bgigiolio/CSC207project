@@ -96,7 +96,7 @@ public class MessageGateway implements Serializable{
             input.close();
         }  catch (EOFException e) { //database file is empty
             inbox = new HashMap<>();
-        } catch (ClassNotFoundException | StreamCorruptedException e) {   //incorrect class format
+        } catch (ClassNotFoundException | StreamCorruptedException | InvalidClassException e) {   //incorrect class format
             System.err.println("Corrupted file contents in inbox database. Clearing file...");
             clearFileContentsUtil(inboxPath);
             inbox = new HashMap<>();
@@ -128,7 +128,7 @@ public class MessageGateway implements Serializable{
             input.close();
         }catch (EOFException e) { //database file is empty
             outbox = new HashMap<>();
-        } catch (ClassNotFoundException | StreamCorruptedException e) {   //incorrect class format
+        } catch (ClassNotFoundException | StreamCorruptedException | InvalidClassException e) {   //incorrect class format
             System.err.println("Corrupted file contents in outbox database. Clearing file...");
             clearFileContentsUtil(outboxPath);
             outbox = new HashMap<>();

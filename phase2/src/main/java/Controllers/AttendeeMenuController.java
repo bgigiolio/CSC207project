@@ -5,7 +5,6 @@ import main.java.Gateways.EventGateway;
 import main.java.Presenters.UserMenu;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
-import main.java.UseCases.Schedule2;
 import main.java.UseCases.UserManager;
 
 import java.time.LocalDateTime;
@@ -47,14 +46,14 @@ public class AttendeeMenuController {
      * Displays options for each specific kind of user
      */
     public void homepage() {
-        if (role.equals("Attendee")) {
+        if (role.equalsIgnoreCase("Attendee")) {
             menu.optionsAttendee();
         }
-        if (role.equals("Organizer")) {
+        if (role.equalsIgnoreCase("Organizer")) {
             menu.optionsAttendee();
             menu.optionsOrganizer();
         }
-        if (role.equals("Speaker")) {
+        if (role.equalsIgnoreCase("Speaker")) {
             menu.optionsAttendee();
             menu.optionsSpeaker();
         }
@@ -284,32 +283,13 @@ public class AttendeeMenuController {
         Scanner cin = new Scanner(System.in);
 
         this.menu.createEventName();
-        String eventName = new Scanner(System.in).nextLine();
-        System.out.println(eventName);
+        String eventName = cin.nextLine();
 
         this.menu.createEventRoom();
-        String roomName = new Scanner(System.in).nextLine();
-        System.out.println(roomName);
+        String roomName = cin.nextLine();
 
         this.menu.createEventCapacity();
-        String tempEventCapacity = new Scanner(System.in).nextLine();
-
-        int eventCapacity;
-
-        try {
-            eventCapacity = Integer.parseInt(tempEventCapacity);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        if (eventCapacity > building.getSchedule(roomName).getRoomCapacity()) {
-            System.out.println("Event capacity cannot be greater than room capacity.");
-            return false;
-        }
-        else if(eventCapacity < 0) {
-            System.out.println("Event capacity cannot be negative lol.");
-            return false;
-        }
-        System.out.println(eventCapacity);
+        String tempEventCapacity = cin.nextLine();
 
         this.menu.createEventYear();
         String yearString = cin.nextLine();
@@ -343,6 +323,7 @@ public class AttendeeMenuController {
         int hour;
         int minute;
         int duration;
+        int eventCapacity;
 
         try {
             year = Integer.parseInt(yearString);
@@ -351,6 +332,7 @@ public class AttendeeMenuController {
             hour = Integer.parseInt(hourString);
             minute = Integer.parseInt(minuteString);
             duration = Integer.parseInt(durationStr);
+            eventCapacity = Integer.parseInt(tempEventCapacity);
         } catch (NumberFormatException e) {
             return false;
         }
@@ -365,17 +347,12 @@ public class AttendeeMenuController {
 //                new EventGateway().getEvents().getSchedule(roomName), eventCapacity);
 //        eventManager.addToSched();
 
-        Event createdEvent = new Event(eventName, roomName, d, duration, eventCapacity);
+        if(!building.addEvent(new Event(eventName, roomName, d, duration, eventCapacity)))
+            return false;
 
-        Schedule2 schedule = new EventGateway().read().getSchedule(roomName);
-        schedule.addEvent(createdEvent);
+        new EventGateway().save(building);
 
-        BuildingManager buildingManager = new EventGateway().read();
-        buildingManager.updateBuildingManager(roomName, schedule);
-
-        new EventGateway().save(buildingManager);
-
-//        boolean returnValue = event.createEvent();
+        // boolean returnValue = event.createEvent();
         // new ScheduleSystem().updateEventDB(roomName, schedule);
         return true;
     }
@@ -413,7 +390,7 @@ public class AttendeeMenuController {
      *
      * @return true if user chose to exit program, false if user just logged out
      */
-    public boolean menuSelection() throws ClassNotFoundException {
+    public boolean menuSelection() {
         Scanner uname = new Scanner(System.in);
 
         homepage();

@@ -1,6 +1,8 @@
 package main.java.Controllers;
 import main.java.UseCases.*;
 
+import java.time.LocalTime;
+
 /**
  * <h1>BuildingController</h1>
  * This controller class is responsible for calling the necessary methods in BuildingManager to manage th information of a building.
@@ -47,7 +49,7 @@ public class BuildingController {
      * This method is responsible for adding a room to the building.
      * @return A boolean that shows if the room was added or not.
      */
-    public boolean addRoom(String name, int startHour, int endHour, int roomCapacity){
-        return this.building.addRoom1(name, startHour, endHour, roomCapacity);
+    public boolean addRoom(String name, LocalTime startTime, LocalTime endTime, int roomCapacity){
+        return this.building.addRoom1(name, startTime, endTime, roomCapacity);
     }
 }

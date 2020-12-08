@@ -1,5 +1,6 @@
 package main.java.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author Sehajroop Singh Bath
  */
-public class Attendee {
+public class Attendee implements Serializable {
 
     /**
      * The username of current user.

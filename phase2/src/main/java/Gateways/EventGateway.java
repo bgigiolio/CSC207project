@@ -31,7 +31,7 @@ public class EventGateway extends DatabaseGateway<BuildingManager>{
             input.close();
         } catch (EOFException e) { //database file is empty
             events = new BuildingManager("Building");
-        } catch (ClassNotFoundException | StreamCorruptedException e) {   //incorrect class format
+        } catch (ClassNotFoundException | StreamCorruptedException | InvalidClassException e) {   //incorrect class format
             System.err.println("Corrupted file contents in event database. Clearing file...");
             clearFileContentsUtil("event");
             events = new BuildingManager("Building");

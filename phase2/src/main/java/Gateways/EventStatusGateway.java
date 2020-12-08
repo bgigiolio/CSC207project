@@ -34,7 +34,7 @@ public class EventStatusGateway extends DatabaseGateway<EventStatus> {
             input.close();
         } catch (EOFException e) {
             eventStatus = new EventStatus();
-        } catch (ClassNotFoundException | StreamCorruptedException e) {
+        } catch (ClassNotFoundException | StreamCorruptedException | InvalidClassException e) {
             System.err.println("Corrupted file contents in event status database. Clearing file...");
             clearFileContentsUtil(getDbPath());
             eventStatus = new EventStatus();
