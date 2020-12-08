@@ -171,13 +171,20 @@ public class AttendeeMenuController {
 
     }
 
-    public void modifyCapacity() {
+    public boolean modifyCapacity() {
         this.menu.enterEvent();
         String eventName = new Scanner(System.in).nextLine();
         this.menu.modifyEventCapacity();
-        int newCapacity = new Scanner(System.in).nextInt();
+        String tempNewCapacity = new Scanner(System.in).nextLine();
+        int newCapacity = 0;
+        try {
+            newCapacity = Integer.parseInt(tempNewCapacity);
+        }catch(NumberFormatException e){
+            return false;
+        }
         EventManager manager = new EventManager(building.getEvent(eventName), building);
         manager.modifyCapacity(newCapacity);
+        return true;
     }
 
     public boolean removeEvent() {
@@ -465,8 +472,10 @@ public class AttendeeMenuController {
                         this.menu.invalidRole();
                     }
                     break;
-                case "15":
-                    modifyCapacity();
+                case "15": // modify event capacity
+                    if(!modifyCapacity()){
+                        this.menu.invalidResponse();
+                    }
                     break;
                 case "a":
                 case "A":
