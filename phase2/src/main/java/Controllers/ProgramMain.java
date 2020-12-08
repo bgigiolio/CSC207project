@@ -184,8 +184,6 @@ public class ProgramMain {
     private String login() {
         StartingMenu menuPresenter = new StartingMenu();
 
-        menuPresenter.uPrompt();
-
         String username = retUserUsernamePrompt();
         String password = passwordPrompt();
 
