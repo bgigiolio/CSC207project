@@ -17,13 +17,13 @@ public class ScheduleSystem {
     EventGateway eventGateway = new EventGateway();
 
     public void updateEventDB(String room, Schedule2 schedule) throws ClassNotFoundException {
-        BuildingManager buildingManager = eventGateway.getEvents();
+        BuildingManager buildingManager = eventGateway.read();
         buildingManager.updateScheduleOfRoom(room, schedule);
-        eventGateway.setEvents(buildingManager);
+        eventGateway.save(buildingManager);
     }
 
     public void constructScheduleTxt() throws ClassNotFoundException, IOException {
-        BuildingManager buildingManager = eventGateway.getEvents();
+        BuildingManager buildingManager = eventGateway.read();
         String scheduleString = buildingManager.toString();
         FileWriter scheduleWriter = new FileWriter("main/java/DB/Schedule.txt");
         scheduleWriter.write(scheduleString);
