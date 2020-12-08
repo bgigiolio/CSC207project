@@ -5,6 +5,12 @@ import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.Schedule2;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.*;
+
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 
 public class ScheduleSystem {
@@ -16,8 +22,35 @@ public class ScheduleSystem {
         eventGateway.setEvents(buildingManager);
     }
 
-    public void constructScheduleTxt() throws ClassNotFoundException {
+    public void constructScheduleTxt() throws ClassNotFoundException, IOException {
         BuildingManager buildingManager = eventGateway.getEvents();
+        String scheduleString = buildingManager.toString();
+        FileWriter scheduleWriter = new FileWriter("main/java/DB/Schedule.txt");
+        scheduleWriter.write(scheduleString);
+        scheduleWriter.close();
+    }
+
+    public void downloadSchedule(){
+        SwingUtilities.invokeLater(() -> {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileFilter(new FileNameExtensionFilter("*.txt", ".txt"));
+            int option = chooser.showSaveDialog(null);
+            if (option == JFileChooser.APPROVE_OPTION) {
+                File destination = chooser.getSelectedFile();
+                if (!destination.getName().endsWith(".txt")) {
+                    destination = new File(destination + ".txt");
+                }
+                try {
+                    InputStream file = new FileInputStream("main/java/DB/Schedule.txt");
+                    Files.copy(file, destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    System.out.println("Schedule has been successfully downloaded to " + destination + ".");
+                } catch (Exception ex) {
+                    System.out.println("Failed to download schedule due to server error.");
+                }
+            } else {
+                System.out.println("No file location was selected.");
+            }
+        });
     }
 
     /*
