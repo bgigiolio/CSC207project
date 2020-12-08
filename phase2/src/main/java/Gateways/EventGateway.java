@@ -62,4 +62,5 @@ public class EventGateway extends DatabaseGateway<BuildingManager>{
             ex.printStackTrace();
         }
     }
+
 }
