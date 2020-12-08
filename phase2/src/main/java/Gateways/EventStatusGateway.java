@@ -11,47 +11,35 @@ import java.io.*;
  *
  * @author Morgan Chang
  */
-public class EventStatusGateway {
+public class EventStatusGateway extends DatabaseGateway<EventStatus> {
 
-    /**
-     * The system to be load or save to a file.
-     */
-    private EventStatus eventStatus = new EventStatus();
-
-    public EventStatus getEventStatus() {
-        return eventStatus;
+    public EventStatusGateway() {
+        super("phase2/src/main/java/DB/EventStatusData.ser");
     }
 
     /**
-     * Set EventStatus.
-     *
-     * @param eventStatus the EventStatus object that stores the data about event registrations of users
-     */
-    public void setEventStatus(EventStatus eventStatus) {
-        this.eventStatus = eventStatus;
-    }
-
-    /**
-     * Load filepath to controller.
+     * Load object from database to controller.
      *
      * @return eventStatus the EventStatus object with existing data about event registrations of users
      */
-    public EventStatus loadFromFile(String filePath){
-        try{
-            InputStream file = new FileInputStream(filePath);
+    @Override
+    public EventStatus read() {
+        EventStatus eventStatus;
+        try {
+            InputStream file = new FileInputStream(getDbPath());
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
             eventStatus = ((EventStatus) input.readObject());
             input.close();
-        } catch (EOFException e){
+        } catch (EOFException e) {
             eventStatus = new EventStatus();
         } catch (ClassNotFoundException | StreamCorruptedException e) {
-            System.err.println("Corrupted file contents in event database. Clearing file...");
-            clearFileContentsUtil(filePath);
+            System.err.println("Corrupted file contents in event status database. Clearing file...");
+            clearFileContentsUtil(getDbPath());
             eventStatus = new EventStatus();
-        }catch (IOException e) {  //other IO exception
-            System.err.println("Unknown error when reading from event database file.");
+        } catch (IOException e) {  //other IO exception
+            System.err.println("Unknown error when reading from event status database file.");
             e.printStackTrace();
             eventStatus = new EventStatus();
         }
@@ -61,33 +49,20 @@ public class EventStatusGateway {
     /**
      * Save eventStatus to filepath.
      *
-     * @param filePath the name of the file
+     * @param obj The object to save
      */
-    public void saveToFile(String filePath){
+    @Override
+    public void save(EventStatus obj) {
+        clearFileContentsUtil("event status");
         try {
-            OutputStream file = new FileOutputStream(filePath);
+            OutputStream file = new FileOutputStream(getDbPath());
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
 
-            output.writeObject(eventStatus);
+            output.writeObject(obj);
             output.close();
-        }
-        catch (IOException e) {
-            System.err.println("Could not save event data to file.");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Utility method to clear file contents if file contains corrupt data
-     */
-    private void clearFileContentsUtil(String dbPath) {
-        try {
-            PrintWriter writer = new PrintWriter(dbPath);
-            writer.print("");
-            writer.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("Unexpected error when accessing the event database file.");
+        } catch (IOException e) {
+            System.err.println("Could not save event status data to file.");
             e.printStackTrace();
         }
     }

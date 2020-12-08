@@ -25,7 +25,7 @@ public class ProgramMain {
     public ProgramMain(BuildingManager buildingManager) {
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = buildingManager;
-        this.userManager = userLoginGateway.getStoredUserData();
+        this.userManager = userLoginGateway.read();
     }
 
     /**
@@ -63,7 +63,7 @@ public class ProgramMain {
             currentSession = new AttendeeMenuController(username, role, buildingManager, userManager);
 
             didQuit = currentSession.menuSelection();
-            userLoginGateway.saveUserLoginInfo(userManager);
+            userLoginGateway.save(userManager);
         } while(!didQuit);
     }
 

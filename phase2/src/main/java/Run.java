@@ -11,7 +11,7 @@ public class Run {
 
         EventGateway eventGateway = new EventGateway();
 
-        ProgramMain sys = new ProgramMain(eventGateway.getEvents());
+        ProgramMain sys = new ProgramMain(eventGateway.read());
 
         sys.start();
 

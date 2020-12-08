@@ -280,7 +280,7 @@ public class AttendeeMenuController {
     }
 
     // TODO: this method is getting error saving event, i'll fix later!
-    public boolean createEvent() throws ClassNotFoundException {
+    public boolean createEvent() {
         Scanner cin = new Scanner(System.in);
 
         this.menu.createEventName();
@@ -367,13 +367,13 @@ public class AttendeeMenuController {
 
         Event createdEvent = new Event(eventName, roomName, d, duration, eventCapacity);
 
-        Schedule2 schedule = new EventGateway().getEvents().getSchedule(roomName);
+        Schedule2 schedule = new EventGateway().read().getSchedule(roomName);
         schedule.addEvent(createdEvent);
 
-        BuildingManager buildingManager = new EventGateway().getEvents();
+        BuildingManager buildingManager = new EventGateway().read();
         buildingManager.updateBuildingManager(roomName, schedule);
 
-        new EventGateway().setEvents(buildingManager);
+        new EventGateway().save(buildingManager);
 
 //        boolean returnValue = event.createEvent();
         // new ScheduleSystem().updateEventDB(roomName, schedule);
