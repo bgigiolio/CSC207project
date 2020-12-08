@@ -2,6 +2,7 @@ package main.java.Controllers;
 
 import main.java.Gateways.*;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventStatus;
 
 /**
  * <h1>Event Status Changer</h1>
@@ -15,7 +16,7 @@ public class EventStatusChanger {
     /**
      * The gateway to be controlled.
      */
-    private EventStatusGateway eventStatusGateway = new EventStatusGateway();
+    private final EventStatusGateway eventStatusGateway = new EventStatusGateway();
 
     /**
      * Read from a file, EventStatusData.ser, about existing users' event registrations,
@@ -26,10 +27,9 @@ public class EventStatusChanger {
      * @return true iff username has successfully signed up for event of eventTitle.
      */
     public int signUpChanger(String username, String eventTitle, BuildingManager building){
-        String db = "phase2/src/DB/EventStatusData.ser";
-        eventStatusGateway.setEventStatus(eventStatusGateway.loadFromFile(db));
-        int returnVal = eventStatusGateway.getEventStatus().signUpEvent(username,eventTitle, building);
-        eventStatusGateway.saveToFile(db);
+        EventStatus obj = eventStatusGateway.read();
+        int returnVal = obj.signUpEvent(username,eventTitle, building);
+        eventStatusGateway.save(obj);
         return returnVal;
     }
 
@@ -42,10 +42,9 @@ public class EventStatusChanger {
      * @return true iff the user has successfully cancel his enrollment in event of eventTitle.
      */
     public boolean cancelChanger(String username, String eventTitle) {
-        String db = "phase2/src/DB/EventStatusData.ser";
-        eventStatusGateway.setEventStatus(eventStatusGateway.loadFromFile(db));
-        boolean returnVal = eventStatusGateway.getEventStatus().cancelEventEnrolment(username,eventTitle);
-        eventStatusGateway.saveToFile(db);
+        EventStatus obj = eventStatusGateway.read();
+        boolean returnVal = obj.cancelEventEnrolment(username,eventTitle);
+        eventStatusGateway.save(obj);
         return returnVal;
     }
 

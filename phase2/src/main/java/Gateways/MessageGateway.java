@@ -12,15 +12,13 @@ import java.util.HashMap;
  * @author Qi Zheng
  * @version Phase2
  */
-
-
 public class MessageGateway implements Serializable{
     protected HashMap<String, ArrayList<Message>> inbox; //received messages
 
     protected HashMap<String, ArrayList<Message>> outbox; //sent messages
 
-    private String inboxPath;
-    private String outboxPath;
+    private final String inboxPath;
+    private final String outboxPath;
 
     /**
      * Instantiated without any arguments.
@@ -32,73 +30,6 @@ public class MessageGateway implements Serializable{
         this.inboxPath = "phase2\\src\\main\\java\\DB\\InboxMessage.ser";
         this.outboxPath = "phase2\\src\\main\\java\\DB\\OutboxMessage.ser";
     }
-
-    /**
-     * Return the current filepath stored to inboxPath.
-     * @return this.inboxPath
-     */
-    public String getInboxPath() {
-        return this.inboxPath;
-    }
-
-    /**
-     * Return the current filepath stored to outboxPath.
-     * @return this.outboxPath
-     */
-    public String getOutboxPath() {
-        return this.outboxPath;
-    }
-
-    /**
-     * Change the filepath that is assignment to inboxPath.
-     * @param inboxPath is a filepath of a file that stores inbox.
-     */
-    public void setInboxPath(String inboxPath){
-        this.inboxPath = inboxPath;
-    }
-
-    /**
-     * Change the filepath that is assignment to outboxPath.
-     * @param outboxPath is a filepath of a file that stores outbox.
-     */
-    public void setOutboxPath(String outboxPath){
-        this.outboxPath = outboxPath;
-    }
-
-    /**
-     * Takes no argument.
-     * Returns a hashmap that is assigned to the class attribute named inbox.
-     * @return inbox
-     */
-    public HashMap<String, ArrayList<Message>> getInboxInProgram(){
-        return this.inbox;
-    }
-
-    /**
-     * Takes no argument.
-     * Returns a hashmap that is assigned to the class attribute named outbox.
-     * @return outbox
-     */
-    public HashMap<String, ArrayList<Message>> getOutboxInProgram(){
-        return this.outbox;
-    }
-
-    /**
-     * Saves the input inbox to the class attribute named inbox
-     * @param inbox which is a hashmap whose keys are usernames and values are arraylists of received messages.
-     */
-    public void setInboxInProgram(HashMap<String, ArrayList<Message>> inbox){
-        this.inbox = inbox;
-    }
-
-    /**
-     * Saves the input outbox to the class attribute named outbox
-     * @param outbox which is a hashmap whose keys are usernames and values are arraylists of sent messages.
-     */
-    public void setOutboxInProgram(HashMap<String, ArrayList<Message>> outbox){
-        this.outbox = outbox;
-    }
-
 
     /**
      * Takes sender, receiver and message as parameters.

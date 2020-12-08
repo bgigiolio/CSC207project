@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 public class ScheduleSystem {
     EventGateway eventGateway = new EventGateway();
 
-    public void updateEventDB(String room, Schedule2 schedule) throws ClassNotFoundException {
-        BuildingManager buildingManager = eventGateway.getEvents();
+    public void updateEventDB(String room, Schedule2 schedule) {
+        BuildingManager buildingManager = eventGateway.read();
         buildingManager.updateScheduleOfRoom(room, schedule);
-        eventGateway.setEvents(buildingManager);
+        eventGateway.save(buildingManager);
     }
 
-    public void constructScheduleTxt() throws ClassNotFoundException {
-        BuildingManager buildingManager = eventGateway.getEvents();
+    public void constructScheduleTxt(){
+        BuildingManager buildingManager = eventGateway.read();
     }
 
     /*

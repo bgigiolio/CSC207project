@@ -19,10 +19,9 @@ public class ImportExportEventController {
     /**
      * This method calls EventGateway to retrieve a BuildingManager object.
      * @return A BuildingManager object.
-     * @throws ClassNotFoundException Handles the case where no serializable class is found.
      */
-    public BuildingManager importEvents() throws ClassNotFoundException{
-        return gateway.getEvents();
+    public BuildingManager importEvents(){
+        return gateway.read();
     }
 
     /**
@@ -30,7 +29,7 @@ public class ImportExportEventController {
      * @param events A BuildingManager object.
      */
     public void exportEvents(BuildingManager events){
-        gateway.setEvents(events);
+        gateway.save(events);
     }
 
 }
