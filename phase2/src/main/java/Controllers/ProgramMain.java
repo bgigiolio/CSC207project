@@ -122,24 +122,52 @@ public class ProgramMain {
     }
 
     /**
+     * This method gets new user's username from user input.
+     * @return The String object representing the user's username.
+     */
+    public String newUserUsernamePrompt(){
+        Scanner uname = new Scanner(System.in);
+        return uname.nextLine();
+    }
+
+    /**
+     * This method gets returning user's username from user input.
+     * @return The String object representing the user's username.
+     */
+    public String retUserUsernamePrompt(){
+        Scanner uname = new Scanner(System.in);
+        new StartingMenu().uPrompt();
+        return uname.nextLine();
+    }
+
+    /**
+     * This method gets the user's password from user input.
+     * @return The String object representing the user's password.
+     */
+    public String passwordPrompt(){
+        Scanner pass = new Scanner(System.in);
+        new StartingMenu().pPrompt();
+        return pass.nextLine();
+    }
+
+    /**
      * Register a new user
      * @param role user's roles
      * @return the username of the registered user
      */
     private String register(String role){
         String username, password;
-        NewUserController credentialsPrompt = new NewUserController();
         StartingMenu menuPresenter = new StartingMenu();
 
         menuPresenter.uPrompt();
-        username = credentialsPrompt.usernamePrompt();
+        username = newUserUsernamePrompt();
 
         while(this.userManager.checkUsername(username)){
             menuPresenter.usernameUsed();
-            username = credentialsPrompt.usernamePrompt();
+            username = newUserUsernamePrompt();
         }
 
-        password = credentialsPrompt.passwordPrompt();
+        password = passwordPrompt();
 
         if (this.userManager.registerUser(username, password, role)) {
             menuPresenter.newUserCreated();
@@ -154,13 +182,12 @@ public class ProgramMain {
      * @return username of user logged. Null if couldn't log in.
      */
     private String login() {
-        NewUserController credentialsPrompt = new NewUserController();
         StartingMenu menuPresenter = new StartingMenu();
 
         menuPresenter.uPrompt();
 
-        String username = credentialsPrompt.usernamePrompt();
-        String password = credentialsPrompt.passwordPrompt();
+        String username = retUserUsernamePrompt();
+        String password = passwordPrompt();
 
         switch (this.userManager.loginUser(username, password)) {
             case "loggedIn":
