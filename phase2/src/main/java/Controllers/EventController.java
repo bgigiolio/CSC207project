@@ -22,7 +22,7 @@ public class EventController {
      * @param datetime The date and time of the EventManager.
      * @param sched The schedule for the EventManager.
      */
-    public EventController(String title, String speaker,String location, LocalDateTime datetime, Schedule sched, int eventcapacity){
+    public EventController(String title, String speaker,String location, LocalDateTime datetime, Schedule2 sched, int eventcapacity){
         this.manager = new EventManager(title, speaker,location, datetime, sched, eventcapacity);
     }
 //    public EventController(String event){
@@ -42,7 +42,7 @@ public class EventController {
         return this.manager.removeEvent();
     }
 
-    public Schedule getSchedule() {
+    public Schedule2 getSchedule() {
         return this.manager.getSchedule();
     }
 }

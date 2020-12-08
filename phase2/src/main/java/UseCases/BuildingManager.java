@@ -3,6 +3,7 @@ import main.java.Entities.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -10,10 +11,10 @@ import java.util.*;
  * The Building Manager holds a map of Schedules keyed to their rooms.
  * There should likely be only one building manager per program.
  * @author Blake Gigiolio
- * @version Phase1
+ * @version Phase2
  */
 public class BuildingManager implements Serializable {
-    private final HashMap<String, Schedule> building;
+    private final HashMap<String, Schedule2> building;
     private final String buildingName;
 
     /**
@@ -22,16 +23,15 @@ public class BuildingManager implements Serializable {
      * @param buildingName The desired name of the building.
      */
     public BuildingManager(String buildingName){
-        HashMap<String, Schedule> building = new HashMap<>();
         this.buildingName = buildingName;
-        this.building = building;
+        this.building = new HashMap<>();
     }
 
-    public HashMap<String, Schedule> getBuilding() {
+    public HashMap<String, Schedule2> getBuilding() {
         return this.building;
     }
 
-    public void updateBuildingManager(String room, Schedule schedule) {
+    public void updateBuildingManager(String room, Schedule2 schedule) {
         this.building.put(room, schedule);
     }
 
@@ -40,10 +40,10 @@ public class BuildingManager implements Serializable {
      * @param name The desired name of the room.
      * @param startHour The desired starting hour for this schedule. (See Schedule for reference)
      * @param endHour The desired ending hour for this schedule. (See Schedule for reference)
-     * @return Returns true if the room was successfully added and false if it wasn't.
+     * @return True if the room was successfully added and false if it wasn't.
      */
-    public boolean addRoom1(String name, int startHour, int endHour, int roomCapacity){
-        Schedule addition = new Schedule(startHour, endHour, roomCapacity);
+    public boolean addRoom1(String name, LocalTime startHour, LocalTime endHour, int roomCapacity){
+        Schedule2 addition = new Schedule2(startHour, endHour, roomCapacity);
         return addRoom2(name, addition);
     }
 
@@ -51,9 +51,9 @@ public class BuildingManager implements Serializable {
      * Adds a new (already existing) room to this building by receiving an existing schedule and adding it.
      * @param name The desired name of the room.
      * @param sched The schedule of the room that we want to add.
-     * @return Returns true if the room was successfully added and false if it wasn't.
+     * @return True if the room was successfully added and false if it wasn't.
      */
-    public boolean addRoom2(String name, Schedule sched){
+    public boolean addRoom2(String name, Schedule2 sched){
         if(!building.containsKey(name)){
             building.put(name, sched);
             return true;
@@ -64,14 +64,22 @@ public class BuildingManager implements Serializable {
     /**
      * Removes a room from this building.
      * @param name The name of the room to be removed.
-     * @return Returns true if the room was successfully removed and false if it wasnt.
      */
-    public boolean removeRoom(String name){
-        if(building.containsKey(name)){
-            building.remove(name);
-            return true;
-        }
-        return false;
+    public void removeRoom(String name){
+        building.remove(name);
+    }
+
+    /**
+     * Add an event to this building
+     * @param room the room the event will take place
+     * @param e the event
+     * @return True if the event was added successfully, False otherwise
+     */
+    public boolean addEvent(String room, Event e){
+        if(!building.containsKey(room))
+            return false;
+
+        return building.get(room).addEvent(e);
     }
 
     /**
@@ -79,7 +87,7 @@ public class BuildingManager implements Serializable {
      * @param name The name of the room for which we want the schedule of.
      * @return If the room exists within this building, we return its schedule. If not, returns null.
      */
-    public Schedule getSchedule(String name){
+    public Schedule2 getSchedule(String name){
         return building.get(name);
     }
 
@@ -89,40 +97,43 @@ public class BuildingManager implements Serializable {
      * @return Returns the Event object with the corresponding name, or null if it does not exist in this building.
      */
     public Event getEvent(String event){
-        Iterator<Schedule> iterator = new ScheduleIterator();
+        Iterator<Schedule2> iterator = new ScheduleIterator();
         Event e = null;
+
         while(iterator.hasNext()){
-            Schedule sched = iterator.next();
-            if(sched.getEvent(event) != null){
-                e = sched.getEvent(event);
+            Schedule2 sched = iterator.next();
+            e = sched.getEvent(event);
+            if(e != null){
+                return e;
             }
         }
         return e;
     }
 
     // Get event in room
-    public Event getEvent(String event, String roomname){
-        Iterator<Schedule> iterator = new ScheduleIterator();
+    public Event getEvent(String event, String roomName){
+        Iterator<Schedule2> iterator = new ScheduleIterator();
         Event e = null;
         while(iterator.hasNext()){
-            Schedule sched = iterator.next();
-            if(sched.getEvent(event) != null && sched.getEvent(event).getLocation().equals(roomname)){
-                e = sched.getEvent(event);
+            Schedule2 sched = iterator.next();
+            e = sched.getEvent(event);
+            if(e != null && e.getLocation().equals(roomName)){
+                return e;
             }
         }
         return e;
     }
 
     // Get event in room at datetime
-    public Event getEvent(String event, String roomname, LocalDateTime dt){
-        Iterator<Schedule> iterator = new ScheduleIterator();
+    public Event getEvent(String event, String roomName, LocalDateTime dt){
+        Iterator<Schedule2> iterator = new ScheduleIterator();
+        Schedule2 sched;
         Event e = null;
         while(iterator.hasNext()){
-            Schedule sched = iterator.next();
-            if(sched.getEvent(event) != null &&
-                    sched.getEvent(event).getLocation().equals(roomname) &&
-                    sched.getEvent(event).getDatetime().equals(dt)){
-                e = sched.getEvent(event);
+            sched = iterator.next();
+            e = sched.getEvent(event);
+            if(e != null && e.getLocation().equals(roomName) && e.getDatetime().equals(dt)){
+                return e;
             }
         }
         return e;
@@ -132,7 +143,7 @@ public class BuildingManager implements Serializable {
      * Gives the iterator for schedules within this building.
      * @return The given iterator.
      */
-    public Iterator<Schedule> iterator() {
+    public Iterator<Schedule2> iterator() {
         return new ScheduleIterator();
     }
 
@@ -141,16 +152,17 @@ public class BuildingManager implements Serializable {
      * @param event The title of the event needed.
      * @return Returns the schedule that contains the needed event, or null if no such schedule exists.
      */
-    public Schedule getScheduleWithEvent(String event){
-        Schedule s = null;
-        Iterator<Schedule> iterator = new ScheduleIterator();
+    public Schedule2 getScheduleWithEvent(String event){
+        Iterator<Schedule2> iterator = new ScheduleIterator();
+        Schedule2 sched = null;
+
         while(iterator.hasNext()){
-            Schedule sched = iterator.next();
+            sched = iterator.next();
             if(sched.getEvent(event) != null){
-                s = sched;
+                return sched;
             }
         }
-        return s;
+        return sched;
     }
 
     /**
@@ -160,9 +172,9 @@ public class BuildingManager implements Serializable {
      */
     public ArrayList<String> eventsAttending(String username){
         ArrayList<String> events = new ArrayList<>();
-        Iterator<Schedule> iterator = new ScheduleIterator();
+        Iterator<Schedule2> iterator = new ScheduleIterator();
         while(iterator.hasNext()){
-            Schedule sched = iterator.next();
+            Schedule2 sched = iterator.next();
             events.addAll(sched.eventsAttending(username));
         }
         return events;
@@ -201,17 +213,19 @@ public class BuildingManager implements Serializable {
     /**
      * The implementation of Iterator for this building.
      */
-    private class ScheduleIterator implements Iterator<Schedule>{
+    private class ScheduleIterator implements Iterator<Schedule2>{
         private int current = 0;
         private final List<String> keys = new ArrayList<>(building.keySet());
+
         @Override
         public boolean hasNext() {
             return (current < building.size());
         }
+
         @Override
-        public Schedule next() {
+        public Schedule2 next() {
             String room;
-            Schedule res;
+            Schedule2 res;
             try {
 
                 room = keys.get(current);
@@ -224,7 +238,7 @@ public class BuildingManager implements Serializable {
         }
     }
 
-    public void updateScheduleOfRoom(String room, Schedule schedule) {
+    public void updateScheduleOfRoom(String room, Schedule2 schedule) {
         this.building.put(room, schedule);
     }
 

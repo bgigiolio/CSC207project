@@ -13,10 +13,6 @@ import java.util.ArrayList;
 public class UserMenu {
 
     /**
-     * This constructor sets up the menu with for a user with a given username.
-     */
-
-    /**
      * Once the user logs in to the program this is the first thing they should see, listing their
      * possible actions.
      */
@@ -46,6 +42,7 @@ public class UserMenu {
                 "[14] Create Event\n" +
                 "[15] Modify Event Capacity.");
     }
+
     /**
      * If the user is a speaker, this should be displayed along with optionsAttendee()
      */
@@ -54,7 +51,6 @@ public class UserMenu {
         System.out.println("[15] View List of My Events\n"+
                 "[16] Send Message");
     }
-
 
     /**
      * Prompts the user to input a response
@@ -153,39 +149,47 @@ public class UserMenu {
      */
     public void createRoomStart(){
         System.out.println("When should this room open?");
-        System.out.println("Please type a number between 0 and 24");
+        System.out.println("Please enter the hour (0-23) followed by the minute (0-59)");
     }
 
     /**
      * This is what the user should see for inputting the event end time if they choose to create an event.
      */
-    public void createRoomEnd(int start){
+    public void createRoomEnd(){
         System.out.println("When should this room close?");
-        System.out.println("Please type a number between " + start + " and 24");
+        System.out.println("Please enter the hour (0-23) followed by the minute (0-59)");
     }
+
     public void createUserType() {
         System.out.println("Is the new user an Attendee, Speaker or Organizer?");
         System.out.println("Enter 'A' for Attendee, 'S' for Speaker, or 'O' for Organizer:");
     }
+
     public void createSpeakerName(){
         System.out.println("Enter Speaker name:");
     }
+
     public void createUserName(){
         System.out.println("Enter User name:");
     }
+
     public void speakerMade(String uname){
         System.out.println("Speaker account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
+
     public void organizerMade(String uname){
         System.out.println("Organizer account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
+
     public void attendeeMade(String uname){
         System.out.println("Attendee account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
+
     public void enterEvent(){ System.out.println("Enter existing Event name:"); }
+
     public void printMessages(ArrayList<String> messages){
         StringBuilder builder = new StringBuilder();
         builder.append("Your messages: \n");
@@ -194,46 +198,68 @@ public class UserMenu {
         }
         System.out.println(builder);
     }
+
     public void createEventName(){
         System.out.println("What should this event be named?");
     }
+
     public void createEventRoom(){
         System.out.println("Which room is this event taking place?");
     }
+
     public void createEventYear(){
         System.out.println("What year is this event taking place");
     }
+
     public void createEventMonth(){
         System.out.println("What month is this event in?");
         System.out.println("please answer as a number between 1 and 12");
     }
+
     public void promptAgain(){
         System.out.println("Operation Completed!");
         System.out.println("Type A to see menu again, or select another option.");
     }
+
     public void createEventDay(){
         System.out.println("Which day is this event taking place");
         System.out.println("please answer as a number between 1 and 31");
     }
+
     public void createEventHour(){
         System.out.println("What hour is this event taking place");
-        System.out.println("please answer as a number between 1 and 24");
+        System.out.println("Please enter a number between 0 and 23");
     }
+
+    public void createEventMinute(){
+        System.out.println("What minute is this event taking place");
+        System.out.println("Please enter a number between 0 and 59");
+    }
+
+    public void createEventDuration(){
+        System.out.println("What is the duration of this event in minutes?");
+    }
+
     public void createEventSpeaker(){
         System.out.println("Would you like to add a speaker?");
     }
+
     public void createEventSpeakerName(){
         System.out.println("What is the speaker's name?");
     }
+
     public void friendsList(){
         System.out.println("Would you like to add or remove someone from the friends list? Type A or R");
     }
+
     public void friendsListUsername(){
         System.out.println("What is their username?");
     }
+
     public void invalidRole(){
         System.out.println("This action is only available for organizers");
     }
+
     public void logoutSuccess() {
         System.out.println("You Have Successfully Logged Out Of Your Account.");
     }

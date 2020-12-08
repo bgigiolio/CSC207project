@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @version Phase1
  */
 public class EventManager {
-    private Schedule schedule;
+    private Schedule2 schedule;
     private final Event event;
 
     /**
@@ -24,7 +24,7 @@ public class EventManager {
      * @param datetime Time the event will occur.
      * @param sched The schedule this event should be a part of.
      */
-    public EventManager(String title, String speaker, String location, LocalDateTime datetime, Schedule sched, int eventcapacity){
+    public EventManager(String title, String speaker, String location, LocalDateTime datetime, Schedule2 sched, int eventcapacity){
         this.event= new Event(title, speaker,location, datetime, eventcapacity);
         this.schedule = sched;
     }
@@ -34,7 +34,7 @@ public class EventManager {
      * @param event The event we want to manage.
      * @param sched The schedule this event should be a part of.
      */
-    public EventManager(Event event, Schedule sched){
+    public EventManager(Event event, Schedule2 sched){
         this.event = event;
         this.schedule = sched;
     }
@@ -66,7 +66,7 @@ public class EventManager {
         event.setEventCapacity(newCapacity);
     }
 
-    public Schedule getSchedule() {
+    public Schedule2 getSchedule() {
         return this.schedule;
     }
 }

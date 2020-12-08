@@ -5,10 +5,11 @@ import main.java.Gateways.EventGateway;
 import main.java.Presenters.UserMenu;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
-import main.java.UseCases.Schedule;
+import main.java.UseCases.Schedule2;
 import main.java.UseCases.UserManager;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 /**
@@ -110,27 +111,42 @@ public class AttendeeMenuController {
     }
 
     public boolean addRoom() {
+        int startH, startM;
+        int endH, endM;
+        String inpStr1, inpStr2;
+        Scanner cin = new Scanner(System.in);
+
         this.menu.createRoomName();
-        String name = new Scanner(System.in).nextLine();
+
+        String name = cin.nextLine();
+
         this.menu.createRoomStart();
-        String startString = new Scanner(System.in).nextLine();
-        int start;
+        inpStr1 = cin.nextLine();
+        inpStr2 = cin.nextLine();
 
         try {
-            start = Integer.parseInt(startString);
+            startH = Integer.parseInt(inpStr1);
+            startM = Integer.parseInt(inpStr2);
         } catch (NumberFormatException e) {
             return false;
         }
 
-        this.menu.createRoomEnd(start);
-        String endString = new Scanner(System.in).nextLine();
-        int end;
+        if(startH > 23 || startH < 0 || startM < 0 || startM > 59)
+            return false;
+
+        this.menu.createRoomEnd();
+        inpStr1 = cin.nextLine();
+        inpStr2 = cin.nextLine();
 
         try {
-            end = Integer.parseInt(endString);
+            endH = Integer.parseInt(inpStr1);
+            endM = Integer.parseInt(inpStr2);
         } catch (NumberFormatException e) {
             return false;
         }
+
+        if(endH > 23 || endH < 0 || endM < 0 || endM > 59)
+            return false;
 
         this.menu.createRoomCapacity();
         String roomCapacityString = new Scanner(System.in).nextLine();
@@ -142,7 +158,10 @@ public class AttendeeMenuController {
             return false;
         }
 
-        return building.addRoom1(name, start, end, roomCapacity);
+        if(roomCapacity < 0)
+            return false;
+
+        return building.addRoom1(name, LocalTime.of(startH, startM), LocalTime.of(endH, endM), roomCapacity);
     }
 
     // Merged with createUser() method
@@ -176,7 +195,7 @@ public class AttendeeMenuController {
         String eventName = new Scanner(System.in).nextLine();
         this.menu.modifyEventCapacity();
         String tempNewCapacity = new Scanner(System.in).nextLine();
-        int newCapacity = 0;
+        int newCapacity;
         try {
             newCapacity = Integer.parseInt(tempNewCapacity);
         }catch(NumberFormatException e){
@@ -262,67 +281,81 @@ public class AttendeeMenuController {
 
     // TODO: this method is getting error saving event, i'll fix later!
     public boolean createEvent() throws ClassNotFoundException {
+        Scanner cin = new Scanner(System.in);
+
         this.menu.createEventName();
         String eventName = new Scanner(System.in).nextLine();
         System.out.println(eventName);
+
         this.menu.createEventRoom();
         String roomName = new Scanner(System.in).nextLine();
         System.out.println(roomName);
+
         this.menu.createEventCapacity();
         String tempEventCapacity = new Scanner(System.in).nextLine();
+
         int eventCapacity;
 
-//        try {
+        try {
             eventCapacity = Integer.parseInt(tempEventCapacity);
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//        if (eventCapacity > building.getSchedule(roomName).getRoomCapacity()) {
-//            System.out.println("Event capacity cannot be greater than room capacity.");
-//            return false;
-//        }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        if (eventCapacity > building.getSchedule(roomName).getRoomCapacity()) {
+            System.out.println("Event capacity cannot be greater than room capacity.");
+            return false;
+        }
+        else if(eventCapacity < 0) {
+            System.out.println("Event capacity cannot be negative lol.");
+            return false;
+        }
         System.out.println(eventCapacity);
 
         this.menu.createEventYear();
-        String yearString = new Scanner(System.in).nextLine();
+        String yearString = cin.nextLine();
+
         this.menu.createEventMonth();
-        String monthString = new Scanner(System.in).nextLine();
+        String monthString = cin.nextLine();
+
         this.menu.createEventDay();
-        String dayString = new Scanner(System.in).nextLine();
+        String dayString = cin.nextLine();
+
         this.menu.createEventHour();
-        String hourString = new Scanner(System.in).nextLine();
+        String hourString = cin.nextLine();
+
+        this.menu.createEventMinute();
+        String minuteString = cin.nextLine();
+
+        this.menu.createEventDuration();
+        String durationStr = cin.nextLine();
+
         this.menu.createEventSpeaker();
-        String response = new Scanner(System.in).nextLine();
+        String response = cin.nextLine();
+
         String speaker = "John";
         if (response.equals("Y") || response.equals("y")) {
             this.menu.createEventSpeakerName();
-            speaker = new Scanner(System.in).nextLine();
+            speaker = cin.nextLine();
         }
         int year;
         int month;
         int day;
         int hour;
-//        try {
+        int minute;
+        int duration;
+
+        try {
             year = Integer.parseInt(yearString);
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//        try {
             month = Integer.parseInt(monthString);
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//        try {
             day = Integer.parseInt(dayString);
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//        try {
             hour = Integer.parseInt(hourString);
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-        LocalDateTime d = LocalDateTime.of(year, month, day, hour, 0, 0);
+            minute = Integer.parseInt(minuteString);
+            duration = Integer.parseInt(durationStr);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        LocalDateTime d = LocalDateTime.of(year, month, day, hour, minute, 0);
         System.out.println(d);
 
 //        EventController event = new EventController(eventName, speaker, roomName, d,
@@ -332,11 +365,14 @@ public class AttendeeMenuController {
 //                new EventGateway().getEvents().getSchedule(roomName), eventCapacity);
 //        eventManager.addToSched();
 
-        Event createdEvent = new Event(eventName, roomName, d, 1, eventCapacity);
-        Schedule schedule = new EventGateway().getEvents().getSchedule(roomName);
+        Event createdEvent = new Event(eventName, roomName, d, duration, eventCapacity);
+
+        Schedule2 schedule = new EventGateway().getEvents().getSchedule(roomName);
         schedule.addEvent(createdEvent);
+
         BuildingManager buildingManager = new EventGateway().getEvents();
         buildingManager.updateBuildingManager(roomName, schedule);
+
         new EventGateway().setEvents(buildingManager);
 
 //        boolean returnValue = event.createEvent();
