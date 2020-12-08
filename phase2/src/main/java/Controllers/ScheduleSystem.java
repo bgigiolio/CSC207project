@@ -11,7 +11,6 @@ import java.io.*;
 
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 
 public class ScheduleSystem {
     EventGateway eventGateway = new EventGateway();
@@ -22,10 +21,10 @@ public class ScheduleSystem {
         eventGateway.save(buildingManager);
     }
 
-    public void constructScheduleTxt() throws ClassNotFoundException, IOException {
+    public void constructScheduleTxt() throws IOException {
         BuildingManager buildingManager = eventGateway.read();
         String scheduleString = buildingManager.toString();
-        FileWriter scheduleWriter = new FileWriter("main/java/DB/Schedule.txt");
+        FileWriter scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
         scheduleWriter.write(scheduleString);
         scheduleWriter.close();
     }
@@ -41,14 +40,18 @@ public class ScheduleSystem {
                     destination = new File(destination + ".txt");
                 }
                 try {
-                    InputStream file = new FileInputStream("main/java/DB/Schedule.txt");
+                    InputStream file = new FileInputStream("phase2/src/main/java/DB/Schedule.txt");
                     Files.copy(file, destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     System.out.println("Schedule has been successfully downloaded to " + destination + ".");
+                    System.out.println("Type A to see menu again, or select another option.");
                 } catch (Exception ex) {
-                    System.out.println("Failed to download schedule due to server error.");
+                    System.out.println("Failed to download schedule due to server error.\n" +
+                            "Please select another menu option. Type A to see menu again.");
+                    downloadSchedule();
                 }
             } else {
-                System.out.println("No file location was selected.");
+                System.out.println("No file location was selected.\n" +
+                        "Please select another menu option. Type A to see menu again.\"");
             }
         });
     }

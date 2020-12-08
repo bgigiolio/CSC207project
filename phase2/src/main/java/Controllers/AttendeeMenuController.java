@@ -7,6 +7,7 @@ import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Scanner;
@@ -369,6 +370,22 @@ public class AttendeeMenuController {
         }
     }
 
+    public void downloadScheduleTxt() throws IOException, ClassNotFoundException {
+        menu.scheduleDownload();
+        String option = new Scanner(System.in).nextLine();
+        if (option.equals("1")) {
+            new ScheduleSystem().constructScheduleTxt();
+            new ScheduleSystem().downloadSchedule();
+            menuSelection();
+        } else if (option.equals("2")) {
+            homepage();
+            menuSelection();
+        } else {
+            menu.invalidResponse();
+            downloadScheduleTxt();
+        }
+    }
+
     /**
      * This is where the user will decide what they want to do. The possible options are:
      * [1] See Event Schedule
@@ -390,17 +407,14 @@ public class AttendeeMenuController {
      *
      * @return true if user chose to exit program, false if user just logged out
      */
-    public boolean menuSelection() {
+    public boolean menuSelection() throws IOException, ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
-
-        homepage();
-
         while (true) {
             String response = uname.nextLine();
             switch (response) {
                 case "1":
                     this.menu.printBuildingSchedule(this.building);
-                    break;
+                    downloadScheduleTxt();
                 case "2":
                     StringBuilder toPrint = new StringBuilder();
                     toPrint.append("Events you are attending: \n");

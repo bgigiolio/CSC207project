@@ -5,9 +5,11 @@ import main.java.Controllers.ProgramMain;
 import main.java.Entities.Event;
 import main.java.Gateways.EventGateway;
 
+import java.io.IOException;
+
 
 public class Run {
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
 
         EventGateway eventGateway = new EventGateway();
 

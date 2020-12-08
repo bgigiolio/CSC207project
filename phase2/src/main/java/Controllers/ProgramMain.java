@@ -1,5 +1,6 @@
 package main.java.Controllers;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import main.java.Gateways.UserLoginGateway;
@@ -37,7 +38,7 @@ public class ProgramMain {
      *  -Logs the user in
      *  -Initializes the post-login menu
      */
-    public void start() throws ClassNotFoundException {
+    public void start() throws ClassNotFoundException, IOException {
         AttendeeMenuController currentSession;
         StartingMenu menuPresenter = new StartingMenu();
         UserLoginGateway userLoginGateway = new UserLoginGateway();
@@ -62,6 +63,7 @@ public class ProgramMain {
 
             currentSession = new AttendeeMenuController(username, role, buildingManager, userManager);
 
+            currentSession.homepage();
             didQuit = currentSession.menuSelection();
             userLoginGateway.save(userManager);
         } while(!didQuit);

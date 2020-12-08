@@ -275,4 +275,6 @@ public class UserMenu {
     public void modifyEventCapacity(){
         System.out.println("What is the new Capacity?");
     }
+
+    public void scheduleDownload() { System.out.println("[1] Download schedule\n[2] Go back");}
 }
