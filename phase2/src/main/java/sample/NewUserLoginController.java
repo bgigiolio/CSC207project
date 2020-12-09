@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import main.java.Controllers.*;
+import main.java.Controllers.AttendeeMenuController;
 import main.java.Gateways.EventGateway;
 
 public class NewUserLoginController extends AbstractController implements Initializable {
@@ -38,11 +39,30 @@ public class NewUserLoginController extends AbstractController implements Initia
         //Creates the user and stores the login information of the user and log them in depending on the role.
 
         if (userType.getValue().equalsIgnoreCase("organizer")){
+            String username;
+            String password;
+            String role;
+
+            role = "organizer";
+            username = "o1";
+            password = "o1";
+            EventGateway eventGateway = new EventGateway();
+            ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
+            username = sys.register(role, username, password);
+            helperButtonHandler(event, "AttendeeMenu.fxml");
         }
         else if (userType.getValue().equalsIgnoreCase("attendee")){
+            String username;
+            String password;
+            String role;
+
+            role = "attendee";
+            username = "a1";
+            password = "a1";
             EventGateway eventGateway = new EventGateway();
-            ProgramMain sys = new ProgramMain(eventGateway.read());
-            sys.start();
+            ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
+            username = sys.register(role, username, password);
+            helperButtonHandler(event, "AttendeeMenu.fxml");
         }
         else{
             System.out.println("ERROR: Type not found when trying to log in.");

@@ -15,15 +15,15 @@ import main.java.UseCases.UserManager;
  * @author Konstantinos Papaspyridis
  * @version phase2
  */
-public class ProgramMain {
-    private final BuildingManager buildingManager;
-    private final UserManager userManager;
+public class ProgramMainGUI {
+    public final BuildingManager buildingManager;
+    public final UserManager userManager;
 
     /**
      * This constructor sets up which building the program is going to run for.
      * @param buildingManager The building manager for the building in question.
      */
-    public ProgramMain(BuildingManager buildingManager) {
+    public ProgramMainGUI(BuildingManager buildingManager) {
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = buildingManager;
         this.userManager = userLoginGateway.read();
@@ -155,7 +155,29 @@ public class ProgramMain {
      * @param role user's roles
      * @return the username of the registered user
      */
-    private String register(String role){
+    public String register(String role, String enterUsername, String enterPassword){
+        String username, password;
+        StartingMenu menuPresenter = new StartingMenu();
+
+        menuPresenter.uPrompt();
+        username = enterUsername;
+
+        while(this.userManager.checkUsername(username)){
+            menuPresenter.usernameUsed();
+            username = newUserUsernamePrompt();
+        }
+
+        password = enterPassword;
+
+        if (this.userManager.registerUser(username, password, role)) {
+            menuPresenter.newUserCreated();
+            menuPresenter.welcome(username);
+        }
+
+        return username;
+    }
+
+    public String register(String role){
         String username, password;
         StartingMenu menuPresenter = new StartingMenu();
 
@@ -221,6 +243,7 @@ public class ProgramMain {
                 }
                 break;
             }
+
             default:
                 break;
         }
