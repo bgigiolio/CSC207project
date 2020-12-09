@@ -34,6 +34,8 @@ public class Attendee implements Serializable {
      */
     private final String role;
 
+    private List<String> eventsRegistered;
+
 
     /**
      * Construct an Attendee object when signed up.
@@ -47,10 +49,14 @@ public class Attendee implements Serializable {
     public Attendee(String username, String password, String role){
         this.username = username;
         this.password = password;
+        this.role = role;
         this.friendList = new ArrayList<>();
         this.messages = new ArrayList<>();
-        this.role = role;
+        this.eventsRegistered = new ArrayList<>();
     }
+
+    public List<String> getEventsRegistered() {return this.eventsRegistered; }
+
 
     /**
      * Return username.
