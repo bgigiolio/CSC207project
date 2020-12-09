@@ -44,12 +44,12 @@ public class Attendee implements Serializable {
      * @param username the username of the user.
      * @param password the password of the user.
      */
-    public Attendee(String username, String password){
+    public Attendee(String username, String password, String role){
         this.username = username;
         this.password = password;
         this.friendList = new ArrayList<>();
         this.messages = new ArrayList<>();
-        this.role = "attendee";
+        this.role = role;
     }
 
     /**

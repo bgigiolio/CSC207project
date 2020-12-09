@@ -30,21 +30,14 @@ public class UserManager implements Serializable {
      * @return True if user was successfully registered, False otherwise
      */
     public boolean registerUser(String username, String password, String role) {
-        if (!credentialsMap.containsKey(username)) {
-            if(role.equalsIgnoreCase("attendee"))
-                credentialsMap.put(username, new Attendee(username, password));
-            else if(role.equalsIgnoreCase("speaker"))
-                credentialsMap.put(username, new Speaker(username, password));
-            else if(role.equalsIgnoreCase("organizer"))
-                credentialsMap.put(username, new Organizer(username, password));
-            else if(role.equalsIgnoreCase("admin"))
-                credentialsMap.put(username, new Admin(username, password));
-            else
-                return false;
+        if (!credentialsMap.containsKey(username) && !role.equalsIgnoreCase("admin")) {
+            credentialsMap.put(username, new Attendee(username, password, role));
+        } else if(role.equalsIgnoreCase("admin")) {
+            credentialsMap.put(username, new Admin(username, password));
+        } else {
+            return false; }
             return true;
         }
-        return false;
-    }
 
     /**
      * Check if user with following credentials can sign into the system

@@ -7,7 +7,7 @@ public class Admin extends Attendee{
     private final String role;
 
     public Admin(String username, String password){
-        super(username, password);
+        super(username, password, "admin");
         this.role = "admin";
     }
 }
