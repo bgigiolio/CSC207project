@@ -12,12 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import main.java.Controllers.*;
-import main.java.Gateways.UserLoginGateway;
-import main.java.Presenters.*;
-import main.java.UseCases.BuildingManager;
-import main.java.UseCases.UserManager;
 import main.java.Gateways.EventGateway;
-import main.java.Gateways.UserLoginGateway;
 
 public class NewUserLoginController extends AbstractController implements Initializable {
     @FXML
@@ -46,34 +41,8 @@ public class NewUserLoginController extends AbstractController implements Initia
         }
         else if (userType.getValue().equalsIgnoreCase("attendee")){
             EventGateway eventGateway = new EventGateway();
-            main.java.Controllers.AttendeeMenuController currentSession;
-            StartingMenu menuPresenter = new StartingMenu();
-            UserLoginGateway userLoginGateway = new UserLoginGateway();
-            String username;
-            String role;
-            String userType;
-            boolean didQuit;
-
-            do {
-                do{
-                    menuPresenter.initialPrompt();
-                    userType = askUserType();
-
-                    if(userType.equals("N")) {
-                        role = askRole();
-                        username = register(role);
-                    }else {
-                        username = login();
-                        role = userManager.getUserRole(username);
-                    }
-                } while(username == null);
-
-                currentSession = new AttendeeMenuController(username, role, buildingManager, userManager);
-
-                currentSession.homepage();
-                didQuit = currentSession.menuSelection();
-                userLoginGateway.save(userManager);
-            } while(!didQuit);
+            ProgramMain sys = new ProgramMain(eventGateway.read());
+            sys.start();
         }
         else{
             System.out.println("ERROR: Type not found when trying to log in.");
