@@ -15,7 +15,7 @@ import main.java.UseCases.UserManager;
  * @author Konstantinos Papaspyridis
  * @version phase2
  */
-public class ProgramMain {
+public class ProgramMainGUI {
     private final BuildingManager buildingManager;
     private final UserManager userManager;
 
@@ -23,7 +23,7 @@ public class ProgramMain {
      * This constructor sets up which building the program is going to run for.
      * @param buildingManager The building manager for the building in question.
      */
-    public ProgramMain(BuildingManager buildingManager) {
+    public ProgramMainGUI(BuildingManager buildingManager) {
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = buildingManager;
         this.userManager = userLoginGateway.read();
