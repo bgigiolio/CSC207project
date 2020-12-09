@@ -7,12 +7,41 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import main.java.Gateways.EventGateway;
+import main.java.Gateways.UserLoginGateway;
+import main.java.UseCases.BuildingManager;
+import main.java.UseCases.UserManager;
 
 public class AttendeeMenuController {
     @FXML
     private AnchorPane mainPane;
 
     private String user;
+
+    public final BuildingManager buildingManager;
+
+    public final UserManager userManager;
+
+    public AttendeeMenuController(String username){
+        this.user = username;
+        EventGateway eventGateway = new EventGateway();
+        UserLoginGateway userLoginGateway = new UserLoginGateway();
+        this.buildingManager = eventGateway.read();
+        this.userManager = userLoginGateway.read();
+        welcomeText.setText("Welcome" + this.user);
+
+        String role = "attendee";
+        main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
+
+    }
+    public AttendeeMenuController(){
+        EventGateway eventGateway = new EventGateway();
+        UserLoginGateway userLoginGateway = new UserLoginGateway();
+        this.buildingManager = eventGateway.read();
+        this.userManager = userLoginGateway.read();
+//        this.user = "";
+//        welcomeText.setText("Welcome" + this.user);
+    }
 
     @FXML
     private SplitPane multiPane;
@@ -58,14 +87,7 @@ public class AttendeeMenuController {
 
     @FXML
     private Text toPrint;
-    public AttendeeMenuController(String user){
-        this.user = user;
-        welcomeText.setText("Welcome" + this.user);
-    }
-    public AttendeeMenuController(){
-//        this.user = "";
-//        welcomeText.setText("Welcome" + this.user);
-    }
+
     @FXML
     void cancel(ActionEvent event) {
 
