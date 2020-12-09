@@ -15,7 +15,7 @@ import java.nio.file.StandardCopyOption;
 public class ScheduleSystem {
     EventGateway eventGateway = new EventGateway();
 
-    public void updateEventDB(String room, Schedule2 schedule) throws ClassNotFoundException {
+    public void updateEventDB(String room, Schedule2 schedule) {
         BuildingManager buildingManager = eventGateway.read();
         buildingManager.updateScheduleOfRoom(room, schedule);
         eventGateway.save(buildingManager);
