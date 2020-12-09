@@ -21,16 +21,21 @@ public class OpeningController extends AbstractController{
     Stage primaryStage;
     Scene currScene;
 
+    String string;
     //reminder: initializer
 
 
     public void handleNewUserButton(ActionEvent event) throws IOException, NullPointerException {
         helperButtonHandler(event, "NewUserLoginScene.fxml");
+        System.out.println(this.string);
     }
 
     public void handleRetUserButton(ActionEvent event) throws IOException {
         helperButtonHandler(event, "RetUserLoginScene.fxml");
     }
 
+    public void setString(String string){
+        this.string = string;
+    }
 
 }

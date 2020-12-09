@@ -6,17 +6,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 public class Main extends Application{
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("OpeningScene.fxml"));
+    public void start(Stage primaryStage) throws IOException{
+//        Parent root = FXMLLoader.load(getClass().getResource("OpeningScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("OpeningScene.fxml"));
+        Parent root = loader.load();
+        OpeningController openingController = loader.getController(); //getting the controller
+        openingController.setString("hello"); //trying to pass an object to another controller
         Scene openingScene = new Scene(root, 300, 275);
         primaryStage.setTitle("Building Manager");
         primaryStage.setScene(openingScene);
         primaryStage.show();
+
+
 
     }
 
