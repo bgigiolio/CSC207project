@@ -62,6 +62,10 @@ public class AttendeeMenuController {
         this.user = user;
         welcomeText.setText("Welcome" + this.user);
     }
+    public AttendeeMenuController(){
+//        this.user = "";
+//        welcomeText.setText("Welcome" + this.user);
+    }
     @FXML
     void cancel(ActionEvent event) {
 

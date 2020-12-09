@@ -159,7 +159,6 @@ public class ProgramMainGUI {
         String username, password;
         StartingMenu menuPresenter = new StartingMenu();
 
-        menuPresenter.uPrompt();
         username = enterUsername;
 
         while(this.userManager.checkUsername(username)){

@@ -35,7 +35,7 @@ public class NewUserLoginController extends AbstractController implements Initia
      * if information matches, unsuccessful otherwise.
      * @param event is the action of clicking the "Login" button
      */
-    public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException {
+    public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException, NullPointerException {
         //Creates the user and stores the login information of the user and log them in depending on the role.
 
         if (userType.getValue().equalsIgnoreCase("organizer")){
@@ -62,6 +62,7 @@ public class NewUserLoginController extends AbstractController implements Initia
             EventGateway eventGateway = new EventGateway();
             ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
             username = sys.register(role, username, password);
+
             helperButtonHandler(event, "AttendeeMenu.fxml");
         }
         else{
