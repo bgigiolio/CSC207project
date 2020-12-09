@@ -1,4 +1,6 @@
-package phase2.src.main.java.UseCases;
+package main.java.UseCases;
+
+import main.java.Entities.AccessibilityOptions;
 
 import java.time.LocalDateTime;
 
