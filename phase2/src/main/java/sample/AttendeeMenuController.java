@@ -9,9 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class AttendeeMenuController {
-
     @FXML
     private AnchorPane mainPane;
+
+    private String user;
 
     @FXML
     private SplitPane multiPane;
@@ -57,7 +58,10 @@ public class AttendeeMenuController {
 
     @FXML
     private Text toPrint;
-
+    public AttendeeMenuController(String user){
+        this.user = user;
+        welcomeText.setText("Welcome" + this.user);
+    }
     @FXML
     void cancel(ActionEvent event) {
 
