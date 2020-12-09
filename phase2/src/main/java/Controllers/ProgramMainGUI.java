@@ -155,6 +155,28 @@ public class ProgramMainGUI {
      * @param role user's roles
      * @return the username of the registered user
      */
+    public String register(String role, String enterUsername, String enterPassword){
+        String username, password;
+        StartingMenu menuPresenter = new StartingMenu();
+
+        menuPresenter.uPrompt();
+        username = enterUsername;
+
+        while(this.userManager.checkUsername(username)){
+            menuPresenter.usernameUsed();
+            username = newUserUsernamePrompt();
+        }
+
+        password = enterPassword;
+
+        if (this.userManager.registerUser(username, password, role)) {
+            menuPresenter.newUserCreated();
+            menuPresenter.welcome(username);
+        }
+
+        return username;
+    }
+
     public String register(String role){
         String username, password;
         StartingMenu menuPresenter = new StartingMenu();
