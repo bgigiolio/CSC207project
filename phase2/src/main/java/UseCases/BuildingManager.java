@@ -75,10 +75,11 @@ public class BuildingManager implements Serializable {
      * @return True if the event was added successfully, False otherwise
      */
     public boolean addEvent(Event e){
-        if(!building.containsKey(e.getLocation()))
+        String loc = e.getLocation();
+        if((!building.containsKey(loc)) || building.get(loc).getRoomCapacity() < e.getEventCapacity()) {
             return false;
-
-        return building.get(e.getLocation()).addEvent(e);
+        }
+        return building.get(loc).addEvent(e);
     }
 
     /**
