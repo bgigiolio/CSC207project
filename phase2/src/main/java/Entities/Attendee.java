@@ -15,7 +15,7 @@ public class Attendee implements Serializable {
     /**
      * The username of current user.
      */
-    private String username;
+    private final String username;
 
     /**
      * The password of current user.
@@ -25,9 +25,9 @@ public class Attendee implements Serializable {
     /**
      * A List that stores friend's username of current user.
      */
-    private List<String> friendList;
+    private final List<String> friendList;
 
-    private List<Message> messages;     //shouldn't contain entities
+    private final List<Message> messages;     //shouldn't contain entities
 
     /**
      * The role of current user.
