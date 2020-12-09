@@ -12,7 +12,7 @@ import java.io.IOException;
 public class AbstractController {
 
 
-    public void helperButtonHandler(ActionEvent event, String fxml) throws IOException {
+    public void helperSceneSwitcher(ActionEvent event, String fxml) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fxml));
         Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Scene userLoginScene = new Scene(root,300,275);
@@ -21,6 +21,7 @@ public class AbstractController {
     }
 
     public void handleBackButton(ActionEvent event) throws IOException {
-        helperButtonHandler(event, "OpeningScene.fxml");
+        helperSceneSwitcher(event, "OpeningScene.fxml");
     }
+//    public void login()
 }
