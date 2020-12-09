@@ -2,9 +2,27 @@ package phase2.src.main.java.UseCases;
 
 import java.time.LocalDateTime;
 
+/**
+ * <h1>AccessibilityOptions Creator</h1>
+ * This use case creates the accessibility requirement of the user.
+ * @version phase2
+ * @author Yuteng Gao
+ */
+
 public class AccessibilityOptionsCreator {
 
+    /**
+     * The accessibility option entity to be created or changed.
+     */
     protected AccessibilityOptions accessibilityOption;
+
+    /**
+     * The controller of AccessibilityOptionsCreator.
+     * The user can only choose one of "food", "transportation" and "vision" as their accessibility requirement.
+     * If other requests are provided, it will show an error message.
+     * @param request the request of the user, one of "food", "transportation" and "vision"
+     * @param sender the username of the sender
+     */
 
     public AccessibilityOptionsCreator(String request, String sender){
         if (request.equals("food") || request.equals("transportation") || request.equals("vision")){
@@ -15,9 +33,19 @@ public class AccessibilityOptionsCreator {
         }
     }
 
+    /**
+     * Getter for the send time of the accessibility request.
+     * @return the time when the request was sent
+     */
+
     public LocalDateTime getTimeSent(){
         return accessibilityOption.getTime_sent();
     }
+
+    /**
+     * Getter for the request object.
+     * @return return the AccessibilityOptions entity
+     */
 
     public AccessibilityOptions getRequest() {
         return accessibilityOption;
