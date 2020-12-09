@@ -47,7 +47,7 @@ public class NewUserLoginController extends AbstractController implements Initia
 
             role = "attendee";
             EventGateway eventGateway = new EventGateway();
-            ProgramMain sys = new ProgramMain(eventGateway.read());
+            ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
             username = sys.register(role);
             helperButtonHandler(event, "AttendeeMenu.fxml");
 //            currentSession = new AttendeeMenuController(username, role, sys.buildingManager, sys.userManager);

@@ -16,8 +16,8 @@ import main.java.UseCases.UserManager;
  * @version phase2
  */
 public class ProgramMainGUI {
-    private final BuildingManager buildingManager;
-    private final UserManager userManager;
+    public final BuildingManager buildingManager;
+    public final UserManager userManager;
 
     /**
      * This constructor sets up which building the program is going to run for.
@@ -155,7 +155,7 @@ public class ProgramMainGUI {
      * @param role user's roles
      * @return the username of the registered user
      */
-    private String register(String role){
+    public String register(String role){
         String username, password;
         StartingMenu menuPresenter = new StartingMenu();
 
