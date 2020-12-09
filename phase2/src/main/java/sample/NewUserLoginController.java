@@ -32,7 +32,7 @@ public class NewUserLoginController extends AbstractController implements Initia
     public void handleLoginButton(ActionEvent event){
         //Creates the user and stores the login information of the user and log them in depending on the role.
 
-        if (userType.getValue().toString().equalsIgnoreCase("organizer")){
+        if (userType.getValue().equalsIgnoreCase("organizer")){
 
         }
 

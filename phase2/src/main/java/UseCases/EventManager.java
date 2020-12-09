@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @version Phase1
  */
 public class EventManager {
-    private Schedule2 schedule;
+    private final Schedule2 schedule;
     private final Event event;
 
     /**

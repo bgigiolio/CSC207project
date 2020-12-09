@@ -18,7 +18,7 @@ public class EventStatus implements Serializable {
      * had signed up for.
      * Initialized with an empty HashMap.
      */
-    private HashMap<String, List<String>> usernameToEvents = new HashMap<>();
+    private final HashMap<String, List<String>> usernameToEvents = new HashMap<>();
 
     /**
      * Register the user of username for the event of eventTitle,

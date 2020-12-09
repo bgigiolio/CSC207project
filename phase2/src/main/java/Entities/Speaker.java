@@ -18,7 +18,7 @@ public class Speaker extends Attendee {
     /**
      * holds talks IDs
      */
-    private ArrayList<String> talks;
+    private final ArrayList<String> talks;
 
     /**
      * Construct an Speaker object when signed up.

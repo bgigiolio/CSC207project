@@ -211,11 +211,13 @@ public class ProgramMain {
 
                     if (this.userManager.resetPassword(username, newPassword)) {
                         menuPresenter.passwordResetSuccess();
+                        return username;
                     } else {
                         System.out.println("failed");
                     }
-                } if (choice.equals("1")) {
-                    login();
+                }
+                else if (choice.equals("1")) {
+                    return login();
                 }
                 break;
             }
