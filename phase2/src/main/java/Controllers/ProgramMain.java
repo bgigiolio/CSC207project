@@ -16,8 +16,8 @@ import main.java.UseCases.UserManager;
  * @version phase2
  */
 public class ProgramMain {
-    private final BuildingManager buildingManager;
-    private final UserManager userManager;
+    public final BuildingManager buildingManager;
+    public final UserManager userManager;
 
     /**
      * This constructor sets up which building the program is going to run for.
