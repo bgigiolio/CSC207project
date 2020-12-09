@@ -1,6 +1,6 @@
 package main.java.Entities;
 
-import Entities.Message;
+import main.java.Entities.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
