@@ -155,7 +155,7 @@ public class ProgramMain {
      * @param role user's roles
      * @return the username of the registered user
      */
-    private String register(String role){
+    public String register(String role){
         String username, password;
         StartingMenu menuPresenter = new StartingMenu();
 
