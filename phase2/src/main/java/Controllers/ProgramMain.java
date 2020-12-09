@@ -212,8 +212,10 @@ public class ProgramMain {
                     if (this.userManager.resetPassword(username, newPassword)) {
                         menuPresenter.passwordResetSuccess();
                     } else {
-                        System.out.println("failed"); //need to fix later
+                        System.out.println("failed");
                     }
+                } if (choice.equals("1")) {
+                    login();
                 }
                 break;
             }
