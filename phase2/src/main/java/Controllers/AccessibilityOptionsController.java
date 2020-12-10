@@ -1,5 +1,6 @@
 package src.main.java.Controllers;
 
+import Entities.Organizer;
 import src.main.java.Gateways.AccessibilityOptionsGateway;
 
 import java.util.ArrayList;
@@ -40,6 +41,38 @@ public class AccessibilityOptionsController {
         this.request = request;
         this.requestList = new AccessibilityOptionsGateway();
         this.requestCreator = new main.java.UseCases.AccessibilityOptionsCreator(this.request, this.sender);
+    }
+
+
+    //incomplete
+    public void addressRequest(String sender, String request){
+        HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = this.requestList.getRequestList();
+        if (list.containsKey(sender)){
+            ArrayList<main.java.Entities.AccessibilityOptions> senderRequest = list.get(sender);
+            if (senderRequest.size()!=0){
+                for (main.java.Entities.AccessibilityOptions accessibilityOptions : senderRequest) {
+                    if (accessibilityOptions.getRequest().equals(request)) {
+                        accessibilityOptions.status = "addressed";
+                    }
+                }
+            }
+
+        }
+    }
+
+    public void rejectRequest(){
+        HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = this.requestList.getRequestList();
+        if (list.containsKey(sender)){
+            ArrayList<main.java.Entities.AccessibilityOptions> senderRequest = list.get(sender);
+            if (senderRequest.size()!=0){
+                for (main.java.Entities.AccessibilityOptions accessibilityOptions : senderRequest) {
+                    if (accessibilityOptions.getRequest().equals(request)) {
+                        accessibilityOptions.status = "rejected";
+                    }
+                }
+            }
+
+        }
     }
 
     /**
