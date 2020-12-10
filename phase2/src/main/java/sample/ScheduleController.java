@@ -21,10 +21,6 @@ public class ScheduleController {
     @FXML
     public Button downloadButton;
     @FXML
-    public VBox vbox;
-    @FXML
-    public Label scheduleLabel;
-    @FXML
     private TextArea scheduleTxt;
 
     public ScheduleController() {

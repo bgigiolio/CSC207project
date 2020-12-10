@@ -137,6 +137,7 @@ public class BuildingManager implements Serializable {
         toReturn.append("List of Rooms in ").append(this.buildingName).append(": \n");
 
         for (String room : building.keySet()) {
+            toReturn.append("\n");
             toReturn.append("[").append(room).append("] \n");
             String schedule = building.get(room).toString();
             toReturn.append(schedule);
