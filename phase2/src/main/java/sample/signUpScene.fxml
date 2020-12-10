@@ -18,4 +18,3 @@
       <Text fx:id="errorMessageText" layoutX="193.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="213.0" />
    </children>
 </AnchorPane>
-
