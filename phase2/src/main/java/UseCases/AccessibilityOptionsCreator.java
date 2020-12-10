@@ -25,7 +25,6 @@ public class AccessibilityOptionsCreator {
      * @param request the request of the user, one of "food", "transportation" and "vision"
      * @param sender the username of the sender
      */
-
     public AccessibilityOptionsCreator(String request, String sender){
         if (request.equals("food") || request.equals("transportation") || request.equals("vision")){
             accessibilityOption = new AccessibilityOptions(request, sender);
@@ -39,7 +38,6 @@ public class AccessibilityOptionsCreator {
      * Getter for the send time of the accessibility request.
      * @return the time when the request was sent
      */
-
     public LocalDateTime getTimeSent(){
         return accessibilityOption.getTime_sent();
     }
@@ -48,7 +46,6 @@ public class AccessibilityOptionsCreator {
      * Getter for the request object.
      * @return return the AccessibilityOptions entity
      */
-
     public AccessibilityOptions getRequest() {
         return accessibilityOption;
     }
