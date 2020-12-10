@@ -3,9 +3,14 @@ package main.java.sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import main.java.Gateways.EventGateway;
 import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.BuildingManager;
@@ -25,6 +30,9 @@ public class HomeScreenController {
     private String username;
     private String password;
     private String role;
+
+    private Scene openingScene;
+    private Stage primaryStage;
 
 //    public HomeScreenController(String username){
 //        this.user = username;
@@ -49,6 +57,13 @@ public class HomeScreenController {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public void setOpeningScene(Scene openingScene){
+        this.openingScene = openingScene;
+    }
+    public void setPrimaryStage(Stage primaryStage){
+        this.primaryStage = primaryStage;
     }
 
     public HomeScreenController(){
@@ -138,7 +153,13 @@ public class HomeScreenController {
     }
 
     @FXML
-    void logout(ActionEvent event) {
+    void logout(ActionEvent event) throws IOException {
+        Stage primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("OpeningScene.fxml"));
+        primaryStage = (Stage) menuOptions.getScene().getWindow();
+        Scene openingScene = new Scene(root,300,275);
+        primaryStage.setScene(openingScene);
+        primaryStage.show();
 
     }
 

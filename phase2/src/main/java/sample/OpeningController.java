@@ -72,7 +72,7 @@ public class OpeningController extends AbstractController implements Initializab
         Stage primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
         primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene userLoginScene = new Scene(root,300,275);
+        Scene homeScene = new Scene(root,300,275);
 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
         loader.load();
@@ -89,7 +89,7 @@ public class OpeningController extends AbstractController implements Initializab
                 this.invalidLoginText.setVisible(true);
             }
             else{
-                primaryStage.setScene(userLoginScene);
+                primaryStage.setScene(homeScene);
                 primaryStage.show();
             }
         }
@@ -99,7 +99,7 @@ public class OpeningController extends AbstractController implements Initializab
         }
         else{
 
-            primaryStage.setScene(userLoginScene);
+            primaryStage.setScene(homeScene);
             primaryStage.show();
         }
     }
