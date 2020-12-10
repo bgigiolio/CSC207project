@@ -32,4 +32,13 @@ public class AccessibilityOptions extends Message {
         super(request, sender);
         time_sent = LocalDateTime.now(ZoneId.of("America/Toronto"));
     }
+
+    /**
+     * This method provide the sent time of request
+     * @return a LocalDateTime object which represents the sent time of request
+     */
+
+    public LocalDateTime getTime_sent() {
+        return time_sent;
+    }
 }
