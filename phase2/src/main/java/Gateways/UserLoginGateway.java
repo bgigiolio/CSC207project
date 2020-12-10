@@ -13,7 +13,7 @@ import java.io.*;
 public class UserLoginGateway extends DatabaseGateway<UserManager>{
 
     public UserLoginGateway(){
-        super("src\\main\\java\\DB\\UserLoginInfo.ser");
+        super("phase2\\src\\main\\java\\DB\\UserLoginInfo.ser");
     }
 
     /**

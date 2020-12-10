@@ -1,72 +1,124 @@
 package main.java.UseCases;
 
-import main.java.Entities.*;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.scene.layout.Pane;
+import main.java.Entities.Event;
+import main.java.Entities.PanelDiscussion;
+import main.java.Entities.Talk;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * <h1>Event Manager</h1>
- * The event manager is a class that holds an event and its schedule and allows us to add or remove this
- * event from the given schedule
- * @author Blake Gigiolio
- * @version Phase1
+ * Stores all the events created
+ * @author Konstantinos Papaspyridis
+ * @version phase2
  */
-public class EventManager {
-    private final Schedule2 schedule;
-    private final Event event;
+public class EventManager implements Serializable {
 
-    /**
-     * This specific constructor takes in all of the parameters to make an event and an existing schedule
-     * to create a new event.
-     * @param title Title of the event we want to make.
-     * @param speaker Speaker that will host the event.
-     * @param location Location of the event.
-     * @param datetime Time the event will occur.
-     * @param sched The schedule this event should be a part of.
-     */
-    public EventManager(String title, String speaker, String location, LocalDateTime datetime, Schedule2 sched, int eventcapacity){
-        this.event= new Event(title, speaker,location, datetime, eventcapacity);
-        this.schedule = sched;
+    private final HashMap<UUID, Event> events = new HashMap<>();
+    private final HashMap<UUID, Talk> talks = new HashMap<>();
+    private final HashMap<UUID, PanelDiscussion> panelDiscussions = new HashMap<>();
+
+    public void addEvent(String title, String loc, LocalDateTime datetime, int dur, int eventCap, String type){
+        switch (type) {
+            case "event": {
+                Event e = new Event(title, loc, datetime, dur, eventCap);
+                events.put(e.getUUID(), e);
+                break;
+            }
+            case "talk": {
+                Talk e = new Talk(title, loc, datetime, dur, eventCap);
+                talks.put(e.getUUID(), e);
+                break;
+            }
+            case "panelDiscussion": {
+                PanelDiscussion e = new PanelDiscussion(title, loc, datetime, dur, eventCap);
+                panelDiscussions.put(e.getUUID(), e);
+                break;
+            }
+        }
     }
 
-    /**
-     * This specific constructor takes in an already existing event and a schedule
-     * @param event The event we want to manage.
-     * @param sched The schedule this event should be a part of.
-     */
-    public EventManager(Event event, Schedule2 sched){
-        this.event = event;
-        this.schedule = sched;
-    }
-    public EventManager(Event event, BuildingManager building){
-        this.event = event;
-        this.schedule = building.getScheduleWithEvent(this.event.getTitle());
-    }
-    //public void addSpeaker(String speaker){
-    //    this.event.setSpeaker(speaker);
-    //}
-
-    /**
-     * Adds the event being managed to its given schedule.
-     * @return Returns true if the event was added and false if it wasn't.
-     */
-    public boolean addToSched(){
-        return this.schedule.addEvent(this.event);
+    public boolean deleteEvent(UUID eventId){
+        if(events.remove(eventId) != null) return true;
+        if(talks.remove(eventId) != null) return true;
+        return panelDiscussions.remove(eventId) != null;
     }
 
-    /**
-     * Removes the event being managed from the given schedule.
-     * @return Returns true if the event was removed and false if it wasnt.
-     */
-    public boolean removeEvent(){
-        return schedule.removeEvent(this.event);
+    public boolean changeEventCapacity(UUID eventId, int newCap){
+        Event e;
+        e = events.get(eventId);
+
+        if(e != null) {
+            e.setCapacity(newCap);
+            return true;
+        }
+        e = talks.get(eventId);
+        if(e != null) {
+            e.setCapacity(newCap);
+            return true;
+        }
+        e = panelDiscussions.get(eventId);
+        if(e != null) {
+            e.setCapacity(newCap);
+            return true;
+        }
+        return false;
     }
 
-    public void modifyCapacity(int newCapacity){
-        event.setEventCapacity(newCapacity);
+    public LocalDateTime getEventStartTime(UUID id){
+        Event e = events.get(id);
+        if(e != null) return e.getDatetime();
+        e = talks.get(id);
+        if(e != null) return e.getDatetime();
+        e = panelDiscussions.get(id);
+        if(e != null) return e.getDatetime();
+        return null;
     }
 
-    public Schedule2 getSchedule() {
-        return this.schedule;
+    public int getEventDuration(UUID id){
+        Event e = events.get(id);
+        if(e != null) return e.getDuration();
+        e = talks.get(id);
+        if(e != null) return e.getDuration();
+        e = panelDiscussions.get(id);
+        if(e != null) return e.getDuration();
+        return -1;
+    }
+
+    public int getEventCapacity(UUID id){
+        Event e = events.get(id);
+        if(e != null) return e.getCapacity();
+        e = talks.get(id);
+        if(e != null) return e.getCapacity();
+        e = panelDiscussions.get(id);
+        if(e != null) return e.getCapacity();
+        return -1;
+    }
+
+    public String getEventTitle(UUID id){
+        Event e = events.get(id);
+        if(e != null) return e.getTitle();
+        e = talks.get(id);
+        if(e != null) return e.getTitle();
+        e = panelDiscussions.get(id);
+        if(e != null) return e.getTitle();
+        return null;
+    }
+
+    public String getEventLocation(UUID id){
+        Event e = events.get(id);
+        if(e != null) return e.getLocation();
+        e = talks.get(id);
+        if(e != null) return e.getLocation();
+        e = panelDiscussions.get(id);
+        if(e != null) return e.getLocation();
+        return null;
     }
 }
