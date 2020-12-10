@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import main.java.Controllers.ProgramMainGUI;
-import main.java.Gateways.EventGateway;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,12 +13,14 @@ import java.util.ResourceBundle;
 
 public class OpeningController extends AbstractController implements Initializable {
     public ToggleGroup userType;
-    @FXML
-    private Button loginButton;
+    public Button loginButton;
+
     @FXML
     RadioButton retUser;
     @FXML
     RadioButton newUser;
+    @FXML
+    RadioButton adminUser;
     @FXML
     private ChoiceBox<String> userRole; //TODO ADD ADMIN
     @FXML
@@ -31,11 +31,11 @@ public class OpeningController extends AbstractController implements Initializab
     private TextField password;
     @FXML
     private Label invalidLoginText;
-    String uname;
-    String pword;
-    String role;
+//    String uname;
+//    String pword;
+//    String role;
 
-    private ProgramMainGUI sys;
+//    private ProgramMainGUI sys;
 
     FXMLLoader loader;
 
@@ -43,9 +43,9 @@ public class OpeningController extends AbstractController implements Initializab
     //reminder: initializer
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        EventGateway eventGateway = new EventGateway();
-        this.sys = new ProgramMainGUI(eventGateway.read());
-        userRole.getItems().addAll("Organizer", "Attendee");
+//        EventGateway eventGateway = new EventGateway();
+//        this.sys = new ProgramMainGUI(eventGateway.read());
+        userRole.getItems().addAll("Organizer", "Attendee", "Admin");
     }
 
 
