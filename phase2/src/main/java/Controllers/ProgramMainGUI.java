@@ -16,15 +16,16 @@ import java.util.Scanner;
  * @version phase2
  */
 public class ProgramMainGUI {
-    public final BuildingManager buildingManager;
-    public final UserManager userManager;
+    public BuildingManager buildingManager;
+    public UserManager userManager;
+    UserLoginGateway userLoginGateway;
 
     /**
      * This constructor sets up which building the program is going to run for.
      * @param buildingManager The building manager for the building in question.
      */
     public ProgramMainGUI(BuildingManager buildingManager) {
-        UserLoginGateway userLoginGateway = new UserLoginGateway();
+        this.userLoginGateway = new UserLoginGateway();
         this.buildingManager = buildingManager;
         this.userManager = userLoginGateway.read();
     }
@@ -155,25 +156,14 @@ public class ProgramMainGUI {
      * @param role user's roles
      * @return the username of the registered user
      */
-    public String register(String role, String enterUsername, String enterPassword){
-        String username, password;
-        StartingMenu menuPresenter = new StartingMenu();
-
-        username = enterUsername;
-
-        while(this.userManager.checkUsername(username)){
-            menuPresenter.usernameUsed();
-            username = newUserUsernamePrompt();
-        }
-
-        password = enterPassword;
+    public String register(String role, String username, String password){
 
         if (this.userManager.registerUser(username, password, role)) {
-            menuPresenter.newUserCreated();
-            menuPresenter.welcome(username);
+            this.userLoginGateway.save(this.userManager);
+            return username;
         }
+        return "invalid";
 
-        return username;
     }
 
     public String register(String role){
@@ -210,13 +200,12 @@ public class ProgramMainGUI {
 
         switch (this.userManager.loginUser(username, password)) {
             case "loggedIn":
-                menuPresenter.loggedInPrompt();
-                menuPresenter.welcome(username);
+
                 return username;
 
             case "usernameNotFound" :
             case "wrongPassword":{
-                return "unsuccessful";
+                return "invalid";
             }
 
 //            case "wrongPassword": {

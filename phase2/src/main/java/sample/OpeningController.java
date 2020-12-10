@@ -22,7 +22,7 @@ public class OpeningController extends AbstractController implements Initializab
     @FXML
     RadioButton newUser;
     @FXML
-    private ChoiceBox<String> userRole;
+    private ChoiceBox<String> userRole; //TODO ADD ADMIN
     @FXML
     private Label userRoleLabel;
     @FXML
@@ -65,22 +65,31 @@ public class OpeningController extends AbstractController implements Initializab
     public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException, NullPointerException {
         //Creates the user and stores the login information of the user and log them in depending on the role.
         if (userType.getSelectedToggle() == newUser && userRole.getValue() != null) {
-            sys.register(userRole.getValue(), this.username.getText(), this.password.getText());
+            if (sys.register(userRole.getValue(), this.username.getText(), this.password.getText()).equalsIgnoreCase("invalid")){
+                this.invalidLoginText.setVisible(true);
+            }
+
         }
         String login_attempt = sys.login(this.username.getText(),this.password.getText());
-        if (login_attempt.equalsIgnoreCase("unsuccessful") || userRole.getValue() == null){
+        if (login_attempt.equalsIgnoreCase("invalid")){
             this.invalidLoginText.setVisible(true);
         }
         else{
             helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
         }
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
+            loader.load();
+            HomeScreenController homeScreenController = loader.getController();
 
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
-        HomeScreenController homeScreenController = loader.getController();
-        homeScreenController.setUsername(this.username.getText());
-        homeScreenController.setPassword(this.password.getText());
-        homeScreenController.setRole(userRole.getValue());
-
+            homeScreenController.setUsername(this.username.getText());
+            homeScreenController.setPassword(this.password.getText());
+            homeScreenController.setRole(userRole.getValue());
+        }catch(NullPointerException e){
+            System.out.println(this.username.getText());
+            System.out.println(this.password.getText());
+            System.out.println(userRole.getValue());
+        }
 //        System.out.println("ERROR: Type not found when trying to log in.");
 
     }
