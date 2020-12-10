@@ -22,7 +22,7 @@ public class HomeScreenController {
 
     public final UserManager userManager;
 
-//    public AttendeeMenuController(String username){
+//    public HomeScreenController(String username){
 //        this.user = username;
 //        EventGateway eventGateway = new EventGateway();
 //        UserLoginGateway userLoginGateway = new UserLoginGateway();
@@ -39,8 +39,9 @@ public class HomeScreenController {
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
-
+        String username = "a1";
         String role = "attendee";
+        main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
     }
 
     @FXML
