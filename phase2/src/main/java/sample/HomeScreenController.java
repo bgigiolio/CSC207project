@@ -40,7 +40,7 @@ public class HomeScreenController {
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
         String username = "a1";
-        String role = "attendee";
+        String role = this.userManager.getUserRole(username);
         main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
     }
 
