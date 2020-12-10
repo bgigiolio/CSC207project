@@ -24,9 +24,10 @@ public class HomeScreenController {
 
     private String user;
 
-    public final BuildingManager buildingManager;
+    public BuildingManager buildingManager;
     UserLoginGateway userLoginGateway;
-    public final UserManager userManager;
+    public UserManager userManager;
+    EventGateway eventGateway;
     private String username;
     private String password;
     private String role;
@@ -66,14 +67,15 @@ public class HomeScreenController {
         this.primaryStage = primaryStage;
     }
 
-    public HomeScreenController(){
-        EventGateway eventGateway = new EventGateway();
+    public void initialize(){
+        this.eventGateway = new EventGateway();
         this.userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
 
 
     }
+
     /**
      * Register a new user
      * @param role user's roles
