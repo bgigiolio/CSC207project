@@ -30,4 +30,5 @@ public class signUpController {
         assert errorMessageText != null : "fx:id=\"errorMessageText\" was not injected: check your FXML file 'Untitled'.";
 
     }
+
 }
