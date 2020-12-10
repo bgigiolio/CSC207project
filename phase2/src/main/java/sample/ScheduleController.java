@@ -6,8 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
 
@@ -20,6 +22,8 @@ public class ScheduleController {
     public Button downloadButton;
     @FXML
     public VBox vbox;
+    @FXML
+    public Label scheduleLabel;
     @FXML
     private TextArea scheduleTxt;
 

@@ -1,9 +1,7 @@
 package main.java.Controllers;
 
-import main.java.Entities.Event;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
-import main.java.UseCases.Schedule2;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -14,12 +12,6 @@ import java.nio.file.StandardCopyOption;
 
 public class ScheduleSystem {
     EventGateway eventGateway = new EventGateway();
-
-    public void updateEventDB(String room, Schedule2 schedule) {
-        BuildingManager buildingManager = eventGateway.read();
-        buildingManager.updateScheduleOfRoom(room, schedule);
-        eventGateway.save(buildingManager);
-    }
 
     public void constructScheduleTxt() throws IOException {
         BuildingManager buildingManager = eventGateway.read();
