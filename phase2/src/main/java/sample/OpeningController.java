@@ -74,13 +74,19 @@ public class OpeningController extends AbstractController implements Initializab
         else{
             helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
         }
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
+            loader.load();
+            HomeScreenController homeScreenController = loader.getController();
 
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
-        HomeScreenController homeScreenController = loader.getController();
-        homeScreenController.setUsername(this.username.getText());
-        homeScreenController.setPassword(this.password.getText());
-        homeScreenController.setRole(userRole.getValue());
-
+            homeScreenController.setUsername(this.username.getText());
+            homeScreenController.setPassword(this.password.getText());
+            homeScreenController.setRole(userRole.getValue());
+        }catch(NullPointerException e){
+            System.out.println(this.username.getText());
+            System.out.println(this.password.getText());
+            System.out.println(userRole.getValue());
+        }
 //        System.out.println("ERROR: Type not found when trying to log in.");
 
     }
