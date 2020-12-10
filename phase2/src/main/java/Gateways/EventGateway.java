@@ -35,7 +35,11 @@ public class EventGateway extends DatabaseGateway<BuildingManager>{
             System.err.println("Corrupted file contents in event database. Clearing file...");
             clearFileContentsUtil("event");
             events = new BuildingManager("Building");
-        } catch (IOException e) {  //other IO exception
+        } catch (FileNotFoundException e) {
+            setDbPath("phase2/src/main/java/DB/Events.ser");
+            return read();
+        }
+        catch (IOException e) {  //other IO exception
             System.err.println("Unknown error when reading from events database file.");
             e.printStackTrace();
             events = new BuildingManager("Building");
