@@ -177,7 +177,7 @@ public class AttendeeMenuController {
         Scanner cin = new Scanner(System.in);
 
         String speakerName = cin.nextLine();
-        if(!userManager.checkUsername(speakerName) || !userManager.getUserRole(username).equals("speaker"))
+        if(!userManager.checkUsername(speakerName) || !userManager.getUserRole(username).equals("Speaker"))
             return false;
 
         this.menu.enterEvent();
