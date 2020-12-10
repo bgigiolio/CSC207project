@@ -3,11 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="main.java.sample.ScheduleController">
+<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" spacing="10"
+      xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+      fx:controller="main.java.sample.ScheduleController">
 
-    <children>
-        <Button fx:id="downloadButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#downloadSchedule" text="Download Schedule" textAlignment="CENTER" />
-        <TextArea fx:id="scheduleTxt" maxWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" wrapText="true" />
+    <Button fx:id="downloadButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
+            onAction="#downloadSchedule" text="Download Schedule" textAlignment="CENTER"/>
+    <TextArea fx:id="scheduleTxt" maxWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" wrapText="true"/>
 
-    </children>
 </VBox>

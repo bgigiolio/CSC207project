@@ -5,7 +5,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
 
@@ -14,6 +16,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ScheduleController {
 
+    @FXML
+    public Button downloadButton;
+    @FXML
+    public VBox vbox;
     @FXML
     private TextArea scheduleTxt;
 
