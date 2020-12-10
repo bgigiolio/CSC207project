@@ -1,16 +1,18 @@
 package main.java.Controllers;
 
 import main.java.Entities.Event;
+import main.java.Entities.PanelDiscussion;
+import main.java.Entities.Talk;
 import main.java.Gateways.EventGateway;
 import main.java.Presenters.UserMenu;
 import main.java.UseCases.BuildingManager;
-import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Scanner;
+import java.util.UUID;
 
 /**
  * <h1>AttendeeMenuController</h1>
@@ -24,7 +26,6 @@ public class AttendeeMenuController {
     private final String role;
     private final UserMenu menu;
     private final BuildingManager building;
-    private final EventStatusChanger eventStatusChanger;
     private final UserManager userManager;
 
     /**
@@ -40,7 +41,6 @@ public class AttendeeMenuController {
         this.menu = new UserMenu();
         this.building = building;
         this.userManager = userManager;
-        this.eventStatusChanger = new EventStatusChanger();
     }
 
     /**
@@ -65,40 +65,34 @@ public class AttendeeMenuController {
      */
     public void signUpEvent() {
         menu.eventPrompt("sign up");
-        String eventTitle = new Scanner(System.in).nextLine();
-        int signUpSuccessful = eventStatusChanger.signUpChanger(this.username, eventTitle, this.building);
-        if (signUpSuccessful == 0) {
-            menu.signUpEventStatus(eventTitle, "1");
-        } else {
-            if (signUpSuccessful == 1) {
-                menu.signUpEventStatus(eventTitle, "0");
-            } else {
-                menu.signUpEventStatus(eventTitle, "2");
-            }
-            String response = new Scanner(System.in).nextLine();
-            if (response.equals("1")) {
-                homepage();
-            } else if (response.equals("2")) {
-                signUpEvent();
-            }
+        String inp = new Scanner(System.in).nextLine();
+        UUID id;
+
+        try{
+            id = UUID.fromString(inp);
+        }catch(IllegalArgumentException e){
+            System.out.println("Wrong format!");
+            return;
         }
+
+        userManager.signUpForEvent(username, id);
+        building.addAttendee(username, id);
     }
 
     public void cancelEnrolEvent() {
         menu.eventPrompt("cancel");
-        String eventTitle = new Scanner(System.in).nextLine();
-        EventStatusChanger eventStatusChanger = new EventStatusChanger();
-        if (eventStatusChanger.cancelChanger(this.username, eventTitle)) {
-            menu.cancelEnrolStatus(eventTitle, "1");
-        } else {
-            menu.cancelEnrolStatus(eventTitle, "0");
-            String response = new Scanner(System.in).nextLine();
-            if (response.equals("1")) {
-                homepage();
-            } else if (response.equals("2")) {
-                cancelEnrolEvent();
-            }
+        String inp = new Scanner(System.in).nextLine();
+        UUID id;
+
+        try{
+            id = UUID.fromString(inp);
+        }catch(IllegalArgumentException e){
+            System.out.println("Wrong format!");
+            return;
         }
+
+        userManager.cancelEnrollment(username, id);
+        building.removeAttendee(username, id);
     }
 
     public void sendMessage() {
@@ -161,10 +155,8 @@ public class AttendeeMenuController {
         if(roomCapacity < 0)
             return false;
 
-        return building.addRoom1(name, LocalTime.of(startH, startM), LocalTime.of(endH, endM), roomCapacity);
+        return building.addRoom(name, LocalTime.of(startH, startM), LocalTime.of(endH, endM), roomCapacity);
     }
-
-    // Merged with createUser() method
 
     /*
     public void addSpeaker() throws IOException {
@@ -180,42 +172,68 @@ public class AttendeeMenuController {
     }
      */
 
-    public void scheduleSpeaker() {
+    public boolean scheduleSpeaker() {
         this.menu.createSpeakerName();
-        String speakerName = new Scanner(System.in).nextLine();
-        this.menu.enterEvent();
-        String eventName = new Scanner(System.in).nextLine();
-        EventManager manager = new EventManager(building.getEvent(eventName), building);
-        //manager.addSpeaker(speakerName);
+        Scanner cin = new Scanner(System.in);
 
+        String speakerName = cin.nextLine();
+        if(!userManager.checkUsername(speakerName) || !userManager.getUserRole(username).equals("speaker"))
+            return false;
+
+        this.menu.enterEvent();
+        String eventID = cin.nextLine();
+        UUID id;
+
+        try{
+            id = UUID.fromString(eventID);
+        }catch (IllegalArgumentException e){
+            System.out.println("Invalid id format");
+            return false;
+        }
+
+        return building.changeSpeaker(id, username);
     }
 
     public boolean modifyCapacity() {
-        this.menu.enterEvent();
-        String eventName = new Scanner(System.in).nextLine();
-        this.menu.modifyEventCapacity();
-        String tempNewCapacity = new Scanner(System.in).nextLine();
+        Scanner cin = new Scanner(System.in);
         int newCapacity;
+        String eventID;
+        UUID id;
+
+        this.menu.enterEvent();
+        eventID = cin.nextLine();
+
+        try{
+            id = UUID.fromString(eventID);
+        }catch (IllegalArgumentException e){
+            return false;
+        }
+
+        this.menu.modifyEventCapacity();
+        String tempNewCapacity = cin.nextLine();
+
         try {
             newCapacity = Integer.parseInt(tempNewCapacity);
         }catch(NumberFormatException e){
             return false;
         }
-        EventManager manager = new EventManager(building.getEvent(eventName), building);
-        manager.modifyCapacity(newCapacity);
-        return true;
+        if(newCapacity < 0)
+            return false;
+        return building.modifyCapacity(newCapacity, id);
     }
 
     public boolean removeEvent() {
         this.menu.manageEvent();
-        String event = new Scanner(System.in).nextLine();
-        if (building.getEvent(event) != null) {
-            EventManager manager = new EventManager(building.getEvent(event), this.building);
-            manager.removeEvent();
-            return true;
-        } else {
+        String eventID = new Scanner(System.in).nextLine();
+        UUID id;
+
+        try{
+            id = UUID.fromString(eventID);
+        }catch (IllegalArgumentException e){
             return false;
         }
+
+        return building.deleteEvent(id);
     }
 
     public boolean messageAttendees() {
@@ -279,7 +297,6 @@ public class AttendeeMenuController {
         }
     }
 
-    // TODO: this method is getting error saving event, i'll fix later!
     public boolean createEvent() {
         Scanner cin = new Scanner(System.in);
 
@@ -310,14 +327,9 @@ public class AttendeeMenuController {
         this.menu.createEventDuration();
         String durationStr = cin.nextLine();
 
-        this.menu.createEventSpeaker();
-        String response = cin.nextLine();
-
-        String speaker = "John";
-        if (response.equals("Y") || response.equals("y")) {
-            this.menu.createEventSpeakerName();
-            speaker = cin.nextLine();
-        }
+        System.out.println("Enter <1> for no-speaker event, <2> talk, <3> panel discussion:");
+        String type = cin.nextLine();
+        
         int year;
         int month;
         int day;
@@ -325,6 +337,7 @@ public class AttendeeMenuController {
         int minute;
         int duration;
         int eventCapacity;
+        int choice;
 
         try {
             year = Integer.parseInt(yearString);
@@ -334,6 +347,7 @@ public class AttendeeMenuController {
             minute = Integer.parseInt(minuteString);
             duration = Integer.parseInt(durationStr);
             eventCapacity = Integer.parseInt(tempEventCapacity);
+            choice = Integer.parseInt(type);
         } catch (NumberFormatException e) {
             return false;
         }
@@ -341,20 +355,18 @@ public class AttendeeMenuController {
         LocalDateTime d = LocalDateTime.of(year, month, day, hour, minute, 0);
         System.out.println(d);
 
-//        EventController event = new EventController(eventName, speaker, roomName, d,
-//                new EventGateway().getEvents().getSchedule(roomName), eventCapacity);
-//
-//        EventManager eventManager = new EventManager(eventName, speaker, roomName, d,
-//                new EventGateway().getEvents().getSchedule(roomName), eventCapacity);
-//        eventManager.addToSched();
-
-        if(!building.addEvent(new Event(eventName, roomName, d, duration, eventCapacity)))
-            return false;
+        if(choice==1){
+            if(!building.addEvent(new Event(eventName, roomName, d, duration, eventCapacity)))
+                return false;
+        }else if(choice == 2){
+            if(!building.addEvent(new Talk(eventName, roomName, d, duration, eventCapacity)))
+                return false;
+        }else if(choice == 3){
+            if(!building.addEvent(new PanelDiscussion(eventName, roomName, d, duration, eventCapacity)))
+                return false;
+        }
 
         new EventGateway().save(building);
-
-        // boolean returnValue = event.createEvent();
-        // new ScheduleSystem().updateEventDB(roomName, schedule);
         return true;
     }
 

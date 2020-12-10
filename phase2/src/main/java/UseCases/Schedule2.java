@@ -1,11 +1,13 @@
 package main.java.UseCases;
 
 import main.java.Entities.Event;
+import main.java.Entities.Talk;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 /**
@@ -75,7 +77,7 @@ public class Schedule2 implements Serializable {
         LocalDateTime endTime = e.getDatetime().plusMinutes(e.getDuration());
 
         if (endTime.toLocalTime().isAfter(this.endTime) || e.getDatetime().toLocalTime().isBefore(this.startTime)
-                || e.getEventCapacity() > this.roomCapacity)
+                || e.getCapacity() > this.roomCapacity)
             return false;
 
         if (this.schedule.size() == 0) {
@@ -108,6 +110,20 @@ public class Schedule2 implements Serializable {
      */
     public boolean removeEvent(Event event) {
         return this.schedule.remove(event);
+    }
+
+    public boolean removeEvent(UUID id){
+        Event toRemove = null;
+        for(Event e:schedule){
+            if(e.getUUID().equals(id)) {
+                toRemove = e;
+                break;
+            }
+        }
+        if(toRemove==null)
+            return false;
+        schedule.remove(toRemove);
+        return true;
     }
 
     /**
@@ -156,6 +172,14 @@ public class Schedule2 implements Serializable {
         this.roomCapacity = roomCapacity;
     }
 
+    public UUID getEventUUID(Event x){
+        for(Event e:schedule){
+            if(e.equals(x))
+                return e.getUUID();
+        }
+        return null;
+    }
+
     /**
      * Returns the schedule in string format. Each event takes up a line in the format of:
      * [Title] at [Location] at [DateTime]
@@ -166,10 +190,53 @@ public class Schedule2 implements Serializable {
     public String toString() {
         StringBuilder toReturn = new StringBuilder();
 
-        for (Event e : schedule)
+        for (Event e : schedule) {
+            toReturn.append("ID: " + e.getUUID().toString() + " ");
             toReturn.append(e.getTitle() + " at " + e.getLocation() + ", " + e.getDatetime().toString() + "\n");
+        }
 
         return toReturn.toString();
+    }
+
+    public boolean addAttendee(UUID id, String username){
+        for(Event e:schedule){
+            if(e.getUUID().equals(id)) {
+                e.addAttendees(username);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeAttendee(UUID id, String username){
+        for(Event e:schedule){
+            if(e.getUUID().equals(id)) {
+                e.removeAttendees(username);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean setSpeaker(UUID id, String username){
+        for(Event e:schedule){
+            if(e.getUUID().equals(id)) {
+                Talk t = (Talk) e;
+                t.setSpeaker(username);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean changeCapacity(UUID id, int newCap){
+        for(Event e:schedule){
+            if(e.getUUID().equals(id)) {
+                e.setCapacity(newCap);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -194,6 +261,7 @@ public class Schedule2 implements Serializable {
         }
         return l;
     }
+
 }
 
 //----------Testing----------

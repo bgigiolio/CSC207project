@@ -2,7 +2,7 @@ package main.java.Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 /**
  * <h1>Attendee</h1>
@@ -25,17 +25,16 @@ public class Attendee implements Serializable {
     /**
      * A List that stores friend's username of current user.
      */
-    private final List<String> friendList;
+    private final ArrayList<String> friendList;
 
-    private final List<Message> messages;     //shouldn't contain entities
+    private final ArrayList<Message> messages;     //shouldn't contain entities
 
     /**
      * The role of current user.
      */
     private final String role;
 
-    private List<String> eventsRegistered;
-
+    private final ArrayList<UUID> eventsRegistered;
 
     /**
      * Construct an Attendee object when signed up.
@@ -55,8 +54,11 @@ public class Attendee implements Serializable {
         this.eventsRegistered = new ArrayList<>();
     }
 
-    public List<String> getEventsRegistered() {return this.eventsRegistered; }
+    public ArrayList<UUID> getEventsRegistered() {return new ArrayList<>(eventsRegistered); }
 
+    public void registerForEvent(UUID id) {eventsRegistered.add(id);}
+
+    public void cancelEnrollment(UUID id) {eventsRegistered.remove(id);}
 
     /**
      * Return username.
@@ -64,7 +66,7 @@ public class Attendee implements Serializable {
      * @return username of current user.
      */
     public String getUsername(){
-        return this.username;
+        return username;
     }
 
     /**
@@ -73,7 +75,7 @@ public class Attendee implements Serializable {
      * @return password of current user.
      */
     public String getPassword(){
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -86,7 +88,7 @@ public class Attendee implements Serializable {
      * @return role of current user.
      */
     public String getRole(){
-        return this.role;
+        return role;
     }
 
     /**
@@ -94,14 +96,24 @@ public class Attendee implements Serializable {
      *
      * @return number of friends in friendList.
      */
-    public int getNumOfFriends() { return this.friendList.size(); }
+    public int getNumOfFriends() { return friendList.size(); }
 
     /**
      * Return friendList.
      *
      * @return friendList of current user.
      */
-    public List<String> getFriendList() { return this.friendList; }
+    public ArrayList<String> getFriendList() { return new ArrayList<>(friendList); }
+
+    public void addFriend(String username){
+        if(!friendList.contains(username))
+            friendList.add(username);
+    }
+
+    public void removeFriend(String username){
+        friendList.remove(username);
+    }
+
 
     // test to check class works as expected
 /*

@@ -3,30 +3,30 @@ package main.java.Entities;
 import java.io.Serializable;
 import java.util.*;
 import java.time.*;
+import java.util.UUID;
 
 /**
  * <h1>Event</h1>
- * Event is an entity class which stores information about an event of the conference.
+ * Event is an entity class which stores information about an event at the conference
+ * It represents a no-speaker event
  * @author Qi Zheng
- * @version Phase1
+ * @version Phase2
  */
-
 public class Event implements Serializable {
+
+    protected final UUID uuid;
 
     /**
      * Title of event
      */
     protected String title;
 
+    private final String type;
+
     /**
      * where this event will take place (room number)
      */
     protected String location;
-
-//    /**
-//     * Speaker's username
-//     */
-//    private String speaker;
 
     /**
      * Time and date of event
@@ -45,6 +45,9 @@ public class Event implements Serializable {
      */
     protected int duration;
 
+    /**
+     * The maximum number of people that can attend this event
+     */
     protected int eventCapacity;
 
     /**
@@ -57,15 +60,13 @@ public class Event implements Serializable {
      */
     public Event(String title, String location, LocalDateTime datetime, int duration, int eventCapacity){
         this.title = title;
-        //this.speaker = speaker;
         this.location = location;
         this.datetime = datetime;
         this.usernames = new ArrayList<>();
         this.duration = duration;
         this.eventCapacity = eventCapacity;
-    }
-
-    public Event(String title, String speaker, String location, LocalDateTime datetime, int eventcapacity) {
+        uuid = UUID.randomUUID();
+        type = "event";
     }
 
     /**
@@ -76,14 +77,6 @@ public class Event implements Serializable {
         return this.title;
     }
 
-//    /**
-//     * Returns the speaker of the event.
-//     * @return this.speaker
-//     */
-//    public String getSpeaker(){
-//        return this.speaker;
-//    }
-
     /**
      * Returns the location of the event.
      * @return this.location
@@ -91,6 +84,7 @@ public class Event implements Serializable {
     public String getLocation() {
         return this.location;
     }
+
     /**
      * Returns the starting date and time of the event.
      * @return this.datetime
@@ -98,6 +92,7 @@ public class Event implements Serializable {
     public LocalDateTime getDatetime() {
         return this.datetime;
     }
+
     /**
      * Returns the list of usernames of attendees that attend the event.
      * @return this.usernames
@@ -117,6 +112,7 @@ public class Event implements Serializable {
      * @param val the new duration value
      */
     public void setDuration(int val){this.duration = val;}
+
     /**
      * Changes the title of the event. Takes title as an input and replaces with the class attribute this.title.
      * @param title is the title of the event.
@@ -124,13 +120,7 @@ public class Event implements Serializable {
     public void setTitle(String title){
         this.title = title;
     }
-//    /**
-//     * Changes the title of the event. Takes title as an input and replaces with the class attribute this.title.
-//     * @param speaker hosts the event
-//     */
-//    public void setSpeaker(String speaker){
-//        this.speaker = speaker;
-//    }
+
     /**
      * Changes the location of the event by replacing the existing location attribute with the input.
      * @param location is a String that tells where the event is held.
@@ -148,20 +138,13 @@ public class Event implements Serializable {
     }
 
     /**
-     * Changes the list of attendees that attend the event by replacing the existing list with the input.
-     * @param usernames is a list of usernames of attendees that attend the event
-     */
-    public void setAttendees(ArrayList<String> usernames) {
-        this.usernames = new ArrayList<>(usernames);
-    }
-
-    /**
      * Adds one attendee to the existing list of attendees that is assigned to usernames.
      * @param username is an attendee's username that would like to attend the event.
      */
     public void addAttendees(String username) {
         this.usernames.add(username);
     }
+
     /**
      * Adds a list of attendees to the existing list of attendees that is assigned to usernames.
      * @param usernames is the list of usernames of attendees that would like to attend the event.
@@ -177,29 +160,33 @@ public class Event implements Serializable {
     public void removeAttendees(String username) {
         this.usernames.remove(username);
     }
+
     /**
      * Removes a list of attendees from the existing list of attendees that is assigned to usernames.
      * @param usernames is the list of usernames of attendees that would like to attend the event.
      */
-
     public void removeAttendees(ArrayList<String> usernames) {
         this.usernames.removeAll(usernames);
     }
 
-    /**
-     * Returns a tuple that contains all attributes of Event
-     * @return Object[]
-     */
-    public Object[] getEventInfo(){
-        return new Object[]{this.title, this.location, this.datetime, this.usernames};
-    }
-
-    public int getEventCapacity(){
+    public int getCapacity(){
         return this.eventCapacity;
     }
 
-    public void setEventCapacity(int newCapacity){
+    public UUID getUUID() { return uuid; }
+
+    public void setCapacity(int newCapacity){
         this.eventCapacity = newCapacity;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if(obj==null) return false;
+        if(this == obj) return true;
+        if(this.getClass() != obj.getClass()) return false;
+        Event e = (Event) obj;
+        if(this.uuid.equals(e.uuid)) return true;
+        return this.title.equals(e.title) && this.datetime == e.datetime && this.type.equals(e.type) &&
+                this.location.equals(e.location);
+    }
 }

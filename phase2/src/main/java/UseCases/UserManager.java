@@ -30,14 +30,21 @@ public class UserManager implements Serializable {
      * @return True if user was successfully registered, False otherwise
      */
     public boolean registerUser(String username, String password, String role) {
-        if (!credentialsMap.containsKey(username) && !role.equalsIgnoreCase("admin")) {
-            credentialsMap.put(username, new Attendee(username, password, role));
-        } else if(role.equalsIgnoreCase("admin")) {
-            credentialsMap.put(username, new Admin(username, password));
-        } else {
-            return false; }
-            return true;
+        if (!credentialsMap.containsKey(username)) {
+
+            if(role.equalsIgnoreCase("attendee") || role.equalsIgnoreCase("organizer") ||
+            role.equalsIgnoreCase("admin")) {
+                credentialsMap.put(username, new Attendee(username, password, role));
+                return true;
+            }
+
+            else if(role.equalsIgnoreCase("speaker")) {
+                credentialsMap.put(username, new Speaker(username, password, role));
+                return true;
+            }
         }
+        return false;
+    }
 
     /**
      * Check if user with following credentials can sign into the system
@@ -110,13 +117,10 @@ public class UserManager implements Serializable {
     public void addFriend(String user1, String user2){
         Attendee at1 = credentialsMap.get(user1);
 
-        if(at1 == null || getAttendee(user2) == null)
+        if(at1 == null || credentialsMap.get(user2) == null)
             return;
 
-        List<String> friendList = at1.getFriendList();
-
-        if (!friendList.contains(user2))
-            friendList.add(user2);
+        at1.addFriend(user2);
     }
 
     /**
@@ -127,24 +131,32 @@ public class UserManager implements Serializable {
     public void removeFriend(String user1, String user2){
         Attendee at1 = credentialsMap.get(user1);
 
-        if(at1 == null || getAttendee(user2) == null)
+        if(at1 == null || credentialsMap.get(user2) == null)
             return;
 
-        List<String> friendList = at1.getFriendList();
-
-        friendList.remove(user2);
+        at1.removeFriend(user2);
     }
 
     public int getNumOfFriends(String username){
-        Attendee user = getAttendee(username);
+        Attendee user = credentialsMap.get(username);
 
         if(user != null)
-            return user.getFriendList().size();
+            return user.getNumOfFriends();
         return -1;
     }
 
-    private Attendee getAttendee(String username){
-        return credentialsMap.getOrDefault(username, null);
+    public void signUpForEvent(String username, UUID id){
+        Attendee a = credentialsMap.get(username);
+
+        if(a!=null)
+            a.registerForEvent(id);
+    }
+
+    public void cancelEnrollment(String username, UUID id){
+        Attendee a = credentialsMap.get(username);
+
+        if(a!=null)
+            a.cancelEnrollment(id);
     }
 
     public HashMap<String, Attendee> getCredentialsMap() {

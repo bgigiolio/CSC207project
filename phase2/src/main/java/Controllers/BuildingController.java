@@ -50,6 +50,6 @@ public class BuildingController {
      * @return A boolean that shows if the room was added or not.
      */
     public boolean addRoom(String name, LocalTime startTime, LocalTime endTime, int roomCapacity){
-        return this.building.addRoom1(name, startTime, endTime, roomCapacity);
+        return this.building.addRoom(name, startTime, endTime, roomCapacity);
     }
 }
