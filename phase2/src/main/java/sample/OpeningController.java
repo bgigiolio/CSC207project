@@ -69,6 +69,10 @@ public class OpeningController extends AbstractController implements Initializab
      */
     public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException, NullPointerException {
         //Creates the user and stores the login information of the user and log them in depending on the role.
+        Stage primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+        primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Scene userLoginScene = new Scene(root,300,275);
 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
         loader.load();
@@ -85,11 +89,8 @@ public class OpeningController extends AbstractController implements Initializab
                 this.invalidLoginText.setVisible(true);
             }
             else{
-                Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
-                this.primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                Scene userLoginScene = new Scene(root,300,275);
-                this.primaryStage.setScene(userLoginScene);
-                this.primaryStage.show();
+                primaryStage.setScene(userLoginScene);
+                primaryStage.show();
             }
         }
 
@@ -97,11 +98,9 @@ public class OpeningController extends AbstractController implements Initializab
             this.invalidLoginText.setVisible(true);
         }
         else{
-            Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
-            this.primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene userLoginScene = new Scene(root,300,275);
-            this.primaryStage.setScene(userLoginScene);
-            this.primaryStage.show();
+
+            primaryStage.setScene(userLoginScene);
+            primaryStage.show();
         }
     }
 }
