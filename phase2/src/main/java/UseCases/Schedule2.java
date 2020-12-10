@@ -191,8 +191,8 @@ public class Schedule2 implements Serializable {
         StringBuilder toReturn = new StringBuilder();
 
         for (Event e : schedule) {
-            toReturn.append("ID: " + e.getUUID().toString() + " ");
-            toReturn.append(e.getTitle() + " at " + e.getLocation() + ", " + e.getDatetime().toString() + "\n");
+            toReturn.append("\nID: ").append(e.getUUID().toString()).append(" \n");
+            toReturn.append(e.getTitle()).append(" at ").append(e.getLocation()).append(", ").append(e.getDatetime().toString()).append("\n");
         }
 
         return toReturn.toString();

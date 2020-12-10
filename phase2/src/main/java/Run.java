@@ -1,6 +1,5 @@
 package main.java;
 
-import main.java.Controllers.ImportExportEventController;
 import main.java.Controllers.ProgramMain;
 import main.java.Entities.Event;
 import main.java.Gateways.EventGateway;
