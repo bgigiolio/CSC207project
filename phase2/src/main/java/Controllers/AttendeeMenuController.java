@@ -329,7 +329,7 @@ public class AttendeeMenuController {
 
         System.out.println("Enter <1> for no-speaker event, <2> talk, <3> panel discussion:");
         String type = cin.nextLine();
-        
+
         int year;
         int month;
         int day;
@@ -461,7 +461,6 @@ public class AttendeeMenuController {
                     manageFriendsList();
                     break;
                 case "8": //logout
-
                     menu.logoutSuccess();
                     return false;
                 case "q": //quit program

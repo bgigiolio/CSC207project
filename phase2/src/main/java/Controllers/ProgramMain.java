@@ -3,6 +3,7 @@ package main.java.Controllers;
 import java.io.IOException;
 import java.util.Scanner;
 
+import main.java.Gateways.EventGateway;
 import main.java.Gateways.UserLoginGateway;
 import main.java.Presenters.*;
 import main.java.UseCases.BuildingManager;
@@ -15,7 +16,7 @@ import main.java.UseCases.UserManager;
  * @author Konstantinos Papaspyridis
  * @version phase2
  */
-public class ProgramMain {
+public class ProgramMain implements AutoCloseable{
     private final BuildingManager buildingManager;
     private final UserManager userManager;
 
@@ -42,10 +43,12 @@ public class ProgramMain {
         AttendeeMenuController currentSession;
         StartingMenu menuPresenter = new StartingMenu();
         UserLoginGateway userLoginGateway = new UserLoginGateway();
+        EventGateway eventGateway = new EventGateway();
         String username;
         String role;
         String userType;
         boolean didQuit;
+
 
         do {
             do{
@@ -65,7 +68,8 @@ public class ProgramMain {
 
             currentSession.homepage();
             didQuit = currentSession.menuSelection();
-            userLoginGateway.save(userManager);
+            //userLoginGateway.save(userManager);
+            eventGateway.save(buildingManager);
         } while(!didQuit);
     }
 
@@ -225,5 +229,12 @@ public class ProgramMain {
                 break;
         }
         return null;
+    }
+
+    @Override
+    public void close(){
+        System.out.println("In destructor");
+        new UserLoginGateway().save(userManager);
+        new EventGateway().save(buildingManager);
     }
 }

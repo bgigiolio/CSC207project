@@ -72,7 +72,7 @@ public class OpeningController extends AbstractController implements Initializab
         Stage primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
         primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene homeScene = new Scene(root,300,275);
+        Scene homeScene = new Scene(root,600,500);
 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
         loader.load();
