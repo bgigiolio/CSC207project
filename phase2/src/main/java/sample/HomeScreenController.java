@@ -19,7 +19,7 @@ public class HomeScreenController {
     private String user;
 
     public final BuildingManager buildingManager;
-
+    UserLoginGateway userLoginGateway;
     public final UserManager userManager;
     private String username;
     private String password;
@@ -52,13 +52,39 @@ public class HomeScreenController {
 
     public HomeScreenController(){
         EventGateway eventGateway = new EventGateway();
-        UserLoginGateway userLoginGateway = new UserLoginGateway();
+        this.userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
 
 
-        main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
     }
+    /**
+     * Register a new user
+     * @param role user's roles
+     * @return the username of the registered user
+     */
+    public String register(String role, String username, String password){
+
+        if (this.userManager.registerUser(username, password, role)) {
+            this.userLoginGateway.save(this.userManager);
+            return username;
+        }
+        return "invalid";
+
+    }
+    /**
+     * This is how a user will log in. Here we call the log in menu prompt.
+     * @return username of user logged. Null if couldn't log in.
+     */
+    public String login(String username, String password) {
+
+
+        if (this.userManager.loginUser(username, password).equalsIgnoreCase("loggedin")) {
+            return username;
+        }
+        return "invalid";
+    }
+
 
     @FXML
     private SplitPane multiPane;
