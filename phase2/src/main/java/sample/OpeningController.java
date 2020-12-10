@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import main.java.Controllers.ProgramMainGUI;
-import main.java.Gateways.EventGateway;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,12 +13,14 @@ import java.util.ResourceBundle;
 
 public class OpeningController extends AbstractController implements Initializable {
     public ToggleGroup userType;
-    @FXML
-    private Button loginButton;
+    public Button loginButton;
+
     @FXML
     RadioButton retUser;
     @FXML
     RadioButton newUser;
+    @FXML
+    RadioButton adminUser;
     @FXML
     private ChoiceBox<String> userRole; //TODO ADD ADMIN
     @FXML
@@ -31,11 +31,11 @@ public class OpeningController extends AbstractController implements Initializab
     private TextField password;
     @FXML
     private Label invalidLoginText;
-    String uname;
-    String pword;
-    String role;
+//    String uname;
+//    String pword;
+//    String role;
 
-    private ProgramMainGUI sys;
+//    private ProgramMainGUI sys;
 
     FXMLLoader loader;
 
@@ -43,9 +43,9 @@ public class OpeningController extends AbstractController implements Initializab
     //reminder: initializer
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        EventGateway eventGateway = new EventGateway();
-        this.sys = new ProgramMainGUI(eventGateway.read());
-        userRole.getItems().addAll("Organizer", "Attendee");
+//        EventGateway eventGateway = new EventGateway();
+//        this.sys = new ProgramMainGUI(eventGateway.read());
+        userRole.getItems().addAll("Organizer", "Attendee", "Admin");
     }
 
 
@@ -64,35 +64,47 @@ public class OpeningController extends AbstractController implements Initializab
      */
     public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException, NullPointerException {
         //Creates the user and stores the login information of the user and log them in depending on the role.
+
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
+        loader.load();
+        HomeScreenController hSC = loader.getController();
+        hSC.setUsername(this.username.getText());
+        hSC.setPassword(this.password.getText());
+        hSC.setRole(userRole.getValue());
+
+
+        String login_attempt = hSC.login(this.username.getText(),this.password.getText());
+
         if (userType.getSelectedToggle() == newUser && userRole.getValue() != null) {
-            if (sys.register(userRole.getValue(), this.username.getText(), this.password.getText()).equalsIgnoreCase("invalid")){
+            if (hSC.register(userRole.getValue(), this.username.getText(), this.password.getText()).equalsIgnoreCase("invalid")){
                 this.invalidLoginText.setVisible(true);
             }
-
         }
-        String login_attempt = sys.login(this.username.getText(),this.password.getText());
-        if (login_attempt.equalsIgnoreCase("invalid")){
+        else if (login_attempt.equalsIgnoreCase("invalid")){
             this.invalidLoginText.setVisible(true);
         }
         else{
             helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
         }
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
-            loader.load();
-            HomeScreenController homeScreenController = loader.getController();
+//        if (userType.getSelectedToggle() == newUser && userRole.getValue() != null) {
+//            if (sys.register(userRole.getValue(), this.username.getText(), this.password.getText()).equalsIgnoreCase("invalid")){
+//                this.invalidLoginText.setVisible(true);
+//            }
+//        }
+//        else if (login_attempt.equalsIgnoreCase("invalid")){
+//            this.invalidLoginText.setVisible(true);
+//        }
+//        else{
+//            helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
+//        }
 
-            homeScreenController.setUsername(this.username.getText());
-            homeScreenController.setPassword(this.password.getText());
-            homeScreenController.setRole(userRole.getValue());
-        }catch(NullPointerException e){
-            System.out.println(this.username.getText());
-            System.out.println(this.password.getText());
-            System.out.println(userRole.getValue());
+
+
+
+
         }
 //        System.out.println("ERROR: Type not found when trying to log in.");
 
-    }
 //            if (userRole.getSelectionModel().getSelectedItem().equalsIgnoreCase("organizer")){
 //                String username;
 //                String password;
