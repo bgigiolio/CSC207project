@@ -1,6 +1,6 @@
-package src.main.java.Controllers;
+package main.java.Controllers;
 
-import Entities.Organizer;
+//import main.java.Entities.Organizer;
 import src.main.java.Gateways.AccessibilityOptionsGateway;
 
 import java.util.ArrayList;
