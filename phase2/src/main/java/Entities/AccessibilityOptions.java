@@ -18,6 +18,14 @@ public class AccessibilityOptions extends Message {
      * The time when the request is sent.
      */
     private final LocalDateTime time_sent;
+    /**
+     * The request of the sender
+     */
+    private final String request;
+    /**
+     * the status of the request, initially "pending"
+     */
+    public String status;
 
     /**
      * Construct an instance of AccessibilityOptions.
@@ -29,7 +37,25 @@ public class AccessibilityOptions extends Message {
      */
 
     public AccessibilityOptions(String request, String sender){
-        super(request, sender);
+        this.request = request;
         time_sent = LocalDateTime.now(ZoneId.of("America/Toronto"));
+        this.status = "pending";
+    }
+
+    /**
+     * This method provide the sent time of request
+     * @return a LocalDateTime object which represents the sent time of request
+     */
+
+    public LocalDateTime getTime_sent() {
+        return time_sent;
+    }
+
+    /**
+     * The getter for the request of sender
+     * @return the request of sender
+     */
+    public String getRequest(){
+        return this.request;
     }
 }

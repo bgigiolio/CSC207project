@@ -2,15 +2,16 @@ package main.java.sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import main.java.Gateways.EventGateway;
 import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.UserManager;
+
+import java.io.IOException;
 
 public class HomeScreenController {
     @FXML
@@ -167,8 +168,11 @@ public class HomeScreenController {
     }
 
     @FXML
-    void signUp(ActionEvent event) {
-
+    void signUp(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("signUpScene.fxml"));
+        loader.load();
+        signUpController SUC = loader.getController();
+        SUC.setBuilding(this.buildingManager);
     }
 
 }
