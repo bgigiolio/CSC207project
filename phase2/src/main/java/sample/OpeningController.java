@@ -50,9 +50,9 @@ public class OpeningController extends AbstractController implements Initializab
     }
     public ArrayList<String> getUserInfo(){
         ArrayList<String> list = new ArrayList<>();
-        list.add("uname");
-        list.add("pword");
-        list.add("role");
+        list.add(uname);
+        list.add(pword);
+        list.add(role);
         return list;
     }
 
@@ -81,6 +81,9 @@ public class OpeningController extends AbstractController implements Initializab
         else{
             helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
         }
+        this.uname = this.username.getText();
+        this.pword = this.password.getText();
+        this.role = userRole.getValue();
 
 //        System.out.println("ERROR: Type not found when trying to log in.");
 
