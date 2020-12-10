@@ -37,6 +37,7 @@ public class AccessibilityOptions extends Message {
      */
 
     public AccessibilityOptions(String request, String sender){
+        super(request, sender);
         this.request = request;
         time_sent = LocalDateTime.now(ZoneId.of("America/Toronto"));
         this.status = "pending";
