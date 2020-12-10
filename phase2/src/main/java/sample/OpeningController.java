@@ -10,6 +10,7 @@ import main.java.Gateways.EventGateway;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -31,6 +32,9 @@ public class OpeningController extends AbstractController implements Initializab
     private TextField password;
     @FXML
     private Label invalidLoginText;
+    String uname;
+    String pword;
+    String role;
 
     private ProgramMainGUI sys;
 
@@ -44,7 +48,13 @@ public class OpeningController extends AbstractController implements Initializab
         this.sys = new ProgramMainGUI(eventGateway.read());
         userRole.getItems().addAll("Organizer", "Attendee");
     }
-
+    public ArrayList<String> getUserInfo(){
+        ArrayList<String> list = new ArrayList<>();
+        list.add("uname");
+        list.add("pword");
+        list.add("role");
+        return list;
+    }
 
     public void handleNewUser(ActionEvent event) throws IOException {
         this.userRole.setVisible(true);

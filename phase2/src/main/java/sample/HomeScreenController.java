@@ -2,6 +2,7 @@ package main.java.sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -39,8 +40,11 @@ public class HomeScreenController {
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
-        String username = "a1";
-        String role = this.userManager.getUserRole(username);
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("OpeningScene.fxml"));
+        OpeningController openingController = loader.getController();
+
+        String username = openingController.getUserInfo().get(0);
+        String role = openingController.getUserInfo().get(2);
         main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
     }
 
