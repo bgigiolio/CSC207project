@@ -69,7 +69,7 @@ public class OpeningController extends AbstractController implements Initializab
             this.invalidLoginText.setVisible(true);
         }
         else{
-            helperSceneSwitcher(event, "AttendeeMenu.fxml"); //TODO:Change menu based on user role
+            helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
         }
 
 //        System.out.println("ERROR: Type not found when trying to log in.");
@@ -86,7 +86,7 @@ public class OpeningController extends AbstractController implements Initializab
 //                EventGateway eventGateway = new EventGateway();
 //                ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
 //                username = sys.register(role, username, password);
-//                helperSceneSwitcher(event, "AttendeeMenu.fxml");
+//                helperSceneSwitcher(event, "HomeScreen.fxml");
 //            }
 //            else if (userRole.getValue().equalsIgnoreCase("attendee")){
 //                String username;
@@ -100,7 +100,7 @@ public class OpeningController extends AbstractController implements Initializab
 //                ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
 //                username = sys.register(role, username, password);
 //
-//                helperSceneSwitcher(event, "AttendeeMenu.fxml");
+//                helperSceneSwitcher(event, "HomeScreen.fxml");
 //            }
 //
 

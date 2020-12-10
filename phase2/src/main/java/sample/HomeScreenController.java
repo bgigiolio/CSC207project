@@ -12,7 +12,7 @@ import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.UserManager;
 
-public class AttendeeMenuController {
+public class HomeScreenController {
     @FXML
     private AnchorPane mainPane;
 
@@ -22,25 +22,25 @@ public class AttendeeMenuController {
 
     public final UserManager userManager;
 
-    public AttendeeMenuController(String username){
-        this.user = username;
+//    public AttendeeMenuController(String username){
+//        this.user = username;
+//        EventGateway eventGateway = new EventGateway();
+//        UserLoginGateway userLoginGateway = new UserLoginGateway();
+//        this.buildingManager = eventGateway.read();
+//        this.userManager = userLoginGateway.read();
+//        welcomeText.setText("Welcome" + this.user);
+//
+//        String role = "attendee";
+//        main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
+//
+//    }
+    public HomeScreenController(){
         EventGateway eventGateway = new EventGateway();
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
-        welcomeText.setText("Welcome" + this.user);
 
         String role = "attendee";
-        main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
-
-    }
-    public AttendeeMenuController(){
-        EventGateway eventGateway = new EventGateway();
-        UserLoginGateway userLoginGateway = new UserLoginGateway();
-        this.buildingManager = eventGateway.read();
-        this.userManager = userLoginGateway.read();
-//        this.user = "";
-//        welcomeText.setText("Welcome" + this.user);
     }
 
     @FXML
