@@ -31,13 +31,17 @@ public class OpeningController extends AbstractController implements Initializab
     private TextField password;
     @FXML
     private Label invalidLoginText;
+
+    private ProgramMainGUI sys;
+
     FXMLLoader loader;
 
 
     //reminder: initializer
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        EventGateway eventGateway = new EventGateway();
+        this.sys = new ProgramMainGUI(eventGateway.read());
         userRole.getItems().addAll("Organizer", "Attendee");
     }
 
@@ -57,38 +61,49 @@ public class OpeningController extends AbstractController implements Initializab
      */
     public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException, NullPointerException {
         //Creates the user and stores the login information of the user and log them in depending on the role.
-
-        if (userRole.getValue().equalsIgnoreCase("organizer")){
-            String username;
-            String password;
-            String role;
-
-            role = "organizer";
-            username = "o1";
-            password = "o1";
-            EventGateway eventGateway = new EventGateway();
-            ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
-            username = sys.register(role, username, password);
-            helperSceneSwitcher(event, "AttendeeMenu.fxml");
+        if (userType.getSelectedToggle() == newUser && userRole.getValue() != null) {
+            sys.register(userRole.getValue(), this.username.getText(), this.password.getText());
         }
-        else if (userRole.getValue().equalsIgnoreCase("attendee")){
-            String username;
-            String password;
-            String role;
-
-            role = "attendee";
-            username = "a1";
-            password = "a1";
-            EventGateway eventGateway = new EventGateway();
-            ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
-            username = sys.register(role, username, password);
-
-            helperSceneSwitcher(event, "AttendeeMenu.fxml");
+        String login_attempt = sys.login(this.username.getText(),this.password.getText());
+        if (login_attempt.equalsIgnoreCase("unsuccessful") || userRole.getValue() == null){
+            this.invalidLoginText.setVisible(true);
         }
         else{
-            System.out.println("ERROR: Type not found when trying to log in.");
+            helperSceneSwitcher(event, "AttendeeMenu.fxml"); //TODO:Change menu based on user role
         }
 
+//        System.out.println("ERROR: Type not found when trying to log in.");
+
     }
+//            if (userRole.getSelectionModel().getSelectedItem().equalsIgnoreCase("organizer")){
+//                String username;
+//                String password;
+//                String role;
+//
+//                role = "organizer";
+//                username = "o1";
+//                password = "o1";
+//                EventGateway eventGateway = new EventGateway();
+//                ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
+//                username = sys.register(role, username, password);
+//                helperSceneSwitcher(event, "AttendeeMenu.fxml");
+//            }
+//            else if (userRole.getValue().equalsIgnoreCase("attendee")){
+//                String username;
+//                String password;
+//                String role;
+//
+//                role = "attendee";
+//                username = "a1";
+//                password = "a1";
+//                EventGateway eventGateway = new EventGateway();
+//                ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
+//                username = sys.register(role, username, password);
+//
+//                helperSceneSwitcher(event, "AttendeeMenu.fxml");
+//            }
+//
+
+
 
 }

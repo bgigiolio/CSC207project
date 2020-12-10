@@ -1,12 +1,12 @@
 package main.java.Controllers;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 import main.java.Gateways.UserLoginGateway;
-import main.java.Presenters.*;
+import main.java.Presenters.StartingMenu;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.UserManager;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * <h1>ProgramMain</h1>
@@ -56,7 +56,7 @@ public class ProgramMainGUI {
                     role = askRole();
                     username = register(role);
                 }else {
-                    username = login();
+                    username = login(retUserUsernamePrompt(),passwordPrompt());
                     role = userManager.getUserRole(username);
                 }
             } while(username == null);
@@ -202,11 +202,11 @@ public class ProgramMainGUI {
      * This is how a user will log in. Here we call the log in menu prompt.
      * @return username of user logged. Null if couldn't log in.
      */
-    private String login() {
+    public String login(String username, String password) {
         StartingMenu menuPresenter = new StartingMenu();
 
-        String username = retUserUsernamePrompt();
-        String password = passwordPrompt();
+//        String username = retUserUsernamePrompt();
+//        String password = passwordPrompt();
 
         switch (this.userManager.loginUser(username, password)) {
             case "loggedIn":
@@ -214,34 +214,31 @@ public class ProgramMainGUI {
                 menuPresenter.welcome(username);
                 return username;
 
-            case "usernameNotFound": {
-                menuPresenter.usernameNotFoundPrompt();
-                String choice = new Scanner(System.in).nextLine();
-                if (choice.equals("1"))
-                    return login();
-                break;
+            case "usernameNotFound" :
+            case "wrongPassword":{
+                return "unsuccessful";
             }
 
-            case "wrongPassword": {
-                menuPresenter.wrongPasswordPrompt();
-                String choice = new Scanner(System.in).nextLine();
-
-                if (choice.equals("2")) {
-                    menuPresenter.resetPasswordPrompt();
-                    String newPassword = new Scanner(System.in).nextLine();
-
-                    if (this.userManager.resetPassword(username, newPassword)) {
-                        menuPresenter.passwordResetSuccess();
-                        return username;
-                    } else {
-                        System.out.println("failed");
-                    }
-                }
-                else if (choice.equals("1")) {
-                    return login();
-                }
-                break;
-            }
+//            case "wrongPassword": {
+//                menuPresenter.wrongPasswordPrompt();
+//                String choice = new Scanner(System.in).nextLine();
+//
+//                if (choice.equals("2")) {
+//                    menuPresenter.resetPasswordPrompt();
+//                    String newPassword = new Scanner(System.in).nextLine();
+//
+//                    if (this.userManager.resetPassword(username, newPassword)) {
+//                        menuPresenter.passwordResetSuccess();
+//                        return username;
+//                    } else {
+//                        System.out.println("failed");
+//                    }
+//                }
+//                else if (choice.equals("1")) {
+//                    return login(username,password);
+//                }
+//                break;
+//            }
 
             default:
                 break;

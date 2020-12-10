@@ -13,7 +13,7 @@ import java.io.*;
  */
 public class EventGateway extends DatabaseGateway<BuildingManager>{
 
-    public EventGateway() { super("phase2/src/main/java/DB/Events.ser"); }
+    public EventGateway() { super("src\\main\\java\\DB\\Events.ser"); }
 
     /**
      * This method retrieves a BuildingManager object from Events.ser.

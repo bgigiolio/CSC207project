@@ -1,8 +1,8 @@
 package main.java.Gateways;
 
-import java.io.*;
-
 import main.java.UseCases.UserManager;
+
+import java.io.*;
 
 /**
  * <h1>UserLoginInfo</h1>
@@ -13,7 +13,7 @@ import main.java.UseCases.UserManager;
 public class UserLoginGateway extends DatabaseGateway<UserManager>{
 
     public UserLoginGateway(){
-        super("phase2/src/main/java/DB/UserLoginInfo.ser");
+        super("src\\main\\java\\DB\\UserLoginInfo.ser");
     }
 
     /**

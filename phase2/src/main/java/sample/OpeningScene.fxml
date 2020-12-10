@@ -22,6 +22,7 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -35,6 +36,13 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
+   <RadioButton fx:id="newUser" mnemonicParsing="false" onAction="#handleNewUser" text="New User" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1">
+      <toggleGroup>
+         <ToggleGroup fx:id="userType" />
+      </toggleGroup>
+   </RadioButton>
+   <RadioButton fx:id="retUser" mnemonicParsing="false" onAction="#handleRetUser" text="Returning User" toggleGroup="$userType" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="2" />
+   <ChoiceBox fx:id="userRole" prefWidth="150.0" visible="false" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3" />
    <Label fx:id="userRoleLabel" prefHeight="17.0" prefWidth="88.0" text="User Role" textAlignment="CENTER" visible="false" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
    <Label prefHeight="17.0" prefWidth="88.0" text="Username" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
       <GridPane.margin>
@@ -42,20 +50,13 @@
       </GridPane.margin>
    </Label>
    <Label prefHeight="17.0" prefWidth="82.0" text="Password" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-   <Label fx:id="invalidLoginText" prefHeight="34.0" prefWidth="167.0" text="Incorrect Username/Password. Please try again." textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.rowIndex="7" GridPane.rowSpan="2" />
+   <Label fx:id="invalidLoginText" prefHeight="34.0" prefWidth="113.0" text="Login unsuccsessful. Please try again." textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="7" GridPane.rowSpan="2" />
+   <TextField fx:id="username" maxWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
    <TextField fx:id="password" maxWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
-   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLoginButton" prefHeight="25.0" prefWidth="100.0" text="Login" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+   <Button fx:id="loginButton" defaultButton="true" mnemonicParsing="false" onAction="#handleLoginButton" prefHeight="25.0" prefWidth="100.0" text="Login" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
       <GridPane.margin>
          <Insets top="10.0" />
       </GridPane.margin>
    </Button>
-   <TextField fx:id="username" maxWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
-   <ChoiceBox fx:id="userRole" prefWidth="150.0" visible="false" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-   <RadioButton fx:id="newUser" mnemonicParsing="false" onAction="#handleNewUser" text="New User" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1">
-      <toggleGroup>
-         <ToggleGroup fx:id="userType" />
-      </toggleGroup>
-   </RadioButton>
-   <RadioButton fx:id="retUser" mnemonicParsing="false" onAction="#handleRetUser" text="Returning User" toggleGroup="$userType" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="2" />
    <Label prefHeight="17.0" prefWidth="88.0" text="User Type" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
 </GridPane>
