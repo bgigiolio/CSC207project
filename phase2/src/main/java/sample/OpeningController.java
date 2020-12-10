@@ -4,7 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,6 +50,7 @@ public class OpeningController extends AbstractController implements Initializab
 //        EventGateway eventGateway = new EventGateway();
 //        this.sys = new ProgramMainGUI(eventGateway.read());
         userRole.getItems().addAll("Organizer", "Attendee", "Admin");
+
     }
 
 
@@ -75,65 +80,28 @@ public class OpeningController extends AbstractController implements Initializab
 
         String login_attempt = hSC.login(this.username.getText(),this.password.getText());
 
-        if (userType.getSelectedToggle() == newUser && userRole.getValue() != null) {
+        if (userType.getSelectedToggle() == newUser && userRole.getValue() != null){
             if (hSC.register(userRole.getValue(), this.username.getText(), this.password.getText()).equalsIgnoreCase("invalid")){
                 this.invalidLoginText.setVisible(true);
             }
+            else{
+                Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+                this.primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                Scene userLoginScene = new Scene(root,300,275);
+                this.primaryStage.setScene(userLoginScene);
+                this.primaryStage.show();
+            }
         }
+
         else if (login_attempt.equalsIgnoreCase("invalid")){
             this.invalidLoginText.setVisible(true);
         }
         else{
-            helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
+            Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+            this.primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            Scene userLoginScene = new Scene(root,300,275);
+            this.primaryStage.setScene(userLoginScene);
+            this.primaryStage.show();
         }
-//        if (userType.getSelectedToggle() == newUser && userRole.getValue() != null) {
-//            if (sys.register(userRole.getValue(), this.username.getText(), this.password.getText()).equalsIgnoreCase("invalid")){
-//                this.invalidLoginText.setVisible(true);
-//            }
-//        }
-//        else if (login_attempt.equalsIgnoreCase("invalid")){
-//            this.invalidLoginText.setVisible(true);
-//        }
-//        else{
-//            helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
-//        }
-
-
-
-
-
-        }
-//        System.out.println("ERROR: Type not found when trying to log in.");
-
-//            if (userRole.getSelectionModel().getSelectedItem().equalsIgnoreCase("organizer")){
-//                String username;
-//                String password;
-//                String role;
-//
-//                role = "organizer";
-//                username = "o1";
-//                password = "o1";
-//                EventGateway eventGateway = new EventGateway();
-//                ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
-//                username = sys.register(role, username, password);
-//                helperSceneSwitcher(event, "HomeScreen.fxml");
-//            }
-//            else if (userRole.getValue().equalsIgnoreCase("attendee")){
-//                String username;
-//                String password;
-//                String role;
-//
-//                role = "attendee";
-//                username = "a1";
-//                password = "a1";
-//                EventGateway eventGateway = new EventGateway();
-//                ProgramMainGUI sys = new ProgramMainGUI(eventGateway.read());
-//                username = sys.register(role, username, password);
-//
-//                helperSceneSwitcher(event, "HomeScreen.fxml");
-//            }
-//
-
-
-
+    }
 }
