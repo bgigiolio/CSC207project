@@ -18,6 +18,10 @@ public class UserManager implements Serializable {
      */
     private final HashMap<String, Attendee> credentialsMap;  //need for organizer message controller
 
+    /**
+     * Construct an UserManager object.
+     * Initialized with an empty credentialsMap.
+     */
     public UserManager(){
         this.credentialsMap = new HashMap<>();
     }
@@ -37,7 +41,6 @@ public class UserManager implements Serializable {
                 credentialsMap.put(username, new Attendee(username, password, role));
                 return true;
             }
-
             else if(role.equalsIgnoreCase("speaker")) {
                 credentialsMap.put(username, new Speaker(username, password, role));
                 return true;
@@ -55,7 +58,6 @@ public class UserManager implements Serializable {
     public String loginUser(String username, String password) {
         Attendee res = credentialsMap.get(username);
 
-        //res is null if username is not found
         if (res == null) {
             return "usernameNotFound";
         } else if (!res.getPassword().equals(password)) {
@@ -105,6 +107,11 @@ public class UserManager implements Serializable {
         return this.credentialsMap.containsKey(username);
     }
 
+    /**
+     * Return the username of this Attendee.
+     * @param user Attendee object of this user
+     * @return username of this user
+     */
     protected String getUsername(Attendee user){
         return user.getUsername();
     }
@@ -145,20 +152,32 @@ public class UserManager implements Serializable {
         return -1;
     }
 
+    /**
+     * Sign up user of username for the event of event id
+     * @param username of this user
+     * @param id of the event to sign up for
+     */
     public void signUpForEvent(String username, UUID id){
         Attendee a = credentialsMap.get(username);
-
         if(a!=null)
             a.registerForEvent(id);
     }
 
+    /**
+     * Cancel event enrolment of event id for the user of username
+     * @param username of this user
+     * @param id of the event to cancel enrolment from
+     */
     public void cancelEnrollment(String username, UUID id){
         Attendee a = credentialsMap.get(username);
-
         if(a!=null)
             a.cancelEnrollment(id);
     }
 
+    /**
+     * Return the credentialMap of this UserManager
+     * @return credentialMap of this UserManager
+     */
     public HashMap<String, Attendee> getCredentialsMap() {
         return this.credentialsMap;
     }

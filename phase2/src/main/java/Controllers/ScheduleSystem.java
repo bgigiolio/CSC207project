@@ -6,13 +6,22 @@ import main.java.UseCases.BuildingManager;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
-
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * <h1>ScheduleSystem</h1>
+ * Controls the whole schedule in the system.
+ *
+ * @author Morgan Chang
+ * @version phase2
+ */
 public class ScheduleSystem {
     EventGateway eventGateway = new EventGateway();
 
+    /**
+     * Construct the text file Schedule.txt from the event database Event.ser.
+     */
     public void constructScheduleTxt() throws IOException {
         BuildingManager buildingManager = eventGateway.read();
         String scheduleString = buildingManager.toString();
@@ -21,6 +30,9 @@ public class ScheduleSystem {
         scheduleWriter.close();
     }
 
+    /**
+     * Handle the action of downloading the schedule Schedule.txt to the user's local computer.
+     */
     public void downloadSchedule(){
         SwingUtilities.invokeLater(() -> {
             JFileChooser chooser = new JFileChooser();
@@ -48,27 +60,4 @@ public class ScheduleSystem {
         });
     }
 
-    /*
-    public static void main(String[] arg) throws ClassNotFoundException {
-        Event createdEvent = new Event("event1", "room1",
-                LocalDateTime.of(2020, 12, 15, 1, 0, 0),
-                1, 100);
-        Schedule2 schedule = new EventGateway().getEvents().getSchedule("room1");
-        schedule.addEvent(createdEvent);
-        BuildingManager buildingManager = new EventGateway().getEvents();
-        buildingManager.updateBuildingManager("room1", schedule);
-        new EventGateway().setEvents(buildingManager);
-
-
-        BuildingManager bm = new EventGateway().getEvents();
-        for (String room : bm.getBuilding().keySet()) {
-            Schedule2 s = bm.getBuilding().get(room);
-            System.out.println(room);
-            for (LocalDateTime time : s.getScheduleMap().keySet()) {
-                Event event = s.getScheduleMap().get(time);
-                System.out.println(time + event.getTitle() + event.getLocation());
-            }
-        }
-    }
-     */
 }
