@@ -10,7 +10,6 @@ import main.java.Gateways.EventGateway;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -48,13 +47,7 @@ public class OpeningController extends AbstractController implements Initializab
         this.sys = new ProgramMainGUI(eventGateway.read());
         userRole.getItems().addAll("Organizer", "Attendee");
     }
-    public ArrayList<String> getUserInfo(){
-        ArrayList<String> list = new ArrayList<>();
-        list.add(uname);
-        list.add(pword);
-        list.add(role);
-        return list;
-    }
+
 
     public void handleNewUser(ActionEvent event) throws IOException {
         this.userRole.setVisible(true);
@@ -81,9 +74,12 @@ public class OpeningController extends AbstractController implements Initializab
         else{
             helperSceneSwitcher(event, "HomeScreen.fxml"); //TODO:Change menu based on user role
         }
-        this.uname = this.username.getText();
-        this.pword = this.password.getText();
-        this.role = userRole.getValue();
+
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
+        HomeScreenController homeScreenController = loader.getController();
+        homeScreenController.setUsername(this.username.getText());
+        homeScreenController.setPassword(this.password.getText());
+        homeScreenController.setRole(userRole.getValue());
 
 //        System.out.println("ERROR: Type not found when trying to log in.");
 

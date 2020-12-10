@@ -2,7 +2,6 @@ package main.java.sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -22,6 +21,9 @@ public class HomeScreenController {
     public final BuildingManager buildingManager;
 
     public final UserManager userManager;
+    private String username;
+    private String password;
+    private String role;
 
 //    public HomeScreenController(String username){
 //        this.user = username;
@@ -35,16 +37,26 @@ public class HomeScreenController {
 //        main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
 //
 //    }
+
+    public void setUsername(String username){
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public HomeScreenController(){
         EventGateway eventGateway = new EventGateway();
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("OpeningScene.fxml"));
-        OpeningController openingController = loader.getController();
 
-        String username = openingController.getUserInfo().get(0);
-        String role = openingController.getUserInfo().get(2);
+
         main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
     }
 
