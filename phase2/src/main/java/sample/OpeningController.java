@@ -22,7 +22,7 @@ public class OpeningController extends AbstractController implements Initializab
     @FXML
     RadioButton newUser;
     @FXML
-    private ChoiceBox<String> userRole;
+    private ChoiceBox<String> userRole; //TODO ADD ADMIN
     @FXML
     private Label userRoleLabel;
     @FXML
@@ -65,10 +65,13 @@ public class OpeningController extends AbstractController implements Initializab
     public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException, NullPointerException {
         //Creates the user and stores the login information of the user and log them in depending on the role.
         if (userType.getSelectedToggle() == newUser && userRole.getValue() != null) {
-            sys.register(userRole.getValue(), this.username.getText(), this.password.getText());
+            if (sys.register(userRole.getValue(), this.username.getText(), this.password.getText()).equalsIgnoreCase("invalid")){
+                this.invalidLoginText.setVisible(true);
+            }
+
         }
         String login_attempt = sys.login(this.username.getText(),this.password.getText());
-        if (login_attempt.equalsIgnoreCase("unsuccessful") || userRole.getValue() == null){
+        if (login_attempt.equalsIgnoreCase("invalid")){
             this.invalidLoginText.setVisible(true);
         }
         else{
