@@ -67,6 +67,15 @@ public class Schedule2 implements Serializable {
         return null;
     }
 
+    public Event getEvent(UUID id){
+        for(Event e:schedule){
+            if(e.getUUID().equals(id)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     /**
      * Add an event to this schedule of this room
      *

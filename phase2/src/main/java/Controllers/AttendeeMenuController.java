@@ -11,6 +11,7 @@ import main.java.UseCases.UserManager;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -180,7 +181,7 @@ public class AttendeeMenuController {
         if(!userManager.checkUsername(speakerName) || !userManager.getUserRole(speakerName).equals("speaker"))
             return false;
 
-        this.menu.enterEvent();
+        this.menu.enterEventID();
         String eventID = cin.nextLine();
         UUID id;
 
@@ -192,6 +193,25 @@ public class AttendeeMenuController {
         }
 
         return building.changeSpeaker(id, username);
+    }
+
+    public boolean getListOfAttendees(){
+        this.menu.enterEventID();
+        Scanner cin = new Scanner(System.in);
+        String eventID = cin.nextLine();
+        UUID id;
+        ArrayList<String> attendees;
+
+        try{
+            id = UUID.fromString(eventID);
+        }catch (IllegalArgumentException e){
+            this.menu.invalidID();
+            return false;
+        }
+
+        this.menu.printAttendees(this.building.getEventAttendees(id));
+        return true;
+
     }
 
     public boolean modifyCapacity() {
@@ -509,6 +529,11 @@ public class AttendeeMenuController {
                     break;
                 case "15": // modify event capacity
                     if(!modifyCapacity()){
+                        this.menu.invalidResponse();
+                    }
+                    break;
+                case "16": // get List of Attendees for Event
+                    if(!getListOfAttendees()){
                         this.menu.invalidResponse();
                     }
                     break;

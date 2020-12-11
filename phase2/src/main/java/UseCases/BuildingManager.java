@@ -1,5 +1,6 @@
 package main.java.UseCases;
 
+import main.java.Entities.Attendee;
 import main.java.Entities.Event;
 import main.java.Entities.PanelDiscussion;
 import main.java.Entities.Talk;
@@ -243,5 +244,20 @@ public class BuildingManager implements Serializable {
                 return true;
         }
         return false;
+    }
+
+    public String getEventAttendees(UUID id){
+        String printout = "List of Attendees: ";
+        ArrayList<String> attendees = new ArrayList<>();
+        for(String room:building.keySet()){
+            Schedule2 sched = building.get(room);
+            if(sched.getEvent(id) != null){
+                attendees = sched.getEvent(id).getAttendees();
+            }
+        }
+        for (String a: attendees){
+            printout += a + ", ";
+        }
+        return printout;
     }
 }
