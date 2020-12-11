@@ -436,168 +436,175 @@ public class AttendeeMenuController {
      */
     public boolean menuSelection() throws IOException, ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
+        int choice = -1;
+        String response;
+
         while (true) {
-            String response = uname.nextLine();
-            switch (response) {
-                case "1":
-                    this.menu.printBuildingSchedule(this.building);
-                    downloadScheduleTxt();
-                case "2":
-                    StringBuilder toPrint = new StringBuilder();
-                    toPrint.append("Events you are attending: \n");
-                    try {
-                        for (String i : this.building.eventsAttending(this.username)) {
-                            toPrint.append(i).append("\n");
-                        }
-                    } catch (NullPointerException e) {
-                        toPrint.replace(0, toPrint.length(), "You are not attending any events");
+            response = uname.nextLine();
+
+            //quit
+            if(response.equalsIgnoreCase("q")) return true;
+
+            //display homepage
+            else if(response.equalsIgnoreCase("a")){
+                homepage();
+                continue;
+            }
+
+            try{
+                choice = Integer.parseInt(response);
+            }catch (NumberFormatException e){
+                menu.invalidResponse();
+                choice = -1;
+            }
+
+            if(choice == 8) {
+                menu.logoutSuccess();
+                return false;
+            }
+
+            if(!attendeeSwitch(choice)) {
+                if (role.equals("organizer")) organizerSwitch(choice);
+                else if (role.equals("admin")) adminSwitch(choice);
+            }
+        }
+    }
+
+    private boolean attendeeSwitch(int choice) throws IOException, ClassNotFoundException {
+        switch(choice) {
+            case 1:
+                this.menu.printBuildingSchedule(this.building);
+                downloadScheduleTxt();
+
+            case 2:
+                StringBuilder toPrint = new StringBuilder();
+                toPrint.append("Events you are attending: \n");
+                try {
+                    for (String i : this.building.eventsAttending(this.username)) {
+                        toPrint.append(i).append("\n");
                     }
-                    String sPrint = toPrint.toString();
-                    this.menu.printSomething(sPrint);
+                } catch (NullPointerException e) {
+                    toPrint.replace(0, toPrint.length(), "You are not attending any events");
+                }
+                String sPrint = toPrint.toString();
+                this.menu.printSomething(sPrint);
+                this.menu.promptAgain();
+                break;
+
+            case 3:
+                if (signUpEvent()) {
                     this.menu.promptAgain();
-                    break;
-                case "3":
-                    if(signUpEvent()) {
-                        this.menu.promptAgain();
-                    }
-                    else{
-                        this.menu.promptagainonly();
-                    }
-                    break;
-                case "4":
-                    if(cancelEnrolEvent()){
-                        this.menu.promptAgain();
-                    }
-                    else{
-                        this.menu.promptagainonly();
-                    }
-                    break;
-                case "5": //send message
-                    sendMessage(); //TODO: Add case where receiver user doesn't exist
+                } else {
+                    this.menu.promptagainonly();
+                }
+                break;
+
+            case 4:
+                if (cancelEnrolEvent()) {
                     this.menu.promptAgain();
-                    break;
-                case "6": //review messages
-                    MessageController message = new MessageController();
-                    try {
-                        this.menu.printMessages(message.getMessageForMe(this.username));
-                    } catch (NullPointerException e) {
-                        this.menu.printSomething("You have no messages");
-                    }
-                    this.menu.promptAgain();
-                    break;
-                case "7": //Manage Friends List
-                    manageFriendsList();
-                    this.menu.promptAgain();
-                    break;
-                case "8": //logout
-                    menu.logoutSuccess();
-                    return false;
-                case "q": //quit program
-                    return true;
-                case "9": //create user account
-                    if (this.role.equals("organizer")) {
-                        createUser();
-                        this.menu.promptagainonly();
-                    } else {
-                        this.menu.invalidRole();
-                    }
-                    break;
-                case "10": //add room
-                    if (this.role.equals("organizer")) {
-                        if (!addRoom()) {
-                            this.menu.invalidResponse();
-                        }
-                        else this.menu.promptAgain();
-                    } else {
-                        this.menu.invalidRole();
-                    }
-                    break;
-                case "11": //schedule speaker
-                    if (this.role.equals("organizer")) {
-                        if(!scheduleSpeaker()) this.menu.invalidResponse();
-                        else this.menu.promptAgain();
-                    } else {
-                        this.menu.invalidRole();
-                    }
-                    break;
-                case "12": //Remove Event
-                    if (this.role.equals("organizer")) {
-                        if (!removeEvent()) {
-                            this.menu.invalidResponse();
-                            this.menu.promptagainonly();
-                        }
-                        else{
-                            this.menu.promptAgain();
-                        }
-                    } else {
-                        this.menu.invalidRole();
-                        this.menu.promptagainonly();
-                    }
-                    //Not really sure whats happening here
-                    break;
-                case "13": //Message All Attendees
-                    if (this.role.equals("organizer")){
-                        if (organizerMessageAll()) {
-                            this.menu.promptAgain();
-                        }
-                        else {
-                            this.menu.printSomething("Something went wrong, please try again!");
-                        }
-                    }
-                    else {
-                        this.menu.invalidRole();
-                        this.menu.promptagainonly();
-                    }
-                    break;
-                case "14": //add event
-                    if (this.role.equals("organizer")) {
-                        if (!createEvent()) {
-                            this.menu.invalidResponse();
-                        }
-                        else{
-                            this.menu.promptAgain();
-                        }
-                    } else {
-                        this.menu.invalidRole();
-                        this.menu.promptagainonly();
-                    }
-                    break;
-                case "15": // modify event capacity
-                    if (this.role.equals("organizer")) {
-                        if(!modifyCapacity()){
-                            this.menu.invalidResponse();
-                        }
-                        else{
-                            this.menu.promptAgain();
-                        }
-                    } else {
-                        this.menu.invalidRole();
-                        this.menu.promptagainonly();
-                    }
-                    break;
-                case "16": // get List of Attendees for Event
-                    if (this.role.equals("organizer")) {
-                        if(!getListOfAttendees()){
-                            this.menu.invalidResponse();
-                        }
-                        else{
-                            this.menu.promptAgain();
-                        }
-                    }
-                    else {
-                        this.menu.invalidRole();
-                        this.menu.promptagainonly();
-                    }
-                    break;
-                case "a":
-                case "A":
-                    homepage();
-                    break;
-                default:
+                } else {
+                    this.menu.promptagainonly();
+                }
+                break;
+
+            case 5: //send message
+                sendMessage(); //TODO: Add case where receiver user doesn't exist
+                this.menu.promptAgain();
+                break;
+
+            case 6: //review messages
+                MessageController message = new MessageController();
+                try {
+                    this.menu.printMessages(message.getMessageForMe(this.username));
+                } catch (NullPointerException e) {
+                    this.menu.printSomething("You have no messages");
+                }
+                this.menu.promptAgain();
+                break;
+
+            case 7: //Manage Friends List
+                manageFriendsList();
+                this.menu.promptAgain();
+                break;
+
+            default:
+                return false;
+        }
+        return true;
+    }
+
+    private void organizerSwitch(int choice) throws IOException {
+        switch (choice) {
+            case 9: //create user account
+                createUser();
+                this.menu.promptagainonly();
+                break;
+
+            case 10: //add room
+                if (!addRoom()) this.menu.invalidResponse();
+                else this.menu.promptAgain();
+                break;
+
+            case 11: //schedule speaker
+                if(!scheduleSpeaker()) this.menu.invalidResponse();
+                else this.menu.promptAgain();
+                break;
+
+            case 12: //Remove Event
+                if (!removeEvent()) {
                     this.menu.invalidResponse();
                     this.menu.promptagainonly();
-                    break;
-            }
+                }
+                else
+                    this.menu.promptAgain();
+                //Not really sure whats happening here
+                break;
+
+            case 13: //Message All Attendees
+                if (organizerMessageAll())
+                    this.menu.promptAgain();
+                else
+                    this.menu.printSomething("Something went wrong, please try again!");
+                break;
+
+            case 14: //add event
+                if (!createEvent())
+                    this.menu.invalidResponse();
+                else
+                    this.menu.promptAgain();
+                break;
+
+            case 15: // modify event capacity
+                if(!modifyCapacity())
+                    this.menu.invalidResponse();
+                else
+                    this.menu.promptAgain();
+                break;
+
+            case 16: // get List of Attendees for Event
+                if(!getListOfAttendees())
+                    this.menu.invalidResponse();
+                else
+                    this.menu.promptAgain();
+                break;
+
+            default:
+                this.menu.invalidResponse();
+                this.menu.promptagainonly();
+                break;
+        }
+    }
+
+    private void adminSwitch(int choice){
+        switch (choice){
+            case 9:     //delete event with no attendees
+                break;
+            case 10:    //delete messages
+                break;
+            default:
+                this.menu.invalidResponse();
+                this.menu.promptagainonly();
+                break;
         }
     }
 }
