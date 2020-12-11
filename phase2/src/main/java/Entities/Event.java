@@ -154,8 +154,12 @@ public class Event implements Serializable {
      * Adds one attendee to the existing list of attendees that is assigned to usernames.
      * @param username is an attendee's username that would like to attend the event.
      */
-    public void addAttendees(String username) {
-        this.usernames.add(username);
+    public boolean addAttendees(String username) {
+        if(!usernames.contains(username)) {
+            usernames.add(username);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -170,8 +174,8 @@ public class Event implements Serializable {
      * Removes one attendee from the existing list of attendees that is assigned to usernames.
      * @param username is an attendee's username that would like to attend the event.
      */
-    public void removeAttendees(String username) {
-        this.usernames.remove(username);
+    public boolean removeAttendees(String username) {
+        return this.usernames.remove(username);
     }
 
     /**
@@ -183,7 +187,7 @@ public class Event implements Serializable {
     }
 
     public int getCapacity(){
-        return this.eventCapacity;
+        return eventCapacity;
     }
 
     public UUID getUUID() { return uuid; }
@@ -192,7 +196,7 @@ public class Event implements Serializable {
         this.eventCapacity = newCapacity;
     }
 
-    public String getType() { return this.type; }
+    public String getType() { return type; }
 
     @Override
     public boolean equals(Object obj){

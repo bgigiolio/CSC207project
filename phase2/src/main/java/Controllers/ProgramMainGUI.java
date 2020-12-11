@@ -1,8 +1,11 @@
 package main.java.Controllers;
 
+import main.java.Gateways.BuildingGateway;
+import main.java.Gateways.EventGateway;
 import main.java.Gateways.UserLoginGateway;
 import main.java.Presenters.StartingMenu;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
 import java.io.IOException;
@@ -18,16 +21,16 @@ import java.util.Scanner;
 public class ProgramMainGUI {
     public BuildingManager buildingManager;
     public UserManager userManager;
+    public EventManager eventManager;
     UserLoginGateway userLoginGateway;
 
     /**
      * This constructor sets up which building the program is going to run for.
-     * @param buildingManager The building manager for the building in question.
      */
-    public ProgramMainGUI(BuildingManager buildingManager) {
-        this.userLoginGateway = new UserLoginGateway();
-        this.buildingManager = buildingManager;
-        this.userManager = userLoginGateway.read();
+    public ProgramMainGUI() {
+        eventManager = new EventGateway().read();
+        userManager = new UserLoginGateway().read();
+        buildingManager = new BuildingGateway().read();
     }
 
     /**
@@ -62,7 +65,7 @@ public class ProgramMainGUI {
                 }
             } while(username == null);
 
-            currentSession = new AttendeeMenuController(username, role, buildingManager, userManager);
+            currentSession = new AttendeeMenuController(username, role, buildingManager, userManager,eventManager);
 
             currentSession.homepage();
             didQuit = currentSession.menuSelection();

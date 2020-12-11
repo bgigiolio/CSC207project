@@ -43,7 +43,7 @@ public abstract class DatabaseGateway<T> {
         }
     }
 
-    public void setDbPath(String dbPath) {
+    /*protected void setDbPath(String dbPath) {
         this.dbPath = dbPath;
-    }
+    }*/
 }

@@ -13,7 +13,7 @@ import java.io.*;
 public class UserLoginGateway extends DatabaseGateway<UserManager>{
 
     public UserLoginGateway(){
-        super("phase2\\src\\main\\java\\DB\\UserLoginInfo.ser");
+        super("phase2/src/main/java/DB/UserLoginInfo.ser");
     }
 
     /**
@@ -56,9 +56,6 @@ public class UserLoginGateway extends DatabaseGateway<UserManager>{
             System.err.println("Corrupted file contents in user database. Clearing file...");
             clearFileContentsUtil("user");
             loginUserManager = new UserManager();
-        } catch (FileNotFoundException e) {
-            setDbPath("phase2/src/main/java/DB/UserLoginInfo.ser");
-            return read();
         } catch (IOException e) {  //other IO exception
             System.err.println("Unknown error when reading from user database file.");
             e.printStackTrace();

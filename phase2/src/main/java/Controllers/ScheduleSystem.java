@@ -1,7 +1,9 @@
 package main.java.Controllers;
 
+import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -17,13 +19,13 @@ import java.nio.file.StandardCopyOption;
  * @version phase2
  */
 public class ScheduleSystem {
-    EventGateway eventGateway = new EventGateway();
+    BuildingGateway buildingGateway = new BuildingGateway();
 
     /**
      * Construct the text file Schedule.txt from the event database Event.ser.
      */
     public void constructScheduleTxt() throws IOException {
-        BuildingManager buildingManager = eventGateway.read();
+        BuildingManager buildingManager = buildingGateway.read();
         String scheduleString = buildingManager.toString();
         FileWriter scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
         scheduleWriter.write(scheduleString);

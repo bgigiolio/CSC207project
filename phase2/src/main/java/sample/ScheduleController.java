@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
 import main.java.UseCases.Schedule2;
 
 import javax.swing.*;
@@ -61,7 +62,7 @@ public class ScheduleController {
     }
 
     public void constructScheduleTxt() throws IOException {
-        BuildingManager buildingManager = new EventGateway().read();
+        EventManager buildingManager = new EventGateway().read();
         String scheduleString = buildingManager.toString();
         FileWriter scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
         scheduleWriter.write(scheduleString);
@@ -69,8 +70,8 @@ public class ScheduleController {
     }
 
     public void viewScheduleBySpeakerUsername(String username) {
-        BuildingManager buildingManager = new EventGateway().read();
-        scheduleTxt.setText(buildingManager.eventsOfSpeakerUsernameToString(username));
+        EventManager eventManager = new EventGateway().read();
+        scheduleTxt.setText(eventManager.getEventsOfSpeakerUsernameToString(username));
     }
 
 }

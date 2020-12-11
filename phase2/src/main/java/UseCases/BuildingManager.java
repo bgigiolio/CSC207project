@@ -1,11 +1,8 @@
 package main.java.UseCases;
 
 import main.java.Entities.Event;
-import main.java.Entities.PanelDiscussion;
-import main.java.Entities.Talk;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -17,7 +14,7 @@ import java.util.*;
  * @author Blake Gigiolio
  * @version Phase2
  */
-public class BuildingManager implements Serializable {
+public class BuildingManager implements Serializable{
     private final HashMap<String, Schedule2> building;
     private final String buildingName;
 
@@ -29,10 +26,6 @@ public class BuildingManager implements Serializable {
     public BuildingManager(String buildingName){
         this.buildingName = buildingName;
         this.building = new HashMap<>();
-    }
-
-    public HashMap<String, Schedule2> getBuilding() {
-        return this.building;
     }
 
     /**
@@ -74,36 +67,21 @@ public class BuildingManager implements Serializable {
      * @param e the event
      * @return True if the event was added successfully, False otherwise
      */
-    public boolean addEvent(Event e){
+    protected boolean addEvent(Event e, EventManager em){
         String loc = e.getLocation();
         if((!building.containsKey(loc)) || building.get(loc).getRoomCapacity() < e.getCapacity()) {
             return false;
         }
-        return building.get(loc).addEvent(e);
+        return building.get(loc).addEvent(e, em);
     }
 
-    /**
-     * Return events attended by user in this building
-     * @param username user's username
-     * @return list of event titles user is attending
-     */
-    public ArrayList<String> eventsAttending(String username){
-        ArrayList<String> events = new ArrayList<>();
-        Iterator<Schedule2> iterator = new ScheduleIterator();
-        while(iterator.hasNext()){
-            Schedule2 sched = iterator.next();
-            events.addAll(sched.eventsAttending(username));
+    public boolean deleteEvent(UUID id){
+        for(String room:building.keySet()){
+            Schedule2 sched = building.get(room);
+            if(sched.removeEvent(id))
+                return true;
         }
-        return events;
-    }
-
-    /**
-     * Returns the schedule for the room of the given name.
-     * @param name The name of the room for which we want the schedule of.
-     * @return If the room exists within this building, we return its schedule. If not, returns null.
-     */
-    public Schedule2 getSchedule(String name){
-        return building.get(name);
+        return false;
     }
 
     /**
@@ -113,18 +91,16 @@ public class BuildingManager implements Serializable {
      *
      * @return Returns the string format of this building.
      */
-    @Override
-    public String toString(){
+    public String getToString(EventManager em){
         StringBuilder toReturn = new StringBuilder();
         toReturn.append("List of Rooms in ").append(this.buildingName).append(": \n");
 
         for (String room : building.keySet()) {
             toReturn.append("\n");
             toReturn.append("[").append(room).append("] \n");
-            String schedule = building.get(room).toString();
+            String schedule = building.get(room).getToString(em);
             toReturn.append(schedule);
         }
-
         return toReturn.toString();
     }
 
@@ -157,6 +133,17 @@ public class BuildingManager implements Serializable {
 
     public void updateScheduleOfRoom(String room, Schedule2 schedule) {
         this.building.put(room, schedule);
+    }
+
+    /*
+    public ArrayList<String> eventsAttending(String username){
+        ArrayList<String> events = new ArrayList<>();
+        Iterator<Schedule2> iterator = new ScheduleIterator();
+        while(iterator.hasNext()){
+            Schedule2 sched = iterator.next();
+            events.addAll(sched.eventsAttending(username));
+        }
+        return events;
     }
 
     public UUID getUUID(String title, LocalDateTime dt, String type, String room){
@@ -209,15 +196,6 @@ public class BuildingManager implements Serializable {
         return false;
     }
 
-    public boolean deleteEvent(UUID id){
-        for(String room:building.keySet()){
-            Schedule2 sched = building.get(room);
-            if(sched.removeEvent(id))
-                return true;
-        }
-        return false;
-    }
-
     public boolean changeSpeaker(UUID id, String username){
         for(String room:building.keySet()){
             Schedule2 sched = building.get(room);
@@ -257,4 +235,5 @@ public class BuildingManager implements Serializable {
         }
         return eventsString.toString();
     }
+     */
 }

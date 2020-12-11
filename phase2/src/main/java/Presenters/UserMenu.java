@@ -1,6 +1,7 @@
 package main.java.Presenters;
 
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
 
 import java.util.ArrayList;
 
@@ -78,8 +79,8 @@ public class UserMenu {
      *
      * @param building Which building we want to see the schedule of.
      */
-    public void printBuildingSchedule(BuildingManager building) {
-        System.out.println(building.toString());
+    public void printBuildingSchedule(BuildingManager building, EventManager em) {
+        System.out.println(building.getToString(em));
     }
 
     /**
@@ -168,8 +169,8 @@ public class UserMenu {
     }
 
     public void createUserType() {
-        System.out.println("Is the new user an Attendee, Admin or Organizer?");
-        System.out.println("Enter 'U' for Attendee, 'A' for Admin, or 'O' for Organizer:");
+        System.out.println("Is the new user an Attendee, Admin, Organizer or Speaker?");
+        System.out.println("Enter 'U' for Attendee, 'A' for Admin, 'O' for Organizer or 'S' for Speaker:");
     }
 
     public void createSpeakerName(){
@@ -216,11 +217,11 @@ public class UserMenu {
     }
 
     public void createEventRoom(){
-        System.out.println("Which room is this event taking place?");
+        System.out.println("Which room is this event taking place in?");
     }
 
     public void createEventYear(){
-        System.out.println("What year is this event taking place");
+        System.out.println("What year is this event taking place in?");
     }
 
     public void createEventMonth(){
@@ -241,7 +242,7 @@ public class UserMenu {
 
 
     public void createEventDay(){
-        System.out.println("Which day is this event taking place");
+        System.out.println("What day is this event taking place in?");
         System.out.println("please answer as a number between 1 and 31");
     }
 

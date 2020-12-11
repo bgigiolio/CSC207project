@@ -23,17 +23,26 @@ public class PanelDiscussion extends Event {
         super(title, location, datetime, duration, capacity, "panelDiscussion");
     }
 
-    public ArrayList<String> getSpeakers() {return this.speakers;}
+    public ArrayList<String> getSpeakers() {return new ArrayList<>(speakers);}
 
-    public void addSpeakers(ArrayList<String> speakers) {this.speakers.addAll(speakers);}
+    public boolean addSpeakers(ArrayList<String> speakers) {
+        ArrayList<String> toAdd = new ArrayList<>();
 
-    public void removeSpeakers(ArrayList<String> speakers) {this.speakers.removeAll(speakers);}
+        for(String s: speakers){
+            if(!this.speakers.contains(s))
+                toAdd.add(s);
+        }
 
-    public boolean containSpeaker(String username) {
-        for (String speaker : this.speakers) {
-            if (speaker.equals(username)) {
-                return true;
-            }
-        } return false;
+        return speakers.addAll(toAdd);
     }
+
+    public boolean addSpeaker(String username){
+        if(!speakers.contains(username)){
+            speakers.add(username);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeSpeakers(ArrayList<String> speakers) {return this.speakers.removeAll(speakers);}
 }

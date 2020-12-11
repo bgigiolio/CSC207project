@@ -3,10 +3,12 @@ package main.java.Controllers;
 import java.io.IOException;
 import java.util.Scanner;
 
+import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.Gateways.UserLoginGateway;
 import main.java.Presenters.*;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
 /**
@@ -18,16 +20,16 @@ import main.java.UseCases.UserManager;
  */
 public class ProgramMain implements AutoCloseable{
     private final BuildingManager buildingManager;
+    private final EventManager eventManager;
     private final UserManager userManager;
 
     /**
      * This constructor sets up which building the program is going to run for.
-     * @param buildingManager The building manager for the building in question.
      */
-    public ProgramMain(BuildingManager buildingManager) {
-        UserLoginGateway userLoginGateway = new UserLoginGateway();
-        this.buildingManager = buildingManager;
-        this.userManager = userLoginGateway.read();
+    public ProgramMain() {
+        eventManager = new EventGateway().read();
+        userManager = new UserLoginGateway().read();
+        buildingManager = new BuildingGateway().read();
     }
 
     /**
@@ -44,6 +46,7 @@ public class ProgramMain implements AutoCloseable{
         StartingMenu menuPresenter = new StartingMenu();
         UserLoginGateway userLoginGateway = new UserLoginGateway();
         EventGateway eventGateway = new EventGateway();
+        BuildingGateway buildingGateway = new BuildingGateway();
         String username;
         String role;
         String userType;
@@ -64,12 +67,13 @@ public class ProgramMain implements AutoCloseable{
                 }
             } while(username == null);
 
-            currentSession = new AttendeeMenuController(username, role, buildingManager, userManager);
+            currentSession = new AttendeeMenuController(username, role, buildingManager, userManager, eventManager);
 
             currentSession.homepage();
             didQuit = currentSession.menuSelection();
             userLoginGateway.save(userManager);
-            eventGateway.save(buildingManager);
+            eventGateway.save(eventManager);
+            buildingGateway.save(buildingManager);
         } while(!didQuit);
     }
 
@@ -234,6 +238,7 @@ public class ProgramMain implements AutoCloseable{
     @Override
     public void close(){
         new UserLoginGateway().save(userManager);
-        new EventGateway().save(buildingManager);
+        new EventGateway().save(eventManager);
+        new BuildingGateway().save(buildingManager);
     }
 }

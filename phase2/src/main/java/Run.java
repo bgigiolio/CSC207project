@@ -8,9 +8,7 @@ import java.io.IOException;
 public class Run {
     public static void main(String[] args) throws ClassNotFoundException, IOException {
 
-        EventGateway eventGateway = new EventGateway();
-
-        try(ProgramMain sys = new ProgramMain(eventGateway.read())){
+        try(ProgramMain sys = new ProgramMain()){
             sys.start();
         }
     }

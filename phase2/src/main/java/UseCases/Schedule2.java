@@ -1,8 +1,6 @@
 package main.java.UseCases;
 
 import main.java.Entities.Event;
-import main.java.Entities.PanelDiscussion;
-import main.java.Entities.Talk;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,9 +19,9 @@ import java.util.UUID;
  */
 public class Schedule2 implements Serializable {
     /**
-     * The list holding the events happening in this room
+     * The list holding the IDs of the events happening in this room
      */
-    private final ArrayList<Event> schedule;
+    private final ArrayList<UUID> schedule;
 
     /**
      * time when first event starts
@@ -54,79 +52,44 @@ public class Schedule2 implements Serializable {
         this.roomCapacity = roomCap;
     }
 
-    public Event getEvent(UUID id){
-        for(Event e:schedule){
-            if(e.getUUID().equals(id)) {
-                return e;
-            }
-        }
-        return null;
-    }
-
     /**
      * Add an event to this schedule of this room
      *
      * @param e This is the event to be added
      * @return true if the event was successfully added, false if the event couldn't be added
      */
-    public boolean addEvent(Event e) {
+    public boolean addEvent(Event e, EventManager em) {
         LocalDateTime endTime = e.getDatetime().plusMinutes(e.getDuration());
 
         if (endTime.toLocalTime().isAfter(this.endTime) || e.getDatetime().toLocalTime().isBefore(this.startTime)
                 || e.getCapacity() > this.roomCapacity)
             return false;
 
-        if (this.schedule.size() == 0) {
-            this.schedule.add(e);
+        if (schedule.size() == 0) {
+            schedule.add(e.getUUID());
             return true;
         }
 
-        int index = getIndex(0, this.schedule.size() - 1, e.getDatetime());
+        int index = getIndex(0, schedule.size() - 1, e.getDatetime(), em);
 
-        if (index == this.schedule.size()) {
-            this.schedule.add(e);
+        if (index == schedule.size()) {
+            schedule.add(e.getUUID());
             return true;
         } else if (index == -1)
             return false;
 
-        Event ev2 = this.schedule.get(index); //the event starting right after the event we wanna add
+        UUID id2 = schedule.get(index);
+        Event ev2 = em.getEvent(id2);   //the event starting right after the event we wanna add
 
         if (endTime.isAfter(ev2.getDatetime()))
             return false;
 
-        this.schedule.add(index, e);
+        schedule.add(index, e.getUUID());
         return true;
     }
 
     public boolean removeEvent(UUID id){
-        Event toRemove = null;
-        for(Event e:schedule){
-            if(e.getUUID().equals(id)) {
-                toRemove = e;
-                break;
-            }
-        }
-        if(toRemove==null)
-            return false;
-        schedule.remove(toRemove);
-        return true;
-    }
-
-    /**
-     * Get all events the user with <code>username</code> is attending
-     *
-     * @param username user's username
-     * @return list with the IDs of the events the user is attending
-     */
-    public ArrayList<String> eventsAttending(String username) {
-        ArrayList<String> events = new ArrayList<>();
-
-        for (Event e : this.schedule) {
-            if (e.getAttendees().contains(username))
-                events.add(e.getTitle());
-        }
-
-        return events;
+        return schedule.remove(id);
     }
 
     /**
@@ -158,30 +121,68 @@ public class Schedule2 implements Serializable {
         this.roomCapacity = roomCapacity;
     }
 
+    public ArrayList<UUID> getSchedule(){return new ArrayList<>(schedule);}
+
+    public String getToString(EventManager em){
+        StringBuilder toReturn = new StringBuilder();
+
+        for(UUID id : schedule){
+            Event e = em.getEvent(id);
+            toReturn.append("\nID: ").append(id.toString()).append(" \n");
+            toReturn.append(e.getTitle()).append(" at ").append(e.getLocation());
+            toReturn.append(" on ").append(e.getDatetime().toString()).append("\n");
+        }
+        return toReturn.toString();
+    }
+
+    /**
+     * Binary search to get the index of the event that starts right after the event we want to add
+     *
+     * @param l left index
+     * @param r right index
+     * @param k date and time of event we want to add
+     * @return index of event starting after our event or -1 if event with same starting time already exists
+     */
+    private int getIndex(int l, int r, LocalDateTime k, EventManager em) {
+        int mid;
+
+        while (l <= r) {
+            mid = (l + r) >>> 1;
+            LocalDateTime dt = em.getEvent(schedule.get(mid)).getDatetime();
+            if (dt.isEqual(k))
+                return -1;
+            else if (dt.isBefore(k))
+                l = mid + 1;
+            else
+                r = mid - 1;
+        }
+        return l;
+    }
+
+    /*
+    /**
+     * Get all events the user with <code>username</code> is attending
+     *
+     * @param username user's username
+     * @return list with the IDs of the events the user is attending
+
+    public ArrayList<String> eventsAttending(String username) {
+        ArrayList<String> events = new ArrayList<>();
+
+        for (Event e : this.schedule) {
+            if (e.getAttendees().contains(username))
+                events.add(e.getTitle());
+        }
+
+        return events;
+    }
+
     public UUID getEventUUID(Event x){
         for(Event e:schedule){
             if(e.equals(x))
                 return e.getUUID();
         }
         return null;
-    }
-
-    /**
-     * Returns the schedule in string format. Each event takes up a line in the format of:
-     * [Title] at [Location] at [DateTime]
-     *
-     * @return returns the string format of the schedule
-     */
-    @Override
-    public String toString() {
-        StringBuilder toReturn = new StringBuilder();
-
-        for (Event e : schedule) {
-            toReturn.append("\nID: ").append(e.getUUID().toString()).append(" \n");
-            toReturn.append(e.getTitle()).append(" at ").append(e.getLocation()).append(", ").append(e.getDatetime().toString()).append("\n");
-        }
-
-        return toReturn.toString();
     }
 
     public boolean addAttendee(UUID id, String username){
@@ -227,28 +228,7 @@ public class Schedule2 implements Serializable {
         return false;
     }
 
-    /**
-     * Binary search to get the index of the event that starts right after the event we want to add
-     *
-     * @param l left index
-     * @param r right index
-     * @param k date and time of event we want to add
-     * @return index of event starting after our event or -1 if event with same starting time already exists
-     */
-    private int getIndex(int l, int r, LocalDateTime k) {
-        int mid;
 
-        while (l <= r) {
-            mid = (l + r) >>> 1;
-            if (this.schedule.get(mid).getDatetime().isEqual(k))
-                return -1;
-            else if (this.schedule.get(mid).getDatetime().isBefore(k))
-                l = mid + 1;
-            else
-                r = mid - 1;
-        }
-        return l;
-    }
 
     public ArrayList<Event> getEventOfSpeakerUsername(String username) {
         ArrayList<Event> events = new ArrayList<>();
@@ -266,6 +246,7 @@ public class Schedule2 implements Serializable {
             }
         } return events;
     }
+    */
 
 }
 

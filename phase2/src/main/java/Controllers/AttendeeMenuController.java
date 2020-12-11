@@ -3,9 +3,11 @@ package main.java.Controllers;
 import main.java.Entities.Event;
 import main.java.Entities.PanelDiscussion;
 import main.java.Entities.Talk;
+import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.Presenters.UserMenu;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
 import java.io.IOException;
@@ -28,6 +30,7 @@ public class AttendeeMenuController {
     private final UserMenu menu;
     private final BuildingManager building;
     private final UserManager userManager;
+    private final EventManager eventManager;
 
     /**
      * This constructor takes in the parameters needed to operate the menu.
@@ -36,12 +39,13 @@ public class AttendeeMenuController {
      * @param building    This is the Building Manager for the building that the user is interested in.
      * @param userManager This is the user manager for the user that this menu is for.
      */
-    public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager) {
+    public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager, EventManager eventManager) {
         this.username = username;
         this.role = role;
         this.menu = new UserMenu();
         this.building = building;
         this.userManager = userManager;
+        this.eventManager = eventManager;
     }
 
     /**
@@ -72,7 +76,7 @@ public class AttendeeMenuController {
             return false;
         }
 
-        return userManager.signUpForEvent(username, id) & building.addAttendee(username, id);
+        return userManager.signUpForEvent(username, id) & eventManager.addAttendee(id, username);
     }
 
     public boolean cancelEnrolEvent() {
@@ -87,7 +91,7 @@ public class AttendeeMenuController {
             return false;
         }
 
-        return userManager.cancelEnrollment(username, id) & building.removeAttendee(username, id);
+        return userManager.cancelEnrollment(username, id) & eventManager.removeAttendee(id, username);
     }
 
     public void sendMessage() {
@@ -172,24 +176,29 @@ public class AttendeeMenuController {
             return false;
         }
 
-        return building.changeSpeaker(id, username);
+        return eventManager.setSpeaker(id, username);
     }
 
     public boolean getListOfAttendees(){
-        this.menu.enterEventID();
-        Scanner cin = new Scanner(System.in);
-        String eventID = cin.nextLine();
+        menu.enterEventID();
+        String eventID = new Scanner(System.in).nextLine();
         UUID id;
         ArrayList<String> attendees;
 
         try{
             id = UUID.fromString(eventID);
         }catch (IllegalArgumentException e){
-            this.menu.invalidID();
+            menu.invalidID();
             return false;
         }
+        attendees = eventManager.getAttendees(id);
 
-        this.menu.printAttendees(this.building.getEventAttendees(id));
+        StringBuilder printout = new StringBuilder("List of Attendees: ");
+
+        for(String s:attendees)
+            printout.append(s).append(", ");
+
+        menu.printAttendees(printout.toString());
         return true;
 
     }
@@ -219,7 +228,7 @@ public class AttendeeMenuController {
         }
         if(newCapacity < 0)
             return false;
-        return building.modifyCapacity(newCapacity, id);
+        return eventManager.changeCapacity(id, newCapacity);
     }
 
     public boolean removeEvent() {
@@ -232,8 +241,10 @@ public class AttendeeMenuController {
         }catch (IllegalArgumentException e){
             return false;
         }
-
-        return building.deleteEvent(id);
+        boolean returnVal = eventManager.deleteEvent(id) & building.deleteEvent(id);
+        new EventGateway().save(eventManager);
+        new BuildingGateway().save(building);
+        return returnVal;
     }
 
     public boolean messageAttendees() {
@@ -280,15 +291,21 @@ public class AttendeeMenuController {
             else
                 menu.invalidResponse();
         }
-        if (userType.equalsIgnoreCase("u")) {
+        else if (userType.equalsIgnoreCase("u")) {
             if (userManager.registerUser(userName, "password", "attendee"))
                 menu.attendeeMade(userName);
             else
                 menu.invalidResponse();
         }
-        if (userType.equalsIgnoreCase("a")) {
+        else if (userType.equalsIgnoreCase("a")) {
             if (userManager.registerUser(userName, "password", "admin"))
                 menu.adminMade(userName);
+            else
+                this.menu.invalidResponse();
+        }
+        else if (userType.equalsIgnoreCase("s")) {
+            if (userManager.registerUser(userName, "password", "speaker"))
+                menu.speakerMade(userName);
             else
                 this.menu.invalidResponse();
         }
@@ -353,17 +370,18 @@ public class AttendeeMenuController {
         System.out.println(d);
 
         if(choice==1){
-            if(!building.addEvent(new Event(eventName, roomName, d, duration, eventCapacity)))
+            if(!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "event", building))
                 return false;
         }else if(choice == 2){
-            if(!building.addEvent(new Talk(eventName, roomName, d, duration, eventCapacity)))
+            if(!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "talk", building))
                 return false;
         }else if(choice == 3){
-            if(!building.addEvent(new PanelDiscussion(eventName, roomName, d, duration, eventCapacity)))
+            if(!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "panelDiscussion", building))
                 return false;
         }
 
-        new EventGateway().save(building);
+        new EventGateway().save(eventManager);
+        new BuildingGateway().save(building);
         return true;
     }
 
@@ -379,13 +397,12 @@ public class AttendeeMenuController {
         }
     }
 
-    public void downloadScheduleTxt() throws IOException, ClassNotFoundException {
+    public void downloadScheduleTxt() throws IOException {
         menu.scheduleDownload();
         String option = new Scanner(System.in).nextLine();
         if (option.equals("1")) {
             new ScheduleSystem().constructScheduleTxt();
             new ScheduleSystem().downloadSchedule();
-            menuSelection();
         } else if (!option.equals("2")){
             menu.invalidResponse();
             downloadScheduleTxt();
@@ -461,14 +478,14 @@ public class AttendeeMenuController {
     private boolean attendeeSwitch(int choice) throws IOException, ClassNotFoundException {
         switch(choice) {
             case 1:
-                menu.printBuildingSchedule(building);
+                menu.printBuildingSchedule(building, eventManager);
                 downloadScheduleTxt();
 
             case 2:
                 StringBuilder toPrint = new StringBuilder();
                 toPrint.append("Events you are attending: \n");
                 try {
-                    for (String i : building.eventsAttending(username)) {
+                    for (String i : eventManager.eventsAttending(username)) {
                         toPrint.append(i).append("\n");
                     }
                 } catch (NullPointerException e) {
@@ -525,8 +542,8 @@ public class AttendeeMenuController {
                 break;
 
             case 10: //add room
-                if (!addRoom()) this.menu.invalidResponse();
-                else this.menu.promptAgain();
+                if (!addRoom()) menu.invalidResponse();
+                else menu.operationComplete();
                 break;
 
             case 11: //schedule speaker
@@ -539,7 +556,6 @@ public class AttendeeMenuController {
                     this.menu.invalidResponse();
                 else
                     menu.operationComplete();
-                //Not really sure whats happening here
                 break;
 
             case 13: //Message All Attendees
@@ -576,6 +592,7 @@ public class AttendeeMenuController {
         }
     }
 
+    //TODO: fill in the functionality
     private void adminSwitch(int choice){
         switch (choice){
             case 9:     //delete messages
@@ -590,6 +607,7 @@ public class AttendeeMenuController {
         }
     }
 
+    //TODO: same here
     private void speakerSwitch(int choice){
         switch (choice){
             case 9:     //view list of my events
