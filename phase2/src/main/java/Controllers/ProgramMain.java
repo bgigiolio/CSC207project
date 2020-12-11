@@ -113,12 +113,12 @@ public class ProgramMain implements AutoCloseable{
             if(response2.equalsIgnoreCase("O") || response2.equalsIgnoreCase("[O]")){
                 answered2 = true;
                 role = "organizer";
-            }else if(response2.equalsIgnoreCase("A") || response2.equalsIgnoreCase("[A]")){
+            }else if(response2.equalsIgnoreCase("U") || response2.equalsIgnoreCase("[U]")){
                 answered2 = true;
                 role = "attendee";
-            }else if(response2.equalsIgnoreCase("S") || response2.equalsIgnoreCase("[S]")){
+            }else if(response2.equalsIgnoreCase("A") || response2.equalsIgnoreCase("[A]")){
                 answered2 = true;
-                role = "speaker";
+                role = "admin";
             } else
                 menuPresenter.failedPrompt();
         }

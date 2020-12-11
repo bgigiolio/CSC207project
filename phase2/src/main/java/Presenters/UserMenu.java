@@ -168,8 +168,8 @@ public class UserMenu {
     }
 
     public void createUserType() {
-        System.out.println("Is the new user an Attendee, Speaker or Organizer?");
-        System.out.println("Enter 'A' for Attendee, 'S' for Speaker, or 'O' for Organizer:");
+        System.out.println("Is the new user an Attendee, Admin or Organizer?");
+        System.out.println("Enter 'U' for Attendee, 'A' for Admin, or 'O' for Organizer:");
     }
 
     public void createSpeakerName(){
@@ -192,6 +192,11 @@ public class UserMenu {
 
     public void attendeeMade(String uname){
         System.out.println("Attendee account for " + uname + " successfully created!");
+        System.out.println("Default password is 'password'");
+    }
+
+    public void adminMade(String uname){
+        System.out.println("Admin account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
 
@@ -232,9 +237,8 @@ public class UserMenu {
         System.out.println("Type A to see menu again, or select another option.");
     }
 
-    public void promptCompleted(){
-        System.out.println("Operation Completed!");
-    }
+    public void operationComplete(){System.out.println("Operation Completed!");}
+
 
     public void createEventDay(){
         System.out.println("Which day is this event taking place");

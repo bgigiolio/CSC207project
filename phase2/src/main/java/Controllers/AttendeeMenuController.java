@@ -269,31 +269,28 @@ public class AttendeeMenuController {
     }
 
     public void createUser(){
-        this.menu.createUserType();
+        menu.createUserType();
         String userType = new Scanner(System.in).nextLine();
-        this.menu.createUserName();
+        menu.createUserName();
         String userName = new Scanner(System.in).nextLine();
 
-        if (userType.equals("O") || userType.equals("o")) {
-            if (userManager.registerUser(userName, "password", "organizer")) {
-                this.menu.organizerMade(userName);
-            } else {
-                this.menu.invalidResponse();
-            }
+        if (userType.equalsIgnoreCase("o")) {
+            if (userManager.registerUser(userName, "password", "organizer"))
+                menu.organizerMade(userName);
+            else
+                menu.invalidResponse();
         }
-        if (userType.equals("A") || userType.equals("a")) {
-            if (userManager.registerUser(userName, "password", "attendee")) {
-                this.menu.attendeeMade(userName);
-            } else {
-                this.menu.invalidResponse();
-            }
+        if (userType.equalsIgnoreCase("u")) {
+            if (userManager.registerUser(userName, "password", "attendee"))
+                menu.attendeeMade(userName);
+            else
+                menu.invalidResponse();
         }
-        if (userType.equals("S") || userType.equals("s")) {
-            if (userManager.registerUser(userName, "password", "speaker")) {
-                this.menu.speakerMade(userName);
-            } else {
+        if (userType.equalsIgnoreCase("a")) {
+            if (userManager.registerUser(userName, "password", "admin"))
+                menu.adminMade(userName);
+            else
                 this.menu.invalidResponse();
-            }
         }
     }
 
@@ -436,7 +433,6 @@ public class AttendeeMenuController {
             try{
                 choice = Integer.parseInt(response);
             }catch (NumberFormatException e){
-                menu.invalidResponse();
                 choice = -1;
             }
 
@@ -458,64 +454,61 @@ public class AttendeeMenuController {
                         break;
                 }
             }
+            menu.promptagainonly();
         }
     }
 
     private boolean attendeeSwitch(int choice) throws IOException, ClassNotFoundException {
         switch(choice) {
             case 1:
-                this.menu.printBuildingSchedule(this.building);
+                menu.printBuildingSchedule(building);
                 downloadScheduleTxt();
 
             case 2:
                 StringBuilder toPrint = new StringBuilder();
                 toPrint.append("Events you are attending: \n");
                 try {
-                    for (String i : this.building.eventsAttending(this.username)) {
+                    for (String i : building.eventsAttending(username)) {
                         toPrint.append(i).append("\n");
                     }
                 } catch (NullPointerException e) {
                     toPrint.replace(0, toPrint.length(), "You are not attending any events");
                 }
                 String sPrint = toPrint.toString();
-                this.menu.printSomething(sPrint);
-                this.menu.promptAgain();
+                menu.printSomething(sPrint);
+                menu.operationComplete();
                 break;
 
             case 3:
-                if (signUpEvent()) {
-                    this.menu.promptAgain();
-                } else {
-                    this.menu.promptagainonly();
-                }
+                if (signUpEvent())
+                    menu.operationComplete();
+                else
+                    menu.invalidResponse();
                 break;
 
             case 4:
-                if (cancelEnrolEvent()) {
-                    this.menu.promptAgain();
-                } else {
-                    this.menu.promptagainonly();
-                }
+                if (cancelEnrolEvent())
+                    menu.operationComplete();
+                else
+                    menu.invalidResponse();
                 break;
 
             case 5: //send message
                 sendMessage(); //TODO: Add case where receiver user doesn't exist
-                this.menu.promptAgain();
                 break;
 
             case 6: //review messages
                 MessageController message = new MessageController();
                 try {
-                    this.menu.printMessages(message.getMessageForMe(this.username));
+                    menu.printMessages(message.getMessageForMe(username));
                 } catch (NullPointerException e) {
-                    this.menu.printSomething("You have no messages");
+                    menu.printSomething("You have no messages");
                 }
-                this.menu.promptAgain();
                 break;
 
             case 7: //Manage Friends List
                 manageFriendsList();
-                this.menu.promptAgain();
+                menu.operationComplete();
                 break;
 
             default:
@@ -528,7 +521,7 @@ public class AttendeeMenuController {
         switch (choice) {
             case 9: //create user account
                 createUser();
-                this.menu.promptagainonly();
+                menu.operationComplete();
                 break;
 
             case 10: //add room
@@ -538,50 +531,47 @@ public class AttendeeMenuController {
 
             case 11: //schedule speaker
                 if(!scheduleSpeaker()) this.menu.invalidResponse();
-                else this.menu.promptAgain();
+                else menu.operationComplete();
                 break;
 
             case 12: //Remove Event
-                if (!removeEvent()) {
+                if (!removeEvent())
                     this.menu.invalidResponse();
-                    this.menu.promptagainonly();
-                }
                 else
-                    this.menu.promptAgain();
+                    menu.operationComplete();
                 //Not really sure whats happening here
                 break;
 
             case 13: //Message All Attendees
                 if (organizerMessageAll())
-                    this.menu.promptAgain();
+                    menu.operationComplete();
                 else
-                    this.menu.printSomething("Something went wrong, please try again!");
+                    menu.printSomething("Something went wrong, please try again!");
                 break;
 
             case 14: //add event
-                if (!createEvent())
-                    this.menu.invalidResponse();
+                if (createEvent())
+                    menu.operationComplete();
                 else
-                    this.menu.promptAgain();
+                    menu.invalidResponse();
                 break;
 
             case 15: // modify event capacity
-                if(!modifyCapacity())
-                    this.menu.invalidResponse();
+                if(modifyCapacity())
+                    menu.operationComplete();
                 else
-                    this.menu.promptAgain();
+                    menu.invalidResponse();
                 break;
 
             case 16: // get List of Attendees for Event
-                if(!getListOfAttendees())
-                    this.menu.invalidResponse();
+                if(getListOfAttendees())
+                    menu.operationComplete();
                 else
-                    this.menu.promptAgain();
+                    menu.invalidResponse();
                 break;
 
             default:
                 this.menu.invalidResponse();
-                this.menu.promptagainonly();
                 break;
         }
     }
@@ -589,12 +579,13 @@ public class AttendeeMenuController {
     private void adminSwitch(int choice){
         switch (choice){
             case 9:     //delete messages
+                menu.operationComplete();
                 break;
             case 10:    //delete event with no attendees
+                menu.operationComplete();
                 break;
             default:
                 this.menu.invalidResponse();
-                this.menu.promptagainonly();
                 break;
         }
     }
@@ -602,12 +593,13 @@ public class AttendeeMenuController {
     private void speakerSwitch(int choice){
         switch (choice){
             case 9:     //view list of my events
+                menu.operationComplete();
                 break;
             case 10:    //send message
+                menu.operationComplete();
                 break;
             default:
                 this.menu.invalidResponse();
-                this.menu.promptagainonly();
                 break;
         }
     }
