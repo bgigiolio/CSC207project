@@ -121,13 +121,13 @@ public class UserManager implements Serializable {
      * @param user1 username of user1
      * @param user2 username of user2
      */
-    public void addFriend(String user1, String user2){
+    public boolean addFriend(String user1, String user2){
         Attendee at1 = credentialsMap.get(user1);
 
         if(at1 == null || credentialsMap.get(user2) == null)
-            return;
+            return false;
 
-        at1.addFriend(user2);
+        return at1.addFriend(user2);
     }
 
     /**
@@ -135,13 +135,13 @@ public class UserManager implements Serializable {
      * @param user1 username of user1
      * @param user2 username of user2
      */
-    public void removeFriend(String user1, String user2){
+    public boolean removeFriend(String user1, String user2){
         Attendee at1 = credentialsMap.get(user1);
 
         if(at1 == null || credentialsMap.get(user2) == null)
-            return;
+            return false;
 
-        at1.removeFriend(user2);
+        return at1.removeFriend(user2);
     }
 
     public int getNumOfFriends(String username){
