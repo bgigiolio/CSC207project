@@ -459,15 +459,19 @@ public class AttendeeMenuController {
                     }
                     String sPrint = toPrint.toString();
                     this.menu.printSomething(sPrint);
+                    this.menu.promptAgain();
                     break;
                 case "3":
                     signUpEvent();
+                    this.menu.promptAgain();
                     break;
                 case "4":
                     cancelEnrolEvent();
+                    this.menu.promptAgain();
                     break;
                 case "5": //send message
                     sendMessage();
+                    this.menu.promptAgain();
                     break;
                 case "6": //review messages
                     MessageController message = new MessageController();
@@ -476,9 +480,11 @@ public class AttendeeMenuController {
                     } catch (NullPointerException e) {
                         this.menu.printSomething("You have no messages");
                     }
+                    this.menu.promptAgain();
                     break;
                 case "7": //Manage Friends List
                     manageFriendsList();
+                    this.menu.promptAgain();
                     break;
                 case "8": //logout
                     menu.logoutSuccess();
@@ -491,6 +497,7 @@ public class AttendeeMenuController {
                     } else {
                         this.menu.invalidRole();
                     }
+                    this.menu.promptagainonly();
                     break;
                 case "10": //add room
                     if (this.role.equals("organizer")) {
@@ -500,6 +507,7 @@ public class AttendeeMenuController {
                     } else {
                         this.menu.invalidRole();
                     }
+                    this.menu.promptAgain();
                     break;
                 case "11": //schedule speaker
                     if (this.role.equals("organizer")) {
@@ -507,6 +515,7 @@ public class AttendeeMenuController {
                     } else {
                         this.menu.invalidRole();
                     }
+                    this.menu.promptAgain();
                     break;
                 case "12": //Remove Event
                     if (this.role.equals("organizer")) {
@@ -517,9 +526,11 @@ public class AttendeeMenuController {
                         this.menu.invalidRole();
                     }
                     //Not really sure whats happening here
+                    this.menu.promptAgain();
                     break;
                 case "13": //Message All Attendees
                     organizerMessageAll();
+                    this.menu.promptAgain();
                     break;
                 case "14": //add event
                     if (this.role.equals("organizer")) {
@@ -529,26 +540,30 @@ public class AttendeeMenuController {
                     } else {
                         this.menu.invalidRole();
                     }
+                    this.menu.promptAgain();
                     break;
                 case "15": // modify event capacity
                     if(!modifyCapacity()){
                         this.menu.invalidResponse();
                     }
+                    this.menu.promptAgain();
                     break;
                 case "16": // get List of Attendees for Event
                     if(!getListOfAttendees()){
                         this.menu.invalidResponse();
                     }
+                    this.menu.promptAgain();
                     break;
                 case "a":
                 case "A":
                     homepage();
+                    this.menu.promptCompleted();
                     break;
                 default:
                     this.menu.invalidResponse();
+                    this.menu.promptAgain();
                     break;
             }
-            this.menu.promptAgain();
         }
     }
 }

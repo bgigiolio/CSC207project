@@ -217,9 +217,17 @@ public class UserMenu {
         System.out.println("please answer as a number between 1 and 12");
     }
 
+    public void promptagainonly(){
+        System.out.println("Type A to see menu again");
+    }
+
     public void promptAgain(){
         System.out.println("Operation Completed!");
         System.out.println("Type A to see menu again, or select another option.");
+    }
+
+    public void promptCompleted(){
+        System.out.println("Operation Completed!");
     }
 
     public void createEventDay(){
