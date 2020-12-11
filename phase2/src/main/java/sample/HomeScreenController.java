@@ -107,24 +107,18 @@ public class HomeScreenController implements AutoCloseable{
 //
 //    }
 
-    public void setUsername(String username){
-        this.username = username;
-    }
+//    public void setUsername(String username){
+//        this.username = username;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public void setOpeningScene(Scene openingScene){
-        this.openingScene = openingScene;
-    }
-    public void setPrimaryStage(Stage primaryStage){
-        this.primaryStage = primaryStage;
-    }
 
     public void initialize(){
         this.eventGateway = new EventGateway();
@@ -155,6 +149,9 @@ public class HomeScreenController implements AutoCloseable{
     public String register(String role, String username, String password){
 
         if (this.userManager.registerUser(username, password, role)) {
+            this.username = username;
+            this.password = password;
+            this.role = role;
             this.userLoginGateway.save(this.userManager);
             return username;
         }
@@ -169,6 +166,9 @@ public class HomeScreenController implements AutoCloseable{
 
 
         if (this.userManager.loginUser(username, password).equalsIgnoreCase("loggedin")) {
+            this.username = username;
+            this.password = password;
+            this.role = this.userManager.getUserRole(username);
             return username;
         }
         return "invalid";
@@ -185,6 +185,12 @@ public class HomeScreenController implements AutoCloseable{
         loader.load();
         signUpController SUC = loader.getController();
         SUC.setBuilding(this.buildingManager);
+//        Stage signUpStage;
+//
+//        Parent root = FXMLLoader.load(getClass().getResource("signUpScene.fxml"));
+//        signUpStage = new Stage();
+//        signUpStage.setScene(new Scene(root,500,500));
+//        signUpStage.show();
     }
 
     @FXML
@@ -253,6 +259,9 @@ public class HomeScreenController implements AutoCloseable{
         messageStage = new Stage();
         messageStage.setScene(new Scene(root,500,500));
         messageStage.show();
+        System.out.println(this.username);
+        System.out.println(this.password);
+        System.out.println(this.role);
     }
 
 
