@@ -201,7 +201,7 @@ public class Schedule2 implements Serializable {
     public boolean addAttendee(UUID id, String username){
         for(Event e:schedule){
             if(e.getUUID().equals(id)) {
-                if(e.getCapacity() >= e.getAttendees().size())
+                if(e.getCapacity() <= e.getAttendees().size() || e.getAttendees().contains(username))
                     return false;
                 e.addAttendees(username);
                 return true;

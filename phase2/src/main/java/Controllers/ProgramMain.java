@@ -68,7 +68,7 @@ public class ProgramMain implements AutoCloseable{
 
             currentSession.homepage();
             didQuit = currentSession.menuSelection();
-            //userLoginGateway.save(userManager);
+            userLoginGateway.save(userManager);
             eventGateway.save(buildingManager);
         } while(!didQuit);
     }
@@ -233,7 +233,6 @@ public class ProgramMain implements AutoCloseable{
 
     @Override
     public void close(){
-        System.out.println("In destructor");
         new UserLoginGateway().save(userManager);
         new EventGateway().save(buildingManager);
     }

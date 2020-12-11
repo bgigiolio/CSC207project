@@ -389,10 +389,7 @@ public class AttendeeMenuController {
             new ScheduleSystem().constructScheduleTxt();
             new ScheduleSystem().downloadSchedule();
             menuSelection();
-        } else if (option.equals("2")) {
-            homepage();
-            menuSelection();
-        } else {
+        } else if (!option.equals("2")){
             menu.invalidResponse();
             downloadScheduleTxt();
         }

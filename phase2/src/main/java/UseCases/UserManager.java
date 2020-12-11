@@ -149,7 +149,10 @@ public class UserManager implements Serializable {
         Attendee a = credentialsMap.get(username);
 
         if(a!=null)
-            a.registerForEvent(id);
+        {
+            if(!a.getEventsRegistered().contains(id))
+                a.registerForEvent(id);
+        }
     }
 
     public void cancelEnrollment(String username, UUID id){
