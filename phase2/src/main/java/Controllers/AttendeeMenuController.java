@@ -418,7 +418,7 @@ public class AttendeeMenuController {
      */
     public boolean menuSelection() throws IOException, ClassNotFoundException {
         Scanner uname = new Scanner(System.in);
-        int choice = -1;
+        int choice;
         String response;
 
         while (true) {
@@ -446,9 +446,17 @@ public class AttendeeMenuController {
             }
 
             if(!attendeeSwitch(choice)) {
-                if(role.equals("speaker")) speakerSwitch(choice);
-                else if (role.equals("organizer")) organizerSwitch(choice);
-                else if (role.equals("admin")) adminSwitch(choice);
+                switch (role) {
+                    case "speaker":
+                        speakerSwitch(choice);
+                        break;
+                    case "organizer":
+                        organizerSwitch(choice);
+                        break;
+                    case "admin":
+                        adminSwitch(choice);
+                        break;
+                }
             }
         }
     }
