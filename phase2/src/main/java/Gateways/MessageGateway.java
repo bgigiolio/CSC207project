@@ -27,8 +27,8 @@ public class MessageGateway implements Serializable{
     public MessageGateway(){
         this.inbox = new HashMap<>();
         this.outbox = new HashMap<>();
-        this.inboxPath = "phase2\\src\\main\\java\\DB\\InboxMessage.ser";
-        this.outboxPath = "phase2\\src\\main\\java\\DB\\OutboxMessage.ser";
+        this.inboxPath = "phase2/src/main/java/DB/InboxMessage.ser";
+        this.outboxPath = "phase2/src/main/java/DB/OutboxMessage.ser";
     }
 
     /**
@@ -100,9 +100,6 @@ public class MessageGateway implements Serializable{
             System.err.println("Corrupted file contents in inbox database. Clearing file...");
             clearFileContentsUtil(inboxPath);
             inbox = new HashMap<>();
-        } catch (FileNotFoundException e) {
-            this.inboxPath = "phase2/src/main/java/DB/InboxMessage.ser";
-            return getInbox();
         } catch (IOException e) {  //other IO exception
             System.err.println("Unknown error when reading from inbox database file.");
             e.printStackTrace();
@@ -135,9 +132,6 @@ public class MessageGateway implements Serializable{
             System.err.println("Corrupted file contents in outbox database. Clearing file...");
             clearFileContentsUtil(outboxPath);
             outbox = new HashMap<>();
-        } catch (FileNotFoundException e) {
-            this.inboxPath = "phase2/src/main/java/DB/OutboxMessage.ser";
-            return getOutbox();
         } catch (IOException e) {  //other IO exception
             System.err.println("Unknown error when reading from outbox database file.");
             e.printStackTrace();
