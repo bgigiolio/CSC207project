@@ -239,8 +239,17 @@ public class HomeScreenController{
     }
 
     @FXML
-    void createUserAccountPressed(ActionEvent event) {
-
+    void createUserAccountPressed(ActionEvent event) throws IOException {
+        Stage CreateUserStage;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createUserScene.fxml"));
+        loader.load();
+        CreateUserSceneController CSC = loader.getController();
+        //CSC.setBuilding(this.buildingManager);
+        CSC.setUserManager(this.userManager);
+        Parent root = FXMLLoader.load(getClass().getResource("createUserScene.fxml"));
+        CreateUserStage = new Stage();
+        CreateUserStage.setScene(new Scene(root,500,500));
+        CreateUserStage.show();
     }
 
     @FXML

@@ -2,14 +2,25 @@ package main.java.sample;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import main.java.UseCases.UserManager;
 
 public class CreateUserSceneController {
+
+    private UserManager userManager;
+
+    private String username;
+
+    private String password;
+
+    private String role;
 
     @FXML
     private ResourceBundle resources;
@@ -18,7 +29,7 @@ public class CreateUserSceneController {
     private URL location;
 
     @FXML
-    private ChoiceBox<?> roleMenu;
+    private ChoiceBox<String> roleMenu;
 
     @FXML
     private Text topText;
@@ -40,7 +51,34 @@ public class CreateUserSceneController {
 
     @FXML
     void createAccountPressed(ActionEvent event) {
+        if (usernameField.getText() != null && passwordField.getText() != null && roleMenu.getValue() != null){
+            this.username = usernameField.getText();
+            this.password = passwordField.getText();
+            this.role = roleMenu.getValue();
+        }else{
+            String issue = "";
+            if (usernameField.getText() == null){
+                issue = "Please enter the username";
+            }else if (passwordField.getText() == null){
+                issue = "Please enter the password";
+            }else if (roleMenu.getValue() == null){
+                issue = "Please select a role";
+            }
+            errorText.setText(issue);
+            return;
+        }
+        if (this.userManager.registerUser(username, password, role)){
+            errorText.setText("Account successfully created!");
+        }else{
+            errorText.setText("Account creation failed!");
+        }
 
+    }
+    public void setUserManager(UserManager userManager){
+        this.userManager = userManager;
+    }
+    public void showOptions(){
+        roleMenu.getItems().addAll("organizer", "attendee", "admin");
     }
 
     @FXML
@@ -52,6 +90,6 @@ public class CreateUserSceneController {
         assert passwordField != null : "fx:id=\"passwordField\" was not injected: check your FXML file 'createUserScene.fxml'.";
         assert errorText != null : "fx:id=\"errorText\" was not injected: check your FXML file 'createUserScene.fxml'.";
         assert createButton != null : "fx:id=\"createButton\" was not injected: check your FXML file 'createUserScene.fxml'.";
-
+        Platform.runLater(this::showOptions);
     }
 }
