@@ -266,8 +266,12 @@ public class HomeScreenController implements AutoCloseable{
 
 
     @FXML
-    void showSchedule(ActionEvent event) {
-        toPrint.setText(this.buildingManager.toString());
+    void showSchedule(ActionEvent event) throws IOException {
+        Stage scheduleStage;
+        Parent root = FXMLLoader.load(getClass().getResource("ScheduleTable.fxml"));
+        scheduleStage = new Stage();
+        scheduleStage.setScene(new Scene(root,700,500));
+        scheduleStage.show();
     }
 
     @FXML
