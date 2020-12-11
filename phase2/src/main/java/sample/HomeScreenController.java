@@ -236,7 +236,7 @@ public class HomeScreenController{
         RCSC.setBuildingManager(this.buildingManager);
         RCSC.setBuildingGateway(this.buildingGateway);
         EventStage = new Stage();
-        EventStage.setScene(new Scene(root,500,500));
+        EventStage.setScene(new Scene(root,700,500));
         EventStage.show();
     }
 
