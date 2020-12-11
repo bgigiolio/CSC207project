@@ -1,6 +1,6 @@
 package main.java.Controllers;
 
-import Controllers.MessageController;
+import main.java.Controllers.MessageController;
 import main.java.Entities.Attendee;
 import main.java.UseCases.UserManager;
 
