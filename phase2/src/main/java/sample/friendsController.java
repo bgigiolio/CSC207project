@@ -60,7 +60,7 @@ public class friendsController {
         if (add){
             if (userManager.addFriend(this.username, fusername)){ //& eventManager.addAttendee(id, username)){
                 String num = Integer.toString(this.userManager.getNumOfFriends(this.username));
-                errorMessageText.setText(fusername + " added to your friends. You now have " + num + "friend(s)." );
+                errorMessageText.setText(fusername + " added to your friends. You now have " + num + " friend(s)." );
                 errorMessageText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
             }
             else{
@@ -71,7 +71,7 @@ public class friendsController {
         else{
             if (userManager.removeFriend(this.username, fusername)){
                 String num = Integer.toString(this.userManager.getNumOfFriends(this.username));
-                errorMessageText.setText(fusername + " removed from your friends. You now have " + num + "friend(s)." );
+                errorMessageText.setText(fusername + " removed from your friends. You now have " + num + " friend(s)." );
                 errorMessageText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
             }
             else{
