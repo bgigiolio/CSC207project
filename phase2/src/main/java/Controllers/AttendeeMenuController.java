@@ -173,7 +173,7 @@ public class AttendeeMenuController {
             return false;
         }
 
-        return eventManager.setSpeaker(id, username);
+        return eventManager.setSpeaker(id, speakerName) & userManager.addTalk(speakerName, id);
     }
 
     public boolean getListOfAttendees(){
@@ -589,14 +589,31 @@ public class AttendeeMenuController {
         }
     }
 
-    //TODO: fill in the functionality
+    //TODO: add admin delete message functionality
     private void adminSwitch(int choice){
         switch (choice){
             case 9:     //delete messages
                 menu.operationComplete();
                 break;
             case 10:    //delete event with no attendees
-                menu.operationComplete();
+                menu.displayEventsWithNoAttendees(eventManager);
+                String id = new Scanner(System.in).nextLine();
+                if(id.equals("q"))
+                    return;
+
+                UUID uuid;
+                try{
+                    uuid = UUID.fromString(id);
+                } catch (IllegalArgumentException e){
+                    menu.invalidResponse();
+                    return;
+                }
+                if(!eventManager.deleteEvent(uuid)) {
+                    building.deleteEvent(uuid);
+                    menu.operationComplete();
+                    return;
+                }
+                menu.invalidResponse();
                 break;
             default:
                 this.menu.invalidResponse();
@@ -604,10 +621,11 @@ public class AttendeeMenuController {
         }
     }
 
-    //TODO: same here
+    //TODO: Add speaker send message functionality
     private void speakerSwitch(int choice){
         switch (choice){
             case 9:     //view list of my events
+                menu.viewSpeakerEvents(eventManager.getEventsOfSpeakerUsernameToString(username));
                 menu.operationComplete();
                 break;
             case 10:    //send message
