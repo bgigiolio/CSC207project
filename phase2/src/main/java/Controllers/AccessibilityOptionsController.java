@@ -49,14 +49,11 @@ public class AccessibilityOptionsController {
         HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = this.requestList.getRequestList();
         if (list.containsKey(sender)){
             ArrayList<main.java.Entities.AccessibilityOptions> senderRequest = list.get(sender);
-            if (senderRequest.size()!=0){
-                for (main.java.Entities.AccessibilityOptions accessibilityOptions : senderRequest) {
-                    if (accessibilityOptions.getRequest().equals(request)) {
-                        accessibilityOptions.status = "addressed";
-                    }
+            for (main.java.Entities.AccessibilityOptions accessibilityOptions : senderRequest) {
+                if (accessibilityOptions.getRequest().equals(request)) {
+                    accessibilityOptions.status = "addressed";
                 }
             }
-
         }
     }
 
@@ -64,11 +61,9 @@ public class AccessibilityOptionsController {
         HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = this.requestList.getRequestList();
         if (list.containsKey(sender)){
             ArrayList<main.java.Entities.AccessibilityOptions> senderRequest = list.get(sender);
-            if (senderRequest.size()!=0){
-                for (main.java.Entities.AccessibilityOptions accessibilityOptions : senderRequest) {
-                    if (accessibilityOptions.getRequest().equals(request)) {
-                        accessibilityOptions.status = "rejected";
-                    }
+            for (main.java.Entities.AccessibilityOptions accessibilityOptions : senderRequest) {
+                if (accessibilityOptions.getRequest().equals(request)) {
+                    accessibilityOptions.status = "rejected";
                 }
             }
 
@@ -80,7 +75,6 @@ public class AccessibilityOptionsController {
      */
     public void sendRequest(){
         this.requestList.addRequest(this.sender, this.requestCreator.getRequest());
-
     }
 
     /**
