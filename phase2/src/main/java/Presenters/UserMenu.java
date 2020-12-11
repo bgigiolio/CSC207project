@@ -49,8 +49,14 @@ public class UserMenu {
      */
     public void optionsSpeaker() {
         System.out.println("---Speaker Specific Actions---");
-        System.out.println("[15] View List of My Events\n"+
-                "[16] Send Message");
+        System.out.println("[9] View List of My Events\n"+
+                "[10] Send Message");
+    }
+
+    public void optionsAdmin() {
+        System.out.println("---Admin Specific Actions---");
+        System.out.println("[9] Delete message\n"+
+                "[10] Delete event with no attendees");
     }
 
     /**
@@ -162,8 +168,8 @@ public class UserMenu {
     }
 
     public void createUserType() {
-        System.out.println("Is the new user an Attendee, Speaker or Organizer?");
-        System.out.println("Enter 'A' for Attendee, 'S' for Speaker, or 'O' for Organizer:");
+        System.out.println("Is the new user an Attendee, Admin or Organizer?");
+        System.out.println("Enter 'U' for Attendee, 'A' for Admin, or 'O' for Organizer:");
     }
 
     public void createSpeakerName(){
@@ -186,6 +192,11 @@ public class UserMenu {
 
     public void attendeeMade(String uname){
         System.out.println("Attendee account for " + uname + " successfully created!");
+        System.out.println("Default password is 'password'");
+    }
+
+    public void adminMade(String uname){
+        System.out.println("Admin account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
 
@@ -217,10 +228,17 @@ public class UserMenu {
         System.out.println("please answer as a number between 1 and 12");
     }
 
+    public void promptagainonly(){
+        System.out.println("Type A to see menu again");
+    }
+
     public void promptAgain(){
         System.out.println("Operation Completed!");
         System.out.println("Type A to see menu again, or select another option.");
     }
+
+    public void operationComplete(){System.out.println("Operation Completed!");}
+
 
     public void createEventDay(){
         System.out.println("Which day is this event taking place");

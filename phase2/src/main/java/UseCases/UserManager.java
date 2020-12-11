@@ -157,13 +157,17 @@ public class UserManager implements Serializable {
      * @param username of this user
      * @param id of the event to sign up for
      */
-    public void signUpForEvent(String username, UUID id){
+    public boolean signUpForEvent(String username, UUID id){
         Attendee a = credentialsMap.get(username);
         if(a!=null)
         {
-            if(!a.getEventsRegistered().contains(id))
+            if(!a.getEventsRegistered().contains(id)) {
                 a.registerForEvent(id);
+                return true;
+            }
+            return false;
         }
+        return false;
     }
 
     /**
@@ -171,10 +175,13 @@ public class UserManager implements Serializable {
      * @param username of this user
      * @param id of the event to cancel enrolment from
      */
-    public void cancelEnrollment(String username, UUID id){
+    public boolean cancelEnrollment(String username, UUID id){
         Attendee a = credentialsMap.get(username);
-        if(a!=null)
+        if(a!=null) {
             a.cancelEnrollment(id);
+            return  true;
+        }
+        return false;
     }
 
     /**

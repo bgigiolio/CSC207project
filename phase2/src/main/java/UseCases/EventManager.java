@@ -28,17 +28,17 @@ public class EventManager implements Serializable {
     public void addEvent(String title, String loc, LocalDateTime datetime, int dur, int eventCap, String type){
         switch (type) {
             case "event": {
-                Event e = new Event(title, loc, datetime, dur, eventCap, "event");
+                Event e = new Event(title, loc, datetime, dur, eventCap);
                 events.put(e.getUUID(), e);
                 break;
             }
             case "talk": {
-                Talk e = new Talk(title, loc, datetime, dur, eventCap, "talk");
+                Talk e = new Talk(title, loc, datetime, dur, eventCap);
                 talks.put(e.getUUID(), e);
                 break;
             }
             case "panelDiscussion": {
-                PanelDiscussion e = new PanelDiscussion(title, loc, datetime, dur, eventCap, "panelDiscussion");
+                PanelDiscussion e = new PanelDiscussion(title, loc, datetime, dur, eventCap);
                 panelDiscussions.put(e.getUUID(), e);
                 break;
             }

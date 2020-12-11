@@ -50,6 +50,18 @@ public class Event implements Serializable {
      */
     protected int eventCapacity;
 
+    public Event(String title, String location,
+                 LocalDateTime datetime, int duration, int eventCapacity){
+        this.title = title;
+        this.location = location;
+        this.datetime = datetime;
+        this.usernames = new ArrayList<>();
+        this.duration = duration;
+        this.eventCapacity = eventCapacity;
+        uuid = UUID.randomUUID();
+        this.type = "event";
+    }
+
     /**
      * Instantiates an Event object by taking the inputs title, location and datetime.
      * @param title is the title of the event
@@ -58,7 +70,7 @@ public class Event implements Serializable {
      * @param datetime tells when the event is happening.
      * @param duration how long this event will be
      */
-    public Event(String title, String location,
+    protected Event(String title, String location,
                  LocalDateTime datetime, int duration, int eventCapacity, String type){
         this.title = title;
         this.location = location;
@@ -195,10 +207,8 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder eventString = new StringBuilder();
-        eventString.append("\nID: ").append(this.getUUID().toString()).append(" \n");
-        eventString.append(this.getTitle()).append(" at ")
-                .append(this.getLocation()).append(", ").append(this.getDatetime().toString()).append("\n");
-        return eventString.toString();
+        return "\nID: " + this.getUUID().toString() + " \n" +
+                this.getTitle() + " at " +
+                this.getLocation() + ", " + this.getDatetime().toString() + "\n";
     }
 }

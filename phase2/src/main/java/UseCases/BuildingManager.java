@@ -107,24 +107,6 @@ public class BuildingManager implements Serializable {
     }
 
     /**
-     * Gets the schedule that contains an event with the given title.
-     * @param event The title of the event needed.
-     * @return Returns the schedule that contains the needed event, or null if no such schedule exists.
-     */
-    public Schedule2 getScheduleWithEvent(String event){
-        Iterator<Schedule2> iterator = new ScheduleIterator();
-        Schedule2 sched = null;
-
-        while(iterator.hasNext()){
-            sched = iterator.next();
-            if(sched.getEvent(event) != null){
-                return sched;
-            }
-        }
-        return sched;
-    }
-
-    /**
      * Returns the string format of this building. Each room takes up two lines in the format of:
      * [Room name]
      * schedule.toString();
@@ -181,13 +163,13 @@ public class BuildingManager implements Serializable {
         Event temp;
         switch (type) {
             case "event":
-                temp = new Event(title, room, dt, 0, 0, "event");
+                temp = new Event(title, room, dt, 0, 0);
                 break;
             case "talk":
-                temp = new Talk(title, room, dt, 0, 0, "talk");
+                temp = new Talk(title, room, dt, 0, 0);
                 break;
             case "panelDiscussion":
-                temp = new PanelDiscussion(title, room, dt, 0, 0, "panelDiscussion");
+                temp = new PanelDiscussion(title, room, dt, 0, 0);
                 break;
             default:
                 return null;
@@ -250,7 +232,7 @@ public class BuildingManager implements Serializable {
 
 
     public String getEventAttendees(UUID id){
-        String printout = "List of Attendees: ";
+        StringBuilder printout = new StringBuilder("List of Attendees: ");
         ArrayList<String> attendees = new ArrayList<>();
         for(String room:building.keySet()){
             Schedule2 sched = building.get(room);
@@ -259,9 +241,9 @@ public class BuildingManager implements Serializable {
             }
         }
         for (String a: attendees){
-            printout += a + ", ";
+            printout.append(a).append(", ");
         }
-        return printout;
+        return printout.toString();
     }
 
     public String eventsOfSpeakerUsernameToString(String username) {

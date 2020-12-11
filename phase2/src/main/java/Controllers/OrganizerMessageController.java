@@ -1,7 +1,10 @@
 package main.java.Controllers;
 
+import main.java.Controllers.MessageController;
 import main.java.Entities.Attendee;
 import main.java.UseCases.UserManager;
+
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -31,7 +34,7 @@ public class OrganizerMessageController {
      * @param oneSpeaker The Speaker receiving the Message.
      * @param inputMessage The Message the speaker is to receive.
      */
-    public void toOneSpeaker(String oneSpeaker, String inputMessage) {
+    public void toOneSpeaker(String oneSpeaker, String inputMessage) throws IOException {
         MessageController send = new MessageController(organizer, oneSpeaker, inputMessage);
         send.sendMessage();
     }
@@ -41,7 +44,7 @@ public class OrganizerMessageController {
      * @param oneAttendee The Attendee receiving the Message.
      * @param inputMessage The Message the Attendee is to receive.
      */
-    public void toOneAttendee(String oneAttendee, String inputMessage) {
+    public void toOneAttendee(String oneAttendee, String inputMessage) throws IOException {
         MessageController send = new MessageController(organizer, oneAttendee, inputMessage);
         send.sendMessage();
     }
@@ -62,9 +65,9 @@ public class OrganizerMessageController {
      * @param inputMessage The Message the Speakers are to receive.
      * @param manager The LoginUserManager that will be used to send the Messages to the Speakers.
      */
-    public void toAllSpeaker(String inputMessage, UserManager manager) {
+    public void toAllSpeaker(String inputMessage, UserManager manager) throws IOException {
         HashMap<String, Attendee> users = manager.getCredentialsMap();
-        for(String username : users.keySet()){     //accessing entities through a controller - no good
+        for(String username : users.keySet()){
             if(manager.getUserRole(username).equals("speaker")){
                 MessageController send = new MessageController(organizer, username, inputMessage);
                 send.sendMessage();
@@ -77,9 +80,9 @@ public class OrganizerMessageController {
      * @param inputMessage The Message the Attendees are to receive.
      * @param manager The LoginUserManager that will be used to send the Messages to the Attendees.
      */
-    public void toAllAttendee(String inputMessage, UserManager manager) {
+    public void toAllAttendee(String inputMessage, UserManager manager) throws IOException {
         HashMap<String, Attendee> users = manager.getCredentialsMap();
-        for (String username : users.keySet()){ //same here!!
+        for (String username : users.keySet()){
             if(manager.getUserRole(username).equals("attendee")){
                 MessageController send = new MessageController(organizer, username, inputMessage);
                 send.sendMessage();

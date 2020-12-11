@@ -54,20 +54,6 @@ public class Schedule2 implements Serializable {
         this.roomCapacity = roomCap;
     }
 
-    /**
-     * Get an event object from its title
-     *
-     * @param event A string that is the name of an event.
-     * @return Returns an event if the specified event is within this schedule, returns null if it isn't
-     */
-    public Event getEvent(String event) {
-        for (Event e : this.schedule) {
-            if (e.getTitle().equals(event))
-                return e;
-        }
-        return null;
-    }
-
     public Event getEvent(UUID id){
         for(Event e:schedule){
             if(e.getUUID().equals(id)) {
@@ -110,16 +96,6 @@ public class Schedule2 implements Serializable {
 
         this.schedule.add(index, e);
         return true;
-    }
-
-    /**
-     * Removes an event from this schedule.
-     *
-     * @param event The event to be removed.
-     * @return true if the event was removed, false if the event couldn't be removed
-     */
-    public boolean removeEvent(Event event) {
-        return this.schedule.remove(event);
     }
 
     public boolean removeEvent(UUID id){

@@ -33,8 +33,8 @@ public class StartingMenu {
      * This is what the user should see when creating account asking them what their desired role is.
      */
     public void rolePrompt(){
-        System.out.println("Is this account for an organizer, an attendee, or a speaker?");
-        System.out.println("Type [O] for organizer, type [A] for attendee, or type [S] for speaker.");
+        System.out.println("Is this account for an organizer, an attendee, or an administrator?");
+        System.out.println("Type [O] for organizer, type [U] for attendee, or type [A] for administrator.");
     }
 
     /**

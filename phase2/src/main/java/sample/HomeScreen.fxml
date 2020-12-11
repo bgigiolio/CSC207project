@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.HomeScreenController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.HomeScreenController">
    <children>
       <SplitPane fx:id="multiPane" dividerPositions="0.5" orientation="VERTICAL" prefHeight="550.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -32,6 +32,12 @@
                         <MenuItem fx:id="Message" mnemonicParsing="false" onAction="#Message" text="Message" />
                         <MenuItem fx:id="manageFriendsList" mnemonicParsing="false" onAction="#manageFriends" text="Manage Friends List" />
                         <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" />
+                        <MenuItem fx:id="createUserAccount" mnemonicParsing="false" onAction="#createUserAccountPressed" text="Create User Account" />
+                        <MenuItem fx:id="addRoom" mnemonicParsing="false" onAction="#addRoomPressed" text="Add Room" />
+                        <MenuItem fx:id="scheduleSpeaker" mnemonicParsing="false" onAction="#scheduleSpeakerPressed" text="Schedule Speaker" />
+                        <MenuItem fx:id="removeEvent" mnemonicParsing="false" onAction="#removeEventPressed" text="Remove Event" />
+                        <MenuItem fx:id="messageEventAttendees" mnemonicParsing="false" onAction="#messageEventAttendeesPressed" text="Message Event Attendees" />
+                        <MenuItem fx:id="createEvent" mnemonicParsing="false" onAction="#createEventPressed" text="Create Event" />
                     </items>
                      <font>
                         <Font size="25.0" />

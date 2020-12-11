@@ -17,6 +17,8 @@ public class signUpController {
 
     private BuildingManager building;
 
+    private String username;
+
     @FXML
     private ResourceBundle resources;
 
@@ -58,8 +60,13 @@ public class signUpController {
     void signUpSelected(ActionEvent event) {
         actionButton.setText("Sign Up");
     }
+
     public void setBuilding(BuildingManager building){
         this.building = building;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 
     @FXML
