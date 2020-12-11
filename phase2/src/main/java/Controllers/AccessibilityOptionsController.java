@@ -3,8 +3,10 @@ package main.java.Controllers;
 //import main.java.Entities.Organizer;
 import src.main.java.Gateways.AccessibilityOptionsGateway;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This AccessibilityOptions controller is responsible for sending and deleting request by users, and
@@ -61,22 +63,6 @@ public class AccessibilityOptionsController {
         }
     }
 
-    /**
-     * This method allow the organizers to keep the request in request list
-     * @param sender the username of the request sender
-     * @param request the content of the request
-     */
-    public void keepRequest(String sender, String request){
-        HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = this.requestList.getRequestList();
-        if (list.containsKey(sender)){
-            ArrayList<main.java.Entities.AccessibilityOptions> senderRequest = list.get(sender);
-            for (main.java.Entities.AccessibilityOptions accessibilityOptions : senderRequest) {
-                if (accessibilityOptions.getRequest().equals(request)) {
-                    accessibilityOptions.status = "keep";
-                }
-            }
-        }
-    }
 
     /**
      * This method allow the organizers to reject the request in request list
@@ -96,6 +82,27 @@ public class AccessibilityOptionsController {
         }
     }
 
+
+    /**
+     * Print all accessibility requests to user
+     * @return the complete request list
+     */
+    public ArrayList<String> getAllRequest(){
+        AccessibilityOptionsGateway obj = new AccessibilityOptionsGateway();
+        ArrayList<String> allRequest = new ArrayList<>();
+        HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = obj.getRequestList();
+        for(String key : list.keySet()){
+            String senderName = key;
+            ArrayList<main.java.Entities.AccessibilityOptions> senderRequest = list.get(key);
+            for(int i = 0; i<senderRequest.size(); i++){
+                allRequest.add(key + " : " + senderRequest.get(i).getRequest() + " send at " +
+                        senderRequest.get(i).getTime_sent().format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")));
+            }
+        }
+        return allRequest;
+    }
+
+
     /**
      * send the request from the sender to request list
      */
@@ -109,4 +116,7 @@ public class AccessibilityOptionsController {
     public void deleteRequest(){
         this.requestList.removeRequest(this.sender, this.requestCreator.getRequest());
     }
+
 }
+
+
