@@ -391,7 +391,7 @@ public class AttendeeMenuController {
         return true;
     }
 
-    public boolean organizerMessageAll() {
+    public boolean organizerMessageAll() throws IOException {
         if (this.role.equals("organizer")) {
             menu.sendMessageContent();
             String content = new Scanner(System.in).nextLine();

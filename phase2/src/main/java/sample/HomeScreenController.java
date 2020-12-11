@@ -168,9 +168,15 @@ public class HomeScreenController implements AutoCloseable{
 
     }
 
+    //under work
     @FXML
-    void manageFriends(ActionEvent event) {
+    void manageFriends(ActionEvent event) throws IOException {
+        Stage friendsStage;
 
+        Parent root = FXMLLoader.load(getClass().getResource("friendsScene.fxml"));
+        friendsStage = new Stage();
+        friendsStage.setScene(new Scene(root,500,500));
+        friendsStage.show();
     }
 
 
