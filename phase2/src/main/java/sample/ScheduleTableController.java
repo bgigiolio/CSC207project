@@ -2,20 +2,14 @@ package main.java.sample;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import main.java.Entities.Event;
 import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
@@ -27,61 +21,66 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 
 public class ScheduleTableController extends Application {
 
-    String username;
+    private String username;
 
-    EventManager eventManager = new EventGateway().read();
+    private final EventManager eventManager = new EventGateway().read();
 
-    EventTableView eventTableView = new EventTableView(eventManager, username);
-
-    @FXML
-    ChoiceBox<String> scheduleType;
+    private final EventTableView eventTableView = new EventTableView(eventManager, username);
 
     @FXML
-    TextField searchText;
+    private ToggleGroup scheduleType;
 
     @FXML
-    ChoiceBox<String> searchBy;
+    private RadioButton fullSchedule;
 
     @FXML
-    Button downloadButton;
+    private RadioButton yourSchedule;
 
     @FXML
-    Label downloadMessage;
+    private TextField searchText;
 
     @FXML
-    TableColumn<Object, String> idColumn;
+    private ChoiceBox<String> searchBy;
 
     @FXML
-    TableColumn <Object, String> titleColumn;
+    private Button downloadButton;
 
     @FXML
-    TableColumn<Object, String> typeColumn;
+    private Label downloadMessage;
 
     @FXML
-    TableColumn<Object, String> locationColumn;
+    private TableColumn<Object, String> idColumn;
 
     @FXML
-    TableColumn <Object, String> datetimeColumn;
+    private TableColumn <Object, String> titleColumn;
 
     @FXML
-    TableColumn<Object, String> speakerColumn;
+    private TableColumn<Object, String> typeColumn;
 
     @FXML
-    TableColumn <Object, String> durationColumn;
+    private TableColumn<Object, String> locationColumn;
 
     @FXML
-    TableColumn <Object, String> eventCapacityColumn;
+    private TableColumn <Object, String> datetimeColumn;
+
+    @FXML
+    private TableColumn<Object, String> speakerColumn;
+
+    @FXML
+    private TableColumn <Object, String> durationColumn;
+
+    @FXML
+    private TableColumn <Object, String> eventCapacityColumn;
 
     @FXML
     public TableView eventTable = new TableView<>();
 
     @FXML
     private void initialize() {
-        setScheduleType();
+        setRatioButtonDefault();
         setColumnValue();
         setSearchBy();
         eventTable.setItems(eventTableView.getFilteredListEvents());
@@ -97,6 +96,12 @@ public class ScheduleTableController extends Application {
         primaryStage.setTitle("Schedule");
         primaryStage.setScene(openingScene);
         primaryStage.show();
+    }
+
+    public void setRatioButtonDefault() {
+        fullSchedule.setToggleGroup(scheduleType);
+        fullSchedule.setSelected(true);
+        yourSchedule.setToggleGroup(scheduleType);
     }
 
     public void handleDownloadButton(ActionEvent actionEvent) throws IOException {
@@ -183,33 +188,36 @@ public class ScheduleTableController extends Application {
     }
 
 
-//    public void setRegisteredEventBySearchText() {
-//        searchText.setOnKeyReleased(keyEvent -> {
-//            switch (searchBy.getValue())
-//            {
-//                case "ID":
-//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getUuid().toString().contains(
-//                            searchText.getText().toLowerCase().trim()));
-//                case "Type":
-//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getType().toLowerCase().contains(
-//                            searchText.getText().toLowerCase().trim()));
-//                case "Title":
-//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getTitle().toLowerCase().contains(
-//                            searchText.getText().toLowerCase().trim()));
-//                    break;
-//                case "Location":
-//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getLocation().toLowerCase().contains(
-//                            searchText.getText().toLowerCase().trim()));
-//                    break;
-//                case "Date Time":
-//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getDatetime().toString().contains(
-//                            searchText.getText().toLowerCase().trim()));
-//                    break;
-//                case "Speaker":
-//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.containSpeaker(searchText.getText().toLowerCase().trim()));
-//            }
-//        });
-//    }
+    public void setRegisteredEventBySearchText() {
+        searchText.setOnKeyReleased(keyEvent -> {
+            switch (searchBy.getValue())
+            {
+                case "ID":
+                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getUuid().toString().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Type":
+                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getType().toLowerCase().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Title":
+                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getTitle().toLowerCase().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Location":
+                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getLocation().toLowerCase().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Date Time":
+                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getDatetime().toString().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Speaker":
+                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.containSpeaker(searchText.getText().toLowerCase().trim()));
+                    break;
+            }
+        });
+    }
 
     public void resetScheduleTable() {
         searchBy.getSelectionModel().selectedItemProperty().addListener((observableValue, old, newValue) ->
@@ -232,11 +240,7 @@ public class ScheduleTableController extends Application {
     }
 
     public void setSearchBy() {
-        searchBy.getItems().addAll("ID", "Title", "Location", "Type", "Date Time", "Speaker");
-    }
-
-    public void setScheduleType() {
-        scheduleType.getItems().addAll("Full Schedule", "Your Schedule");
+        searchBy.getItems().addAll("ID", "Title", "Location", "Date Time", "Type", "Speaker");
     }
 
     public void setUsername(String username) {
@@ -255,11 +259,15 @@ public class ScheduleTableController extends Application {
     }
 
 
-    // test
-    public static void main(String[] args) {
-        launch(args);
+    public void handleYourSchedule(ActionEvent actionEvent) {
+        eventTable.setItems(eventTableView.getFilteredListEventsRegistered());
+        setRegisteredEventBySearchText();
+        resetYourScheduleTable();
     }
 
-
-
+    public void handleFullSchedule(ActionEvent actionEvent) {
+        eventTable.setItems(eventTableView.getFilteredListEvents());
+        setAllScheduleBySearchText();
+        resetScheduleTable();
+    }
 }

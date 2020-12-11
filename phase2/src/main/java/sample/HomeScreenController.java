@@ -221,12 +221,6 @@ public class HomeScreenController{
         friendsStage.show();
     }
 
-
-    @FXML
-    void reviewSchedule(ActionEvent event) {
-        //wait what does this even do?
-    }
-
     @FXML
     void addRoomPressed(ActionEvent event) throws IOException {
         Stage EventStage;

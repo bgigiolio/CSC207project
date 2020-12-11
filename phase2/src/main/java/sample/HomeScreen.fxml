@@ -26,7 +26,6 @@
                   <MenuButton fx:id="menuOptions" layoutX="221.0" layoutY="149.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="157.0" text="Actions">
                     <items>
                       <MenuItem fx:id="seeEventSchedule" mnemonicParsing="false" onAction="#showSchedule" text="See Event Schedule" />
-                      <MenuItem fx:id="reviewEventSchedule" mnemonicParsing="false" onAction="#reviewSchedule" text="Review Your Events Schedule" />
                         <MenuItem fx:id="signUpForEvent" mnemonicParsing="false" onAction="#signUp" text="Sign Up for Event" />
                         <MenuItem fx:id="cancelEvent" mnemonicParsing="false" onAction="#cancel" text="Cancel Event" />
                         <MenuItem fx:id="Message" mnemonicParsing="false" onAction="#Message" text="Message" />

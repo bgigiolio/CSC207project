@@ -59,10 +59,15 @@
 
     </Label>
 
-    <ChoiceBox fx:id="scheduleType" prefHeight="25.0" prefWidth="150.0"
-               GridPane.columnIndex="0" GridPane.rowIndex="1" value="Full Schedule">
-
-    </ChoiceBox>
+    <RadioButton fx:id="fullSchedule" mnemonicParsing="false" onAction="#handleFullSchedule"
+                 text="Full Schedule" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <toggleGroup>
+            <ToggleGroup fx:id="scheduleType" />
+        </toggleGroup>
+    </RadioButton>
+    <RadioButton fx:id="yourSchedule" mnemonicParsing="false" onAction="#handleYourSchedule"
+                 text="yourSchedule" toggleGroup="$scheduleType" GridPane.columnIndex="1"
+                 GridPane.rowIndex="1" />
 
 
 
