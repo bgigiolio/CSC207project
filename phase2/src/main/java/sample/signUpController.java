@@ -3,6 +3,8 @@ package main.java.sample;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +21,12 @@ public class signUpController {
 
     private String username;
 
+    private UserManager userManager;
+
     @FXML
     private ResourceBundle resources;
+
+    private boolean signup;
 
     @FXML
     private URL location;
@@ -48,21 +54,54 @@ public class signUpController {
 
     @FXML
     void actionButtonPressed(ActionEvent event) {
+        UUID id;
+        try{
+            id = UUID.fromString(EventID.getText());
+        }catch(IllegalArgumentException e){
+            errorMessageText.setText("Invalid UUID format");
+            errorMessageText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+            return;
+        }
+        if (signup){
+            if (userManager.signUpForEvent(username, id) & building.addAttendee(username, id)){
+                errorMessageText.setText("You are now attending ..."); // add to
+                errorMessageText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
+            }else{
+                errorMessageText.setText("Event with UUID: " + id.toString() + " does not exist or is full.");
+                errorMessageText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+            }
+        }else{
+            if (userManager.cancelEnrollment(username, id) & building.removeAttendee(username, id)){
+                errorMessageText.setText("You have successfully left ...");
+                errorMessageText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
+            }else{
+                errorMessageText.setText("Event with UUID: " + id.toString() +
+                        " does not exist or you are not attending");
+                errorMessageText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+
+            }
+        }
 
     }
 
     @FXML
     void leaveEventSelected(ActionEvent event) {
         actionButton.setText("Leave Event");
+        signup = false;
     }
 
     @FXML
     void signUpSelected(ActionEvent event) {
         actionButton.setText("Sign Up");
+        signup = true;
     }
 
     public void setBuilding(BuildingManager building){
         this.building = building;
+    }
+
+    public void setUserManager(UserManager userManager){
+        this.userManager = userManager;
     }
 
     public void setUsername(String username){

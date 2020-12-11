@@ -282,6 +282,7 @@ public class HomeScreenController implements AutoCloseable{
         loader.load();
         signUpController SUC = loader.getController();
         SUC.setBuilding(this.buildingManager);
+        SUC.setUserManager(this.userManager);
         Parent root = FXMLLoader.load(getClass().getResource("signUpScene.fxml"));
         EventStage = new Stage();
         EventStage.setScene(new Scene(root,500,500));
