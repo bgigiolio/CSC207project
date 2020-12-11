@@ -282,9 +282,14 @@ public class HomeScreenController{
     @FXML
     void showSchedule(ActionEvent event) throws IOException {
         Stage scheduleStage;
-        Parent root = FXMLLoader.load(getClass().getResource("ScheduleTable.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("ScheduleTable.fxml"));
+        Parent root = loader.load();
+        ScheduleTableController scheduleTableController = loader.getController();
+        scheduleTableController.setUsername(this.username);
+
         scheduleStage = new Stage();
-        scheduleStage.setScene(new Scene(root,700,500));
+        scheduleStage.setScene(new Scene(root,940,500));
         scheduleStage.show();
     }
 
