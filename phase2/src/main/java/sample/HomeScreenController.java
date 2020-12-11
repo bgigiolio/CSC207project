@@ -72,6 +72,7 @@ public class HomeScreenController implements AutoCloseable{
         this.userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
+        welcomeText.setText("Welcome " + this.username + "!");
 
 
     }
@@ -149,8 +150,11 @@ public class HomeScreenController implements AutoCloseable{
 
 
     @FXML
-    void cancel(ActionEvent event) {
-
+    void cancel(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("signUpScene.fxml"));
+        loader.load();
+        signUpController SUC = loader.getController();
+        SUC.setBuilding(this.buildingManager);
     }
 
     @FXML
@@ -172,7 +176,7 @@ public class HomeScreenController implements AutoCloseable{
 
     @FXML
     void reviewSchedule(ActionEvent event) {
-
+        //wait what does this even do?
     }
 
     @FXML
@@ -188,7 +192,7 @@ public class HomeScreenController implements AutoCloseable{
 
     @FXML
     void showSchedule(ActionEvent event) {
-
+        toPrint.setText(this.buildingManager.toString());
     }
 
     @FXML
