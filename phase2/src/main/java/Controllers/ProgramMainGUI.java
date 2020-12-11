@@ -96,7 +96,7 @@ public class ProgramMainGUI {
 
     /**
      * Return what kind of account this user wants to create
-     * @return "Organizer"/"Attendee"/"Speaker"
+     * @return "organizer"/"attendee"/"speaker"
      */
     private String askRole() {
         boolean answered2 = false;
@@ -109,13 +109,13 @@ public class ProgramMainGUI {
             String response2 = new Scanner(System.in).nextLine();
             if(response2.equalsIgnoreCase("O") || response2.equalsIgnoreCase("[O]")){
                 answered2 = true;
-                role = "Organizer";
+                role = "organizer";
             }else if(response2.equalsIgnoreCase("A") || response2.equalsIgnoreCase("[A]")){
                 answered2 = true;
-                role = "Attendee";
+                role = "attendee";
             }else if(response2.equalsIgnoreCase("S") || response2.equalsIgnoreCase("[S]")){
                 answered2 = true;
-                role = "Speaker";
+                role = "speaker";
             } else
                 menuPresenter.failedPrompt();
         }

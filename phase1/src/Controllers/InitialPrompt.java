@@ -67,20 +67,20 @@ public class InitialPrompt {
             String response2 = uname.nextLine();
             if(response2.equalsIgnoreCase("O") || response2.equalsIgnoreCase("[O]")){
                 answered2 = true;
-                this.role = "Organizer";
+                this.role = "organizer";
             }else if(response2.equalsIgnoreCase("A") || response2.equalsIgnoreCase("[A]")){
                 answered2 = true;
-                this.role = "Attendee";
+                this.role = "attendee";
             }else if(response2.equals("S") || response2.equalsIgnoreCase("[S]")){
                 answered2 = true;
-                this.role = "Speaker";
+                this.role = "speaker";
             }
         }
         this.username = this.Menu.usernamePrompt();
         this.password = this.Menu.passwordPrompt();
         login();
         LoginUserManager manager = new LoginUserManager();
-        if (this.role.equals("Organizer")) {
+        if (this.role.equals("organizer")) {
             AttendeeMenuController organizerMenu =
                     new AttendeeMenuController(this.username, this.role, this.buildingManager, manager);
             organizerMenu.homepage();

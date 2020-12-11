@@ -43,14 +43,14 @@ public class AttendeeMenuController {
     }
 
     public void homepage() throws IOException, ClassNotFoundException {
-        if (role.equals("Attendee")) {
+        if (role.equals("attendee")) {
             menu.optionsAttendee();
         }
-        if (role.equals("Organizer")) {
+        if (role.equals("organizer")) {
             menu.optionsAttendee();
             menu.optionsOrganizer();
         }
-        if (role.equals("Speaker")){
+        if (role.equals("speaker")){
             menu.optionsAttendee();
             menu.optionsSpeaker();
         }
@@ -125,7 +125,7 @@ public class AttendeeMenuController {
         this.menu.createSpeakerName();
         Scanner sname = new Scanner(System.in);
         NewUserController newUser = new NewUserController();
-        if (newUser.logReg(sname.nextLine(), "password", "Speaker")) {
+        if (newUser.logReg(sname.nextLine(), "password", "speaker")) {
             this.menu.speakerMade();
         }else{
             this.menu.invalidResponse();
@@ -223,7 +223,7 @@ public class AttendeeMenuController {
         }
 
         public boolean organizerMessageAll() throws IOException {
-            if(this.role.equals("Organizer")) {
+            if(this.role.equals("organizer")) {
                 menu.sendMessageContent();
                 String content = new Scanner(System.in).nextLine();
                 new OrganizerMessageController(this.manager.getAttendee(this.username)).
@@ -302,14 +302,14 @@ public class AttendeeMenuController {
                     loggedOut = true;
                     break;
                 case "9": //create speaker account
-                    if(this.role.equals("Organizer")) {
+                    if(this.role.equals("organizer")) {
                         addSpeaker();
                     }else{
                         this.menu.invalidRole();
                     }
                     break;
                 case "10": //add room
-                    if(this.role.equals("Organizer")) {
+                    if(this.role.equals("organizer")) {
                         if(!addRoom()){
                             this.menu.invalidResponse();
                         }
@@ -318,14 +318,14 @@ public class AttendeeMenuController {
                     }
                     break;
                 case "11": //schedule speaker
-                    if(this.role.equals("Organizer")) {
+                    if(this.role.equals("organizer")) {
                         scheduleSpeaker();
                     }else{
                         this.menu.invalidRole();
                     }
                     break;
                 case "12": //Remove Event
-                    if(this.role.equals("Organizer")) {
+                    if(this.role.equals("organizer")) {
                         if(!removeEvent()){
                             this.menu.invalidResponse();
                         }
@@ -338,7 +338,7 @@ public class AttendeeMenuController {
                     organizerMessageAll();
                     break;
                 case "14": //add event
-                    if(this.role.equals("Organizer")) {
+                    if(this.role.equals("organizer")) {
                         if(!createEvent()){
                             this.menu.invalidResponse();
                         }

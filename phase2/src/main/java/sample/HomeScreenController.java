@@ -18,7 +18,7 @@ import main.java.UseCases.UserManager;
 
 import java.io.IOException;
 
-public class HomeScreenController {
+public class HomeScreenController implements AutoCloseable{
     @FXML
     private AnchorPane mainPane;
 
@@ -132,10 +132,7 @@ public class HomeScreenController {
     private MenuItem cancelEvent;
 
     @FXML
-    private MenuItem sendMessage;
-
-    @FXML
-    private MenuItem reviewMessages;
+    private MenuItem Message;
 
     @FXML
     private MenuItem manageFriendsList;
@@ -148,6 +145,8 @@ public class HomeScreenController {
 
     @FXML
     private Text toPrint;
+
+
 
     @FXML
     void cancel(ActionEvent event) {
@@ -170,10 +169,10 @@ public class HomeScreenController {
 
     }
 
-    @FXML
-    void reviewMessage(ActionEvent event) {
-
-    }
+//    @FXML
+//    void reviewMessage(ActionEvent event) {
+//
+//    }
 
     @FXML
     void reviewSchedule(ActionEvent event) {
@@ -181,9 +180,19 @@ public class HomeScreenController {
     }
 
     @FXML
-    void send(ActionEvent event) {
+    void Message(ActionEvent event) throws IOException {
+        Stage messageStage;
 
+        Parent root = FXMLLoader.load(getClass().getResource("MessageScene.fxml"));
+        messageStage = new Stage();
+        messageStage.setScene(new Scene(root,500,500));
+        messageStage.show();
     }
+
+//    @FXML
+//    void send(ActionEvent event) {
+//
+//    }
 
     @FXML
     void showSchedule(ActionEvent event) {
@@ -198,4 +207,10 @@ public class HomeScreenController {
         SUC.setBuilding(this.buildingManager);
     }
 
+    @Override
+    public void close(){
+        System.out.println("Inside constructor");
+        new UserLoginGateway().save(userManager);
+        new EventGateway().save(buildingManager);
+    }
 }

@@ -29,8 +29,7 @@
                       <MenuItem fx:id="reviewEventSchedule" mnemonicParsing="false" onAction="#reviewSchedule" text="Review Your Events Schedule" />
                         <MenuItem fx:id="signUpForEvent" mnemonicParsing="false" onAction="#signUp" text="Sign Up for Event" />
                         <MenuItem fx:id="cancelEvent" mnemonicParsing="false" onAction="#cancel" text="Cancel Event" />
-                        <MenuItem fx:id="sendMessage" mnemonicParsing="false" onAction="#send" text="Send Message" />
-                        <MenuItem fx:id="reviewMessages" mnemonicParsing="false" onAction="#reviewMessage" text="Review Messages" />
+                        <MenuItem fx:id="Message" mnemonicParsing="false" onAction="#Message" text="Message" />
                         <MenuItem fx:id="manageFriendsList" mnemonicParsing="false" onAction="#manageFriends" text="Manage Friends List" />
                         <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" />
                     </items>
