@@ -232,7 +232,7 @@ public class BuildingManager implements Serializable {
 
 
     public String getEventAttendees(UUID id){
-        String printout = "List of Attendees: ";
+        StringBuilder printout = new StringBuilder("List of Attendees: ");
         ArrayList<String> attendees = new ArrayList<>();
         for(String room:building.keySet()){
             Schedule2 sched = building.get(room);
@@ -241,9 +241,9 @@ public class BuildingManager implements Serializable {
             }
         }
         for (String a: attendees){
-            printout += a + ", ";
+            printout.append(a).append(", ");
         }
-        return printout;
+        return printout.toString();
     }
 
     public String eventsOfSpeakerUsernameToString(String username) {

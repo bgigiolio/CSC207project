@@ -207,9 +207,8 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        String eventString = "\nID: " + this.getUUID().toString() + " \n" +
+        return "\nID: " + this.getUUID().toString() + " \n" +
                 this.getTitle() + " at " +
                 this.getLocation() + ", " + this.getDatetime().toString() + "\n";
-        return eventString;
     }
 }
