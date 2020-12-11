@@ -64,7 +64,7 @@ public class AttendeeMenuController {
     /**
      * This is what the user should see if they choose to sign up for an event.
      */
-    public void signUpEvent() {
+    public boolean signUpEvent() {
         menu.eventPrompt("sign up");
         String inp = new Scanner(System.in).nextLine();
         UUID id;
@@ -73,14 +73,13 @@ public class AttendeeMenuController {
             id = UUID.fromString(inp);
         }catch(IllegalArgumentException e){
             System.out.println("Wrong format!");
-            return;
+            return false;
         }
 
-        userManager.signUpForEvent(username, id);
-        building.addAttendee(username, id);
+        return userManager.signUpForEvent(username, id) & building.addAttendee(username, id);
     }
 
-    public void cancelEnrolEvent() {
+    public boolean cancelEnrolEvent() {
         menu.eventPrompt("cancel");
         String inp = new Scanner(System.in).nextLine();
         UUID id;
@@ -89,11 +88,10 @@ public class AttendeeMenuController {
             id = UUID.fromString(inp);
         }catch(IllegalArgumentException e){
             System.out.println("Wrong format!");
-            return;
+            return false;
         }
 
-        userManager.cancelEnrollment(username, id);
-        building.removeAttendee(username, id);
+        return userManager.cancelEnrollment(username, id) & building.removeAttendee(username, id);
     }
 
     public void sendMessage() {
@@ -462,15 +460,23 @@ public class AttendeeMenuController {
                     this.menu.promptAgain();
                     break;
                 case "3":
-                    signUpEvent();
-                    this.menu.promptAgain();
+                    if(signUpEvent()) {
+                        this.menu.promptAgain();
+                    }
+                    else{
+                        this.menu.promptagainonly();
+                    }
                     break;
                 case "4":
-                    cancelEnrolEvent();
-                    this.menu.promptAgain();
+                    if(cancelEnrolEvent()){
+                        this.menu.promptAgain();
+                    }
+                    else{
+                        this.menu.promptagainonly();
+                    }
                     break;
                 case "5": //send message
-                    sendMessage();
+                    sendMessage(); //TODO: Add case where receiver user doesn't exist
                     this.menu.promptAgain();
                     break;
                 case "6": //review messages
@@ -494,65 +500,96 @@ public class AttendeeMenuController {
                 case "9": //create user account
                     if (this.role.equals("organizer")) {
                         createUser();
+                        this.menu.promptagainonly();
                     } else {
                         this.menu.invalidRole();
                     }
-                    this.menu.promptagainonly();
                     break;
                 case "10": //add room
                     if (this.role.equals("organizer")) {
                         if (!addRoom()) {
                             this.menu.invalidResponse();
                         }
+                        else this.menu.promptAgain();
                     } else {
                         this.menu.invalidRole();
                     }
-                    this.menu.promptAgain();
                     break;
                 case "11": //schedule speaker
                     if (this.role.equals("organizer")) {
                         if(!scheduleSpeaker()) this.menu.invalidResponse();
+                        else this.menu.promptAgain();
                     } else {
                         this.menu.invalidRole();
                     }
-                    this.menu.promptAgain();
                     break;
                 case "12": //Remove Event
                     if (this.role.equals("organizer")) {
                         if (!removeEvent()) {
                             this.menu.invalidResponse();
                         }
+                        else{
+                            this.menu.promptAgain();
+                        }
                     } else {
                         this.menu.invalidRole();
+                        this.menu.promptagainonly();
                     }
                     //Not really sure whats happening here
-                    this.menu.promptAgain();
                     break;
                 case "13": //Message All Attendees
-                    organizerMessageAll();
-                    this.menu.promptAgain();
+                    if (this.role.equals("organizer")){
+                        if (organizerMessageAll()) {
+                            this.menu.promptAgain();
+                        }
+                        else {
+                            this.menu.printSomething("Something went wrong, please try again!");
+                        }
+                    }
+                    else {
+                        this.menu.invalidRole();
+                        this.menu.promptagainonly();
+                    }
                     break;
                 case "14": //add event
                     if (this.role.equals("organizer")) {
                         if (!createEvent()) {
                             this.menu.invalidResponse();
                         }
+                        else{
+                            this.menu.promptAgain();
+                        }
                     } else {
                         this.menu.invalidRole();
+                        this.menu.promptagainonly();
                     }
-                    this.menu.promptAgain();
                     break;
                 case "15": // modify event capacity
-                    if(!modifyCapacity()){
-                        this.menu.invalidResponse();
+                    if (this.role.equals("organizer")) {
+                        if(!modifyCapacity()){
+                            this.menu.invalidResponse();
+                        }
+                        else{
+                            this.menu.promptAgain();
+                        }
+                    } else {
+                        this.menu.invalidRole();
+                        this.menu.promptagainonly();
                     }
-                    this.menu.promptAgain();
                     break;
                 case "16": // get List of Attendees for Event
-                    if(!getListOfAttendees()){
-                        this.menu.invalidResponse();
+                    if (this.role.equals("organizer")) {
+                        if(!getListOfAttendees()){
+                            this.menu.invalidResponse();
+                        }
+                        else{
+                            this.menu.promptAgain();
+                        }
                     }
-                    this.menu.promptAgain();
+                    else {
+                        this.menu.invalidRole();
+                        this.menu.promptagainonly();
+                    }
                     break;
                 case "a":
                 case "A":
@@ -561,7 +598,7 @@ public class AttendeeMenuController {
                     break;
                 default:
                     this.menu.invalidResponse();
-                    this.menu.promptAgain();
+                    this.menu.promptagainonly();
                     break;
             }
         }
