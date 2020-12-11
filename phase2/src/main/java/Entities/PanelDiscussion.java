@@ -19,8 +19,8 @@ public class PanelDiscussion extends Event {
      * @param capacity max event capacity
      */
     public PanelDiscussion(String title, String location,
-                           LocalDateTime datetime, int duration, int capacity, String type) {
-        super(title, location, datetime, duration, capacity, type);
+                           LocalDateTime datetime, int duration, int capacity) {
+        super(title, location, datetime, duration, capacity, "panelDiscussion");
     }
 
     public ArrayList<String> getSpeakers() {return this.speakers;}
