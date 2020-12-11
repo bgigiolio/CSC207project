@@ -44,7 +44,11 @@ public class AccessibilityOptionsController {
     }
 
 
-    //incomplete
+    /**
+     * This method allow the organizers to address the request in request list
+     * @param sender the username of the request sender
+     * @param request the content of the request
+     */
     public void addressRequest(String sender, String request){
         HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = this.requestList.getRequestList();
         if (list.containsKey(sender)){
@@ -57,7 +61,29 @@ public class AccessibilityOptionsController {
         }
     }
 
-    public void rejectRequest(){
+    /**
+     * This method allow the organizers to keep the request in request list
+     * @param sender the username of the request sender
+     * @param request the content of the request
+     */
+    public void keepRequest(String sender, String request){
+        HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = this.requestList.getRequestList();
+        if (list.containsKey(sender)){
+            ArrayList<main.java.Entities.AccessibilityOptions> senderRequest = list.get(sender);
+            for (main.java.Entities.AccessibilityOptions accessibilityOptions : senderRequest) {
+                if (accessibilityOptions.getRequest().equals(request)) {
+                    accessibilityOptions.status = "keep";
+                }
+            }
+        }
+    }
+
+    /**
+     * This method allow the organizers to reject the request in request list
+     * @param sender the username of the request sender
+     * @param request the content of the request
+     */
+    public void rejectRequest(String sender, String request){
         HashMap<String, ArrayList<main.java.Entities.AccessibilityOptions>> list = this.requestList.getRequestList();
         if (list.containsKey(sender)){
             ArrayList<main.java.Entities.AccessibilityOptions> senderRequest = list.get(sender);

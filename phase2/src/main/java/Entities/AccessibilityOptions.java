@@ -1,6 +1,6 @@
 package main.java.Entities;
 
-import main.java.Entities.*;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -12,7 +12,7 @@ import java.time.ZoneId;
  * @author Yuteng Gao
  */
 
-public class AccessibilityOptions extends Message {
+public class AccessibilityOptions extends main.java.Entities.Message {
 
     /**
      * The time when the request is sent.
