@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class OpeningController extends AbstractController implements Initializable {
+public class OpeningController implements Initializable {
     public ToggleGroup userType;
     public Button loginButton;
 
@@ -70,17 +70,15 @@ public class OpeningController extends AbstractController implements Initializab
     public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException, NullPointerException {
         //Creates the user and stores the login information of the user and log them in depending on the role.
         Stage primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
-        primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene homeScene = new Scene(root,600,500);
 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
-        loader.load();
+        Parent root = loader.load();
         HomeScreenController hSC = loader.getController();
-        hSC.setUsername(this.username.getText());
-        hSC.setPassword(this.password.getText());
-        hSC.setRole(userRole.getValue());
-
+        primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Scene homeScene = new Scene(root,600,500);
+//        hSC.setUsername(this.username.getText());
+//        hSC.setPassword(this.password.getText());
+//        hSC.setRole(userRole.getValue());
 
         String login_attempt = hSC.login(this.username.getText(),this.password.getText());
 
