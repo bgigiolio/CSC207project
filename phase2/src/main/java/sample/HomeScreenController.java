@@ -169,10 +169,6 @@ public class HomeScreenController implements AutoCloseable{
 
     }
 
-//    @FXML
-//    void reviewMessage(ActionEvent event) {
-//
-//    }
 
     @FXML
     void reviewSchedule(ActionEvent event) {
@@ -189,10 +185,6 @@ public class HomeScreenController implements AutoCloseable{
         messageStage.show();
     }
 
-//    @FXML
-//    void send(ActionEvent event) {
-//
-//    }
 
     @FXML
     void showSchedule(ActionEvent event) {
