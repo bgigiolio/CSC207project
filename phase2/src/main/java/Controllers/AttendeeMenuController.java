@@ -483,7 +483,9 @@ public class AttendeeMenuController {
                     break;
                 case "11": //schedule speaker
                     if (this.role.equals("Organizer")) {
-                        scheduleSpeaker();
+                        if (!scheduleSpeaker()){
+                            this.menu.invalidResponse();
+                        }
                     } else {
                         this.menu.invalidRole();
                     }
