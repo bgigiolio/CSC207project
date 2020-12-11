@@ -29,6 +29,7 @@ public class PanelDiscussion extends Event {
 
     public void removeSpeakers(ArrayList<String> speakers) {this.speakers.removeAll(speakers);}
 
+    @Override
     public boolean containSpeaker(String username) {
         for (String speaker : this.speakers) {
             if (speaker.equals(username)) {
