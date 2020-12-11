@@ -1,5 +1,6 @@
 package main.java.sample;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -125,20 +126,7 @@ public class HomeScreenController implements AutoCloseable{
         this.userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
-
-
-        // TODO: 12/11/20 Cant seem to get this to run in the program, I keep on getting invocationTargetExceptions
-        // TODO: If you know how to fix this please help me out (This is Blake btw)
-//        if (this.role.equalsIgnoreCase("attendee")){
-//            createUserAccount.setVisible(false);
-//            addRoom.setVisible(false);
-//            scheduleSpeaker.setVisible(false);
-//            removeEvent.setVisible(false);
-//            messageEventAttendees.setVisible(false);
-//            createEvent.setVisible(false);
-//
-//        }
-
+        Platform.runLater(this::showOptions);
     }
 
     /**
@@ -158,6 +146,17 @@ public class HomeScreenController implements AutoCloseable{
         }
         return "invalid";
 
+    }
+    private void showOptions(){
+        if (this.role.equalsIgnoreCase("attendee")){
+            createUserAccount.setVisible(false);
+            addRoom.setVisible(false);
+            scheduleSpeaker.setVisible(false);
+            removeEvent.setVisible(false);
+            messageEventAttendees.setVisible(false);
+            createEvent.setVisible(false);
+
+        }
     }
     /**
      * This is how a user will log in. Here we call the log in menu prompt.

@@ -71,8 +71,6 @@ public class signUpController {
 
     @FXML
     void initialize() throws IOException {
-
-        printSchedule.setText(building.toString());
         assert EventID != null : "fx:id=\"EventID\" was not injected: check your FXML file 'Untitled'.";
         assert printSchedule != null : "fx:id=\"printSchedule\" was not injected: check your FXML file 'Untitled'.";
         assert errorMessageText != null : "fx:id=\"errorMessageText\" was not injected: check your FXML file 'Untitled'.";
