@@ -182,16 +182,16 @@ public class HomeScreenController implements AutoCloseable{
 
     @FXML
     void cancel(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("signUpScene.fxml"));
+        Stage EventStage;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUpScene.fxml"));
         loader.load();
         signUpController SUC = loader.getController();
         SUC.setBuilding(this.buildingManager);
-//        Stage signUpStage;
-//
-//        Parent root = FXMLLoader.load(getClass().getResource("signUpScene.fxml"));
-//        signUpStage = new Stage();
-//        signUpStage.setScene(new Scene(root,500,500));
-//        signUpStage.show();
+        SUC.setUserManager(this.userManager);
+        Parent root = FXMLLoader.load(getClass().getResource("signUpScene.fxml"));
+        EventStage = new Stage();
+        EventStage.setScene(new Scene(root,500,500));
+        EventStage.show();
     }
 
     @FXML
