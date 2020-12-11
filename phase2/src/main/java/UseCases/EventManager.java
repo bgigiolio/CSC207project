@@ -30,15 +30,15 @@ public class EventManager implements Serializable {
 
         switch (type) {
             case "event":
-                events.put(e.getUUID(), e);
+                events.put(e.getUuid(), e);
                 break;
 
             case "talk":
-                talks.put(e.getUUID(), (Talk) e);
+                talks.put(e.getUuid(), (Talk) e);
                 break;
 
             case "panelDiscussion":
-                panelDiscussions.put(e.getUUID(), (PanelDiscussion) e);
+                panelDiscussions.put(e.getUuid(), (PanelDiscussion) e);
                 break;
             default:
                 return false;
@@ -76,25 +76,18 @@ public class EventManager implements Serializable {
         return panelDiscussions.remove(eventId) != null;
     }
 
-    public boolean changeEventCapacity(UUID eventId, int newCap){
+    public boolean changeCapacity(UUID eventId, int newCap){
         Event e;
-        e = events.get(eventId);
 
-        if(e != null) {
-            e.setCapacity(newCap);
-            return true;
-        }
-        e = talks.get(eventId);
-        if(e != null) {
-            e.setCapacity(newCap);
-            return true;
-        }
-        e = panelDiscussions.get(eventId);
-        if(e != null) {
-            e.setCapacity(newCap);
-            return true;
-        }
-        return false;
+        e = events.get(eventId);
+        if(e==null) e = talks.get(eventId);
+        if(e==null) e = panelDiscussions.get(eventId);
+        if(e==null) return false;
+
+        if(e.getAttendees().size()>newCap)
+            e.removeAttendeesUntilCap(newCap);
+        e.setCapacity(newCap);
+        return true;
     }
 
     public LocalDateTime getEventStartTime(UUID id){
@@ -207,26 +200,6 @@ public class EventManager implements Serializable {
         return false;
     }
 
-    public boolean changeCapacity(UUID id, int newCap){
-        Event e = events.get(id);
-
-        if(e != null){
-            e.setCapacity(newCap);
-            return true;
-        }
-        e = talks.get(id);
-        if(e != null){
-            e.setCapacity(newCap);
-            return true;
-        }
-        e = panelDiscussions.get(id);
-        if(e != null){
-            e.setCapacity(newCap);
-            return true;
-        }
-        return false;
-    }
-
     public String getEventsOfSpeakerUsernameToString(String username){
         StringBuilder eventsString = new StringBuilder();
 
@@ -249,5 +222,24 @@ public class EventManager implements Serializable {
         e = panelDiscussions.get(id);
         if(e!=null) return e.getAttendees();
         return null;
+    }
+
+    public ArrayList<UUID> getEventIDNoAttendees(){
+        ArrayList<UUID> toReturn = new ArrayList<>();
+
+        for(UUID id : events.keySet()){
+            if(events.get(id).getAttendees().size() == 0)
+                toReturn.add(id);
+        }
+        for(UUID id : talks.keySet()){
+            if(talks.get(id).getAttendees().size() == 0)
+                toReturn.add(id);
+        }
+        for(UUID id : panelDiscussions.keySet()){
+            if(panelDiscussions.get(id).getAttendees().size() == 0)
+                toReturn.add(id);
+        }
+
+        return toReturn;
     }
 }

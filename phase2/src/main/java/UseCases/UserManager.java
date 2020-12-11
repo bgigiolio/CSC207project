@@ -191,4 +191,11 @@ public class UserManager implements Serializable {
     public HashMap<String, Attendee> getCredentialsMap() {
         return this.credentialsMap;
     }
+
+    public boolean addTalk(String username, UUID id){
+        if(!credentialsMap.get(username).getRole().equals("speaker"))
+            return false;
+        Speaker s = (Speaker) credentialsMap.get(username);
+        return s.addTalk(id);
+    }
 }

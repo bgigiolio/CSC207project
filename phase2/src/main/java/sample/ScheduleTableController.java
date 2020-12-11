@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import main.java.Entities.Event;
 import main.java.Gateways.BuildingGateway;
@@ -30,9 +31,14 @@ import java.time.LocalDateTime;
 
 public class ScheduleTableController extends Application {
 
+    String username;
+
     EventManager eventManager = new EventGateway().read();
 
-    EventTableView eventTableView = new EventTableView(eventManager);
+    EventTableView eventTableView = new EventTableView(eventManager, username);
+
+    @FXML
+    ChoiceBox<String> scheduleType;
 
     @FXML
     TextField searchText;
@@ -47,7 +53,13 @@ public class ScheduleTableController extends Application {
     Label downloadMessage;
 
     @FXML
+    TableColumn<Object, String> idColumn;
+
+    @FXML
     TableColumn <Object, String> titleColumn;
+
+    @FXML
+    TableColumn<Object, String> typeColumn;
 
     @FXML
     TableColumn<Object, String> locationColumn;
@@ -67,22 +79,13 @@ public class ScheduleTableController extends Application {
     @FXML
     public TableView eventTable = new TableView<>();
 
-
     @FXML
     private void initialize() {
-        eventTableView.setTitleColumn(titleColumn);
-        eventTableView.setLocationColumn(locationColumn);
-        eventTableView.setDatetimeColumn(datetimeColumn);
-        eventTableView.setSpeakerColumn(speakerColumn);
-        eventTableView.setDurationColumn(durationColumn);
-        eventTableView.setCapacityColumn(eventCapacityColumn);
-
+        setScheduleType();
+        setColumnValue();
+        setSearchBy();
         eventTable.setItems(eventTableView.getFilteredListEvents());
-
-        searchBy.getItems().addAll("Title", "Location", "Date Time", "Speaker");
-
-        setScheduleBySearchText();
-
+        setAllScheduleBySearchText();
         resetScheduleTable();
     }
 
@@ -90,7 +93,7 @@ public class ScheduleTableController extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("ScheduleTable.fxml"));
         Parent root = loader.load();
-        Scene openingScene = new Scene(root, 700, 500);
+        Scene openingScene = new Scene(root, 940, 500);
         primaryStage.setTitle("Schedule");
         primaryStage.setScene(openingScene);
         primaryStage.show();
@@ -98,6 +101,7 @@ public class ScheduleTableController extends Application {
 
     public void handleDownloadButton(ActionEvent actionEvent) throws IOException {
         downloadMessage.setText("Downloading...Please wait a few seconds");
+        downloadMessage.setTextAlignment(TextAlignment.RIGHT);
         constructScheduleTxt();
         SwingUtilities.invokeLater(() -> {
             JFileChooser chooser = new JFileChooser();
@@ -115,7 +119,7 @@ public class ScheduleTableController extends Application {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            downloadMessage.setText("Full schedule has been successfully downloaded to "
+                            downloadMessage.setText("Full schedule has been successfully downloaded to \n"
                                     + finalDestination + ".");
                         }
                     });
@@ -133,6 +137,7 @@ public class ScheduleTableController extends Application {
                     @Override
                     public void run() {
                         downloadMessage.setText("No file location was selected."); }});
+                downloadMessage.setTextAlignment(TextAlignment.RIGHT);
             }
         })
     ;}
@@ -145,11 +150,18 @@ public class ScheduleTableController extends Application {
         scheduleWriter.close();
     }
 
-    public void setScheduleBySearchText() {
-        searchText.setOnKeyReleased(keyEvent ->
-        {
+    public void setAllScheduleBySearchText() {
+        searchText.setOnKeyReleased(keyEvent -> {
             switch (searchBy.getValue())
             {
+                case "ID":
+                    eventTableView.getFilteredListEvents().setPredicate(p -> p.getUuid().toString().toLowerCase()
+                            .contains(searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Type":
+                    eventTableView.getFilteredListEvents().setPredicate(p -> p.getType().toLowerCase().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
                 case "Title":
                     eventTableView.getFilteredListEvents().setPredicate(p -> p.getTitle().toLowerCase().contains(
                             searchText.getText().toLowerCase().trim()));
@@ -163,10 +175,41 @@ public class ScheduleTableController extends Application {
                             searchText.getText().toLowerCase().trim()));
                     break;
                 case "Speaker":
-                    eventTableView.getFilteredListEvents().setPredicate(p -> p.containSpeaker(searchText.getText().toLowerCase().trim()));
+                    eventTableView.getFilteredListEvents().setPredicate(p -> p.containSpeaker(searchText.getText().
+                            toLowerCase().trim()));
+                    break;
             }
         });
     }
+
+
+//    public void setRegisteredEventBySearchText() {
+//        searchText.setOnKeyReleased(keyEvent -> {
+//            switch (searchBy.getValue())
+//            {
+//                case "ID":
+//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getUuid().toString().contains(
+//                            searchText.getText().toLowerCase().trim()));
+//                case "Type":
+//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getType().toLowerCase().contains(
+//                            searchText.getText().toLowerCase().trim()));
+//                case "Title":
+//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getTitle().toLowerCase().contains(
+//                            searchText.getText().toLowerCase().trim()));
+//                    break;
+//                case "Location":
+//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getLocation().toLowerCase().contains(
+//                            searchText.getText().toLowerCase().trim()));
+//                    break;
+//                case "Date Time":
+//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getDatetime().toString().contains(
+//                            searchText.getText().toLowerCase().trim()));
+//                    break;
+//                case "Speaker":
+//                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.containSpeaker(searchText.getText().toLowerCase().trim()));
+//            }
+//        });
+//    }
 
     public void resetScheduleTable() {
         searchBy.getSelectionModel().selectedItemProperty().addListener((observableValue, old, newValue) ->
@@ -176,6 +219,39 @@ public class ScheduleTableController extends Application {
                 eventTableView.getFilteredListEvents().setPredicate(null);
             }
         });
+    }
+
+    public void resetYourScheduleTable() {
+        searchBy.getSelectionModel().selectedItemProperty().addListener((observableValue, old, newValue) ->
+        {
+            if (newValue != null)
+            { searchText.setText("");
+                eventTableView.getFilteredListEventsRegistered().setPredicate(null);
+            }
+        });
+    }
+
+    public void setSearchBy() {
+        searchBy.getItems().addAll("ID", "Title", "Location", "Type", "Date Time", "Speaker");
+    }
+
+    public void setScheduleType() {
+        scheduleType.getItems().addAll("Full Schedule", "Your Schedule");
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setColumnValue() {
+        eventTableView.setIdColumn(idColumn);
+        eventTableView.setTypeColumn(typeColumn);
+        eventTableView.setTitleColumn(titleColumn);
+        eventTableView.setLocationColumn(locationColumn);
+        eventTableView.setDatetimeColumn(datetimeColumn);
+        eventTableView.setSpeakerColumn(speakerColumn);
+        eventTableView.setDurationColumn(durationColumn);
+        eventTableView.setCapacityColumn(eventCapacityColumn);
     }
 
 

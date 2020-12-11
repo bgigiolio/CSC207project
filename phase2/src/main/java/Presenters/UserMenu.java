@@ -4,6 +4,7 @@ import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * <h1>User Menu</h1>
@@ -233,13 +234,7 @@ public class UserMenu {
         System.out.println("Type A to see menu again");
     }
 
-    public void promptAgain(){
-        System.out.println("Operation Completed!");
-        System.out.println("Type A to see menu again, or select another option.");
-    }
-
     public void operationComplete(){System.out.println("Operation Completed!");}
-
 
     public void createEventDay(){
         System.out.println("What day is this event taking place in?");
@@ -260,24 +255,12 @@ public class UserMenu {
         System.out.println("What is the duration of this event in minutes?");
     }
 
-    public void createEventSpeaker(){
-        System.out.println("Would you like to add a speaker?");
-    }
-
-    public void createEventSpeakerName(){
-        System.out.println("What is the speaker's name?");
-    }
-
     public void friendsList(){
         System.out.println("Would you like to add or remove someone from the friends list? Type A or R");
     }
 
     public void friendsListUsername(){
         System.out.println("What is their username?");
-    }
-
-    public void invalidRole(){
-        System.out.println("This action is only available for organizers");
     }
 
     public void logoutSuccess() {
@@ -304,5 +287,17 @@ public class UserMenu {
 
     public void printAttendees(String eventAttendees) {
         System.out.println(eventAttendees);
+    }
+
+    public void displayEventsWithNoAttendees(EventManager em){
+        System.out.println("Here are the events with no attendees:");
+        System.out.println("Event ID\t\tEvent name");
+        for(UUID id : em.getEventIDNoAttendees())
+            System.out.println(id.toString() + "   " + em.getEventTitle(id));
+        System.out.println("\n\nEnter the ID of the event you want to delete or 'q' to exit:");
+    }
+
+    public void viewSpeakerEvents(String text){
+        System.out.println("List of events I'm talking at:\n" + text);
     }
 }

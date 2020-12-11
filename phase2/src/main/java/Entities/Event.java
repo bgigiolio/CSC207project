@@ -50,8 +50,6 @@ public class Event implements Serializable {
      */
     protected int eventCapacity;
 
-    protected String speaker;
-
     public Event(String title, String location,
                  LocalDateTime datetime, int duration, int eventCapacity){
         this.title = title;
@@ -67,7 +65,6 @@ public class Event implements Serializable {
     /**
      * Instantiates an Event object by taking the inputs title, location and datetime.
      * @param title is the title of the event
-     //* @param speaker is the username of the speaker who hosts the event.
      * @param location is the location where the event will be held.
      * @param datetime tells when the event is happening.
      * @param duration how long this event will be
@@ -192,7 +189,7 @@ public class Event implements Serializable {
         return eventCapacity;
     }
 
-    public UUID getUUID() { return uuid; }
+    public UUID getUuid() { return uuid; }
 
     public void setCapacity(int newCapacity){
         this.eventCapacity = newCapacity;
@@ -213,12 +210,14 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        return "\nID: " + this.getUUID().toString() + " \n" +
+        return "\nID: " + this.getUuid().toString() + " \n" +
                 this.getTitle() + " at " +
                 this.getLocation() + ", " + this.getDatetime().toString() + "\n";
     }
 
-    public boolean containSpeaker(String speaker) {
-        return this.speaker.equals(speaker);
+    public boolean containSpeaker(String speaker) { return false; }
+
+    public void removeAttendeesUntilCap(int newCap) {
+        while(usernames.size()>newCap) usernames.remove(usernames.size()-1);
     }
 }

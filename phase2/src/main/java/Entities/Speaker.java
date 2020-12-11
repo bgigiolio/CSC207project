@@ -35,11 +35,15 @@ public class Speaker extends Attendee {
      * Adds a talk's id to the list of talks attending.
      * @param talkId the talk's id
      */
-    public void addTalk(UUID talkId){
+    public boolean addTalk(UUID talkId){
+        if(talks.contains(talkId))
+            return false;
+
         talks.add(talkId);
+        return true;
     }
 
-    public void removeTalk(UUID talkId) {talks.remove(talkId); }
+    public boolean removeTalk(UUID talkId) {return  talks.remove(talkId); }
 
     /**
      * Returns a shallow copy of the list containing talk IDs

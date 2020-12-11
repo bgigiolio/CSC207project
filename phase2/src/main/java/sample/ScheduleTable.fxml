@@ -19,41 +19,51 @@
            GridPane.columnIndex="0" GridPane.rowIndex="0">
     </Label>
     <TableView fx:id="eventTable" GridPane.columnIndex="0"
-               GridPane.rowIndex="1">
+               GridPane.rowIndex="2" GridPane.columnSpan="3">
         <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="150">
+            </TableColumn>
             <TableColumn fx:id="titleColumn" text="Title" prefWidth="90">
             </TableColumn>
             <TableColumn fx:id="locationColumn" text="Location" prefWidth="90">
             </TableColumn>
-            <TableColumn fx:id="datetimeColumn" text="Date Time" prefWidth="150">
+            <TableColumn fx:id="datetimeColumn" text="Date Time" prefWidth="140">
             </TableColumn>
-            <TableColumn fx:id="speakerColumn" text="Speaker" prefWidth="120">
+            <TableColumn fx:id="typeColumn" text="Type" prefWidth="110">
+            </TableColumn>
+            <TableColumn fx:id="speakerColumn" text="Speaker" prefWidth="160">
             </TableColumn>
             <TableColumn fx:id="durationColumn" text="Duration" prefWidth="90">
             </TableColumn>
-            <TableColumn fx:id="eventCapacityColumn" text="Capacity" prefWidth="90">
+            <TableColumn fx:id="eventCapacityColumn" text="Capacity" prefWidth="85">
             </TableColumn>
         </columns>
     </TableView>
 
-    <ChoiceBox fx:id="searchBy" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2" value="Title">
+    <ChoiceBox fx:id="searchBy" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="0" GridPane.rowIndex="3" value="ID">
 
     </ChoiceBox>
 
-    <TextField fx:id="searchText" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0"
-               GridPane.columnIndex="0" GridPane.rowIndex="3" promptText="Type to search...">
+    <TextField fx:id="searchText" maxWidth="-Infinity" prefHeight="25.0" prefWidth="500.0"
+               GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Type to search...">
 
     </TextField>
 
     <Button fx:id="downloadButton" defaultButton="true" mnemonicParsing="false"
             onAction="#handleDownloadButton" prefHeight="25.0"
-            prefWidth="200.0" text="Download Full Schedule" GridPane.columnIndex="0" GridPane.columnSpan="2147483647"
-            GridPane.rowIndex="4">
+            prefWidth="255.0" text="Download Full Schedule" GridPane.columnIndex="2"
+            GridPane.rowIndex="3">
     </Button>
 
-    <Label fx:id="downloadMessage" GridPane.columnIndex="0" GridPane.rowIndex="5">
+    <Label fx:id="downloadMessage" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.rowSpan = "2">
 
     </Label>
+
+    <ChoiceBox fx:id="scheduleType" prefHeight="25.0" prefWidth="150.0"
+               GridPane.columnIndex="0" GridPane.rowIndex="1" value="Full Schedule">
+
+    </ChoiceBox>
+
 
 
 </GridPane>
