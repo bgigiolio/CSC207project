@@ -527,6 +527,7 @@ public class AttendeeMenuController {
                     if (this.role.equals("organizer")) {
                         if (!removeEvent()) {
                             this.menu.invalidResponse();
+                            this.menu.promptagainonly();
                         }
                         else{
                             this.menu.promptAgain();
@@ -594,7 +595,6 @@ public class AttendeeMenuController {
                 case "a":
                 case "A":
                     homepage();
-                    this.menu.promptCompleted();
                     break;
                 default:
                     this.menu.invalidResponse();
