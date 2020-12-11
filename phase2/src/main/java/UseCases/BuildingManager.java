@@ -207,8 +207,6 @@ public class BuildingManager implements Serializable{
 
     }
 
-
-
     public String getEventAttendees(UUID id){
         StringBuilder printout = new StringBuilder("List of Attendees: ");
         ArrayList<String> attendees = new ArrayList<>();

@@ -1,5 +1,6 @@
 package main.java.sample;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,27 +12,23 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.BuildingManager;
-import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
 import java.io.IOException;
 
-public class HomeScreenController{
+public class HomeScreenController implements AutoCloseable{
     @FXML
     private AnchorPane mainPane;
 
     private String user;
 
     public BuildingManager buildingManager;
-    public EventManager eventManager;
     UserLoginGateway userLoginGateway;
     public UserManager userManager;
     EventGateway eventGateway;
-    BuildingGateway buildingGateway;
     private String username;
     private String password;
     private String role;
@@ -125,26 +122,11 @@ public class HomeScreenController{
 
 
     public void initialize(){
-        eventGateway = new EventGateway();
-        userLoginGateway = new UserLoginGateway();
-        buildingGateway = new BuildingGateway();
-        eventManager = eventGateway.read();
-        buildingManager = buildingGateway.read();
-        userManager = userLoginGateway.read();
-        welcomeText.setText("Welcome " + this.username + "!");
-
-        // TODO: 12/11/20 Cant seem to get this to run in the program, I keep on getting invocationTargetExceptions
-        // TODO: If you know how to fix this please help me out (This is Blake btw)
-//        if (this.role.equalsIgnoreCase("attendee")){
-//            createUserAccount.setVisible(false);
-//            addRoom.setVisible(false);
-//            scheduleSpeaker.setVisible(false);
-//            removeEvent.setVisible(false);
-//            messageEventAttendees.setVisible(false);
-//            createEvent.setVisible(false);
-//
-//        }
-
+        this.eventGateway = new EventGateway();
+        this.userLoginGateway = new UserLoginGateway();
+        this.buildingManager = eventGateway.read();
+        this.userManager = userLoginGateway.read();
+        Platform.runLater(this::showOptions);
     }
 
     /**
@@ -159,10 +141,22 @@ public class HomeScreenController{
             this.password = password;
             this.role = role;
             this.userLoginGateway.save(this.userManager);
+            welcomeText.setText("Welcome " + this.username + "!");
             return username;
         }
         return "invalid";
 
+    }
+    private void showOptions(){
+        if (this.role.equalsIgnoreCase("attendee")){
+            createUserAccount.setVisible(false);
+            addRoom.setVisible(false);
+            scheduleSpeaker.setVisible(false);
+            removeEvent.setVisible(false);
+            messageEventAttendees.setVisible(false);
+            createEvent.setVisible(false);
+
+        }
     }
     /**
      * This is how a user will log in. Here we call the log in menu prompt.
@@ -175,6 +169,7 @@ public class HomeScreenController{
             this.username = username;
             this.password = password;
             this.role = this.userManager.getUserRole(username);
+            welcomeText.setText("Welcome " + this.username + "!");
             return username;
         }
         return "invalid";
@@ -272,8 +267,12 @@ public class HomeScreenController{
 
 
     @FXML
-    void showSchedule(ActionEvent event) {
-        toPrint.setText(this.buildingManager.toString());
+    void showSchedule(ActionEvent event) throws IOException {
+        Stage scheduleStage;
+        Parent root = FXMLLoader.load(getClass().getResource("ScheduleTable.fxml"));
+        scheduleStage = new Stage();
+        scheduleStage.setScene(new Scene(root,700,500));
+        scheduleStage.show();
     }
 
     @FXML
@@ -283,9 +282,17 @@ public class HomeScreenController{
         loader.load();
         signUpController SUC = loader.getController();
         SUC.setBuilding(this.buildingManager);
+        SUC.setUserManager(this.userManager);
         Parent root = FXMLLoader.load(getClass().getResource("signUpScene.fxml"));
         EventStage = new Stage();
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
+    }
+
+    @Override
+    public void close(){
+        System.out.println("Inside constructor");
+        new UserLoginGateway().save(userManager);
+        new EventGateway().save(buildingManager);
     }
 }

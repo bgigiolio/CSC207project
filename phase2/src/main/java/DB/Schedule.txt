@@ -1,0 +1,6 @@
+List of Rooms in Building: 
+
+[room1] 
+
+ID: 90be5003-c0af-40e3-9e0a-54cd14b2943a 
+event1 at room1, 2020-12-15T00:30

@@ -45,4 +45,9 @@ public class Talk extends Event {
     }
 
     public String getSpeaker() { return this.speaker; }
+
+    @Override
+    public boolean containSpeaker(String speaker) {
+        return this.speaker.equals(speaker);
+    }
 }

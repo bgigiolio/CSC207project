@@ -61,7 +61,6 @@ public class UserLoginGateway extends DatabaseGateway<UserManager>{
             e.printStackTrace();
             loginUserManager = new UserManager();
         }
-
         return loginUserManager;
     }
 }

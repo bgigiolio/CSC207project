@@ -248,6 +248,10 @@ public class Schedule2 implements Serializable {
     }
     */
 
+    public ArrayList<Event> getAllEvents() {
+        return this.schedule;
+    }
+
 }
 
 //----------Testing----------

@@ -31,7 +31,7 @@ public class AccessibilityOptionsGateway implements Serializable{
      */
     public AccessibilityOptionsGateway(){
         this.requestList = new HashMap<>();
-        this.requireListPath = "phase2\\src\\main\\java\\DB\\RequestList.ser";
+        this.requireListPath = "phase2/src/main/java/DB/RequestList.ser";
     }
 
 

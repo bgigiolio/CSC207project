@@ -50,6 +50,8 @@ public class Event implements Serializable {
      */
     protected int eventCapacity;
 
+    protected String speaker;
+
     public Event(String title, String location,
                  LocalDateTime datetime, int duration, int eventCapacity){
         this.title = title;
@@ -214,5 +216,9 @@ public class Event implements Serializable {
         return "\nID: " + this.getUUID().toString() + " \n" +
                 this.getTitle() + " at " +
                 this.getLocation() + ", " + this.getDatetime().toString() + "\n";
+    }
+
+    public boolean containSpeaker(String speaker) {
+        return this.speaker.equals(speaker);
     }
 }
