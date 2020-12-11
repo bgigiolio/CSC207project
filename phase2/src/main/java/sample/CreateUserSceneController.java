@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.UserManager;
 
 public class CreateUserSceneController {
@@ -21,6 +22,8 @@ public class CreateUserSceneController {
     private String password;
 
     private String role;
+
+    private UserLoginGateway userLoginGateway;
 
     @FXML
     private ResourceBundle resources;
@@ -69,6 +72,7 @@ public class CreateUserSceneController {
         }
         if (this.userManager.registerUser(username, password, role)){
             errorText.setText("Account successfully created!");
+            this.userLoginGateway.save(this.userManager);
         }else{
             errorText.setText("Account creation failed!");
         }
@@ -76,6 +80,9 @@ public class CreateUserSceneController {
     }
     public void setUserManager(UserManager userManager){
         this.userManager = userManager;
+    }
+    public void setUserLoginGateway(UserLoginGateway userLoginGateway){
+        this.userLoginGateway = userLoginGateway;
     }
     public void showOptions(){
         roleMenu.getItems().addAll("organizer", "attendee", "admin");

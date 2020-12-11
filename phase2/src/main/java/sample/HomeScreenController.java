@@ -189,12 +189,11 @@ public class HomeScreenController{
     @FXML
     void cancel(ActionEvent event) throws IOException {
         Stage EventStage;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUpScene.fxml"));
-        loader.load();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("signUpScene.fxml"));
+        Parent root = loader.load();
         signUpController SUC = loader.getController();
-        SUC.setBuilding(this.buildingManager);
         SUC.setUserManager(this.userManager);
-        Parent root = FXMLLoader.load(getClass().getResource("signUpScene.fxml"));
+        SUC.setBuilding(this.buildingManager);
         EventStage = new Stage();
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
@@ -241,12 +240,11 @@ public class HomeScreenController{
     @FXML
     void createUserAccountPressed(ActionEvent event) throws IOException {
         Stage CreateUserStage;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("createUserScene.fxml"));
-        loader.load();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("createUserScene.fxml"));
+        Parent root = loader.load();
         CreateUserSceneController CSC = loader.getController();
-        //CSC.setBuilding(this.buildingManager);
         CSC.setUserManager(this.userManager);
-        Parent root = FXMLLoader.load(getClass().getResource("createUserScene.fxml"));
+        CSC.setUserLoginGateway(this.userLoginGateway);
         CreateUserStage = new Stage();
         CreateUserStage.setScene(new Scene(root,500,500));
         CreateUserStage.show();
@@ -292,13 +290,22 @@ public class HomeScreenController{
 
     @FXML
     void signUp(ActionEvent event) throws IOException {
+//        Stage EventStage;
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUpScene.fxml"));
+//        loader.load();
+//        signUpController SUC = loader.getController();
+//        SUC.setBuilding(this.buildingManager);
+//        SUC.setUserManager(this.userManager);
+//        Parent root = FXMLLoader.load(getClass().getResource("signUpScene.fxml"));
+//        EventStage = new Stage();
+//        EventStage.setScene(new Scene(root,500,500));
+//        EventStage.show();
         Stage EventStage;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUpScene.fxml"));
-        loader.load();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("signUpScene.fxml"));
+        Parent root = loader.load();
         signUpController SUC = loader.getController();
-        SUC.setBuilding(this.buildingManager);
         SUC.setUserManager(this.userManager);
-        Parent root = FXMLLoader.load(getClass().getResource("signUpScene.fxml"));
+        SUC.setBuilding(this.buildingManager);
         EventStage = new Stage();
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
