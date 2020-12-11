@@ -63,7 +63,7 @@ public class ScheduleTableController extends Application {
     TableColumn <Object, String> eventCapacityColumn;
 
     @FXML
-    public TableView<Object> eventTable = new TableView<>();
+    public TableView eventTable = new TableView<>();
 
 
     @FXML
@@ -75,11 +75,13 @@ public class ScheduleTableController extends Application {
         eventTableView.setDurationColumn(durationColumn);
         eventTableView.setCapacityColumn(eventCapacityColumn);
 
-        eventTable.setEditable(false);
         eventTable.setItems(eventTableView.getFilteredListEvents());
 
         searchBy.getItems().addAll("Title", "Location", "Date Time", "Speaker");
-        searchBy.setValue("Title");
+
+        setScheduleBySearchText();
+
+        resetScheduleTable();
     }
 
     @Override
@@ -87,13 +89,9 @@ public class ScheduleTableController extends Application {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("ScheduleTable.fxml"));
         Parent root = loader.load();
         Scene openingScene = new Scene(root, 700, 500);
-        primaryStage.setTitle("ScheduleTable");
+        primaryStage.setTitle("Schedule");
         primaryStage.setScene(openingScene);
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     public void handleDownloadButton(ActionEvent actionEvent) throws IOException {
@@ -137,13 +135,51 @@ public class ScheduleTableController extends Application {
         })
     ;}
 
-            public void constructScheduleTxt () throws IOException {
-                String scheduleString = buildingManager.toString();
-                FileWriter scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
-                scheduleWriter.write(scheduleString);
-                scheduleWriter.close();
-            }
+    public void constructScheduleTxt () throws IOException {
+        String scheduleString = buildingManager.toString();
+        FileWriter scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
+        scheduleWriter.write(scheduleString);
+        scheduleWriter.close();
+    }
 
+    public void setScheduleBySearchText() {
+        searchText.setOnKeyReleased(keyEvent ->
+        {
+            switch (searchBy.getValue())
+            {
+                case "Title":
+                    eventTableView.getFilteredListEvents().setPredicate(p -> p.getTitle().toLowerCase().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Location":
+                    eventTableView.getFilteredListEvents().setPredicate(p -> p.getLocation().toLowerCase().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Date Time":
+                    eventTableView.getFilteredListEvents().setPredicate(p -> p.getDatetime().toString().contains(
+                            searchText.getText().toLowerCase().trim()));
+                    break;
+                case "Speaker":
+                    eventTableView.getFilteredListEvents().setPredicate(p -> p.containSpeaker(searchText.getText().toLowerCase().trim()));
+            }
+        });
+    }
+
+    public void resetScheduleTable() {
+        searchBy.getSelectionModel().selectedItemProperty().addListener((observableValue, old, newValue) ->
+        {
+            if (newValue != null)
+            { searchText.setText("");
+                eventTableView.getFilteredListEvents().setPredicate(null);
+            }
+        });
+    }
+
+
+    // test
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 
 
