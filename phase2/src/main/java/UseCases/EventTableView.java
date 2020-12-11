@@ -16,12 +16,9 @@ public class EventTableView {
     private final TableView<Event> eventTableView;
     private final FilteredList<Event> filteredListEvents;
 
-    public EventTableView(BuildingManager buildingManager) {
-        ArrayList<Event> allEvents = new ArrayList<>();
-        for (String room : buildingManager.getBuilding().keySet()) {
-            Schedule2 schedule = buildingManager.getBuilding().get(room);
-            allEvents.addAll(schedule.getAllEvents());
-        }
+    public EventTableView(EventManager eventManager) {
+        ArrayList<Event> allEvents = eventManager.getEvents();
+
         ObservableList<Event> eventsData = FXCollections.observableArrayList();
         eventsData.addAll(allEvents);
         this.allEvents = eventsData;

@@ -55,6 +55,21 @@ public class EventManager implements Serializable {
         return e;
     }
 
+    public ArrayList<Event> getEvents(){
+        ArrayList<Event> toReturn = new ArrayList<>();
+
+        for(UUID id:events.keySet())
+            toReturn.add(events.get(id));
+
+        for(UUID id:talks.keySet())
+            toReturn.add(talks.get(id));
+
+        for(UUID id:panelDiscussions.keySet())
+            toReturn.add(panelDiscussions.get(id));
+
+        return toReturn;
+    }
+
     public boolean deleteEvent(UUID eventId){
         if(events.remove(eventId) != null) return true;
         if(talks.remove(eventId) != null) return true;

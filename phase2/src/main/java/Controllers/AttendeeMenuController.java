@@ -1,8 +1,5 @@
 package main.java.Controllers;
 
-import main.java.Entities.Event;
-import main.java.Entities.PanelDiscussion;
-import main.java.Entities.Talk;
 import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.Presenters.UserMenu;
@@ -475,7 +472,7 @@ public class AttendeeMenuController {
         }
     }
 
-    private boolean attendeeSwitch(int choice) throws IOException, ClassNotFoundException {
+    private boolean attendeeSwitch(int choice) throws IOException {
         switch(choice) {
             case 1:
                 menu.printBuildingSchedule(building, eventManager);

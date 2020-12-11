@@ -15,8 +15,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.java.Entities.Event;
+import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
 import main.java.UseCases.EventTableView;
 
 import javax.swing.*;
@@ -28,9 +30,9 @@ import java.time.LocalDateTime;
 
 public class ScheduleTableController extends Application {
 
-    BuildingManager buildingManager = new EventGateway().read();
+    EventManager eventManager = new EventGateway().read();
 
-    EventTableView eventTableView = new EventTableView(buildingManager);
+    EventTableView eventTableView = new EventTableView(eventManager);
 
     @FXML
     TextField searchText;
@@ -136,7 +138,8 @@ public class ScheduleTableController extends Application {
     ;}
 
     public void constructScheduleTxt () throws IOException {
-        String scheduleString = buildingManager.toString();
+        BuildingManager buildingManager = new BuildingGateway().read();
+        String scheduleString = buildingManager.getToString(eventManager);
         FileWriter scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
         scheduleWriter.write(scheduleString);
         scheduleWriter.close();

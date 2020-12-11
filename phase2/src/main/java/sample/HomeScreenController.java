@@ -12,20 +12,24 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
 import java.io.IOException;
 
-public class HomeScreenController implements AutoCloseable{
+public class HomeScreenController{
     @FXML
     private AnchorPane mainPane;
 
     private String user;
 
     public BuildingManager buildingManager;
+    public EventManager eventManager;
+    BuildingGateway buildingGateway;
     UserLoginGateway userLoginGateway;
     public UserManager userManager;
     EventGateway eventGateway;
@@ -122,10 +126,12 @@ public class HomeScreenController implements AutoCloseable{
 
 
     public void initialize(){
-        this.eventGateway = new EventGateway();
-        this.userLoginGateway = new UserLoginGateway();
-        this.buildingManager = eventGateway.read();
-        this.userManager = userLoginGateway.read();
+        eventGateway = new EventGateway();
+        userLoginGateway = new UserLoginGateway();
+        buildingGateway = new BuildingGateway();
+        buildingManager = buildingGateway.read();
+        eventManager = eventGateway.read();
+        userManager = userLoginGateway.read();
         Platform.runLater(this::showOptions);
     }
 
@@ -287,12 +293,5 @@ public class HomeScreenController implements AutoCloseable{
         EventStage = new Stage();
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
-    }
-
-    @Override
-    public void close(){
-        System.out.println("Inside constructor");
-        new UserLoginGateway().save(userManager);
-        new EventGateway().save(buildingManager);
     }
 }

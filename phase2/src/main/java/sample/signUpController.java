@@ -23,6 +23,8 @@ public class signUpController {
 
     private UserManager userManager;
 
+    private EventManager eventManager;
+
     @FXML
     private ResourceBundle resources;
 
@@ -63,7 +65,7 @@ public class signUpController {
             return;
         }
         if (signup){
-            if (userManager.signUpForEvent(username, id) & building.addAttendee(username, id)){
+            if (userManager.signUpForEvent(username, id) & eventManager.addAttendee(id, username)){
                 errorMessageText.setText("You are now attending ..."); // add to
                 errorMessageText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
             }else{
@@ -71,7 +73,7 @@ public class signUpController {
                 errorMessageText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
             }
         }else{
-            if (userManager.cancelEnrollment(username, id) & building.removeAttendee(username, id)){
+            if (userManager.cancelEnrollment(username, id) & eventManager.removeAttendee(id, username)){
                 errorMessageText.setText("You have successfully left ...");
                 errorMessageText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
             }else{
@@ -109,7 +111,7 @@ public class signUpController {
     }
 
     @FXML
-    void initialize() throws IOException {
+    void initialize() {
         assert EventID != null : "fx:id=\"EventID\" was not injected: check your FXML file 'Untitled'.";
         assert printSchedule != null : "fx:id=\"printSchedule\" was not injected: check your FXML file 'Untitled'.";
         assert errorMessageText != null : "fx:id=\"errorMessageText\" was not injected: check your FXML file 'Untitled'.";
