@@ -181,13 +181,13 @@ public class BuildingManager implements Serializable {
         Event temp;
         switch (type) {
             case "event":
-                temp = new Event(title, room, dt, 0, 0);
+                temp = new Event(title, room, dt, 0, 0, "event");
                 break;
             case "talk":
-                temp = new Talk(title, room, dt, 0, 0);
+                temp = new Talk(title, room, dt, 0, 0, "talk");
                 break;
             case "panelDiscussion":
-                temp = new PanelDiscussion(title, room, dt, 0, 0);
+                temp = new PanelDiscussion(title, room, dt, 0, 0, "panelDiscussion");
                 break;
             default:
                 return null;
@@ -243,5 +243,17 @@ public class BuildingManager implements Serializable {
                 return true;
         }
         return false;
+    }
+
+    public String eventsOfSpeakerUsernameToString(String username) {
+        StringBuilder eventsString = new StringBuilder();
+        for (String room : building.keySet()) {
+            Schedule2 schedule = building.get(room);
+            ArrayList<Event> events = schedule.getEventOfSpeakerUsername(username);
+            for (Event event : events) {
+                eventsString.append(event.toString());
+            }
+        }
+        return eventsString.toString();
     }
 }

@@ -1,6 +1,7 @@
 package main.java.UseCases;
 
 import main.java.Entities.Event;
+import main.java.Entities.PanelDiscussion;
 import main.java.Entities.Talk;
 
 import java.io.Serializable;
@@ -262,6 +263,23 @@ public class Schedule2 implements Serializable {
                 r = mid - 1;
         }
         return l;
+    }
+
+    public ArrayList<Event> getEventOfSpeakerUsername(String username) {
+        ArrayList<Event> events = new ArrayList<>();
+        for (Event event : this.schedule) {
+            if (event.getType().equals("talk")) {
+                Talk talk = (Talk) event;
+                if (talk.getSpeaker().equals(username)) {
+                    events.add(talk);
+                }
+            } else if (event.getType().equals("panelDiscussion")) {
+                PanelDiscussion panelDiscussion = (PanelDiscussion) event;
+                if (panelDiscussion.containSpeaker(username)) {
+                    events.add(panelDiscussion);
+                }
+            }
+        } return events;
     }
 
 }

@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
+import main.java.UseCases.Schedule2;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -65,5 +68,9 @@ public class ScheduleController {
         scheduleWriter.close();
     }
 
+    public void viewScheduleBySpeakerUsername(String username) {
+        BuildingManager buildingManager = new EventGateway().read();
+        scheduleTxt.setText(buildingManager.eventsOfSpeakerUsernameToString(username));
+    }
 
 }

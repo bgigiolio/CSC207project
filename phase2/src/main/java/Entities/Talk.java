@@ -14,7 +14,6 @@ public class Talk extends Event {
      * The username of speaker as a string.
      */
     private String speaker;
-    private final String type;
 
     /**
      * Constructor for <code>Talk</code>
@@ -24,9 +23,9 @@ public class Talk extends Event {
      * @param duration how long this event will be
      * @param capacity max event capacity
      */
-    public Talk(String title, String location, LocalDateTime datetime, int duration, int capacity) {
-        super(title, location, datetime, duration, capacity);
-        this.type = "talk";
+    public Talk(String title, String location,
+                LocalDateTime datetime, int duration, int capacity, String type) {
+        super(title, location, datetime, duration, capacity, type);
     }
 
     /**
@@ -44,4 +43,6 @@ public class Talk extends Event {
     public void setSpeaker(String speaker) {
         this.speaker = speaker;
     }
+
+    public String getSpeaker() { return this.speaker; }
 }

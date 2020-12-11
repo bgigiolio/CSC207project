@@ -58,7 +58,8 @@ public class Event implements Serializable {
      * @param datetime tells when the event is happening.
      * @param duration how long this event will be
      */
-    public Event(String title, String location, LocalDateTime datetime, int duration, int eventCapacity){
+    public Event(String title, String location,
+                 LocalDateTime datetime, int duration, int eventCapacity, String type){
         this.title = title;
         this.location = location;
         this.datetime = datetime;
@@ -66,7 +67,7 @@ public class Event implements Serializable {
         this.duration = duration;
         this.eventCapacity = eventCapacity;
         uuid = UUID.randomUUID();
-        type = "event";
+        this.type = type;
     }
 
     /**
@@ -179,6 +180,8 @@ public class Event implements Serializable {
         this.eventCapacity = newCapacity;
     }
 
+    public String getType() { return this.type; }
+
     @Override
     public boolean equals(Object obj){
         if(obj==null) return false;
@@ -188,5 +191,14 @@ public class Event implements Serializable {
         if(this.uuid.equals(e.uuid)) return true;
         return this.title.equals(e.title) && this.datetime == e.datetime && this.type.equals(e.type) &&
                 this.location.equals(e.location);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder eventString = new StringBuilder();
+        eventString.append("\nID: ").append(this.getUUID().toString()).append(" \n");
+        eventString.append(this.getTitle()).append(" at ")
+                .append(this.getLocation()).append(", ").append(this.getDatetime().toString()).append("\n");
+        return eventString.toString();
     }
 }

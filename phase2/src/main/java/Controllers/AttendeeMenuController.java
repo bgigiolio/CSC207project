@@ -356,13 +356,16 @@ public class AttendeeMenuController {
         System.out.println(d);
 
         if(choice==1){
-            if(!building.addEvent(new Event(eventName, roomName, d, duration, eventCapacity)))
+            if(!building.addEvent(new Event(eventName, roomName, d, duration,
+                    eventCapacity, "event")))
                 return false;
         }else if(choice == 2){
-            if(!building.addEvent(new Talk(eventName, roomName, d, duration, eventCapacity)))
+            if(!building.addEvent(new Talk(eventName, roomName, d, duration,
+                    eventCapacity, "talk")))
                 return false;
         }else if(choice == 3){
-            if(!building.addEvent(new PanelDiscussion(eventName, roomName, d, duration, eventCapacity)))
+            if(!building.addEvent(new PanelDiscussion(eventName, roomName, d, duration,
+                    eventCapacity, "panelDiscussion")))
                 return false;
         }
 
