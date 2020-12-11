@@ -34,6 +34,65 @@ public class HomeScreenController implements AutoCloseable{
 
     private Scene openingScene;
     private Stage primaryStage;
+    @FXML
+    private SplitPane multiPane;
+
+    @FXML
+    private AnchorPane topPane;
+
+    @FXML
+    private Text welcomeText;
+
+    @FXML
+    private Text instructionPrompt;
+
+    @FXML
+    private MenuButton menuOptions;
+
+    @FXML
+    private MenuItem seeEventSchedule;
+
+    @FXML
+    private MenuItem reviewEventSchedule;
+
+    @FXML
+    private MenuItem signUpForEvent;
+
+    @FXML
+    private MenuItem cancelEvent;
+
+    @FXML
+    private MenuItem Message;
+
+    @FXML
+    private MenuItem manageFriendsList;
+
+    @FXML
+    private MenuItem logout;
+
+    @FXML
+    private MenuItem createUserAccount;
+
+    @FXML
+    private MenuItem addRoom;
+
+    @FXML
+    private MenuItem scheduleSpeaker;
+
+    @FXML
+    private MenuItem removeEvent;
+
+    @FXML
+    private MenuItem messageEventAttendees;
+
+    @FXML
+    private MenuItem createEvent;
+
+    @FXML
+    private AnchorPane bottomPane;
+
+    @FXML
+    private Text toPrint;
 
 //    public HomeScreenController(String username){
 //        this.user = username;
@@ -74,6 +133,17 @@ public class HomeScreenController implements AutoCloseable{
         this.userManager = userLoginGateway.read();
         welcomeText.setText("Welcome " + this.username + "!");
 
+        // TODO: 12/11/20 Cant seem to get this to run in the program, I keep on getting invocationTargetExceptions
+        // TODO: If you know how to fix this please help me out (This is Blake btw)
+//        if (this.role.equalsIgnoreCase("attendee")){
+//            createUserAccount.setVisible(false);
+//            addRoom.setVisible(false);
+//            scheduleSpeaker.setVisible(false);
+//            removeEvent.setVisible(false);
+//            messageEventAttendees.setVisible(false);
+//            createEvent.setVisible(false);
+//
+//        }
 
     }
 
@@ -105,47 +175,7 @@ public class HomeScreenController implements AutoCloseable{
     }
 
 
-    @FXML
-    private SplitPane multiPane;
 
-    @FXML
-    private AnchorPane topPane;
-
-    @FXML
-    private Text welcomeText;
-
-    @FXML
-    private Text instructionPrompt;
-
-    @FXML
-    private MenuButton menuOptions;
-
-    @FXML
-    private MenuItem seeEventSchedule;
-
-    @FXML
-    private MenuItem reviewEventSchedule;
-
-    @FXML
-    private MenuItem signUpForEvent;
-
-    @FXML
-    private MenuItem cancelEvent;
-
-    @FXML
-    private MenuItem Message;
-
-    @FXML
-    private MenuItem manageFriendsList;
-
-    @FXML
-    private MenuItem logout;
-
-    @FXML
-    private AnchorPane bottomPane;
-
-    @FXML
-    private Text toPrint;
 
 
 
@@ -186,6 +216,36 @@ public class HomeScreenController implements AutoCloseable{
     }
 
     @FXML
+    void addRoomPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void createEventPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void createUserAccountPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void messageEventAttendeesPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void removeEventPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void scheduleSpeakerPressed(ActionEvent event) {
+
+    }
+
+    @FXML
     void Message(ActionEvent event) throws IOException {
         Stage messageStage;
 
@@ -204,7 +264,7 @@ public class HomeScreenController implements AutoCloseable{
     @FXML
     void signUp(ActionEvent event) throws IOException {
         Stage EventStage;
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("signUpScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUpScene.fxml"));
         loader.load();
         signUpController SUC = loader.getController();
         SUC.setBuilding(this.buildingManager);
