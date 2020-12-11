@@ -33,7 +33,7 @@ public class Speaker extends Attendee {
     public Speaker(String username, String password) {
         super(username, password);
         this.talks = new ArrayList<>();
-        this.role = "Speaker";
+        this.role = "speaker";
     }
 
     /**

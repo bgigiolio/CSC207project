@@ -14,7 +14,7 @@ public abstract class DatabaseGateway<T> {
     /**
      * Stores the path to the database file
      */
-    private final String dbPath;
+    private String dbPath;
 
     public DatabaseGateway(String dbPath){
         this.dbPath = dbPath;
@@ -41,5 +41,9 @@ public abstract class DatabaseGateway<T> {
             System.err.println("Unexpected error when accessing the " + db + " database file.");
             e.printStackTrace();
         }
+    }
+
+    public void setDbPath(String dbPath) {
+        this.dbPath = dbPath;
     }
 }

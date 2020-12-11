@@ -18,7 +18,7 @@ import main.java.UseCases.UserManager;
 
 import java.io.IOException;
 
-public class HomeScreenController {
+public class HomeScreenController implements AutoCloseable{
     @FXML
     private AnchorPane mainPane;
 
@@ -207,4 +207,10 @@ public class HomeScreenController {
         SUC.setBuilding(this.buildingManager);
     }
 
+    @Override
+    public void close(){
+        System.out.println("Inside constructor");
+        new UserLoginGateway().save(userManager);
+        new EventGateway().save(buildingManager);
+    }
 }
