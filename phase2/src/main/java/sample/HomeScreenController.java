@@ -125,7 +125,7 @@ public class HomeScreenController implements AutoCloseable{
         this.userLoginGateway = new UserLoginGateway();
         this.buildingManager = eventGateway.read();
         this.userManager = userLoginGateway.read();
-        welcomeText.setText("Welcome " + this.username + "!");
+
 
         // TODO: 12/11/20 Cant seem to get this to run in the program, I keep on getting invocationTargetExceptions
         // TODO: If you know how to fix this please help me out (This is Blake btw)
@@ -153,6 +153,7 @@ public class HomeScreenController implements AutoCloseable{
             this.password = password;
             this.role = role;
             this.userLoginGateway.save(this.userManager);
+            welcomeText.setText("Welcome " + this.username + "!");
             return username;
         }
         return "invalid";
@@ -169,6 +170,7 @@ public class HomeScreenController implements AutoCloseable{
             this.username = username;
             this.password = password;
             this.role = this.userManager.getUserRole(username);
+            welcomeText.setText("Welcome " + this.username + "!");
             return username;
         }
         return "invalid";
