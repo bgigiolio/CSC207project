@@ -13,11 +13,14 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
+import main.java.Gateways.BuildingGateway;
 import main.java.UseCases.*;
 
 public class signUpController {
 
     private BuildingManager building;
+
+    private BuildingGateway buildingGateway;
 
     private String username;
 
@@ -83,6 +86,7 @@ public class signUpController {
 
             }
         }
+        this.buildingGateway.save(this.building);
 
     }
 
@@ -100,6 +104,10 @@ public class signUpController {
 
     public void setBuilding(BuildingManager building){
         this.building = building;
+    }
+
+    public void setBuildingGateway(BuildingGateway buildingGateway){
+        this.buildingGateway = buildingGateway;
     }
 
     public void setUserManager(UserManager userManager){

@@ -228,8 +228,16 @@ public class HomeScreenController{
     }
 
     @FXML
-    void addRoomPressed(ActionEvent event) {
-
+    void addRoomPressed(ActionEvent event) throws IOException {
+        Stage EventStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("RoomCreatorScene.fxml"));
+        Parent root = loader.load();
+        RoomCreatorSceneController RCSC = loader.getController();
+        RCSC.setBuildingManager(this.buildingManager);
+        RCSC.setBuildingGateway(this.buildingGateway);
+        EventStage = new Stage();
+        EventStage.setScene(new Scene(root,700,500));
+        EventStage.show();
     }
 
     @FXML
