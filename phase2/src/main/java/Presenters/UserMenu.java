@@ -49,8 +49,14 @@ public class UserMenu {
      */
     public void optionsSpeaker() {
         System.out.println("---Speaker Specific Actions---");
-        System.out.println("[15] View List of My Events\n"+
-                "[16] Send Message");
+        System.out.println("[9] View List of My Events\n"+
+                "[10] Send Message");
+    }
+
+    public void optionsAdmin() {
+        System.out.println("---Admin Specific Actions---");
+        System.out.println("[9] Delete message\n"+
+                "[10] Delete event with no attendees");
     }
 
     /**

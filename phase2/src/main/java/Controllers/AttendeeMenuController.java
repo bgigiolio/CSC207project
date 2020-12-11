@@ -48,17 +48,13 @@ public class AttendeeMenuController {
      * Displays options for each specific kind of user
      */
     public void homepage() {
-        if (role.equalsIgnoreCase("attendee")) {
-            menu.optionsAttendee();
-        }
-        if (role.equalsIgnoreCase("organizer")) {
-            menu.optionsAttendee();
+        menu.optionsAttendee();
+        if (role.equalsIgnoreCase("organizer"))
             menu.optionsOrganizer();
-        }
-        if (role.equalsIgnoreCase("speaker")) {
-            menu.optionsAttendee();
+        else if (role.equalsIgnoreCase("speaker"))
             menu.optionsSpeaker();
-        }
+        else if(role.equalsIgnoreCase("admin"))
+            menu.optionsAdmin();
     }
 
     /**
@@ -156,20 +152,6 @@ public class AttendeeMenuController {
 
         return building.addRoom(name, LocalTime.of(startH, startM), LocalTime.of(endH, endM), roomCapacity);
     }
-
-    /*
-    public void addSpeaker() throws IOException {
-        LoginSystem log = new LoginSystem();
-        this.menu.createSpeakerName();
-        Scanner sname = new Scanner(System.in);
-        NewUserController newUser = new NewUserController();
-        if (log.register(sname.nextLine(), "password", "speaker")) {
-            this.menu.speakerMade();
-        }else{
-            this.menu.invalidResponse();
-        }
-    }
-     */
 
     public boolean scheduleSpeaker() {
         this.menu.createSpeakerName();
@@ -464,7 +446,8 @@ public class AttendeeMenuController {
             }
 
             if(!attendeeSwitch(choice)) {
-                if (role.equals("organizer")) organizerSwitch(choice);
+                if(role.equals("speaker")) speakerSwitch(choice);
+                else if (role.equals("organizer")) organizerSwitch(choice);
                 else if (role.equals("admin")) adminSwitch(choice);
             }
         }
@@ -597,9 +580,22 @@ public class AttendeeMenuController {
 
     private void adminSwitch(int choice){
         switch (choice){
-            case 9:     //delete event with no attendees
+            case 9:     //delete messages
                 break;
-            case 10:    //delete messages
+            case 10:    //delete event with no attendees
+                break;
+            default:
+                this.menu.invalidResponse();
+                this.menu.promptagainonly();
+                break;
+        }
+    }
+
+    private void speakerSwitch(int choice){
+        switch (choice){
+            case 9:     //view list of my events
+                break;
+            case 10:    //send message
                 break;
             default:
                 this.menu.invalidResponse();
