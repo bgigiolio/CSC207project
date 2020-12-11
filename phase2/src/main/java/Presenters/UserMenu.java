@@ -40,7 +40,8 @@ public class UserMenu {
                 "[12] Remove Event \n" +
                 "[13] Message Event Attendees \n" +
                 "[14] Create Event\n" +
-                "[15] Modify Event Capacity.");
+                "[15] Modify Event Capacity. \n" +
+                "[16] Get List of Attendees for Event.");
     }
 
     /**
@@ -277,4 +278,12 @@ public class UserMenu {
     }
 
     public void scheduleDownload() { System.out.println("[1] Download schedule\n[2] Go back");}
+
+    public void enterEventID() { System.out.println("What is the Event's ID?");}
+
+    public void invalidID() { System.out.println("Invalid ID format entered."); }
+
+    public void printAttendees(String eventAttendees) {
+        System.out.println(eventAttendees);
+    }
 }

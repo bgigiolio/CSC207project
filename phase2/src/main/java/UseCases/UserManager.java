@@ -160,7 +160,10 @@ public class UserManager implements Serializable {
     public void signUpForEvent(String username, UUID id){
         Attendee a = credentialsMap.get(username);
         if(a!=null)
-            a.registerForEvent(id);
+        {
+            if(!a.getEventsRegistered().contains(id))
+                a.registerForEvent(id);
+        }
     }
 
     /**

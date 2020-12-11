@@ -243,6 +243,25 @@ public class BuildingManager implements Serializable {
                 return true;
         }
         return false;
+
+
+    }
+
+
+
+    public String getEventAttendees(UUID id){
+        String printout = "List of Attendees: ";
+        ArrayList<String> attendees = new ArrayList<>();
+        for(String room:building.keySet()){
+            Schedule2 sched = building.get(room);
+            if(sched.getEvent(id) != null){
+                attendees = sched.getEvent(id).getAttendees();
+            }
+        }
+        for (String a: attendees){
+            printout += a + ", ";
+        }
+        return printout;
     }
 
     public String eventsOfSpeakerUsernameToString(String username) {
