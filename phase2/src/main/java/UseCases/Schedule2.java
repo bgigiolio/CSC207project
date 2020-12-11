@@ -267,6 +267,10 @@ public class Schedule2 implements Serializable {
         } return events;
     }
 
+    public ArrayList<Event> getAllEvents() {
+        return this.schedule;
+    }
+
 }
 
 //----------Testing----------
