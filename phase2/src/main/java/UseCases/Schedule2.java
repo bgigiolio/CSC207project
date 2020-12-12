@@ -66,14 +66,14 @@ public class Schedule2 implements Serializable {
             return false;
 
         if (schedule.size() == 0) {
-            schedule.add(e.getUUID());
+            schedule.add(e.getUuid());
             return true;
         }
 
         int index = getIndex(0, schedule.size() - 1, e.getDatetime(), em);
 
         if (index == schedule.size()) {
-            schedule.add(e.getUUID());
+            schedule.add(e.getUuid());
             return true;
         } else if (index == -1)
             return false;
@@ -84,7 +84,7 @@ public class Schedule2 implements Serializable {
         if (endTime.isAfter(ev2.getDatetime()))
             return false;
 
-        schedule.add(index, e.getUUID());
+        schedule.add(index, e.getUuid());
         return true;
     }
 

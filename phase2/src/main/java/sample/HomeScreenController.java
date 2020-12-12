@@ -153,14 +153,19 @@ public class HomeScreenController{
         return "invalid";
 
     }
-    private void showOptions(){
-        if (this.role.equalsIgnoreCase("attendee")){
-            createUserAccount.setVisible(false);
-            addRoom.setVisible(false);
-            scheduleSpeaker.setVisible(false);
-            removeEvent.setVisible(false);
-            messageEventAttendees.setVisible(false);
-            createEvent.setVisible(false);
+    private void showOptions() {
+        try {
+            if (this.role.equalsIgnoreCase("attendee")) {
+                createUserAccount.setVisible(false);
+                addRoom.setVisible(false);
+                scheduleSpeaker.setVisible(false);
+                removeEvent.setVisible(false);
+                messageEventAttendees.setVisible(false);
+                createEvent.setVisible(false);
+
+            }
+        } catch (NullPointerException ignored) {
+
         }
     }
     /**
@@ -212,18 +217,15 @@ public class HomeScreenController{
     //under work
     @FXML
     void manageFriends(ActionEvent event) throws IOException {
-        Stage friendsStage;
-
-        Parent root = FXMLLoader.load(getClass().getResource("friendsScene.fxml"));
-        friendsStage = new Stage();
-        friendsStage.setScene(new Scene(root,500,500));
-        friendsStage.show();
-    }
-
-
-    @FXML
-    void reviewSchedule(ActionEvent event) {
-        //wait what does this even do?
+        Stage EventStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("friendsScene.fxml"));
+        Parent root = loader.load();
+        friendsController fController = loader.getController();
+        fController.setUserManager(this.userManager);
+        fController.setUsername(this.username);
+        EventStage = new Stage();
+        EventStage.setScene(new Scene(root,500,500));
+        EventStage.show();
     }
 
     @FXML
@@ -240,8 +242,18 @@ public class HomeScreenController{
     }
 
     @FXML
-    void createEventPressed(ActionEvent event) {
-
+    void createEventPressed(ActionEvent event) throws IOException {
+        Stage eventCreatorStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("EventCreatorScene.fxml"));
+        Parent root = loader.load();
+        EventCreatorSceneController ECSC = loader.getController();
+        ECSC.setBuildingManager(this.buildingManager);
+        ECSC.setBuildingGateway(this.buildingGateway);
+        ECSC.setEventGateway(this.eventGateway);
+        ECSC.setEventManager(this.eventManager);
+        eventCreatorStage = new Stage();
+        eventCreatorStage.setScene(new Scene(root,700,500));
+        eventCreatorStage.show();
     }
 
     @FXML
@@ -263,8 +275,18 @@ public class HomeScreenController{
     }
 
     @FXML
-    void removeEventPressed(ActionEvent event) {
-
+    void removeEventPressed(ActionEvent event) throws IOException {
+        Stage eventRemoverStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("EventRemoverScene.fxml"));
+        Parent root = loader.load();
+        EventRemoverSceneController ERSC = loader.getController();
+        ERSC.setBuildingManager(this.buildingManager);
+        ERSC.setBuildingGateway(this.buildingGateway);
+        ERSC.setEventGateway(this.eventGateway);
+        ERSC.setEventManager(this.eventManager);
+        eventRemoverStage = new Stage();
+        eventRemoverStage.setScene(new Scene(root,700,500));
+        eventRemoverStage.show();
     }
 
     @FXML
@@ -289,9 +311,14 @@ public class HomeScreenController{
     @FXML
     void showSchedule(ActionEvent event) throws IOException {
         Stage scheduleStage;
-        Parent root = FXMLLoader.load(getClass().getResource("ScheduleTable.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("ScheduleTable.fxml"));
+        Parent root = loader.load();
+        ScheduleTableController scheduleTableController = loader.getController();
+        scheduleTableController.setUsername(this.username);
+
         scheduleStage = new Stage();
-        scheduleStage.setScene(new Scene(root,700,500));
+        scheduleStage.setScene(new Scene(root,940,500));
         scheduleStage.show();
     }
 
@@ -312,7 +339,11 @@ public class HomeScreenController{
         Parent root = loader.load();
         signUpController SUC = loader.getController();
         SUC.setUserManager(this.userManager);
+        SUC.setBuildingGateway(this.buildingGateway);
+        SUC.setUsername(this.username);
         SUC.setBuilding(this.buildingManager);
+        SUC.setEventManager(this.eventManager);
+        SUC.setEventGateway(this.eventGateway);
         EventStage = new Stage();
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();

@@ -30,15 +30,15 @@ public class EventManager implements Serializable {
 
         switch (type) {
             case "event":
-                events.put(e.getUUID(), e);
+                events.put(e.getUuid(), e);
                 break;
 
             case "talk":
-                talks.put(e.getUUID(), (Talk) e);
+                talks.put(e.getUuid(), (Talk) e);
                 break;
 
             case "panelDiscussion":
-                panelDiscussions.put(e.getUUID(), (PanelDiscussion) e);
+                panelDiscussions.put(e.getUuid(), (PanelDiscussion) e);
                 break;
             default:
                 return false;

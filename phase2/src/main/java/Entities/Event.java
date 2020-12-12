@@ -189,7 +189,7 @@ public class Event implements Serializable {
         return eventCapacity;
     }
 
-    public UUID getUUID() { return uuid; }
+    public UUID getUuid() { return uuid; }
 
     public void setCapacity(int newCapacity){
         this.eventCapacity = newCapacity;
@@ -210,7 +210,7 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        return "\nID: " + this.getUUID().toString() + " \n" +
+        return "\nID: " + this.getUuid().toString() + " \n" +
                 this.getTitle() + " at " +
                 this.getLocation() + ", " + this.getDatetime().toString() + "\n";
     }
