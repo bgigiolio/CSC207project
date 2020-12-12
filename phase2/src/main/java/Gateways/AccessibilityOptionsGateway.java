@@ -52,6 +52,7 @@ public class AccessibilityOptionsGateway implements Serializable{
         }
     }
 
+
     /**
      * This method remove request in the request list.
      * @param sender the username of the sender of the request
@@ -63,9 +64,17 @@ public class AccessibilityOptionsGateway implements Serializable{
         this.requestList.replace(sender, senderRequest);
     }
 
+
+    /**
+     * This method set the status of the request
+     * @param sender the username of sender
+     * @param num number of the request
+     * @param status the current status of request
+     */
     public void setStatus(String sender, int num, String status){
         this.requestList.get(sender).get(num).setStatus(status);
     }
+
 
     /**
      * The getter for the request list.
@@ -97,6 +106,10 @@ public class AccessibilityOptionsGateway implements Serializable{
         return requests;
     }
 
+
+    /**
+     * save the request list into database
+     */
     public void saveRequestList(){
         clearFileContentsUtil();
         try {
@@ -112,6 +125,10 @@ public class AccessibilityOptionsGateway implements Serializable{
         }
     }
 
+
+    /**
+     * clear the requests in the request list
+     */
     protected void clearFileContentsUtil() {
         try {
             PrintWriter writer = new PrintWriter(this.requireListPath);
@@ -122,7 +139,5 @@ public class AccessibilityOptionsGateway implements Serializable{
             e.printStackTrace();
         }
     }
-
-
 }
 
