@@ -79,7 +79,7 @@ public class ScheduleTableController extends Application {
     public TableView eventTable = new TableView<>();
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         setRatioButtonDefault();
         setColumnValue();
         setSearchBy();
