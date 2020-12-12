@@ -16,9 +16,6 @@ import java.util.Map;
  */
 
 public class AccessibilityOptionsController {
-    /**
-     * The username of the sender
-     */
 
     /**
      * the request list as an AccessibilityOptionsGateway object
@@ -41,7 +38,7 @@ public class AccessibilityOptionsController {
     /**
      * This method allow the organizers to address the request in request list
      * @param sender the username of the request sender
-     * @param num the content of the request
+     * @param num the number of the person's requests
      */
     public void addressRequest(String sender, int num){
         if (this.requestList.getRequestList().containsKey(sender)){
@@ -53,7 +50,7 @@ public class AccessibilityOptionsController {
     /**
      * This method allow the organizers to reject the request in request list
      * @param sender the username of the request sender
-     * @param num the content of the request
+     * @param num the number of person's requests
      */
     public void rejectRequest(String sender, int num){
         if (this.requestList.getRequestList().containsKey(sender)){
@@ -97,6 +94,9 @@ public class AccessibilityOptionsController {
         this.requestList.removeRequest("0", this.requestCreator.getRequest());
     }
 
+    /**
+     * save the requestList
+     */
     public void save(){
         this.requestList.saveRequestList();
     }
