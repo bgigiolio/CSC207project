@@ -292,7 +292,7 @@ public class UserMenu {
 
     public void displayEventsWithNoAttendees(EventManager em){
         System.out.println("Here are the events with no attendees:");
-        System.out.println("Event ID\t\tEvent name");
+        System.out.println("Event ID\t\t\t\t\t\t\t   Event name");
         for(UUID id : em.getEventIDNoAttendees())
             System.out.println(id.toString() + "   " + em.getEventTitle(id));
         System.out.println("\n\nEnter the ID of the event you want to delete or 'q' to exit:");

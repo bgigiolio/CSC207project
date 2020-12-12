@@ -363,8 +363,13 @@ public class AttendeeMenuController {
         } catch (NumberFormatException e) {
             return false;
         }
+        LocalDateTime d;
+        try{
+            d = LocalDateTime.of(year, month, day, hour, minute, 0);
+        }catch(java.time.DateTimeException e){
+            return false;
+        }
 
-        LocalDateTime d = LocalDateTime.of(year, month, day, hour, minute, 0);
         System.out.println(d);
 
         if(choice==1){
@@ -439,7 +444,7 @@ public class AttendeeMenuController {
             //quit
             if(response.equalsIgnoreCase("q")) return true;
 
-            //display homepage
+                //display homepage
             else if(response.equalsIgnoreCase("a")){
                 homepage();
                 continue;
@@ -590,7 +595,6 @@ public class AttendeeMenuController {
         }
     }
 
-    //TODO: add admin delete message functionality
     private void adminSwitch(int choice){
         switch (choice){
             case 9:     //delete messages
