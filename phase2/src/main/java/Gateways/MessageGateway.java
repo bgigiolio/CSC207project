@@ -25,8 +25,8 @@ public class MessageGateway {
      * Creates an instance of MessageGateway to access the file named Message.ser outside the program.
      */
     public MessageGateway(){
-        this.inboxPath = "src/main/java/DB/InboxMessage.ser";
-        this.outboxPath = "src/main/java/DB/OutboxMessage.ser";
+        this.inboxPath = "phase2/src/main/java/DB/InboxMessage.ser";
+        this.outboxPath = "phase2/src/main/java/DB/OutboxMessage.ser";
         this.inbox = getInbox();
         this.outbox = getOutbox();
     }
