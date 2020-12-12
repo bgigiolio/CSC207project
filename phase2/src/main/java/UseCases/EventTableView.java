@@ -116,5 +116,9 @@ public class EventTableView {
         return this.eventsRegistered;
     }
 
+    public void filterById(FilteredList<Event> toBeFiltered, String text) {
+        toBeFiltered.setPredicate(p -> p.getUuid().toString().contains(text.toLowerCase().trim()));
+    }
+
 
 }
