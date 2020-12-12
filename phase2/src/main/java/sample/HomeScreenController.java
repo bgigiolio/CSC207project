@@ -153,14 +153,18 @@ public class HomeScreenController{
         return "invalid";
 
     }
-    private void showOptions(){
-        if (this.role.equalsIgnoreCase("attendee")){
-            createUserAccount.setVisible(false);
-            addRoom.setVisible(false);
-            scheduleSpeaker.setVisible(false);
-            removeEvent.setVisible(false);
-            messageEventAttendees.setVisible(false);
-            createEvent.setVisible(false);
+    private void showOptions() {
+        try {
+            if (this.role.equalsIgnoreCase("attendee")) {
+                createUserAccount.setVisible(false);
+                addRoom.setVisible(false);
+                scheduleSpeaker.setVisible(false);
+                removeEvent.setVisible(false);
+                messageEventAttendees.setVisible(false);
+                createEvent.setVisible(false);
+
+            }
+        } catch (NullPointerException ignored) {
 
         }
     }
@@ -241,8 +245,18 @@ public class HomeScreenController{
     }
 
     @FXML
-    void createEventPressed(ActionEvent event) {
-
+    void createEventPressed(ActionEvent event) throws IOException {
+        Stage eventCreatorStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("EventCreatorScene.fxml"));
+        Parent root = loader.load();
+        EventCreatorSceneController ECSC = loader.getController();
+        ECSC.setBuildingManager(this.buildingManager);
+        ECSC.setBuildingGateway(this.buildingGateway);
+        ECSC.setEventGateway(this.eventGateway);
+        ECSC.setEventManager(this.eventManager);
+        eventCreatorStage = new Stage();
+        eventCreatorStage.setScene(new Scene(root,700,500));
+        eventCreatorStage.show();
     }
 
     @FXML
