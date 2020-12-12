@@ -239,7 +239,7 @@ public class AttendeeMenuController {
         }catch (NumberFormatException e){
             return false;
         }
-        if (action.equalsIgnoreCase("Adress")){
+        if (action.equalsIgnoreCase("Address")){
             accessibility.addressRequest(user, num);
         }else if (action.equalsIgnoreCase("Reject")){
             accessibility.rejectRequest(user, num);

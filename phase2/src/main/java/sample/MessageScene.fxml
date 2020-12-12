@@ -30,9 +30,11 @@
       <AnchorPane fx:id="sendPane" layoutX="20.0" layoutY="72.0" prefHeight="314.0" prefWidth="460.0" visible="false">
          <children>
             <Label layoutX="57.0" layoutY="27.0" text="To:" />
-            <TextField fx:id="toUsername" layoutX="82.0" layoutY="23.0" promptText="Username" />
-            <TextArea fx:id="message" layoutX="82.0" layoutY="55.0" prefHeight="226.0" prefWidth="302.0" promptText="Your message" />
+            <TextField fx:id="toUsername" layoutX="82.0" layoutY="23.0" onMouseClicked="#handleSendPane" promptText="Username" />
+            <TextArea fx:id="message" layoutX="82.0" layoutY="55.0" onMouseClicked="#handleSendPane" prefHeight="226.0" prefWidth="302.0" promptText="Your message" />
             <Button fx:id="sendButton" layoutX="332.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleSendButton" prefHeight="25.0" prefWidth="50.0" text="Send" />
+            <Label fx:id="sentValid" layoutX="245.0" layoutY="293.0" text="Message sent!" textFill="#0025ff" visible="false" />
+            <Label fx:id="sentInvalid" layoutX="230.0" layoutY="293.0" text="Message not sent" textFill="RED" visible="false" />
          </children></AnchorPane>
       <AnchorPane fx:id="reviewPane" layoutX="24.0" layoutY="78.0" prefHeight="310.0" prefWidth="460.0" visible="false">
          <children>
