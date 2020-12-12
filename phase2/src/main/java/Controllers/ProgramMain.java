@@ -122,6 +122,9 @@ public class ProgramMain implements AutoCloseable{
             }else if(response2.equalsIgnoreCase("U") || response2.equalsIgnoreCase("[U]")){
                 answered2 = true;
                 role = "attendee";
+            }else if(response2.equalsIgnoreCase("S") || response2.equalsIgnoreCase("[S]")){
+                answered2 = true;
+                role = "speaker";
             }else if(response2.equalsIgnoreCase("A") || response2.equalsIgnoreCase("[A]")){
                 answered2 = true;
                 role = "admin";

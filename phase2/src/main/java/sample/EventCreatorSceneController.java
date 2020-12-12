@@ -86,11 +86,11 @@ public class EventCreatorSceneController {
     @FXML
     void createEventButtonPressed(ActionEvent event) {
         //LocalDate rawDate = this.datePicker.getValue();
-        int startHour = 0;
-        int durHour = 0;
-        int startMinute = 0;
-        int durMinute = 0;
-        LocalDate rawStartDate = null;
+        int startHour;
+        int durHour;
+        int startMinute;
+        int durMinute;
+        LocalDate rawStartDate;
         if (startHourField.getText() == null || startMinuteField.getText() == null || endHourField.getText() == null
                 || roomNamePrompt.getText() == null || capacityPrompt.getText() == null ||
                 eventTitlePrompt.getText() == null || roomNamePrompt.getText() == null ||
@@ -143,21 +143,28 @@ public class EventCreatorSceneController {
     private void createEvent(){
         if(this.type.equalsIgnoreCase("No speaker")){
             if(!eventManager.addEvent(this.eventTitle, this.roomTitle, this.startDate, this.duration, eventCapacity,
-                    "event", this.buildingManager))
+                    "event", this.buildingManager)){
                 errorText.setText("Event could not be created!");
+                return;
+            }
+
         }else if(this.type.equalsIgnoreCase("Talk")){
             if(!eventManager.addEvent(this.eventTitle, this.roomTitle, this.startDate, this.duration, eventCapacity,
-                    "talk", this.buildingManager))
+                    "talk", this.buildingManager)) {
                 errorText.setText("Event could not be created!");
+                return;
+            }
+
         }else if(this.type.equalsIgnoreCase("Panel")){
             if(!eventManager.addEvent(this.eventTitle, this.roomTitle, this.startDate, this.duration, eventCapacity,
-                    "panelDiscussion", this.buildingManager))
+                    "panelDiscussion", this.buildingManager)) {
                 errorText.setText("Event could not be created!");
+                return;
+            }
         }
         errorText.setText("Event Successfully Created");
         this.eventGateway.save(this.eventManager);
         this.buildingGateway.save(this.buildingManager);
-
     }
 
     public void setBuildingManager(BuildingManager buildingManager){

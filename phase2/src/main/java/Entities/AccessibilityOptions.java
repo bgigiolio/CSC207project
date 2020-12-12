@@ -37,7 +37,7 @@ public class AccessibilityOptions extends main.java.Entities.Message {
      */
 
     public AccessibilityOptions(String request, String sender){
-        super(request, sender);
+        super(request, sender, null);
         this.request = request;
         time_sent = LocalDateTime.now(ZoneId.of("America/Toronto"));
         this.status = "pending";
