@@ -39,9 +39,10 @@ public class MessageGateway {
      * @param receiver is the user that received the message
      * @param message is the object that is created by sender, sent to receiver.
      */
-    public void addNewMessage(String sender, String receiver, Message message){
+    public boolean addNewMessage(String sender, String receiver, Message message){
         if (!this.inbox.containsKey(receiver)){
             this.inbox.put(receiver, new ArrayList<>());
+            return false;
         }
         ArrayList<Message> receiverInbox = this.inbox.get(receiver);
         receiverInbox.add(message);
@@ -49,10 +50,12 @@ public class MessageGateway {
 
         if (!this.outbox.containsKey(sender)){
             this.outbox.put(sender, new ArrayList<>());
+            return false;
         }
         ArrayList<Message> senderOutbox = this.outbox.get(sender);
         senderOutbox.add(message);
         this.outbox.replace(sender, senderOutbox);
+        return true;
     }
 
     /**

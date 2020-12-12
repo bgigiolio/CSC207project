@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -31,6 +32,8 @@ public class MessageController implements Initializable {
     TextArea message;
     @FXML
     TextArea inbox;
+    @FXML Label sentValid;
+    @FXML Label sentInvalid;
 
     main.java.Controllers.MessageController messageController = new main.java.Controllers.MessageController();
 
@@ -43,14 +46,21 @@ public class MessageController implements Initializable {
 
     }
 
+    public void handleSendPane(MouseEvent event){
+        sentValid.setVisible(false);
+        sentInvalid.setVisible(false);
+    }
 
     public void handleSendButton(ActionEvent event) {
 
-        messageController.setSender(this.sender);
-        messageController.setReceiver(this.toUsername.getText());
-        messageController.setMessageString(this.message.getText());
         messageController.setMessageSystem(this.message.getText(), this.toUsername.getText(),this.sender);
-        messageController.sendMessage();
+        if (messageController.sendMessage()){
+            sentValid.setVisible(true);
+        }
+        else{
+            sentInvalid.setVisible(true);
+        }
+
 
     }
 
