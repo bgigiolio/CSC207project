@@ -1,9 +1,7 @@
 package main.java.Controllers;
 
 import main.java.Gateways.BuildingGateway;
-import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
-import main.java.UseCases.EventManager;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
