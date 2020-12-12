@@ -50,7 +50,7 @@ public class OpeningController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 //        EventGateway eventGateway = new EventGateway();
 //        this.sys = new ProgramMainGUI(eventGateway.read());
-        userRole.getItems().addAll("organizer", "attendee", "admin");
+        userRole.getItems().addAll("organizer", "attendee", "speaker", "admin");
 
     }
 

@@ -85,7 +85,7 @@ public class CreateUserSceneController {
         this.userLoginGateway = userLoginGateway;
     }
     public void showOptions(){
-        roleMenu.getItems().addAll("organizer", "attendee", "admin");
+        roleMenu.getItems().addAll("organizer", "attendee", "speaker", "admin");
     }
 
     @FXML
