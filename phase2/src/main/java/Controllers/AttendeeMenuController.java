@@ -408,22 +408,22 @@ public class AttendeeMenuController {
 
     /**
      * This is where the user will decide what they want to do. The possible options are:
-     * [1] See Event Schedule
-     * [2] Review Your Events Schedule
-     * [3] Sign Up For Event
-     * [4] Cancel Event
+     * [1] See Event Schedule | added to GUI
+     * [2] Review Your Events Schedule | added to GUI
+     * [3] Sign Up For Event | added to GUI
+     * [4] Cancel Event | added to GUI
      * [5] Send Message
      * [6] Review Messages
      * [7] Manage Friends List
-     * [8] Logout
+     * [8] Logout | added to GUI
      * [q] Quit
      * ---AVAILABLE FOR ORGANIZERS ONLY---
-     * [9] Create User Account
-     * [10] Add Room
+     * [9] Create User Account | added to GUI
+     * [10] Add Room | added to GUI
      * [11] Schedule Speaker
      * [12] Remove Event
      * [13] Message Event Attendees
-     * [14] Create Event
+     * [14] Create Event | added to GUI
      *
      * @return true if user chose to exit program, false if user just logged out
      */
