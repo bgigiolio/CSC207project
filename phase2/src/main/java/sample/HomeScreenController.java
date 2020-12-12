@@ -275,8 +275,18 @@ public class HomeScreenController{
     }
 
     @FXML
-    void removeEventPressed(ActionEvent event) {
-
+    void removeEventPressed(ActionEvent event) throws IOException {
+        Stage eventRemoverStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("EventRemoverScene.fxml"));
+        Parent root = loader.load();
+        EventRemoverSceneController ERSC = loader.getController();
+        ERSC.setBuildingManager(this.buildingManager);
+        ERSC.setBuildingGateway(this.buildingGateway);
+        ERSC.setEventGateway(this.eventGateway);
+        ERSC.setEventManager(this.eventManager);
+        eventRemoverStage = new Stage();
+        eventRemoverStage.setScene(new Scene(root,700,500));
+        eventRemoverStage.show();
     }
 
     @FXML
@@ -329,7 +339,11 @@ public class HomeScreenController{
         Parent root = loader.load();
         signUpController SUC = loader.getController();
         SUC.setUserManager(this.userManager);
+        SUC.setBuildingGateway(this.buildingGateway);
+        SUC.setUsername(this.username);
         SUC.setBuilding(this.buildingManager);
+        SUC.setEventManager(this.eventManager);
+        SUC.setEventGateway(this.eventGateway);
         EventStage = new Stage();
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
