@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @author Qi Zheng
  * @version Phase2
  */
-public class MessageGateway implements Serializable{
+public class MessageGateway {
     protected HashMap<String, ArrayList<Message>> inbox; //received messages
 
     protected HashMap<String, ArrayList<Message>> outbox; //sent messages
@@ -25,10 +25,10 @@ public class MessageGateway implements Serializable{
      * Creates an instance of MessageGateway to access the file named Message.ser outside the program.
      */
     public MessageGateway(){
-        this.inbox = new HashMap<>();
-        this.outbox = new HashMap<>();
         this.inboxPath = "phase2/src/main/java/DB/InboxMessage.ser";
         this.outboxPath = "phase2/src/main/java/DB/OutboxMessage.ser";
+        this.inbox = getInbox();
+        this.outbox = getOutbox();
     }
 
     /**
@@ -63,7 +63,7 @@ public class MessageGateway implements Serializable{
      * @param receiver is the user that received the message
      * @param message is the object that is created by sender, sent to receiver.
      */
-    public void removeMessage(String sender, String receiver, Message message){
+    public boolean removeMessage(String sender, String receiver, Message message){
         if (this.outbox.containsKey(sender) && this.outbox.get(sender).contains(message)
         && this.inbox.containsKey(receiver) && this.inbox.get(receiver).contains(message)){
             ArrayList<Message> senderOutbox = this.outbox.get(sender);
@@ -73,7 +73,9 @@ public class MessageGateway implements Serializable{
             ArrayList<Message> receiverInbox = this.inbox.get(receiver);
             receiverInbox.remove(message);
             this.inbox.replace(receiver, receiverInbox);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -82,11 +84,6 @@ public class MessageGateway implements Serializable{
      * @return inbox
      */
     public HashMap<String, ArrayList<Message>> getInbox() {
-        File f = new File(this.inboxPath);
-
-        if(f.length()==0)
-            return new HashMap<>();
-
         try {
             InputStream file = new FileInputStream(this.inboxPath);
             InputStream buffer = new BufferedInputStream(file);
@@ -114,11 +111,6 @@ public class MessageGateway implements Serializable{
      * @return outbox
      */
     public HashMap<String, ArrayList<Message>> getOutbox(){
-        File f = new File(this.inboxPath);
-
-        if(f.length()==0)
-            return new HashMap<>();
-
         try{
             InputStream file = new FileInputStream(this.outboxPath);
             InputStream buffer = new BufferedInputStream(file);

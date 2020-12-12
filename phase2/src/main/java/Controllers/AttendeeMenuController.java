@@ -94,6 +94,7 @@ public class AttendeeMenuController {
     public void sendMessage() {
         this.menu.sendMessageUser();
         String user = new Scanner(System.in).nextLine();
+        if(!userManager.checkUsername(user)) return;
         this.menu.sendMessageContent();
         String content = new Scanner(System.in).nextLine();
         MessageController message = new MessageController(this.username, user, content);
@@ -427,7 +428,7 @@ public class AttendeeMenuController {
      *
      * @return true if user chose to exit program, false if user just logged out
      */
-    public boolean menuSelection() throws IOException, ClassNotFoundException {
+    public boolean menuSelection() throws IOException {
         Scanner uname = new Scanner(System.in);
         int choice;
         String response;
@@ -593,7 +594,19 @@ public class AttendeeMenuController {
     private void adminSwitch(int choice){
         switch (choice){
             case 9:     //delete messages
-                menu.operationComplete();
+                MessageController mc = new MessageController();
+                String un, pw, content;
+                Scanner cin = new Scanner(System.in);
+                menu.viewAllMessages(mc);
+                menu.deleteMessagePrompt();
+                un = cin.nextLine();
+                pw = cin.nextLine();
+                content = cin.nextLine();
+                mc = new MessageController(un, pw, content);
+                if(mc.deleteMessage())
+                    menu.operationComplete();
+                else
+                    menu.invalidResponse();
                 break;
             case 10:    //delete event with no attendees
                 menu.displayEventsWithNoAttendees(eventManager);

@@ -27,7 +27,7 @@ public class MessageCreator {
      * @param senderUserid the username of the person sending the message.
      */
     public MessageCreator(String toBeMessage, String receiver, String senderUserid){
-        message = new Message(toBeMessage, senderUserid);
+        message = new Message(toBeMessage, senderUserid, receiver);
         this.receiver = receiver;
     }
     /**

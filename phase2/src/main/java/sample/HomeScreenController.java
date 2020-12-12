@@ -161,7 +161,6 @@ public class HomeScreenController{
             removeEvent.setVisible(false);
             messageEventAttendees.setVisible(false);
             createEvent.setVisible(false);
-
         }
     }
     /**

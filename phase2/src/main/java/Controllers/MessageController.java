@@ -87,18 +87,19 @@ public class MessageController {
     /**
      * Deletes message and updates inbox and outbox through Message Gateway.
      */
-    public void deleteMessage() {
-        this.allMessages.removeMessage(this.sender, this.receiver, messageSystem.getMessage());
+    public boolean deleteMessage() {
+        boolean retVal = this.allMessages.removeMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setOutbox();
         this.allMessages.setInbox();
+        return retVal;
     }
 
     private ArrayList<String> allMessageHelper(HashMap<String, ArrayList<Message>> hm) {
         ArrayList<String> ret = new ArrayList<>();
         for (Map.Entry<String, ArrayList<Message>> mapElement : hm.entrySet()) {
-            String key = mapElement.getKey();
             for (Message m : mapElement.getValue()) {
-                ret.add(key + " : " + m.getTime_sent() + " : " + m.getContent());
+                ret.add(m.toString()+"\n");
+                ret.add("\n");
             }
         }
         return ret;
