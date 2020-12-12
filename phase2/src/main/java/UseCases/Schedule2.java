@@ -171,7 +171,7 @@ public class Schedule2 implements Serializable {
         for(UUID id : schedule) {
             if(em.getEvent(id) == null) return false;
         }
-        return false;
+        return true;
     }
 
     /*

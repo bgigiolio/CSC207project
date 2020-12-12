@@ -63,8 +63,8 @@ public class HomeScreenController{
     @FXML
     private MenuItem signUpForEvent;
 
-    @FXML
-    private MenuItem cancelEvent;
+//    @FXML
+//    private MenuItem cancelEvent;
 
     @FXML
     private MenuItem Message;
@@ -159,6 +159,7 @@ public class HomeScreenController{
         return "invalid";
 
     }
+
     private void showOptions() {
         try {
             if (this.role.equalsIgnoreCase("attendee")) {
@@ -181,6 +182,7 @@ public class HomeScreenController{
 
         }
     }
+
     /**
      * This is how a user will log in. Here we call the log in menu prompt.
      * @return username of user logged. Null if couldn't log in.
@@ -198,12 +200,7 @@ public class HomeScreenController{
         return "invalid";
     }
 
-
-
-
-
-
-    @FXML
+    /*@FXML
     void cancel(ActionEvent event) throws IOException {
         Stage EventStage;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("signUpScene.fxml"));
@@ -214,7 +211,7 @@ public class HomeScreenController{
         EventStage = new Stage();
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
-    }
+    }*/
 
     @FXML
     void logout(ActionEvent event) throws IOException {
@@ -224,7 +221,9 @@ public class HomeScreenController{
         Scene openingScene = new Scene(root,300,275);
         primaryStage.setScene(openingScene);
         primaryStage.show();
-
+        eventGateway.save(eventManager);
+        buildingGateway.save(buildingManager);
+        userLoginGateway.save(userManager);
     }
 
     //under work

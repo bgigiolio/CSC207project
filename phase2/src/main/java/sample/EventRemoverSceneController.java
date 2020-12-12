@@ -53,8 +53,10 @@ public class EventRemoverSceneController {
             return;
         }
 
-        if (eventManager.deleteEvent(id) & buildingManager.deleteEvent(id)){
+        if (eventManager.deleteEvent(id) && buildingManager.deleteEvent(id)){
             errorText.setText("Event successfully removed!");
+            this.eventGateway.save(this.eventManager);
+            this.buildingGateway.save(this.buildingManager);
         }else{
             errorText.setText("Event could not be removed or doesn't exist");
         }
