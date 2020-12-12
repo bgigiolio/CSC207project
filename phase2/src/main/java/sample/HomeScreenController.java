@@ -319,7 +319,7 @@ public class HomeScreenController{
         scheduleTableController.setUsername(this.username);
 
         scheduleStage = new Stage();
-        scheduleStage.setScene(new Scene(root,940,500));
+        scheduleStage.setScene(new Scene(root,940,610));
         scheduleStage.show();
     }
 
