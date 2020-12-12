@@ -15,7 +15,7 @@ public class BuildingGateway extends DatabaseGateway<BuildingManager>{
     public BuildingGateway() { super("phase2/src/main/java/DB/Building.ser"); }
 
     /**
-     * This method retrieves a BuildingManager object from Events.ser.
+     * This method retrieves a BuildingManager object from Building.ser.
      * @return A BuildingManager object.
      */
     @Override
@@ -47,7 +47,7 @@ public class BuildingGateway extends DatabaseGateway<BuildingManager>{
     }
 
     /**
-     * This method stores a BuildingManager object in Events.ser.
+     * This method stores a BuildingManager object in Building.ser.
      * @param obj A BuildingManager object.
      */
     @Override
@@ -66,4 +66,19 @@ public class BuildingGateway extends DatabaseGateway<BuildingManager>{
         }
     }
 
+    /**
+     * Construct the text file Schedule.txt from database Building.ser.
+     */
+    public void constructScheduleTxt() {
+        BuildingManager buildingManager = read();
+        String scheduleString = buildingManager.toString();
+        FileWriter scheduleWriter;
+        try{
+            scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
+            scheduleWriter.write(scheduleString);
+            scheduleWriter.close();
+        }catch(IOException e){
+            System.err.println("IO error when constructing schedule text file :(");
+        }
+    }
 }

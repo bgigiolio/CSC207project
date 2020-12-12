@@ -7,6 +7,13 @@ import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -454,12 +461,44 @@ public class AttendeeMenuController {
         menu.scheduleDownload();
         String option = new Scanner(System.in).nextLine();
         if (option.equals("1")) {
-            new ScheduleSystem().constructScheduleTxt();
-            new ScheduleSystem().downloadSchedule();
+            new BuildingGateway().constructScheduleTxt();
+            downloader();
         } else if (!option.equals("2")) {
             menu.invalidResponse();
             downloadScheduleTxt();
         }
+    }
+
+    /**
+     * Handle the action of downloading schedule Schedule.txt to the user's local computer.
+     */
+    public void downloader() {
+        SwingUtilities.invokeLater(() -> {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileFilter(new FileNameExtensionFilter("*.txt", ".txt"));
+            int option = chooser.showSaveDialog(null);
+            if (option == JFileChooser.APPROVE_OPTION) {
+                File destination = chooser.getSelectedFile();
+                if (!destination.getName().endsWith(".txt")) {
+                    destination = new File(destination + ".txt");
+                }
+                try {
+                    InputStream file = new FileInputStream("phase2/src/main/java/DB/Schedule.txt");
+                    Files.copy(file, destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    menu.downloadSuccess(destination.toString());
+                    menu.selectAnotherOption();
+                    menu.promptagainonly();
+                } catch (Exception ex) {
+                    menu.downloadFailed();
+                    menu.selectAnotherOption();
+                    menu.promptagainonly();
+                }
+            } else {
+                menu.downloadLocationNotSelected();
+                menu.selectAnotherOption();
+                menu.promptagainonly();
+            }
+        });
     }
 
     /**

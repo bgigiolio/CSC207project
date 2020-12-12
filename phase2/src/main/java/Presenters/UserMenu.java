@@ -324,4 +324,12 @@ public class UserMenu {
 
     public void enterRequestNum() { System.out.println("Please enter the associated num with the desired request.");
     }
+
+    public void downloadSuccess(String destination) { System.out.println("Schedule has been successfully downloaded to " + destination + ".");}
+
+    public void downloadFailed() { System.out.println("Failed to download schedule due to server error."); }
+
+    public void selectAnotherOption() { System.out.println("Please select another menu option."); }
+
+    public void downloadLocationNotSelected() { System.out.println("No file location was selected."); }
 }
