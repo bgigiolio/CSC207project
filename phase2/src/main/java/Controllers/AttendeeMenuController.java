@@ -1,5 +1,6 @@
 package main.java.Controllers;
 
+import main.java.Entities.AccessibilityOptions;
 import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.Presenters.UserMenu;
@@ -28,6 +29,7 @@ public class AttendeeMenuController {
     private final BuildingManager building;
     private final UserManager userManager;
     private final EventManager eventManager;
+    private final AccessibilityOptionsController accessibility;
 
     /**
      * This constructor takes in the parameters needed to operate the menu.
@@ -36,13 +38,14 @@ public class AttendeeMenuController {
      * @param building    This is the Building Manager for the building that the user is interested in.
      * @param userManager This is the user manager for the user that this menu is for.
      */
-    public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager, EventManager eventManager) {
+    public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager, EventManager eventManager, AccessibilityOptionsController accessibility) {
         this.username = username;
         this.role = role;
         this.menu = new UserMenu();
         this.building = building;
         this.userManager = userManager;
         this.eventManager = eventManager;
+        this.accessibility = accessibility;
     }
 
     /**
@@ -198,6 +201,50 @@ public class AttendeeMenuController {
         menu.printAttendees(printout.toString());
         return true;
 
+    }
+
+    public boolean addRequest(){
+        this.menu.request();
+        Scanner scan = new Scanner(System.in);
+        String request = scan.nextLine();
+        if (request.equals("food") || request.equals("transportation") || request.equals("vision")){
+            accessibility.sendRequest(this.username, request);
+            accessibility.save();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean getRequests(){
+        ArrayList<String> requests = accessibility.getAllRequest();
+        String printout = "List of Requests:\n";
+        for (String r: requests){
+            printout += "*" + r +"\n";
+        }
+        this.menu.printAttendees(printout);
+        this.menu.requestAction();
+        Scanner scan = new Scanner(System.in);
+        String action = scan.nextLine();
+        if (action.equalsIgnoreCase("Leave")){
+            return true;
+        }
+        this.menu.enterUsername();
+        String user = scan.nextLine();
+        this.menu.enterRequestNum();
+        String tempnum = scan.nextLine();
+        int num = 0;
+        try{
+            num = Integer.parseInt(tempnum);
+        }catch (NumberFormatException e){
+            return false;
+        }
+        if (action.equalsIgnoreCase("Adress")){
+            accessibility.addressRequest(user, num);
+        }else if (action.equalsIgnoreCase("Reject")){
+            accessibility.rejectRequest(user, num);
+        }
+        accessibility.save();
+        return true;
     }
 
     public boolean modifyCapacity() {
@@ -524,7 +571,13 @@ public class AttendeeMenuController {
                 manageFriendsList();
                 menu.operationComplete();
                 break;
-
+            case 20:
+                if(!addRequest()){
+                    this.menu.invalidResponse();
+                }else{
+                    this.menu.operationComplete();
+                }
+                break;
             default:
                 return false;
         }
@@ -582,7 +635,9 @@ public class AttendeeMenuController {
                 else
                     menu.invalidResponse();
                 break;
-
+            case 17:
+                getRequests();
+                break;
             default:
                 this.menu.invalidResponse();
                 break;

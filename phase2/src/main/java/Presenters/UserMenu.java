@@ -28,6 +28,7 @@ public class UserMenu {
                 "[6] Review Messages\n" +
                 "[7] Manage Friends List\n" +
                 "[8] Logout\n"+
+                "[20] Make Request\n" +
                 "[q] Quit\n");
     }
 
@@ -43,7 +44,8 @@ public class UserMenu {
                 "[13] Message Event Attendees \n" +
                 "[14] Create Event\n" +
                 "[15] Modify Event Capacity. \n" +
-                "[16] Get List of Attendees for Event.");
+                "[16] Get List of Attendees for Event.\n" +
+                "[17] Get List of Requests");
     }
 
     /**
@@ -299,5 +301,17 @@ public class UserMenu {
 
     public void viewSpeakerEvents(String text){
         System.out.println("List of events I'm talking at:\n" + text);
+    }
+
+    public void request() { System.out.println("What is your request?");
+    }
+
+    public void requestAction() { System.out.println("Would you like to [Reject] or [Adress] or [Leave]?");
+    }
+
+    public void enterUsername() { System.out.println("Please enter the username of the desired request.");
+    }
+
+    public void enterRequestNum() { System.out.println("Please enter the associated number of the request.");
     }
 }
