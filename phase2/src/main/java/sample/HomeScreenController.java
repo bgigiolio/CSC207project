@@ -162,7 +162,14 @@ public class HomeScreenController{
                 removeEvent.setVisible(false);
                 messageEventAttendees.setVisible(false);
                 createEvent.setVisible(false);
-
+            }
+            else if (this.role.equalsIgnoreCase("speaker")){
+                createUserAccount.setVisible(false);
+                addRoom.setVisible(false);
+                scheduleSpeaker.setVisible(false);
+                removeEvent.setVisible(false);
+                messageEventAttendees.setVisible(false);
+                createEvent.setVisible(false);
             }
         } catch (NullPointerException ignored) {
 
@@ -227,6 +234,7 @@ public class HomeScreenController{
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
     }
+
 
     @FXML
     void addRoomPressed(ActionEvent event) throws IOException {
@@ -298,13 +306,14 @@ public class HomeScreenController{
     void Message(ActionEvent event) throws IOException {
         Stage messageStage;
 
-        Parent root = FXMLLoader.load(getClass().getResource("MessageScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("MessageScene.fxml"));
+        Parent root = loader.load();
+        MessageController MC = loader.getController();
+        MC.setSender(this.username);
         messageStage = new Stage();
         messageStage.setScene(new Scene(root,500,500));
         messageStage.show();
-        System.out.println(this.username);
-        System.out.println(this.password);
-        System.out.println(this.role);
+
     }
 
 
@@ -318,7 +327,7 @@ public class HomeScreenController{
         scheduleTableController.setUsername(this.username);
 
         scheduleStage = new Stage();
-        scheduleStage.setScene(new Scene(root,940,500));
+        scheduleStage.setScene(new Scene(root,940,610));
         scheduleStage.show();
     }
 
@@ -348,4 +357,6 @@ public class HomeScreenController{
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
     }
+
+
 }

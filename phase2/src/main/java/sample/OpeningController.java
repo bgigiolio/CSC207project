@@ -19,6 +19,7 @@ public class OpeningController implements Initializable {
     public ToggleGroup userType;
     public Button loginButton;
 
+
     @FXML
     RadioButton retUser;
     @FXML
@@ -32,7 +33,7 @@ public class OpeningController implements Initializable {
     @FXML
     private TextField username;
     @FXML
-    private TextField password;
+    public TextField password;
     @FXML
     private Label invalidLoginText;
 //    String uname;
@@ -49,7 +50,7 @@ public class OpeningController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 //        EventGateway eventGateway = new EventGateway();
 //        this.sys = new ProgramMainGUI(eventGateway.read());
-        userRole.getItems().addAll("organizer", "attendee", "admin");
+        userRole.getItems().addAll("organizer", "attendee", "speaker", "admin");
 
     }
 
