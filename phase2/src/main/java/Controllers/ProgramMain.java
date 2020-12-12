@@ -1,6 +1,5 @@
 package main.java.Controllers;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import main.java.Gateways.BuildingGateway;
@@ -22,6 +21,7 @@ public class ProgramMain implements AutoCloseable{
     private final BuildingManager buildingManager;
     private final EventManager eventManager;
     private final UserManager userManager;
+    private final AccessibilityOptionsController accessibility;
 
     /**
      * This constructor sets up which building the program is going to run for.
@@ -30,6 +30,7 @@ public class ProgramMain implements AutoCloseable{
         eventManager = new EventGateway().read();
         userManager = new UserLoginGateway().read();
         buildingManager = new BuildingGateway().read();
+        accessibility = new AccessibilityOptionsController();
     }
 
     /**
@@ -41,7 +42,7 @@ public class ProgramMain implements AutoCloseable{
      *  -Logs the user in
      *  -Initializes the post-login menu
      */
-    public void start() throws ClassNotFoundException, IOException {
+    public void start() {
         AttendeeMenuController currentSession;
         StartingMenu menuPresenter = new StartingMenu();
         UserLoginGateway userLoginGateway = new UserLoginGateway();
@@ -67,7 +68,7 @@ public class ProgramMain implements AutoCloseable{
                 }
             } while(username == null);
 
-            currentSession = new AttendeeMenuController(username, role, buildingManager, userManager, eventManager);
+            currentSession = new AttendeeMenuController(username, role, buildingManager, userManager, eventManager, accessibility);
 
             currentSession.homepage();
             didQuit = currentSession.menuSelection();

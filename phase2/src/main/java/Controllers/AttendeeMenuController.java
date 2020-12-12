@@ -7,7 +7,6 @@ import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ public class AttendeeMenuController {
     private final BuildingManager building;
     private final UserManager userManager;
     private final EventManager eventManager;
+    private final AccessibilityOptionsController accessibility;
 
     /**
      * This constructor takes in the parameters needed to operate the menu.
@@ -36,13 +36,14 @@ public class AttendeeMenuController {
      * @param building    This is the Building Manager for the building that the user is interested in.
      * @param userManager This is the user manager for the user that this menu is for.
      */
-    public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager, EventManager eventManager) {
+    public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager, EventManager eventManager, AccessibilityOptionsController accessibility) {
         this.username = username;
         this.role = role;
         this.menu = new UserMenu();
         this.building = building;
         this.userManager = userManager;
         this.eventManager = eventManager;
+        this.accessibility = accessibility;
     }
 
     /**
@@ -54,7 +55,7 @@ public class AttendeeMenuController {
             menu.optionsOrganizer();
         else if (role.equalsIgnoreCase("speaker"))
             menu.optionsSpeaker();
-        else if(role.equalsIgnoreCase("admin"))
+        else if (role.equalsIgnoreCase("admin"))
             menu.optionsAdmin();
     }
 
@@ -66,9 +67,9 @@ public class AttendeeMenuController {
         String inp = new Scanner(System.in).nextLine();
         UUID id;
 
-        try{
+        try {
             id = UUID.fromString(inp);
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Wrong format!");
             return false;
         }
@@ -81,9 +82,9 @@ public class AttendeeMenuController {
         String inp = new Scanner(System.in).nextLine();
         UUID id;
 
-        try{
+        try {
             id = UUID.fromString(inp);
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Wrong format!");
             return false;
         }
@@ -94,7 +95,7 @@ public class AttendeeMenuController {
     public void sendMessage() {
         this.menu.sendMessageUser();
         String user = new Scanner(System.in).nextLine();
-        if(!userManager.checkUsername(user)) return;
+        if (!userManager.checkUsername(user)) return;
         this.menu.sendMessageContent();
         String content = new Scanner(System.in).nextLine();
         MessageController message = new MessageController(this.username, user, content);
@@ -122,7 +123,7 @@ public class AttendeeMenuController {
             return false;
         }
 
-        if(startH > 23 || startH < 0 || startM < 0 || startM > 59)
+        if (startH > 23 || startH < 0 || startM < 0 || startM > 59)
             return false;
 
         this.menu.createRoomEnd();
@@ -136,7 +137,7 @@ public class AttendeeMenuController {
             return false;
         }
 
-        if(endH > 23 || endH < 0 || endM < 0 || endM > 59)
+        if (endH > 23 || endH < 0 || endM < 0 || endM > 59)
             return false;
 
         this.menu.createRoomCapacity();
@@ -149,7 +150,7 @@ public class AttendeeMenuController {
             return false;
         }
 
-        if(roomCapacity < 0)
+        if (roomCapacity < 0)
             return false;
 
         return building.addRoom(name, LocalTime.of(startH, startM), LocalTime.of(endH, endM), roomCapacity);
@@ -160,16 +161,16 @@ public class AttendeeMenuController {
         Scanner cin = new Scanner(System.in);
 
         String speakerName = cin.nextLine();
-        if(!userManager.checkUsername(speakerName) || !userManager.getUserRole(speakerName).equals("speaker"))
+        if (!userManager.checkUsername(speakerName) || !userManager.getUserRole(speakerName).equals("speaker"))
             return false;
 
         this.menu.enterEventID();
         String eventID = cin.nextLine();
         UUID id;
 
-        try{
+        try {
             id = UUID.fromString(eventID);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid id format");
             return false;
         }
@@ -177,15 +178,15 @@ public class AttendeeMenuController {
         return eventManager.setSpeaker(id, speakerName) & userManager.addTalk(speakerName, id);
     }
 
-    public boolean getListOfAttendees(){
+    public boolean getListOfAttendees() {
         menu.enterEventID();
         String eventID = new Scanner(System.in).nextLine();
         UUID id;
         ArrayList<String> attendees;
 
-        try{
+        try {
             id = UUID.fromString(eventID);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             menu.invalidID();
             return false;
         }
@@ -193,12 +194,64 @@ public class AttendeeMenuController {
 
         StringBuilder printout = new StringBuilder("List of Attendees: ");
 
-        for(String s:attendees)
+        for (String s : attendees)
             printout.append(s).append(", ");
 
         menu.printAttendees(printout.toString());
         return true;
 
+    }
+
+    public boolean addRequest() {
+        this.menu.request();
+        Scanner scan = new Scanner(System.in);
+        String request = scan.nextLine();
+        if (request.equals("food") || request.equals("transportation") || request.equals("vision")) {
+            accessibility.sendRequest(this.username, request);
+            accessibility.save();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean getRequests() {
+        ArrayList<String> requests = accessibility.getAllRequest();
+        StringBuilder printout = new StringBuilder("List of Requests:\n");
+
+        for (String r : requests) {
+            printout.append("*").append(r).append("\n");
+        }
+
+        this.menu.printAttendees(printout.toString());
+        this.menu.requestAction();
+
+        Scanner scan = new Scanner(System.in);
+        String action = scan.nextLine();
+
+        if (action.equalsIgnoreCase("Leave")) {
+            return true;
+        }
+
+        this.menu.enterUsername();
+        String user = scan.nextLine();
+        this.menu.enterRequestNum();
+        String tempNum = scan.nextLine();
+
+        int num;
+
+        try {
+            num = Integer.parseInt(tempNum);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        if (action.equalsIgnoreCase("Address")) {
+            accessibility.addressRequest(user, num);
+        } else if (action.equalsIgnoreCase("Reject")) {
+            accessibility.rejectRequest(user, num);
+        }
+        accessibility.save();
+        return true;
     }
 
     public boolean modifyCapacity() {
@@ -210,9 +263,9 @@ public class AttendeeMenuController {
         this.menu.enterEvent();
         eventID = cin.nextLine();
 
-        try{
+        try {
             id = UUID.fromString(eventID);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return false;
         }
 
@@ -221,10 +274,10 @@ public class AttendeeMenuController {
 
         try {
             newCapacity = Integer.parseInt(tempNewCapacity);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
-        if(newCapacity < 0)
+        if (newCapacity < 0)
             return false;
         return eventManager.changeCapacity(id, newCapacity);
     }
@@ -234,9 +287,9 @@ public class AttendeeMenuController {
         String eventID = new Scanner(System.in).nextLine();
         UUID id;
 
-        try{
+        try {
             id = UUID.fromString(eventID);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return false;
         }
         boolean returnVal = eventManager.deleteEvent(id) & building.deleteEvent(id);
@@ -260,7 +313,7 @@ public class AttendeeMenuController {
             menu.friendsListUsername();
             user2 = new Scanner(System.in).nextLine();
 
-            if(!userManager.checkUsername(user2))
+            if (!userManager.checkUsername(user2))
                 menu.invalidResponse();
             else
                 userManager.addFriend(this.username, user2);
@@ -268,7 +321,7 @@ public class AttendeeMenuController {
             this.menu.friendsListUsername();
             user2 = new Scanner(System.in).nextLine();
 
-            if(!userManager.checkUsername(user2))
+            if (!userManager.checkUsername(user2))
                 menu.invalidResponse();
             else
                 userManager.removeFriend(this.username, user2);
@@ -277,7 +330,7 @@ public class AttendeeMenuController {
         }
     }
 
-    public void createUser(){
+    public void createUser() {
         menu.createUserType();
         String userType = new Scanner(System.in).nextLine();
         menu.createUserName();
@@ -288,20 +341,17 @@ public class AttendeeMenuController {
                 menu.organizerMade(userName);
             else
                 menu.invalidResponse();
-        }
-        else if (userType.equalsIgnoreCase("u")) {
+        } else if (userType.equalsIgnoreCase("u")) {
             if (userManager.registerUser(userName, "password", "attendee"))
                 menu.attendeeMade(userName);
             else
                 menu.invalidResponse();
-        }
-        else if (userType.equalsIgnoreCase("a")) {
+        } else if (userType.equalsIgnoreCase("a")) {
             if (userManager.registerUser(userName, "password", "admin"))
                 menu.adminMade(userName);
             else
                 this.menu.invalidResponse();
-        }
-        else if (userType.equalsIgnoreCase("s")) {
+        } else if (userType.equalsIgnoreCase("s")) {
             if (userManager.registerUser(userName, "password", "speaker"))
                 menu.speakerMade(userName);
             else
@@ -364,22 +414,22 @@ public class AttendeeMenuController {
             return false;
         }
         LocalDateTime d;
-        try{
+        try {
             d = LocalDateTime.of(year, month, day, hour, minute, 0);
-        }catch(java.time.DateTimeException e){
+        } catch (java.time.DateTimeException e) {
             return false;
         }
 
         System.out.println(d);
 
-        if(choice==1){
-            if(!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "event", building))
+        if (choice == 1) {
+            if (!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "event", building))
                 return false;
-        }else if(choice == 2){
-            if(!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "talk", building))
+        } else if (choice == 2) {
+            if (!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "talk", building))
                 return false;
-        }else if(choice == 3){
-            if(!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "panelDiscussion", building))
+        } else if (choice == 3) {
+            if (!eventManager.addEvent(eventName, roomName, d, duration, eventCapacity, "panelDiscussion", building))
                 return false;
         }
 
@@ -388,7 +438,7 @@ public class AttendeeMenuController {
         return true;
     }
 
-    public boolean organizerMessageAll() throws IOException {
+    public boolean organizerMessageAll() {
         if (this.role.equals("organizer")) {
             menu.sendMessageContent();
             String content = new Scanner(System.in).nextLine();
@@ -400,13 +450,13 @@ public class AttendeeMenuController {
         }
     }
 
-    public void downloadScheduleTxt() throws IOException {
+    public void downloadScheduleTxt() {
         menu.scheduleDownload();
         String option = new Scanner(System.in).nextLine();
         if (option.equals("1")) {
             new ScheduleSystem().constructScheduleTxt();
             new ScheduleSystem().downloadSchedule();
-        } else if (!option.equals("2")){
+        } else if (!option.equals("2")) {
             menu.invalidResponse();
             downloadScheduleTxt();
         }
@@ -433,7 +483,7 @@ public class AttendeeMenuController {
      *
      * @return true if user chose to exit program, false if user just logged out
      */
-    public boolean menuSelection() throws IOException {
+    public boolean menuSelection() {
         Scanner uname = new Scanner(System.in);
         int choice;
         String response;
@@ -442,26 +492,26 @@ public class AttendeeMenuController {
             response = uname.nextLine();
 
             //quit
-            if(response.equalsIgnoreCase("q")) return true;
+            if (response.equalsIgnoreCase("q")) return true;
 
                 //display homepage
-            else if(response.equalsIgnoreCase("a")){
+            else if (response.equalsIgnoreCase("a")) {
                 homepage();
                 continue;
             }
 
-            try{
+            try {
                 choice = Integer.parseInt(response);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 choice = -1;
             }
 
-            if(choice == 8) {
+            if (choice == 8) {
                 menu.logoutSuccess();
                 return false;
             }
 
-            if(!attendeeSwitch(choice)) {
+            if (!attendeeSwitch(choice)) {
                 switch (role) {
                     case "speaker":
                         speakerSwitch(choice);
@@ -478,8 +528,8 @@ public class AttendeeMenuController {
         }
     }
 
-    private boolean attendeeSwitch(int choice) throws IOException {
-        switch(choice) {
+    private boolean attendeeSwitch(int choice) {
+        switch (choice) {
             case 1:
                 menu.printBuildingSchedule(building, eventManager);
                 downloadScheduleTxt();
@@ -530,14 +580,20 @@ public class AttendeeMenuController {
                 manageFriendsList();
                 menu.operationComplete();
                 break;
-
+            case 20:
+                if (!addRequest()) {
+                    this.menu.invalidResponse();
+                } else {
+                    this.menu.operationComplete();
+                }
+                break;
             default:
                 return false;
         }
         return true;
     }
 
-    private void organizerSwitch(int choice) throws IOException {
+    private void organizerSwitch(int choice) {
         switch (choice) {
             case 9: //create user account
                 createUser();
@@ -550,7 +606,7 @@ public class AttendeeMenuController {
                 break;
 
             case 11: //schedule speaker
-                if(!scheduleSpeaker()) this.menu.invalidResponse();
+                if (!scheduleSpeaker()) this.menu.invalidResponse();
                 else menu.operationComplete();
                 break;
 
@@ -576,27 +632,32 @@ public class AttendeeMenuController {
                 break;
 
             case 15: // modify event capacity
-                if(modifyCapacity())
+                if (modifyCapacity())
                     menu.operationComplete();
                 else
                     menu.invalidResponse();
                 break;
 
             case 16: // get List of Attendees for Event
-                if(getListOfAttendees())
+                if (getListOfAttendees())
                     menu.operationComplete();
                 else
                     menu.invalidResponse();
                 break;
-
+            case 17:
+                if (getRequests())
+                    menu.operationComplete();
+                else
+                    menu.invalidResponse();
+                break;
             default:
                 this.menu.invalidResponse();
                 break;
         }
     }
 
-    private void adminSwitch(int choice){
-        switch (choice){
+    private void adminSwitch(int choice) {
+        switch (choice) {
             case 9:     //delete messages
                 MessageController mc = new MessageController();
                 String un, pw, content;
@@ -607,7 +668,7 @@ public class AttendeeMenuController {
                 pw = cin.nextLine();
                 content = cin.nextLine();
                 mc = new MessageController(un, pw, content);
-                if(mc.deleteMessage())
+                if (mc.deleteMessage())
                     menu.operationComplete();
                 else
                     menu.invalidResponse();
@@ -615,17 +676,17 @@ public class AttendeeMenuController {
             case 10:    //delete event with no attendees
                 menu.displayEventsWithNoAttendees(eventManager);
                 String id = new Scanner(System.in).nextLine();
-                if(id.equals("q"))
+                if (id.equals("q"))
                     return;
 
                 UUID uuid;
-                try{
+                try {
                     uuid = UUID.fromString(id);
-                } catch (IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     menu.invalidResponse();
                     return;
                 }
-                if(!eventManager.deleteEvent(uuid)) {
+                if (!eventManager.deleteEvent(uuid)) {
                     building.deleteEvent(uuid);
                     menu.operationComplete();
                     return;
@@ -639,8 +700,8 @@ public class AttendeeMenuController {
     }
 
     //TODO: Add speaker send message functionality
-    private void speakerSwitch(int choice){
-        switch (choice){
+    private void speakerSwitch(int choice) {
+        switch (choice) {
             case 9:     //view list of my events
                 menu.viewSpeakerEvents(eventManager.getEventsOfSpeakerUsernameToString(username));
                 menu.operationComplete();

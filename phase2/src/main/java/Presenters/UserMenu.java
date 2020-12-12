@@ -29,6 +29,7 @@ public class UserMenu {
                 "[6] Review Messages\n" +
                 "[7] Manage Friends List\n" +
                 "[8] Logout\n"+
+                "[20] Make a Request.\n" +
                 "[q] Quit\n");
     }
 
@@ -44,7 +45,8 @@ public class UserMenu {
                 "[13] Message Event Attendees \n" +
                 "[14] Create Event\n" +
                 "[15] Modify Event Capacity. \n" +
-                "[16] Get List of Attendees for Event.");
+                "[16] Get List of Attendees for Event. \n" +
+                "[17] Get List of Requests.");
     }
 
     /**
@@ -309,5 +311,17 @@ public class UserMenu {
 
     public void deleteMessagePrompt(){
         System.out.println("To delete a message, enter the sender, the receiver and the message body:");
+    }
+
+    public void request() { System.out.println("Is your request [food], [transportation], or [vision]?");
+    }
+
+    public void requestAction() {System.out.println("Would you like to [Reject], [Address], or [Leave]?");
+    }
+
+    public void enterUsername() { System.out.println("Please enter the username associated with the desired request");
+    }
+
+    public void enterRequestNum() { System.out.println("Please enter the associated num with the desired request.");
     }
 }

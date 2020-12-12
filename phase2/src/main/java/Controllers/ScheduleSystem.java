@@ -22,12 +22,17 @@ public class ScheduleSystem {
     /**
      * Construct the text file Schedule.txt from the event database Event.ser.
      */
-    public void constructScheduleTxt() throws IOException {
+    public void constructScheduleTxt() {
         BuildingManager buildingManager = buildingGateway.read();
         String scheduleString = buildingManager.toString();
-        FileWriter scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
-        scheduleWriter.write(scheduleString);
-        scheduleWriter.close();
+        FileWriter scheduleWriter;
+        try{
+            scheduleWriter = new FileWriter("phase2/src/main/java/DB/Schedule.txt");
+            scheduleWriter.write(scheduleString);
+            scheduleWriter.close();
+        }catch(IOException e){
+            System.err.println("IO error when constructing schedule text file :(");
+        }
     }
 
     /**

@@ -87,13 +87,21 @@ public class MessageController {
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
     }
 
+    public void setMessageSystem(String messageString, String receiver, String sender) {
+        this.messageString = messageString;
+        this.receiver = receiver;
+        this.sender = sender;
+        this.messageSystem = new MessageCreator(messageString, receiver, sender);
+    }
+
     /**
      * Sends message and updates inbox and outbox through Message Gateway.
      */
-    public void sendMessage() {
-        this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
+    public boolean sendMessage() {
+        boolean flag = this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setInbox();
         this.allMessages.setOutbox();
+        return flag;
     }
 
     public void setSender(String sender) {

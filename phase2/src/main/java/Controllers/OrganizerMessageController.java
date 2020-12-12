@@ -34,7 +34,7 @@ public class OrganizerMessageController {
      * @param oneSpeaker The Speaker receiving the Message.
      * @param inputMessage The Message the speaker is to receive.
      */
-    public void toOneSpeaker(String oneSpeaker, String inputMessage) throws IOException {
+    public void toOneSpeaker(String oneSpeaker, String inputMessage) {
         MessageController send = new MessageController(organizer, oneSpeaker, inputMessage);
         send.sendMessage();
     }
@@ -44,7 +44,7 @@ public class OrganizerMessageController {
      * @param oneAttendee The Attendee receiving the Message.
      * @param inputMessage The Message the Attendee is to receive.
      */
-    public void toOneAttendee(String oneAttendee, String inputMessage) throws IOException {
+    public void toOneAttendee(String oneAttendee, String inputMessage) {
         MessageController send = new MessageController(organizer, oneAttendee, inputMessage);
         send.sendMessage();
     }
@@ -65,7 +65,7 @@ public class OrganizerMessageController {
      * @param inputMessage The Message the Speakers are to receive.
      * @param manager The LoginUserManager that will be used to send the Messages to the Speakers.
      */
-    public void toAllSpeaker(String inputMessage, UserManager manager) throws IOException {
+    public void toAllSpeaker(String inputMessage, UserManager manager) {
         HashMap<String, Attendee> users = manager.getCredentialsMap();
         for(String username : users.keySet()){
             if(manager.getUserRole(username).equals("speaker")){
@@ -80,7 +80,7 @@ public class OrganizerMessageController {
      * @param inputMessage The Message the Attendees are to receive.
      * @param manager The LoginUserManager that will be used to send the Messages to the Attendees.
      */
-    public void toAllAttendee(String inputMessage, UserManager manager) throws IOException {
+    public void toAllAttendee(String inputMessage, UserManager manager) {
         HashMap<String, Attendee> users = manager.getCredentialsMap();
         for (String username : users.keySet()){
             if(manager.getUserRole(username).equals("attendee")){
