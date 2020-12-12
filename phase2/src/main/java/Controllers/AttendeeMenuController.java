@@ -126,7 +126,7 @@ public class AttendeeMenuController {
         }
 
         if(startH > 23 || startH < 0 || startM < 0 || startM > 59)
-            return false;
+        return false;
 
         this.menu.createRoomEnd();
         inpStr1 = cin.nextLine();
@@ -140,7 +140,7 @@ public class AttendeeMenuController {
         }
 
         if(endH > 23 || endH < 0 || endM < 0 || endM > 59)
-            return false;
+        return false;
 
         this.menu.createRoomCapacity();
         String roomCapacityString = new Scanner(System.in).nextLine();
