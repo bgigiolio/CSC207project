@@ -4,14 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import main.java.Entities.Attendee;
 import main.java.Entities.Event;
-import main.java.Gateways.UserLoginGateway;
-
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * <h1>EventTableView</h1>
@@ -25,7 +20,7 @@ public class EventTableView {
     /**
      * The username of current user.
      */
-    private String username;
+    private final String username;
 
     /**
      * Stores all events as an ObservableList.
@@ -76,8 +71,8 @@ public class EventTableView {
     public ObservableList<Event> getEventsOfUsername() {
         ObservableList<Event> toReturn = FXCollections.observableArrayList();
         for (Event event : allEvents) {
-            if (event.getAttendees().contains(username)) {
-                toReturn.add(event);
+            if (event.getAttendees().contains(this.username)) {
+                eventsRegistered.add(event);
             }
             return toReturn;
         } return FXCollections.observableArrayList();
@@ -98,7 +93,8 @@ public class EventTableView {
     }
 
     /**
-     * Set titleColumn with all .
+     * Set titleColumn with title of all events in the system.
+     * @param titleColumn of a TableView
      */
     public void setTitleColumn(TableColumn<Object, String> titleColumn) {
         titleColumn.setCellValueFactory(
@@ -106,51 +102,65 @@ public class EventTableView {
     }
 
     /**
-     * Constructs eventsRegistered.
+     * Set locationColumn with location of all events in the system.
+     * @param locationColumn of a TableView
      */
     public void setLocationColumn(TableColumn<Object, String> locationColumn) {
         locationColumn.setCellValueFactory(
                 new PropertyValueFactory<>("location"));
     }
 
+    /**
+     * Set datetimeColumn with datetime of all events in the system.
+     * @param datetimeColumn of a TableView
+     */
     public void setDatetimeColumn(TableColumn<Object, String> datetimeColumn) {
         datetimeColumn.setCellValueFactory(
                 new PropertyValueFactory<>("datetime"));
     }
 
+    /**
+     * Set speakerColumn with speaker of all events in the system.
+     * @param speakerColumn of a TableView
+     */
     public void setSpeakerColumn(TableColumn<Object, String> speakerColumn) {
         speakerColumn.setCellValueFactory(
                 new PropertyValueFactory<>("speaker"));
     }
 
+    /**
+     * Set durationColumn with duration of all events in the system.
+     * @param durationColumn of a TableView
+     */
     public void setDurationColumn(TableColumn<Object, String> durationColumn) {
         durationColumn.setCellValueFactory(
                 new PropertyValueFactory<>("duration"));
     }
 
+    /**
+     * Set capacityColumn with capacity of all events in the system.
+     * @param capacityColumn of a TableView
+     */
     public void setCapacityColumn(TableColumn<Object, String> capacityColumn) {
         capacityColumn.setCellValueFactory(
                 new PropertyValueFactory<>("capacity"));
     }
 
+    /**
+     * Set idColumn with id of all events in the system.
+     * @param idColumn of a TableView
+     */
     public void setIdColumn(TableColumn<Object, String> idColumn) {
         idColumn.setCellValueFactory(
                 new PropertyValueFactory<>("uuid"));
     }
 
+    /**
+     * Set typeColumn with type of all events in the system.
+     * @param typeColumn of a TableView
+     */
     public void setTypeColumn(TableColumn<Object, String> typeColumn) {
         typeColumn.setCellValueFactory(
                 new PropertyValueFactory<>("type"));
     }
-
-    public ObservableList<Event> getEventsRegistered() {
-        return this.eventsRegistered;
-    }
-
-    public void filterById(FilteredList<Event> toBeFiltered, String text) {
-        toBeFiltered.setPredicate(p -> p.getUuid().toString().contains(text.toLowerCase().trim()));
-    }
-
-
-
 }

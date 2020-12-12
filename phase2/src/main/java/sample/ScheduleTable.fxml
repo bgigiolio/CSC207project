@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.collections.FXCollections?>
 <GridPane alignment="CENTER" hgap="10.0" vgap="10.0"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="main.java.sample.ScheduleTableController">
@@ -15,7 +11,7 @@
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
 
-    <Label style="-fx-font: NORMAL 20 Tahoma;" text="Schedule"
+    <Label style="-fx-font: NORMAL 20 Tacoma;" text="Schedule"
            GridPane.columnIndex="0" GridPane.rowIndex="0">
     </Label>
     <TableView fx:id="eventTable" GridPane.columnIndex="0"
@@ -68,8 +64,6 @@
     <RadioButton fx:id="yourSchedule" mnemonicParsing="false" onAction="#handleYourSchedule"
                  text="Your Schedule" toggleGroup="$scheduleType" GridPane.columnIndex="1"
                  GridPane.rowIndex="1" />
-
-
 
 </GridPane>
 
