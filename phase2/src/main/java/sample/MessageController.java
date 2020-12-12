@@ -49,8 +49,9 @@ public class MessageController implements Initializable {
         messageController.setSender(this.sender);
         messageController.setReceiver(this.toUsername.getText());
         messageController.setMessageString(this.message.getText());
-
+        messageController.setMessageSystem(this.message.getText(), this.toUsername.getText(),this.sender);
         messageController.sendMessage();
+
     }
 
 
