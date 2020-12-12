@@ -44,9 +44,6 @@ public class MessageController implements Initializable {
     }
 
 
-
-
-
     public void handleSendButton(ActionEvent event) {
 
         messageController.setSender(this.sender);
@@ -69,7 +66,7 @@ public class MessageController implements Initializable {
             StringBuilder builder = new StringBuilder();
 
             for ( String i : messageController.getMessageForMe(this.sender)){
-                builder.append(i);
+                builder.append(i).append("\n");
             }
             this.inbox.setText(String.valueOf(builder));
 
