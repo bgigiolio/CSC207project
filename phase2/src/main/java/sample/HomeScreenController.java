@@ -162,7 +162,14 @@ public class HomeScreenController{
                 removeEvent.setVisible(false);
                 messageEventAttendees.setVisible(false);
                 createEvent.setVisible(false);
-
+            }
+            else if (this.role.equalsIgnoreCase("speaker")){
+                createUserAccount.setVisible(false);
+                addRoom.setVisible(false);
+                scheduleSpeaker.setVisible(false);
+                removeEvent.setVisible(false);
+                messageEventAttendees.setVisible(false);
+                createEvent.setVisible(false);
             }
         } catch (NullPointerException ignored) {
 
@@ -227,6 +234,7 @@ public class HomeScreenController{
         EventStage.setScene(new Scene(root,500,500));
         EventStage.show();
     }
+
 
     @FXML
     void addRoomPressed(ActionEvent event) throws IOException {
