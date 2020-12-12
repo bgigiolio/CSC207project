@@ -22,12 +22,14 @@ public class AccessibilityOptionsCreator {
      * The controller of AccessibilityOptionsCreator.
      * The user can only choose one of "food", "transportation" and "vision" as their accessibility requirement.
      * If other requests are provided, it will show an error message.
-     * @param request the request of the user, one of "food", "transportation" and "vision"
-     * @param sender the username of the sender
      */
-    public AccessibilityOptionsCreator(String request, String sender){
+    public AccessibilityOptionsCreator(){
+        this.accessibilityOption = new AccessibilityOptions("0", "0");
+    }
+
+    public void createRequest(String sender, String request){
         if (request.equals("food") || request.equals("transportation") || request.equals("vision")){
-            accessibilityOption = new AccessibilityOptions(request, sender);
+            this.accessibilityOption = new AccessibilityOptions(request, sender);
         }
         else {
             System.err.println("This is not included in our accessibility options.");

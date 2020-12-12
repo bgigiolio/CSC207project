@@ -25,7 +25,7 @@ public class AccessibilityOptions extends main.java.Entities.Message {
     /**
      * the status of the request, initially "pending"
      */
-    public String status;
+    private String status;
 
     /**
      * Construct an instance of AccessibilityOptions.
@@ -58,5 +58,11 @@ public class AccessibilityOptions extends main.java.Entities.Message {
      */
     public String getRequest(){
         return this.request;
+    }
+
+    public String getStatus() { return this.status; }
+
+    public void setStatus(String status){
+        this.status = status;
     }
 }
