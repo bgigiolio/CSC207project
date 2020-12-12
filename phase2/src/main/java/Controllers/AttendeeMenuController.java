@@ -461,7 +461,7 @@ public class AttendeeMenuController {
         menu.scheduleDownload();
         String option = new Scanner(System.in).nextLine();
         if (option.equals("1")) {
-            new BuildingGateway().constructScheduleTxt();
+            new BuildingGateway().constructScheduleTxt(building.getToString(eventManager));
             downloader();
         } else if (!option.equals("2")) {
             menu.invalidResponse();

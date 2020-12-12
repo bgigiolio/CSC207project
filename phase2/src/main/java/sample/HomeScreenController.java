@@ -131,6 +131,12 @@ public class HomeScreenController{
         buildingGateway = new BuildingGateway();
         buildingManager = buildingGateway.read();
         eventManager = eventGateway.read();
+        if(!buildingManager.verifyBuilding(eventManager)){
+            buildingGateway.clearFileContentsUtil("building");
+            eventGateway.clearFileContentsUtil("events");
+            eventManager  = new EventManager();
+            buildingManager = new BuildingManager("Building");
+        }
         userManager = userLoginGateway.read();
         Platform.runLater(this::showOptions);
     }

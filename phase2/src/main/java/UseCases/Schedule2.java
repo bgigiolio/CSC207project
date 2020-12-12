@@ -128,6 +128,8 @@ public class Schedule2 implements Serializable {
 
         for(UUID id : schedule){
             Event e = em.getEvent(id);
+            if(e == null)
+                continue;
             toReturn.append("\nID: ").append(id.toString()).append(" \n");
             toReturn.append(e.getTitle()).append(" at ").append(e.getLocation());
             toReturn.append(" on ").append(e.getDatetime().toString()).append("\n");
@@ -157,6 +159,19 @@ public class Schedule2 implements Serializable {
                 r = mid - 1;
         }
         return l;
+    }
+
+    /**
+     * Check that all events in the schedule are events that are stored in EventManager
+     * to prevent inconsistencies
+     * @param em EventManager object
+     * @return True iff all event IDs correspond to events stored in EventManager
+     */
+    public boolean verify(EventManager em) {
+        for(UUID id : schedule) {
+            if(em.getEvent(id) == null) return false;
+        }
+        return false;
     }
 
     /*
