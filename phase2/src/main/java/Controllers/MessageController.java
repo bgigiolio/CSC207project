@@ -87,6 +87,10 @@ public class MessageController {
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
     }
 
+    public void setMessageSystem(String messageString, String receiver, String sender) {
+        this.messageSystem = new MessageCreator(messageString, receiver, sender);
+    }
+
     /**
      * Sends message and updates inbox and outbox through Message Gateway.
      */
