@@ -37,7 +37,6 @@
                         <MenuItem fx:id="removeEvent" mnemonicParsing="false" onAction="#removeEventPressed" text="Remove Event" />
                         <MenuItem fx:id="messageEventAttendees" mnemonicParsing="false" onAction="#messageEventAttendeesPressed" text="Message Event Attendees" />
                         <MenuItem fx:id="createEvent" mnemonicParsing="false" onAction="#createEventPressed" text="Create Event" />
-                        <MenuItem fx:id="viewListofMyEvents" mnemonicParsing="false" onAction="#viewListofMyEventsPressed" text="View List of My Events" />
                     </items>
                      <font>
                         <Font size="25.0" />

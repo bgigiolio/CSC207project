@@ -98,13 +98,16 @@ public class EventTableView {
     }
 
     /**
-     * Constructs eventsRegistered.
+     * Set titleColumn with all .
      */
     public void setTitleColumn(TableColumn<Object, String> titleColumn) {
         titleColumn.setCellValueFactory(
                 new PropertyValueFactory<>("title"));
     }
 
+    /**
+     * Constructs eventsRegistered.
+     */
     public void setLocationColumn(TableColumn<Object, String> locationColumn) {
         locationColumn.setCellValueFactory(
                 new PropertyValueFactory<>("location"));
