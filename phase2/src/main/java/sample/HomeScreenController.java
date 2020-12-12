@@ -213,12 +213,21 @@ public class HomeScreenController{
     //under work
     @FXML
     void manageFriends(ActionEvent event) throws IOException {
-        Stage friendsStage;
+        Stage EventStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("friendsScene.fxml"));
+        Parent root = loader.load();
+        friendsController fController = loader.getController();
+        fController.setUserManager(this.userManager);
+        fController.setUsername(this.username);
+        EventStage = new Stage();
+        EventStage.setScene(new Scene(root,500,500));
+        EventStage.show();
+    }
 
-        Parent root = FXMLLoader.load(getClass().getResource("friendsScene.fxml"));
-        friendsStage = new Stage();
-        friendsStage.setScene(new Scene(root,500,500));
-        friendsStage.show();
+
+    @FXML
+    void reviewSchedule(ActionEvent event) {
+        //wait what does this even do?
     }
 
     @FXML
