@@ -64,18 +64,32 @@ public class MessageGateway {
      * @param message is the object that is created by sender, sent to receiver.
      */
     public boolean removeMessage(String sender, String receiver, Message message){
-        if (this.outbox.containsKey(sender) && this.outbox.get(sender).contains(message)
-        && this.inbox.containsKey(receiver) && this.inbox.get(receiver).contains(message)){
-            ArrayList<Message> senderOutbox = this.outbox.get(sender);
-            senderOutbox.remove(message);
-            this.outbox.replace(sender, senderOutbox);
+        if(!this.outbox.containsKey(sender) || !this.inbox.containsKey(receiver)) return false;
+        boolean b1 = false, b2 = false;
 
-            ArrayList<Message> receiverInbox = this.inbox.get(receiver);
-            receiverInbox.remove(message);
-            this.inbox.replace(receiver, receiverInbox);
-            return true;
+        ArrayList<Message> senderOutbox = this.outbox.get(sender);
+
+        for(Message m:senderOutbox){
+            if(m.equals(message)) {
+                senderOutbox.remove(m);
+                this.outbox.replace(sender, senderOutbox);
+                b1 = true;
+                break;
+            }
         }
-        return false;
+
+        ArrayList<Message> receiverInbox = this.inbox.get(receiver);
+
+        for(Message m:receiverInbox) {
+            if (m.equals(message)) {
+                receiverInbox.remove(message);
+                this.inbox.replace(receiver, receiverInbox);
+                b2 = true;
+                break;
+            }
+        }
+
+        return b1 & b2;
     }
 
     /**

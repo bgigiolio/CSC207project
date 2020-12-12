@@ -99,7 +99,6 @@ public class MessageController {
         for (Map.Entry<String, ArrayList<Message>> mapElement : hm.entrySet()) {
             for (Message m : mapElement.getValue()) {
                 ret.add(m.toString()+"\n");
-                ret.add("\n");
             }
         }
         return ret;

@@ -73,6 +73,6 @@ public class Message implements Serializable {
         Message that = (Message) obj;
         if (!this.sender.equals(that.sender)) return false;
         if (!this.receiver.equals(that.receiver)) return false;
-        return this.content.equals(that.receiver);
+        return this.content.equals(that.content);
     }
 }
