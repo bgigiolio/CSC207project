@@ -105,13 +105,16 @@ public class Attendee implements Serializable {
      */
     public ArrayList<String> getFriendList() { return new ArrayList<>(friendList); }
 
-    public void addFriend(String username){
-        if(!friendList.contains(username))
+    public boolean addFriend(String username){
+        if(!friendList.contains(username)) {
             friendList.add(username);
+            return true;
+        }
+        return false;
     }
 
-    public void removeFriend(String username){
-        friendList.remove(username);
+    public boolean removeFriend(String username){
+        return friendList.remove(username);
     }
 
 

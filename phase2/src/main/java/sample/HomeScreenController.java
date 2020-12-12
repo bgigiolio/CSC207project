@@ -217,18 +217,15 @@ public class HomeScreenController{
     //under work
     @FXML
     void manageFriends(ActionEvent event) throws IOException {
-        Stage friendsStage;
-
-        Parent root = FXMLLoader.load(getClass().getResource("friendsScene.fxml"));
-        friendsStage = new Stage();
-        friendsStage.setScene(new Scene(root,500,500));
-        friendsStage.show();
-    }
-
-
-    @FXML
-    void reviewSchedule(ActionEvent event) {
-        //wait what does this even do?
+        Stage EventStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("friendsScene.fxml"));
+        Parent root = loader.load();
+        friendsController fController = loader.getController();
+        fController.setUserManager(this.userManager);
+        fController.setUsername(this.username);
+        EventStage = new Stage();
+        EventStage.setScene(new Scene(root,500,500));
+        EventStage.show();
     }
 
     @FXML
@@ -304,9 +301,14 @@ public class HomeScreenController{
     @FXML
     void showSchedule(ActionEvent event) throws IOException {
         Stage scheduleStage;
-        Parent root = FXMLLoader.load(getClass().getResource("ScheduleTable.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("ScheduleTable.fxml"));
+        Parent root = loader.load();
+        ScheduleTableController scheduleTableController = loader.getController();
+        scheduleTableController.setUsername(this.username);
+
         scheduleStage = new Stage();
-        scheduleStage.setScene(new Scene(root,700,500));
+        scheduleStage.setScene(new Scene(root,940,500));
         scheduleStage.show();
     }
 
