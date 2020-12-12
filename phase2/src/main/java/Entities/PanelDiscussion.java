@@ -45,4 +45,13 @@ public class PanelDiscussion extends Event {
     }
 
     public boolean removeSpeakers(ArrayList<String> speakers) {return this.speakers.removeAll(speakers);}
+
+    @Override
+    public boolean containSpeaker(String username) {
+        if (!this.speakers.isEmpty()) {
+            return this.speakers.contains(username);
+        } else {
+            return false;
+        }
+    }
 }
