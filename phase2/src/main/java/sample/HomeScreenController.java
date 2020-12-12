@@ -298,8 +298,20 @@ public class HomeScreenController{
     }
 
     @FXML
-    void scheduleSpeakerPressed(ActionEvent event) {
-
+    void scheduleSpeakerPressed(ActionEvent event) throws IOException {
+        Stage scheduleSpeakerStage;
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("scheduleSpeakerScene.fxml"));
+        Parent root = loader.load();
+        ScheduleSpeakerSceneController SSSC = loader.getController();
+        SSSC.setBuilding(this.buildingManager);
+        SSSC.setBuildingGateway(this.buildingGateway);
+        SSSC.setEventGateway(this.eventGateway);
+        SSSC.setEventManager(this.eventManager);
+        SSSC.setUserManager(this.userManager);
+        SSSC.setUserLoginGateway(this.userLoginGateway);
+        scheduleSpeakerStage = new Stage();
+        scheduleSpeakerStage.setScene(new Scene(root,700,500));
+        scheduleSpeakerStage.show();
     }
 
     @FXML
