@@ -13,11 +13,28 @@ import main.java.Gateways.UserLoginGateway;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * <h1>EventTableView</h1>
+ * Manage events with FilteredList.
+ *
+ * @author Morgan Chang
+ * @version Phase2
+ */
 public class EventTableView {
 
+    /**
+     * Stores all events as an ObservableList.
+     */
     private final ObservableList<Event> allEvents;
-    private final TableView<Event> eventTableView;
+
+    /**
+     * Stores all events as a FilteredList to allow for filtering.
+     */
     private final FilteredList<Event> filteredListEvents;
+
+    /**
+     * Initialize with a new TableView.
+     */
     private final ObservableList<Event> eventsRegistered;
     private final FilteredList<Event> filteredListEventsRegistered;
 
@@ -28,7 +45,6 @@ public class EventTableView {
         ObservableList<Event> eventsData = FXCollections.observableArrayList();
         eventsData.addAll(allEvents);
         this.allEvents = eventsData;
-        this.eventTableView = new TableView<>();
         this.filteredListEvents = new FilteredList<>(this.allEvents, p -> true);
 
         this.eventsRegistered = getEventsOfUsername(username);
@@ -68,9 +84,6 @@ public class EventTableView {
         return this.filteredListEvents;
     }
 
-    public TableView<Event> getTableViewEvents () {
-        return this.eventTableView;
-    }
 
     public void setTitleColumn(TableColumn<Object, String> titleColumn) {
         titleColumn.setCellValueFactory(
@@ -119,6 +132,7 @@ public class EventTableView {
     public void filterById(FilteredList<Event> toBeFiltered, String text) {
         toBeFiltered.setPredicate(p -> p.getUuid().toString().contains(text.toLowerCase().trim()));
     }
+
 
 
 }

@@ -1,7 +1,6 @@
 package main.java.sample;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.TextAlignment;
@@ -162,7 +161,7 @@ public class ScheduleTableController {
      * Handle the action of downloading the text file of full schedule
      * Schedule.txt to the user's local computer.
      */
-    public void handleDownloadButton(ActionEvent actionEvent) throws IOException {
+    public void handleDownloadButton() throws IOException {
         downloadMessage.setText("Downloading...Please wait a few seconds");
         downloadMessage.setTextAlignment(TextAlignment.RIGHT);
         constructScheduleTxt();
@@ -179,27 +178,14 @@ public class ScheduleTableController {
                     InputStream file = new FileInputStream("phase2/src/main/java/DB/Schedule.txt");
                     Files.copy(file, destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     File finalDestination = destination;
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            downloadMessage.setText("Full schedule has been successfully downloaded to\n"
-                                    + finalDestination + ".");
-                        }
-                    });
+                    Platform.runLater(() -> downloadMessage.setText("Full schedule has been successfully downloaded to\n"
+                            + finalDestination + "."));
                 } catch (Exception ex) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            downloadMessage.setText("Failed to download schedule due to\n" +
-                                    "server error." + "Please try again later.");
-                        }
-                    });
+                    Platform.runLater(() -> downloadMessage.setText("Failed to download schedule due to\n" +
+                            "server error." + "Please try again later."));
                 }
             } else {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        downloadMessage.setText("No file location was selected."); }});
+                Platform.runLater(() -> downloadMessage.setText("No file location was selected."));
             }
         })
     ;}
@@ -300,7 +286,7 @@ public class ScheduleTableController {
     }
 
     /**
-     * Filter eventTable of scheduleType yourSchedule witohout filtering by user's input.
+     * Filter eventTable of scheduleType yourSchedule without filtering by user's input.
      */
     public void resetYourScheduleTable() {
         searchBy.getSelectionModel().selectedItemProperty().addListener((observableValue, old, newValue) ->
@@ -346,7 +332,7 @@ public class ScheduleTableController {
      * Set eventTable to the current user's schedule with all events this user has signed up for
      * when this user click on the RatioButton yourSchedule.
      */
-    public void handleYourSchedule(ActionEvent actionEvent) {
+    public void handleYourSchedule() {
         eventTable.setItems(eventTableView.getFilteredListEventsRegistered());
         setRegisteredEventBySearchText();
         resetYourScheduleTable();
@@ -357,7 +343,7 @@ public class ScheduleTableController {
      * Set eventTable to the full schedule of the system
      * when this user click on the RatioButton yourSchedule.
      */
-    public void handleFullSchedule(ActionEvent actionEvent) {
+    public void handleFullSchedule() {
         eventTable.setItems(eventTableView.getFilteredListEvents());
         setAllScheduleBySearchText();
         resetScheduleTable();
