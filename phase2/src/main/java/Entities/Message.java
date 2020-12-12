@@ -15,16 +15,18 @@ public class Message implements Serializable {
     private final String content;
     private final String sender;
     private final LocalDateTime time_sent;
+    private final String receiver;
 
     /**
      * This constructor creates a new instance of Message.
      * @param content The content of the Message.
      * @param sender The user who sent the Message.
      */
-    public Message(String content, String sender){
+    public Message(String content, String sender, String receiver){
         this.content = content;
         this.sender = sender;
         time_sent = LocalDateTime.now(ZoneId.of("America/Toronto"));
+        this.receiver = receiver;
     }
 
     /**
@@ -55,12 +57,22 @@ public class Message implements Serializable {
      * This method returns the String representation of the Message.
      * @return A String representing the Message.
      */
+    @Override
     public String toString(){
         String message = "";
         DateTimeFormatter f = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
-        message += "From: " + this.sender + ", Time Sent: " + this.getTime_sent().format(f) + "\n";
-        message += this.getContent();
+        message += "From " + sender + ", to " + receiver + ", Time Sent: " + getTime_sent().format(f) + "\n";
+        message += getContent();
         return message;
     }
-
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+        Message that = (Message) obj;
+        if (!this.sender.equals(that.sender)) return false;
+        if (!this.receiver.equals(that.receiver)) return false;
+        return this.content.equals(that.content);
+    }
 }

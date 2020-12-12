@@ -1,6 +1,7 @@
 package main.java.sample;
 
 import java.net.URL;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -112,7 +113,12 @@ public class RoomCreatorSceneController {
             return;
         }
         this.capacity = capacity;
-        createRoom();
+        try{
+            createRoom();
+        }catch (DateTimeException e){
+            errorText.setText("Invalid date given, please try again");
+        }
+
 
     }
     private void createRoom(){

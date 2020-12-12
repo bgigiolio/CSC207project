@@ -14,11 +14,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 import main.java.Gateways.BuildingGateway;
+import main.java.Gateways.EventGateway;
 import main.java.UseCases.*;
 
 public class signUpController {
 
     private BuildingManager building;
+
+    private EventGateway eventGateway;
 
     private BuildingGateway buildingGateway;
 
@@ -87,6 +90,7 @@ public class signUpController {
             }
         }
         this.buildingGateway.save(this.building);
+        this.eventGateway.save(this.eventManager);
 
     }
 
@@ -116,6 +120,13 @@ public class signUpController {
 
     public void setUsername(String username){
         this.username = username;
+    }
+
+    public void setEventManager(EventManager eventManager){
+        this.eventManager = eventManager;
+    }
+    public void setEventGateway(EventGateway eventGateway){
+        this.eventGateway = eventGateway;
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package main.java.Presenters;
 
+import main.java.Controllers.MessageController;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 
@@ -299,5 +300,14 @@ public class UserMenu {
 
     public void viewSpeakerEvents(String text){
         System.out.println("List of events I'm talking at:\n" + text);
+    }
+
+    public void viewAllMessages(MessageController mc){
+        System.out.println("Here are all the messages sent in the system:");
+        System.out.println(mc.getAllMessages());
+    }
+
+    public void deleteMessagePrompt(){
+        System.out.println("To delete a message, enter the sender, the receiver and the message body:");
     }
 }
