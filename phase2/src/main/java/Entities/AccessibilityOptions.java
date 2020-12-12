@@ -43,6 +43,7 @@ public class AccessibilityOptions extends main.java.Entities.Message {
         this.status = "pending";
     }
 
+
     /**
      * This method provide the sent time of request
      * @return a LocalDateTime object which represents the sent time of request
@@ -52,6 +53,7 @@ public class AccessibilityOptions extends main.java.Entities.Message {
         return time_sent;
     }
 
+
     /**
      * The getter for the request of sender
      * @return the request of sender
@@ -60,8 +62,18 @@ public class AccessibilityOptions extends main.java.Entities.Message {
         return this.request;
     }
 
+
+    /**
+     * The getter for the current status of request
+     * @return the current status of request
+     */
     public String getStatus() { return this.status; }
 
+
+    /**
+     * The setter for the current status of request
+     * @param status the current status of request
+     */
     public void setStatus(String status){
         this.status = status;
     }
