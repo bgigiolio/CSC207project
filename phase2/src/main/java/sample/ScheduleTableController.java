@@ -144,7 +144,7 @@ public class ScheduleTableController {
         setColumnValue();
         setSearchBy();
         eventTable.setItems(eventTableView.getFilteredListEvents());
-        setAllScheduleBySearchText();
+        filterSchedule();
         resetScheduleTable();
     }
 
@@ -202,11 +202,12 @@ public class ScheduleTableController {
     }
 
     /**
-     * Filter eventTable of scheduleType fullSchedule by user's selected searchBy value and inputted searchText.
+     * Filter eventTable based on user input.
      */
-    public void setAllScheduleBySearchText() {
+    public void filterSchedule() {
         searchText.setOnKeyReleased(keyEvent -> {
             String text = searchText.getText().toLowerCase().trim();
+            if ((yourSchedule.selectedProperty().getValue().equals(false))) {
             switch (searchBy.getValue())
             {
                 case "ID":
@@ -231,71 +232,51 @@ public class ScheduleTableController {
                     break;
                 case "Speaker":
                     eventTableView.getFilteredListEvents().setPredicate(p -> p.containSpeaker(text));
-                    break;
+                    break; }
+            } else {
+                switch (searchBy.getValue()) {
+                    case "ID":
+                        eventTableView.getFilteredListEvents().setPredicate(p -> p.getUuid().toString()
+                                .toLowerCase().contains(text) && p.getUsernames().contains(this.username));
+                        break;
+                    case "Type":
+                        eventTableView.getFilteredListEvents().setPredicate(p -> p.getType().toLowerCase()
+                                .contains(text) && p.getUsernames().contains(this.username)) ;
+                        break;
+                    case "Title":
+                        eventTableView.getFilteredListEvents().setPredicate(p -> p.getTitle().toLowerCase()
+                                .contains(text) && p.getUsernames().contains(this.username));
+                        break;
+                    case "Location":
+                        eventTableView.getFilteredListEvents().setPredicate(p -> p.getLocation().toLowerCase()
+                                .contains(text) && p.getUsernames().contains(this.username));
+                        break;
+                    case "Date Time":
+                        eventTableView.getFilteredListEvents().setPredicate(p -> p.getDatetime().toString()
+                                .contains(text) && p.getUsernames().contains(this.username));
+                        break;
+                    case "Speaker":
+                        eventTableView.getFilteredListEvents().setPredicate(p -> p.containSpeaker(text)
+                                && p.getUsernames().contains(this.username));
+                        break;
+                }
             }
         });
     }
 
     /**
-     * Filter eventTable of scheduleType yourSchedule by user's selected searchBy value and inputted searchText.
-     */
-    public void setRegisteredEventBySearchText() {
-        searchText.setOnKeyReleased(keyEvent -> {
-            String text = searchText.getText().toLowerCase().trim();
-            switch (searchBy.getValue())
-            {
-                case "ID":
-                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getUuid().toString()
-                            .contains(text));
-                    break;
-                case "Type":
-                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getType().toLowerCase()
-                            .contains(text));
-                    break;
-                case "Title":
-                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getTitle().toLowerCase()
-                            .contains(text));
-                    break;
-                case "Location":
-                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getLocation().toLowerCase()
-                            .contains(text));
-                    break;
-                case "Date Time":
-                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.getDatetime()
-                            .toString().contains(text));
-                    break;
-                case "Speaker":
-                    eventTableView.getFilteredListEventsRegistered().setPredicate(p -> p.containSpeaker(
-                            text));
-                    break;
-            }
-        });
-    }
-
-    /**
-     * Reset eventTable of scheduleType fullSchedule without filtering by user's input.
+     * Reset eventTable.
      */
     public void resetScheduleTable() {
-        searchBy.getSelectionModel().selectedItemProperty().addListener((observableValue, old, newValue) ->
-        {
-            if (newValue != null)
-            { searchText.setText("");
-                eventTableView.getFilteredListEvents().setPredicate(null);
-            }
-        });
-    }
 
-    /**
-     * Filter eventTable of scheduleType yourSchedule without filtering by user's input.
-     */
-    public void resetYourScheduleTable() {
         searchBy.getSelectionModel().selectedItemProperty().addListener((observableValue, old, newValue) ->
-        {
-            if (newValue != null)
-            { searchText.setText("");
-                eventTableView.getFilteredListEventsRegistered().setPredicate(null);
-            }
-        });
+                yourSchedule.selectedProperty().addListener((obs, oldSchedule, newSchedule) ->
+                {
+                if (!newValue.equals(old) || !newSchedule.equals(oldSchedule)) {
+                    searchBy.setValue("ID");
+                    searchText.clear();
+                    filterSchedule();
+                } }));
     }
 
     /**
@@ -333,9 +314,9 @@ public class ScheduleTableController {
      * when this user click on the RatioButton yourSchedule.
      */
     public void handleYourSchedule() {
-        eventTable.setItems(eventTableView.getFilteredListEventsRegistered());
-        setRegisteredEventBySearchText();
-        resetYourScheduleTable();
+        eventTableView.getFilteredListEvents().setPredicate(p -> p.getUsernames().contains(this.username));
+        searchText.setText("");
+        searchBy.setValue("ID");
     }
 
     /**
@@ -344,8 +325,9 @@ public class ScheduleTableController {
      * when this user click on the RatioButton yourSchedule.
      */
     public void handleFullSchedule() {
-        eventTable.setItems(eventTableView.getFilteredListEvents());
-        setAllScheduleBySearchText();
-        resetScheduleTable();
+        eventTableView.getFilteredListEvents().setPredicate(null);
+        searchText.setText("");
+        searchBy.setValue("ID");
     }
+
 }

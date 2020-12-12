@@ -6,6 +6,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.Entities.Event;
+import main.java.Gateways.EventGateway;
+
 import java.util.ArrayList;
 
 /**
@@ -18,11 +20,6 @@ import java.util.ArrayList;
 public class EventTableView {
 
     /**
-     * The username of current user.
-     */
-    private final String username;
-
-    /**
      * Stores all events as an ObservableList.
      */
     private final ObservableList<Event> allEvents;
@@ -33,14 +30,9 @@ public class EventTableView {
     private final FilteredList<Event> filteredListEvents;
 
     /**
-     * Stores scheduled events for user of username as an ObservableList.
+     * EventManager of the system.
      */
-    private final ObservableList<Event> eventsRegistered;
-
-    /**
-     * Stores scheduled events for user of username as an FilteredList to allow for filtering.
-     */
-    private final FilteredList<Event> filteredListEventsRegistered;
+    private final EventManager eventManager;
 
     /**
      * Constructs an EventTableView.
@@ -48,34 +40,19 @@ public class EventTableView {
      * @param username of the current user
      */
     public EventTableView(EventManager eventManager, String username) {
-        this.username = username;
+        this.eventManager = eventManager;
+        this.allEvents = constructEventData();
+        this.filteredListEvents = new FilteredList<>(this.allEvents, p -> true);
+    }
+
+    /**
+     * Get allEvents data from eventManager.
+     */
+    public ObservableList<Event> constructEventData() {
         ArrayList<Event> allEvents = eventManager.getEvents();
         ObservableList<Event> eventsData = FXCollections.observableArrayList();
         eventsData.addAll(allEvents);
-        this.allEvents = eventsData;
-        this.filteredListEvents = new FilteredList<>(this.allEvents, p -> true);
-        this.eventsRegistered = getEventsOfUsername();
-        this.filteredListEventsRegistered = new FilteredList<>(this.eventsRegistered, p -> true);
-    }
-
-    /**
-     * Get filteredListEventsRegistered.
-     */
-    public FilteredList<Event> getFilteredListEventsRegistered() {
-        return this.filteredListEventsRegistered;
-    }
-
-    /**
-     * Constructs eventsRegistered.
-     */
-    public ObservableList<Event> getEventsOfUsername() {
-        ObservableList<Event> toReturn = FXCollections.observableArrayList();
-        for (Event event : allEvents) {
-            if (event.getAttendees().contains(this.username)) {
-                eventsRegistered.add(event);
-            }
-            return toReturn;
-        } return FXCollections.observableArrayList();
+        return eventsData;
     }
 
     /**

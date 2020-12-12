@@ -220,4 +220,8 @@ public class Event implements Serializable {
     public void removeAttendeesUntilCap(int newCap) {
         while(usernames.size()>newCap) usernames.remove(usernames.size()-1);
     }
+
+    public ArrayList<String> getUsernames() {
+        return usernames;
+    }
 }

@@ -64,7 +64,6 @@
     <RadioButton fx:id="yourSchedule" mnemonicParsing="false" onAction="#handleYourSchedule"
                  text="Your Schedule" toggleGroup="$scheduleType" GridPane.columnIndex="1"
                  GridPane.rowIndex="1" />
-
 </GridPane>
 
 
