@@ -2,7 +2,7 @@ package main.java.Controllers;
 
 import main.java.Entities.Message;
 import main.java.Gateways.MessageGateway;
-import main.java.UseCases.*;
+import main.java.UseCases.MessageCreator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +57,16 @@ public class MessageController {
      * @param receiving    the username of the receiving user.
      * @param inputMessage the message to be entered into the system as a string.
      */
+//    public MessageController(String sending, String receiving, String inputMessage) {
+//        this.sender = sending;
+//        this.receiver = receiving;
+//        this.messageString = inputMessage;
+//        this.outbox = new MessageGateway().getOutbox();
+//        this.inbox = new MessageGateway().getInbox();
+//        this.allMessages = new MessageGateway();
+//        this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
+//    }
+
     public MessageController(String sending, String receiving, String inputMessage) {
         this.sender = sending;
         this.receiver = receiving;
@@ -64,9 +74,11 @@ public class MessageController {
         this.outbox = new MessageGateway().getOutbox();
         this.inbox = new MessageGateway().getInbox();
         this.allMessages = new MessageGateway();
-
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
+
     }
+
+
 
     public MessageController() {
         this.outbox = new MessageGateway().getOutbox();
@@ -82,6 +94,18 @@ public class MessageController {
         this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setInbox();
         this.allMessages.setOutbox();
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public void setMessageString(String messageString) {
+        this.messageString = messageString;
     }
 
     /**
@@ -124,11 +148,12 @@ public class MessageController {
     public ArrayList<String> getMessageForMe(String me) {
         ArrayList<Message> messageList;
         ArrayList<String> ret = new ArrayList<>();
-        messageList = this.inbox.get(me);
-        for (Message m : messageList) {
-            ret.add(m.getSender() + " : " + m.getTime_sent() + " : " + m.getContent());
+        if (this.inbox.containsKey(me)){
+            messageList = this.inbox.get(me);
+            for (Message m : messageList) {
+                ret.add(m.getSender() + " : " + m.getTime_sent() + " : " + m.getContent());
+            }
         }
-        System.out.println(ret);
         return ret;
     }
 

@@ -22,7 +22,6 @@ public class Main extends Application {
     UserManager userManager;
     EventManager eventManager;
 
-
     @Override
     public void start(Stage primaryStage) throws IOException {
 //        Parent root = FXMLLoader.load(getClass().getResource("OpeningScene.fxml"));
