@@ -444,7 +444,7 @@ public class AttendeeMenuController {
             //quit
             if(response.equalsIgnoreCase("q")) return true;
 
-            //display homepage
+                //display homepage
             else if(response.equalsIgnoreCase("a")){
                 homepage();
                 continue;
