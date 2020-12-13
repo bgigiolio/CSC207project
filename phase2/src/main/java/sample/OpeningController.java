@@ -24,10 +24,9 @@ public class OpeningController implements Initializable {
     RadioButton retUser;
     @FXML
     RadioButton newUser;
+
     @FXML
-    RadioButton adminUser;
-    @FXML
-    private ChoiceBox<String> userRole; //TODO ADD ADMIN
+    private ChoiceBox<String> userRole;
     @FXML
     private Label userRoleLabel;
     @FXML
@@ -36,30 +35,36 @@ public class OpeningController implements Initializable {
     public TextField password;
     @FXML
     private Label invalidLoginText;
-//    String uname;
-//    String pword;
-//    String role;
 
-//    private ProgramMainGUI sys;
-
-    FXMLLoader loader;
-
-
-    //reminder: initializer
+    /**
+     * The method is called as soon as the program is run to load the necessary information in the controller before the
+     * scene that is associated with the controller is loaded.
+     * @param location is the location of the root of the scene.
+     * @param resources is the resource that is used to locate the root of the scene.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        EventGateway eventGateway = new EventGateway();
-//        this.sys = new ProgramMainGUI(eventGateway.read());
+
         userRole.getItems().addAll("organizer", "attendee", "speaker", "admin");
 
     }
 
-
-    public void handleNewUser(ActionEvent event) throws IOException {
+    /**
+     * Handles the action of New User option being selected. Clicking this button sets the User Role choice box visible
+     * and lets the user to select the user role that they would like to create account of.
+     * @param event the action of the button being clicked
+     */
+    public void handleNewUser(ActionEvent event) {
         this.userRole.setVisible(true);
         this.userRoleLabel.setVisible(true);
     }
-    public void handleRetUser(ActionEvent event) throws IOException {
+
+    /**
+     * Handles the action of Returning User option being selected. Clicking this button sets the User Role choice box
+     * invisible since they would need to enter the information of an existing account.
+     * @param event the action of the button being clicked
+     */
+    public void handleRetUser(ActionEvent event) {
         this.userRole.setVisible(false);
         this.userRoleLabel.setVisible(false);
     }
@@ -67,9 +72,9 @@ public class OpeningController implements Initializable {
      * When the button is clicked, it will check if the username and password matches. Login will be successful
      * if information matches, unsuccessful otherwise.
      * @param event is the action of clicking the "Login" button
+     * @throws IOException to handle a possible exception in the input or output.
      */
-    public void handleLoginButton(ActionEvent event) throws IOException, ClassNotFoundException, NullPointerException {
-        //Creates the user and stores the login information of the user and log them in depending on the role.
+    public void handleLoginButton(ActionEvent event) throws IOException {
         Stage primaryStage;
 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("HomeScreen.fxml"));
@@ -77,9 +82,7 @@ public class OpeningController implements Initializable {
         HomeScreenController hSC = loader.getController();
         primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Scene homeScene = new Scene(root,600,500);
-//        hSC.setUsername(this.username.getText());
-//        hSC.setPassword(this.password.getText());
-//        hSC.setRole(userRole.getValue());
+
 
         String login_attempt = hSC.login(this.username.getText(),this.password.getText());
 

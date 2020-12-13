@@ -2,6 +2,7 @@ package main.java.Controllers;
 
 import main.java.Entities.Message;
 import main.java.Gateways.MessageGateway;
+import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.MessageCreator;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class MessageController {
      */
     protected HashMap<String, ArrayList<Message>> inbox;
 
+    private UserLoginGateway userLoginGateway;
 
     /**
      * Construct an Message Controller object when instantiated.
@@ -75,6 +77,7 @@ public class MessageController {
         this.inbox = new MessageGateway().getInbox();
         this.allMessages = new MessageGateway();
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
+        this.userLoginGateway = new UserLoginGateway();
 
     }
 
@@ -85,6 +88,7 @@ public class MessageController {
         this.inbox = new MessageGateway().getInbox();
         this.allMessages = new MessageGateway();
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
+        this.userLoginGateway = new UserLoginGateway();
     }
 
     public void setMessageSystem(String messageString, String receiver, String sender) {
@@ -98,10 +102,13 @@ public class MessageController {
      * Sends message and updates inbox and outbox through Message Gateway.
      */
     public boolean sendMessage() {
-        boolean flag = this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
+        if (this.userLoginGateway.read() == null || !this.userLoginGateway.read().checkUsername(this.receiver)){
+            return false;
+        }
+        this.allMessages.addNewMessage(this.sender, this.receiver, messageSystem.getMessage());
         this.allMessages.setInbox();
         this.allMessages.setOutbox();
-        return flag;
+        return true;
     }
 
     public void setSender(String sender) {

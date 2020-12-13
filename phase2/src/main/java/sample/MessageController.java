@@ -56,9 +56,13 @@ public class MessageController implements Initializable {
         messageController.setMessageSystem(this.message.getText(), this.toUsername.getText(),this.sender);
         if (messageController.sendMessage()){
             sentValid.setVisible(true);
+            sentInvalid.setVisible(false);
+
         }
         else{
             sentInvalid.setVisible(true);
+            sentValid.setVisible(false);
+
         }
 
 
