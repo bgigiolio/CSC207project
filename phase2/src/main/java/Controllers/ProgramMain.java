@@ -43,11 +43,11 @@ public class ProgramMain implements AutoCloseable{
     }
 
     /**
-     * This is the first method that should be run in the program, allowing the user to log in
-     * by inputting strings for usernames and passwords.
+     * This is the first method that should be run in the program, allowing the user to log in or register
+     * by inputting strings for username and password.
      * This method follows this pattern:
      *  -Asks whether or not user is new or returning
-     *  -Asks user whether they are an organizer or an attendee
+     *  -Asks user whether they are an organizer, an attendee or an administrator
      *  -Logs the user in
      *  -Initializes the post-login menu
      */
@@ -155,7 +155,7 @@ public class ProgramMain implements AutoCloseable{
      * This method gets returning user's username from user input.
      * @return The String object representing the user's username.
      */
-    public String retUserUsernamePrompt(){
+    private String retUserUsernamePrompt(){
         Scanner uname = new Scanner(System.in);
         new StartingMenu().uPrompt();
         return uname.nextLine();
@@ -248,6 +248,10 @@ public class ProgramMain implements AutoCloseable{
         return null;
     }
 
+    /**
+     * The last method to be called before exiting a try-with-resources block for which the object has been declared in
+     * the resource specification header.
+     */
     @Override
     public void close(){
         new UserLoginGateway().save(userManager);

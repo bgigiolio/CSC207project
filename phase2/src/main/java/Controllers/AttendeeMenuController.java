@@ -23,8 +23,7 @@ import java.util.UUID;
 /**
  * <h1>AttendeeMenuController</h1>
  * This controller takes in input from an attendee when they are presented with a menu of options
- *
- * @author Blake Gigiolio
+ * Used for the console interface
  * @version phase2
  */
 public class AttendeeMenuController {
@@ -43,7 +42,8 @@ public class AttendeeMenuController {
      * @param building    This is the Building Manager for the building that the user is interested in.
      * @param userManager This is the user manager for the user that this menu is for.
      */
-    public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager, EventManager eventManager, AccessibilityOptionsController accessibility) {
+    public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager,
+                                  EventManager eventManager, AccessibilityOptionsController accessibility) {
         this.username = username;
         this.role = role;
         this.menu = new UserMenu();
@@ -69,7 +69,7 @@ public class AttendeeMenuController {
     /**
      * This is what the user should see if they choose to sign up for an event.
      */
-    public boolean signUpEvent() {
+    private boolean signUpEvent() {
         menu.eventPrompt("sign up");
         String inp = new Scanner(System.in).nextLine();
         UUID id;
@@ -87,7 +87,7 @@ public class AttendeeMenuController {
     /**
      * Method responsible for removing user from Event.
      */
-    public boolean cancelEnrolEvent() {
+    private boolean cancelEnrolEvent() {
         menu.eventPrompt("cancel");
         String inp = new Scanner(System.in).nextLine();
         UUID id;
@@ -102,6 +102,9 @@ public class AttendeeMenuController {
         return userManager.cancelEnrollment(username, id) & eventManager.removeAttendee(id, username);
     }
 
+    /**
+     * Facilitates sending messages between users
+     */
     public void sendMessage() {
         this.menu.sendMessageUser();
         String user = new Scanner(System.in).nextLine();
@@ -112,6 +115,10 @@ public class AttendeeMenuController {
         message.sendMessage();
     }
 
+    /**
+     * Facilitates creating a room in the building
+     * @return true if room was added successfully
+     */
     public boolean addRoom() {
         int startH, startM;
         int endH, endM;
@@ -166,6 +173,10 @@ public class AttendeeMenuController {
         return building.addRoom(name, LocalTime.of(startH, startM), LocalTime.of(endH, endM), roomCapacity);
     }
 
+    /**
+     * Facilitates adding a speaker to a talk or panel discussion
+     * @return true if speaker was added successfully
+     */
     public boolean scheduleSpeaker() {
         this.menu.createSpeakerName();
         Scanner cin = new Scanner(System.in);
@@ -308,6 +319,10 @@ public class AttendeeMenuController {
         return eventManager.changeCapacity(id, newCapacity);
     }
 
+    /**
+     * Responsible for removing an event from the building's schedule
+     * @return true if event was removed successfully
+     */
     public boolean removeEvent() {
         this.menu.manageEvent();
         String eventID = new Scanner(System.in).nextLine();
@@ -324,12 +339,16 @@ public class AttendeeMenuController {
         return returnVal;
     }
 
-    public boolean messageAttendees() {
-        OrganizerMessageController messenger = new OrganizerMessageController(this.username);
-        String event = new Scanner(System.in).nextLine();
-        return true;
+    /**
+     * Facilitates messaging all attendees of a specific event
+     */
+    public void messageAttendees() {
+        //TODO: Add speaker send message functionality
     }
 
+    /**
+     * Facilitates adding/removing friends to/from the friend list of a user
+     */
     public void manageFriendsList() {
         menu.friendsList();
         String choice = new Scanner(System.in).nextLine();
@@ -356,6 +375,9 @@ public class AttendeeMenuController {
         }
     }
 
+    /**
+     * Facilitates the creation of user accounts
+     */
     public void createUser() {
         menu.createUserType();
         String userType = new Scanner(System.in).nextLine();
@@ -385,6 +407,10 @@ public class AttendeeMenuController {
         }
     }
 
+    /**
+     * Facilitates the creation of events
+     * @return true if an event was created
+     */
     public boolean createEvent() {
         Scanner cin = new Scanner(System.in);
 
@@ -464,18 +490,18 @@ public class AttendeeMenuController {
         return true;
     }
 
-    public boolean organizerMessageAll() {
-        if (this.role.equals("organizer")) {
-            menu.sendMessageContent();
-            String content = new Scanner(System.in).nextLine();
-            new OrganizerMessageController(this.username).toAllAttendee(content, userManager);
-            return true;
-        } else {
-            this.menu.invalidResponse();
-            return false;
-        }
+    /**
+     * Responsible for sending a message to all attendees
+     */
+    public void organizerMessageAll() {
+        menu.sendMessageContent();
+        String content = new Scanner(System.in).nextLine();
+        new OrganizerMessageController(this.username).toAllAttendee(content, userManager);
     }
 
+    /**
+     * Facilitates downloading the schedule of the conference
+     */
     public void downloadScheduleTxt() {
         menu.scheduleDownload();
         String option = new Scanner(System.in).nextLine();
@@ -586,6 +612,11 @@ public class AttendeeMenuController {
         }
     }
 
+    /**
+     * Helper method which matches user input to attendee actions
+     * @param choice the user's input
+     * @return true if the user's input matches one of the attendee actions
+     */
     private boolean attendeeSwitch(int choice) {
         switch (choice) {
             case 1:
@@ -651,6 +682,10 @@ public class AttendeeMenuController {
         return true;
     }
 
+    /**
+     * Helper method which matches user input to organizer actions
+     * @param choice the user's input
+     */
     private void organizerSwitch(int choice) {
         switch (choice) {
             case 9: //create user account
@@ -676,10 +711,8 @@ public class AttendeeMenuController {
                 break;
 
             case 13: //Message All Attendees
-                if (organizerMessageAll())
-                    menu.operationComplete();
-                else
-                    menu.printSomething("Something went wrong, please try again!");
+                organizerMessageAll();
+                menu.operationComplete();
                 break;
 
             case 14: //add event
@@ -714,6 +747,10 @@ public class AttendeeMenuController {
         }
     }
 
+    /**
+     * Helper method which matches user input to administrator actions
+     * @param choice the user's input
+     */
     private void adminSwitch(int choice) {
         switch (choice) {
             case 9:     //delete messages
@@ -757,7 +794,10 @@ public class AttendeeMenuController {
         }
     }
 
-    //TODO: Add speaker send message functionality
+    /**
+     * Helper method which matches user input to speaker actions
+     * @param choice the user's input
+     */
     private void speakerSwitch(int choice) {
         switch (choice) {
             case 9:     //view list of my events
@@ -765,6 +805,7 @@ public class AttendeeMenuController {
                 menu.operationComplete();
                 break;
             case 10:    //send message
+                messageAttendees();
                 menu.operationComplete();
                 break;
             default:
