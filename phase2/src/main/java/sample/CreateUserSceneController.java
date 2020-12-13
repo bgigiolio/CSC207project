@@ -1,8 +1,5 @@
 package main.java.sample;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,12 +23,6 @@ public class CreateUserSceneController {
     private UserLoginGateway userLoginGateway;
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private ChoiceBox<String> roleMenu;
 
     @FXML
@@ -52,6 +43,11 @@ public class CreateUserSceneController {
     @FXML
     private Button createButton;
 
+    /**
+     * When Create Account button is pressed, the method checks the input information and allows or rejects the
+     * organizer to create an account, depending on the information of the existing accounts.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     */
     @FXML
     void createAccountPressed(ActionEvent event) {
         if (usernameField.getText() != null && passwordField.getText() != null && roleMenu.getValue() != null){
@@ -78,16 +74,34 @@ public class CreateUserSceneController {
         }
 
     }
+
+    /**
+     * A setter to change the value of the attribute userManager.
+     * @param userManager is an instance of UserManager class.
+     */
     public void setUserManager(UserManager userManager){
         this.userManager = userManager;
     }
+
+    /**
+     * A setter to change the value of the attribute userLoginGateway
+     * @param userLoginGateway is an instance of UserLoginGateway class
+     */
     public void setUserLoginGateway(UserLoginGateway userLoginGateway){
         this.userLoginGateway = userLoginGateway;
     }
+
+    /**
+     * Shows the list of roles that the organizer can create.
+     */
     public void showOptions(){
         roleMenu.getItems().addAll("organizer", "attendee", "speaker", "admin");
     }
 
+    /**
+     * The method is called as soon a the program is run to prepare the controller for the scene before the scene is
+     * reached.
+     */
     @FXML
     void initialize() {
         assert roleMenu != null : "fx:id=\"roleMenu\" was not injected: check your FXML file 'createUserScene.fxml'.";
