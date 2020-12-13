@@ -1,10 +1,5 @@
 package main.java.sample;
 
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ResourceBundle;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +12,11 @@ import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
+
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 
 public class EventCreatorSceneController {
 
@@ -83,6 +83,11 @@ public class EventCreatorSceneController {
     @FXML
     private Text errorText;
 
+    /**
+     * When the Create event button is pressed, the method checks if the input information suits the
+     * expected input format.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     */
     @FXML
     void createEventButtonPressed(ActionEvent event) {
         //LocalDate rawDate = this.datePicker.getValue();
@@ -140,6 +145,11 @@ public class EventCreatorSceneController {
         this.duration = durHour*60;
         createEvent();
     }
+    /**
+     * When the Create event button is pressed, the method checks the input information, and allows or rejects the
+     * organizer to create an event, based on existing events that are created in the conference. It is called by
+     * the method createEventButtonPressed so that the method is called when the Create event button is clicked.
+     */
     private void createEvent(){
         if(this.type.equalsIgnoreCase("No speaker")){
             if(!eventManager.addEvent(this.eventTitle, this.roomTitle, this.startDate, this.duration, eventCapacity,
@@ -167,23 +177,49 @@ public class EventCreatorSceneController {
         this.buildingGateway.save(this.buildingManager);
     }
 
+    /**
+     * Setter method for the attribute buildingManager.
+     * @param buildingManager is an instance of the BuildingManager class.
+     */
     public void setBuildingManager(BuildingManager buildingManager){
         this.buildingManager = buildingManager;
     }
 
+    /**
+     * Setter method for the attribute buildingGateway.
+     * @param buildingGateway is an instance of the BuildingGateway class.
+     */
     public void setBuildingGateway(BuildingGateway buildingGateway){
         this.buildingGateway = buildingGateway;
     }
+
+    /**
+     * Setter method for the attribute eventManager.
+     * @param eventManager is an instance of the EventManager class.
+     */
     public void setEventManager(EventManager eventManager){
         this.eventManager = eventManager;
     }
+
+    /**
+     * Setter method for the attribute eventGateway.
+     * @param eventGateway is an instance of the EventGateway class.
+     */
     public void setEventGateway(EventGateway eventGateway){
         this.eventGateway = eventGateway;
     }
+
+    /**
+     * Shows the options of event types that the organizer can create.
+     */
     public void showOptions(){
         eventTypeChoiceBox.getItems().addAll("No speaker", "Talk", "Panel discussion");
     }
 
+    /**
+     * The method is called as soon a the program is run to prepare the controller for the scene before the scene is
+     * reached.
+     */
     @FXML
     void initialize() {
         assert eventTitlePrompt != null : "fx:id=\"eventTitlePrompt\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";

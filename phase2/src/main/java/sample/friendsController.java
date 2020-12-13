@@ -34,26 +34,47 @@ public class friendsController {
 
     private boolean add;
 
+    /**
+     * When Add friend option is selected, the method changes the button text to "add friend" and sets the instance
+     * variable "add" to true.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     */
     @FXML
     void addFriendSelected(ActionEvent event) {
         actionButton.setText("Add friend");
         add = true;
     }
-
+    /**
+     * When Remove friend option is selected, the method changes the button text to "Remove friend" and sets the instance
+     * variable "add" to false.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     */
     @FXML
     void removeFriendSelected(ActionEvent event) {
         actionButton.setText("Remove friend");
         add = false;
     }
-
+    /**
+     * A setter to change the value of the attribute userManager.
+     * @param userManager is an instance of UserManager class.
+     */
     public void setUserManager(UserManager userManager){
         this.userManager = userManager;
     }
 
+    /**
+     * Setter to change the value of the attribute username.
+     * @param username the username of a user account.
+     */
     public void setUsername(String username){
         this.username = username;
     }
 
+    /**
+     * Depending on the add or remove friend option selected, the method will either add or remove a specified user
+     * to/from the friendlist.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     */
     @FXML
     void actionButtonPressed(ActionEvent event) {
         String fusername = friendUsername.getText();
@@ -83,7 +104,10 @@ public class friendsController {
 
 
     }
-
+    /**
+     * The method is called as soon a the program is run to prepare the controller for the scene before the scene is
+     * reached.
+     */
     @FXML
     void initialize(){
         assert friendUsername != null : "fx:id=\"friendUsername\" was not injected: check your FXML file 'Untitled'.";
