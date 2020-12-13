@@ -16,23 +16,48 @@ import java.util.ResourceBundle;
 
 
 public class OpeningController implements Initializable {
+    /**
+     * A ToggleGroup to collect the radio buttons of retUser and newUser option.
+     */
     public ToggleGroup userType;
+    /**
+     * The Login button that initialize the action of logging in when pressed.
+     */
     public Button loginButton;
 
-
+    /**
+     * RadioButton that is for returning users.
+     */
     @FXML
     RadioButton retUser;
+    /**
+     * Radiobutton that is for new users
+     */
     @FXML
     RadioButton newUser;
-
+    /**
+     * ChoiceBox of roles.
+     */
     @FXML
     private ChoiceBox<String> userRole;
+    /**
+     * A label that describes the choicebox
+     */
     @FXML
     private Label userRoleLabel;
+    /**
+     * TextField to put username
+     */
     @FXML
     private TextField username;
+    /**
+     * TextField to put password
+     */
     @FXML
     public TextField password;
+    /**
+     * A label that will show up if login is unsuccessful.
+     */
     @FXML
     private Label invalidLoginText;
 
@@ -96,7 +121,7 @@ public class OpeningController implements Initializable {
             }
         }
 
-        else if (login_attempt.equalsIgnoreCase("invalid")){
+        else if (login_attempt.equalsIgnoreCase("invalid") || userType.getSelectedToggle() == null){
             this.invalidLoginText.setVisible(true);
         }
         else{

@@ -13,10 +13,8 @@ import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ResourceBundle;
 
 public class EventCreatorSceneController {
 
@@ -51,12 +49,6 @@ public class EventCreatorSceneController {
     private TextField capacityPrompt;
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private TextField eventTitlePrompt;
 
     @FXML
@@ -73,9 +65,6 @@ public class EventCreatorSceneController {
 
     @FXML
     private TextField endHourField;
-
-//    @FXML
-//    private TextField endMinuteField;
 
     @FXML
     private Button createEventButton;

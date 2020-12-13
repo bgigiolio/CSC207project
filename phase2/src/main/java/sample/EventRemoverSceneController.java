@@ -10,8 +10,6 @@ import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class EventRemoverSceneController {
@@ -25,12 +23,6 @@ public class EventRemoverSceneController {
     private BuildingManager buildingManager;
 
     private BuildingGateway buildingGateway;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Text eventRemovedText;

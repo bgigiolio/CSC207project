@@ -10,9 +10,6 @@ import javafx.scene.text.Text;
 import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.UserManager;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class CreateUserSceneController {
 
     private UserManager userManager;
@@ -24,12 +21,6 @@ public class CreateUserSceneController {
     private String role;
 
     private UserLoginGateway userLoginGateway;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private ChoiceBox<String> roleMenu;
