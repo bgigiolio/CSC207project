@@ -75,6 +75,11 @@ public class BuildingManager implements Serializable{
         return building.get(loc).addEvent(e, em);
     }
 
+    /**
+     * Deletes an event with the following uuid from the schedule
+     * @param id the UUID of the event to delete
+     * @return true if an event with this uuid was deleted from the schedule
+     */
     public boolean deleteEvent(UUID id){
         for(String room:building.keySet()){
             Schedule2 sched = building.get(room);
@@ -142,10 +147,6 @@ public class BuildingManager implements Serializable{
             current += 1;
             return res;
         }
-    }
-
-    public void updateScheduleOfRoom(String room, Schedule2 schedule) {
-        this.building.put(room, schedule);
     }
 
     /*
