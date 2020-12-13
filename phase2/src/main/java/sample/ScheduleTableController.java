@@ -3,6 +3,10 @@ package main.java.sample;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.TextAlignment;
 import main.java.Gateways.BuildingGateway;
 import main.java.Gateways.EventGateway;
@@ -11,6 +15,9 @@ import main.java.UseCases.EventManager;
 import main.java.UseCases.EventTableView;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -140,12 +147,27 @@ public class ScheduleTableController {
      */
     @FXML
     public void initialize() {
+        eventTable.getSelectionModel().setCellSelectionEnabled(true);
+        handleCopyId();
         setRatioButtonDefault();
         setColumnValue();
         setSearchBy();
         eventTable.setItems(eventTableView.getFilteredListEvents());
         filterSchedule();
         resetScheduleTable();
+    }
+
+    /**
+     * Handle key press on SPACE for copying an event ID to user's local computer clipboard.
+     */
+    public void handleCopyId() {
+        eventTable.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.SPACE) {
+                String eventInfo = eventTable.getSelectionModel().getSelectedItem().toString().substring(5, 41);
+                Transferable transferable = new StringSelection(eventInfo);
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(transferable, null);
+            }
+        });
     }
 
     /**

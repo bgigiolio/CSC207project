@@ -15,7 +15,7 @@
            GridPane.columnIndex="0" GridPane.rowIndex="0">
     </Label>
     <TableView fx:id="eventTable" GridPane.columnIndex="0"
-               GridPane.rowIndex="2" GridPane.columnSpan="3">
+               GridPane.rowIndex="3" GridPane.columnSpan="3">
         <columns>
             <TableColumn fx:id="idColumn" text="ID" prefWidth="150">
             </TableColumn>
@@ -36,22 +36,22 @@
         </columns>
     </TableView>
 
-    <ChoiceBox fx:id="searchBy" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="0" GridPane.rowIndex="3" value="ID">
+    <ChoiceBox fx:id="searchBy" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="0" GridPane.rowIndex="4" value="ID">
 
     </ChoiceBox>
 
     <TextField fx:id="searchText" maxWidth="-Infinity" prefHeight="25.0" prefWidth="500.0"
-               GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Type to search...">
+               GridPane.columnIndex="1" GridPane.rowIndex="4" promptText="Type to search...">
 
     </TextField>
 
     <Button fx:id="downloadButton" defaultButton="true" mnemonicParsing="false"
             onAction="#handleDownloadButton" prefHeight="25.0"
             prefWidth="255.0" text="Download Full Schedule" GridPane.columnIndex="2"
-            GridPane.rowIndex="3">
+            GridPane.rowIndex="4">
     </Button>
 
-    <Label fx:id="downloadMessage" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.rowSpan = "2">
+    <Label fx:id="downloadMessage" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan = "2">
 
     </Label>
 
@@ -64,6 +64,8 @@
     <RadioButton fx:id="yourSchedule" mnemonicParsing="false" onAction="#handleYourSchedule"
                  text="Your Schedule" toggleGroup="$scheduleType" GridPane.columnIndex="1"
                  GridPane.rowIndex="1" />
+    <Label text="Select an event and press SPACE to copy event ID" GridPane.columnIndex="0"
+           GridPane.rowIndex="2" GridPane.columnSpan="3"/>
 </GridPane>
 
 
