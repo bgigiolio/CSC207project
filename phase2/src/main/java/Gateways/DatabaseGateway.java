@@ -32,7 +32,7 @@ public abstract class DatabaseGateway<T> {
      * Utility method to clear file contents if file contains corrupt data
      * @param db what kind of database is accessed (e.g. events, messages, etc.)
      */
-    protected void clearFileContentsUtil(String db) {
+    public void clearFileContentsUtil(String db) {
         try {
             PrintWriter writer = new PrintWriter(dbPath);
             writer.print("");
@@ -42,8 +42,4 @@ public abstract class DatabaseGateway<T> {
             e.printStackTrace();
         }
     }
-
-    /*protected void setDbPath(String dbPath) {
-        this.dbPath = dbPath;
-    }*/
 }

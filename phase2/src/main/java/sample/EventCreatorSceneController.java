@@ -74,8 +74,8 @@ public class EventCreatorSceneController {
     @FXML
     private TextField endHourField;
 
-    @FXML
-    private TextField endMinuteField;
+//    @FXML
+//    private TextField endMinuteField;
 
     @FXML
     private Button createEventButton;
@@ -181,7 +181,7 @@ public class EventCreatorSceneController {
         this.eventGateway = eventGateway;
     }
     public void showOptions(){
-        eventTypeChoiceBox.getItems().addAll("No speaker", "Talk", "Panel");
+        eventTypeChoiceBox.getItems().addAll("No speaker", "Talk", "Panel discussion");
     }
 
     @FXML
@@ -192,7 +192,7 @@ public class EventCreatorSceneController {
         assert startHourField != null : "fx:id=\"startHourField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         assert startMinuteField != null : "fx:id=\"startMinuteField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         assert endHourField != null : "fx:id=\"endHourField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
-        assert endMinuteField != null : "fx:id=\"endMinuteField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
+        //assert endMinuteField != null : "fx:id=\"endMinuteField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         assert createEventButton != null : "fx:id=\"createEventButton\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         assert errorText != null : "fx:id=\"errorText\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         Platform.runLater(this::showOptions);

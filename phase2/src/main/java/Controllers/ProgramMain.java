@@ -18,8 +18,8 @@ import main.java.UseCases.UserManager;
  * @version phase2
  */
 public class ProgramMain implements AutoCloseable{
-    private final BuildingManager buildingManager;
-    private final EventManager eventManager;
+    private BuildingManager buildingManager;
+    private EventManager eventManager;
     private final UserManager userManager;
     private final AccessibilityOptionsController accessibility;
 
@@ -27,9 +27,18 @@ public class ProgramMain implements AutoCloseable{
      * This constructor sets up which building the program is going to run for.
      */
     public ProgramMain() {
-        eventManager = new EventGateway().read();
+        EventGateway eventGateway = new EventGateway();
+        BuildingGateway buildingGateway = new BuildingGateway();
+        eventManager = eventGateway.read();
         userManager = new UserLoginGateway().read();
-        buildingManager = new BuildingGateway().read();
+        buildingManager = buildingGateway.read();
+
+        if(!buildingManager.verifyBuilding(eventManager)){
+            buildingGateway.clearFileContentsUtil("building");
+            eventGateway.clearFileContentsUtil("events");
+            eventManager  = new EventManager();
+            buildingManager = new BuildingManager("Building");
+        }
         accessibility = new AccessibilityOptionsController();
     }
 

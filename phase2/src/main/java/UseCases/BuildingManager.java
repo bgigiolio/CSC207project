@@ -105,6 +105,19 @@ public class BuildingManager implements Serializable{
     }
 
     /**
+     * Check that all events in the building are events that are stored in EventManager
+     * to prevent inconsistencies
+     * @param em EventManager object
+     * @return True iff all event IDs correspond to events stored in EventManager
+     */
+    public boolean verifyBuilding(EventManager em){
+        for (String room : building.keySet()) {
+            if(!building.get(room).verify(em)) return false;
+        }
+        return true;
+    }
+
+    /**
      * The implementation of Iterator for this building.
      */
     private class ScheduleIterator implements Iterator<Schedule2>{
