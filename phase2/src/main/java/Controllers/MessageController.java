@@ -52,37 +52,29 @@ public class MessageController {
     /**
      * Construct an Message Controller object when instantiated.
      * Initialized with a username of sender and receiver with input string message. If no input is sent then simply
-     * instantiates the inboxes to be accessed.
-     * loggedIn is initialized to be false and role is initialized to be "attendee".
+     * instantiates MessageGateway, UserLoginGateway, and MessageCreator.
      *
      * @param sending      the username of the sending user.
      * @param receiving    the username of the receiving user.
      * @param inputMessage the message to be entered into the system as a string.
      */
-//    public MessageController(String sending, String receiving, String inputMessage) {
-//        this.sender = sending;
-//        this.receiver = receiving;
-//        this.messageString = inputMessage;
-//        this.outbox = new MessageGateway().getOutbox();
-//        this.inbox = new MessageGateway().getInbox();
-//        this.allMessages = new MessageGateway();
-//        this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
-//    }
-
     public MessageController(String sending, String receiving, String inputMessage) {
         this.sender = sending;
         this.receiver = receiving;
         this.messageString = inputMessage;
+        this.allMessages = new MessageGateway();
         this.outbox = new MessageGateway().getOutbox();
         this.inbox = new MessageGateway().getInbox();
-        this.allMessages = new MessageGateway();
         this.messageSystem = new MessageCreator(this.messageString, this.receiver, this.sender);
         this.userLoginGateway = new UserLoginGateway();
 
     }
 
 
-
+    /**
+     * MessageController constructor that does not take any parameter.
+     * Instantiates MessageGateway, UserLoginGateway, and MessageCreator.
+     */
     public MessageController() {
         this.outbox = new MessageGateway().getOutbox();
         this.inbox = new MessageGateway().getInbox();
@@ -91,6 +83,13 @@ public class MessageController {
         this.userLoginGateway = new UserLoginGateway();
     }
 
+    /**
+     * Assigns new MessageSystem instance to the existing messageSystem attribute, by assigning new values to
+     * messageString, receiver, and sender and creating new MessageCreator instance.
+     * @param messageString is the message content.
+     * @param receiver person who receives the message.
+     * @param sender person who sends the message.
+     */
     public void setMessageSystem(String messageString, String receiver, String sender) {
         this.messageString = messageString;
         this.receiver = receiver;
@@ -111,14 +110,26 @@ public class MessageController {
         return true;
     }
 
+    /**
+     * Setter method for the sender attribute.
+     * @param sender is the person who sends the message.
+     */
     public void setSender(String sender) {
         this.sender = sender;
     }
 
+    /**
+     * Setter for the receiver attribute.
+     * @param receiver is the person who receive the message.
+     */
     public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
 
+    /**
+     * Setter for the messageString attribute.
+     * @param messageString is the message content.
+     */
     public void setMessageString(String messageString) {
         this.messageString = messageString;
     }
@@ -133,6 +144,11 @@ public class MessageController {
         return retVal;
     }
 
+    /**
+     * Helper method to get all messages from the provided hashmap and returns it as an arraylist.
+     * @param hm is a hashmap that contains messages of every user.
+     * @return
+     */
     private ArrayList<String> allMessageHelper(HashMap<String, ArrayList<Message>> hm) {
         ArrayList<String> ret = new ArrayList<>();
         for (Map.Entry<String, ArrayList<Message>> mapElement : hm.entrySet()) {

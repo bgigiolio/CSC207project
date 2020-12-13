@@ -124,7 +124,10 @@ public class HomeScreenController{
 //        this.role = role;
 //    }
 
-
+    /**
+     * The method is called as soon as the program is run to prepare the necessary attributes before the scene that the
+     * controller is associated with is not reached.
+     */
     public void initialize(){
         eventGateway = new EventGateway();
         userLoginGateway = new UserLoginGateway();
@@ -160,6 +163,9 @@ public class HomeScreenController{
 
     }
 
+    /**
+     * Shows a menu of possible actions depending on the role of the user/account.
+     */
     private void showOptions() {
         try {
             if (this.role.equalsIgnoreCase("attendee")) {
@@ -213,6 +219,11 @@ public class HomeScreenController{
         EventStage.show();
     }*/
 
+    /**
+     * Logs the user out when the logout option is clicked and displays the login screen.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void logout(ActionEvent event) throws IOException {
         Stage primaryStage;
@@ -226,7 +237,13 @@ public class HomeScreenController{
         userLoginGateway.save(userManager);
     }
 
-    //under work
+
+    /**
+     * Opens a new window, when Manage friends option is pressed,
+     * where the user can either add or remove friend from their friendlist.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void manageFriends(ActionEvent event) throws IOException {
         Stage EventStage;
@@ -240,7 +257,12 @@ public class HomeScreenController{
         EventStage.show();
     }
 
-
+    /**
+     * Opens a new window when Add room option is pressed,
+     * where the organizer can add a room by entering required information.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void addRoomPressed(ActionEvent event) throws IOException {
         Stage EventStage;
@@ -254,6 +276,12 @@ public class HomeScreenController{
         EventStage.show();
     }
 
+    /**
+     * Opens a new window when Create event option is pressed, where the organizer can create
+     * an event by inputting required information.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void createEventPressed(ActionEvent event) throws IOException {
         Stage eventCreatorStage;
@@ -269,6 +297,12 @@ public class HomeScreenController{
         eventCreatorStage.show();
     }
 
+    /**
+     * Opens a new window when Create user account option is pressed, where organizers can create
+     * an account for other people in the conference.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void createUserAccountPressed(ActionEvent event) throws IOException {
         Stage CreateUserStage;
@@ -282,11 +316,21 @@ public class HomeScreenController{
         CreateUserStage.show();
     }
 
+    /**
+     * Opens a new window when Message event attendees option is pressed, where the organizer can
+     * message attendees of a particular event.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void messageEventAttendeesPressed(ActionEvent event) {
 
     }
 
+    /**
+     * Opens a new window when Remove Event option is pressed, where the organizer can remove the event.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.     */
     @FXML
     void removeEventPressed(ActionEvent event) throws IOException {
         Stage eventRemoverStage;
@@ -302,6 +346,11 @@ public class HomeScreenController{
         eventRemoverStage.show();
     }
 
+    /**
+     * Opens a new window when Schedule speaker option is clicked, where the organizer can add a speaker to an event.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void scheduleSpeakerPressed(ActionEvent event) throws IOException {
         Stage scheduleSpeakerStage;
@@ -319,6 +368,12 @@ public class HomeScreenController{
         scheduleSpeakerStage.show();
     }
 
+    /**
+     * Opens a new window when message option is clicked, where the user can review their inbox or send a new message
+     * to others.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void Message(ActionEvent event) throws IOException {
         Stage messageStage;
@@ -333,7 +388,11 @@ public class HomeScreenController{
 
     }
 
-
+    /**
+     * Opens a new window and shows the schedule/program of events of the conference.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void showSchedule(ActionEvent event) throws IOException {
         Stage scheduleStage;
@@ -348,6 +407,11 @@ public class HomeScreenController{
         scheduleStage.show();
     }
 
+    /**
+     * Opens a new window and let the user to sign up for an event.
+     * @param event is the action of the button, that is associated with the method, is clicked.
+     * @throws IOException to handle a possible exception in the input or the output.
+     */
     @FXML
     void signUp(ActionEvent event) throws IOException {
 //        Stage EventStage;
