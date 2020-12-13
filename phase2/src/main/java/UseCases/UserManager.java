@@ -19,7 +19,7 @@ public class UserManager implements Serializable {
     private final HashMap<String, Attendee> credentialsMap;  //need for organizer message controller
 
     /**
-     * Construct an UserManager object.
+     * Construct a UserManager object.
      * Initialized with an empty credentialsMap.
      */
     public UserManager(){
@@ -144,6 +144,11 @@ public class UserManager implements Serializable {
         return at1.removeFriend(user2);
     }
 
+    /**
+     * Return the number of friends in this user's friend list
+     * @param username the username of the current user
+     * @return the number of friends, -1 if username is not registered
+     */
     public int getNumOfFriends(String username){
         Attendee user = credentialsMap.get(username);
 
@@ -160,13 +165,7 @@ public class UserManager implements Serializable {
     public boolean signUpForEvent(String username, UUID id){
         Attendee a = credentialsMap.get(username);
         if(a!=null)
-        {
-            if(!a.getEventsRegistered().contains(id)) {
-                a.registerForEvent(id);
-                return true;
-            }
-            return false;
-        }
+            return a.registerForEvent(id);
         return false;
     }
 
@@ -177,10 +176,8 @@ public class UserManager implements Serializable {
      */
     public boolean cancelEnrollment(String username, UUID id){
         Attendee a = credentialsMap.get(username);
-        if(a!=null) {
-            a.cancelEnrollment(id);
-            return  true;
-        }
+        if(a!=null)
+            return a.cancelEnrollment(id);
         return false;
     }
 
@@ -192,6 +189,12 @@ public class UserManager implements Serializable {
         return this.credentialsMap;
     }
 
+    /**
+     * Add a talk to this speaker's list of talks
+     * @param username the username of the speaker
+     * @param id the ID of the talk
+     * @return true if the operation was successful
+     */
     public boolean addTalk(String username, UUID id){
         if(!credentialsMap.get(username).getRole().equals("speaker"))
             return false;

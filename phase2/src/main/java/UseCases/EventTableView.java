@@ -6,7 +6,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.Entities.Event;
-import main.java.Gateways.EventGateway;
 
 import java.util.ArrayList;
 
