@@ -137,7 +137,7 @@ public class EventCreatorSceneController {
         this.roomTitle = roomNamePrompt.getText();
         this.type = eventTypeChoiceBox.getValue();
         this.eventTitle = eventTitlePrompt.getText();
-        this.duration = durHour;
+        this.duration = durHour*60;
         createEvent();
     }
     private void createEvent(){

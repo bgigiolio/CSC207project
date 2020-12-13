@@ -72,14 +72,29 @@ public class Schedule2 implements Serializable {
 
         int index = getIndex(0, schedule.size() - 1, e.getDatetime(), em);
 
-        if (index == schedule.size()) {
-            schedule.add(e.getUuid());
-            return true;
-        } else if (index == -1)
+        if (index == -1)
             return false;
+        else if(index == 0){
+            Event ev2 = em.getEvent(schedule.get(index));
+            if (!endTime.isAfter(ev2.getDatetime())){
+                schedule.add(index, e.getUuid());
+                return true;
+            }
+            return false;
+        }else if(index == schedule.size()){
+            Event ev1 = em.getEvent(schedule.get(index-1));
+            if(!ev1.getDatetime().plusMinutes(e.getDuration()).isAfter(e.getDatetime())) {
+                schedule.add(index, e.getUuid());
+                return true;
+            }
+            return false;
+        }
 
-        UUID id2 = schedule.get(index);
-        Event ev2 = em.getEvent(id2);   //the event starting right after the event we wanna add
+        Event ev1 = em.getEvent(schedule.get(index-1));
+        Event ev2 = em.getEvent(schedule.get(index));   //the event starting right after the event we wanna add
+
+        if(ev1.getDatetime().plusMinutes(e.getDuration()).isAfter(e.getDatetime()))
+            return false;
 
         if (endTime.isAfter(ev2.getDatetime()))
             return false;
@@ -88,6 +103,11 @@ public class Schedule2 implements Serializable {
         return true;
     }
 
+    /**
+     * Remove event with specific uuid
+     * @param id the uuid of the event to remove
+     * @return true if event was successfully removed
+     */
     public boolean removeEvent(UUID id){
         return schedule.remove(id);
     }
@@ -121,8 +141,11 @@ public class Schedule2 implements Serializable {
         this.roomCapacity = roomCapacity;
     }
 
-    public ArrayList<UUID> getSchedule(){return new ArrayList<>(schedule);}
-
+    /**
+     * Returns a string representation of the schedule
+     * @param em EventManager object
+     * @return a String with the string representation of the schedule
+     */
     public String getToString(EventManager em){
         StringBuilder toReturn = new StringBuilder();
 
@@ -173,6 +196,7 @@ public class Schedule2 implements Serializable {
         }
         return true;
     }
+
 
     /*
     /**
