@@ -185,12 +185,24 @@ public class Event implements Serializable {
         this.usernames.removeAll(usernames);
     }
 
+    /**
+     * Returns the capacity of the Event.
+     * @return this.eventCapacity
+     */
     public int getCapacity(){
         return eventCapacity;
     }
 
+    /**
+     * Returns the UUID associated with the Event.
+     * @return this.uuid
+     */
     public UUID getUuid() { return uuid; }
 
+    /**
+     * Changes the this.eventCapacity of the Event to newCapacity.
+     * @param newCapacity the new desired capacity, as an integer, of the Event.
+     */
     public void setCapacity(int newCapacity){
         this.eventCapacity = newCapacity;
     }

@@ -84,6 +84,9 @@ public class AttendeeMenuController {
         return userManager.signUpForEvent(username, id) & eventManager.addAttendee(id, username);
     }
 
+    /**
+     * Method responsible for removing user from Event.
+     */
     public boolean cancelEnrolEvent() {
         menu.eventPrompt("cancel");
         String inp = new Scanner(System.in).nextLine();
@@ -185,6 +188,10 @@ public class AttendeeMenuController {
         return eventManager.setSpeaker(id, speakerName) & userManager.addTalk(speakerName, id);
     }
 
+    /**
+     * Attempts to send a String representation of all of the users attending an Event to the Presenter.
+     * @return boolean
+     */
     public boolean getListOfAttendees() {
         menu.enterEventID();
         String eventID = new Scanner(System.in).nextLine();
@@ -209,6 +216,10 @@ public class AttendeeMenuController {
 
     }
 
+    /**
+     * Attempts to get the user's request and calling the AccessibilityOptionsController to add it to the system.
+     * @return boolean
+     */
     public boolean addRequest() {
         this.menu.request();
         Scanner scan = new Scanner(System.in);
@@ -221,6 +232,10 @@ public class AttendeeMenuController {
         return false;
     }
 
+    /**
+     * Attempts to send a String representation of the requests stored in the DB to the Presenters.
+     * @return boolean
+     */
     public boolean getRequests() {
         ArrayList<String> requests = accessibility.getAllRequest();
         StringBuilder printout = new StringBuilder("List of Requests:\n");
@@ -261,6 +276,10 @@ public class AttendeeMenuController {
         return true;
     }
 
+    /**
+     * Attempts to get the new capacity and replaces the old capacity for the desired Event.
+     * @return boolean
+     */
     public boolean modifyCapacity() {
         Scanner cin = new Scanner(System.in);
         int newCapacity;

@@ -22,6 +22,17 @@ public class EventManager implements Serializable {
     private final HashMap<UUID, Talk> talks = new HashMap<>();
     private final HashMap<UUID, PanelDiscussion> panelDiscussions = new HashMap<>();
 
+    /**
+     *  Attempts to create the new Event and returns a boolean based on the outcome.
+     * @param title Title of the potential Event.
+     * @param loc Location of the potential Event.
+     * @param datetime The Date and TIme of the potential Event.
+     * @param dur The total Duration in minutes of the potential Event.
+     * @param eventCap The capacity of the potential Event.
+     * @param type The type of the potential Event.
+     * @param bm THe building the Event is going to be added to.
+     * @return boolean
+     */
     public boolean addEvent(String title, String loc, LocalDateTime datetime, int dur, int eventCap, String type, BuildingManager bm){
         EventFactory eventFactory = new EventFactory();
         Event e = eventFactory.getEvent(title, loc, datetime, dur, eventCap, type);
@@ -46,6 +57,11 @@ public class EventManager implements Serializable {
         return true;
     }
 
+    /**
+     * Return the desired Event.
+     * @param id The UUID associated with the EVent.
+     * @return Event
+     */
     protected Event getEvent(UUID id){
         Event e = events.get(id);
         if(e!=null) return e;
@@ -70,12 +86,23 @@ public class EventManager implements Serializable {
         return toReturn;
     }
 
+    /**
+     * Remove the Event from the system.
+     * @param eventId The UUID associated with the Event.
+     * @return boolean
+     */
     public boolean deleteEvent(UUID eventId){
         if(events.remove(eventId) != null) return true;
         if(talks.remove(eventId) != null) return true;
         return panelDiscussions.remove(eventId) != null;
     }
 
+    /**
+     * Set the Capacity of the Event to the new desired capacity.
+     * @param eventId The UUID associated with the Event
+     * @param newCap The new desired capacity of the Event, as an integer.
+     * @return boolean
+     */
     public boolean changeCapacity(UUID eventId, int newCap){
         Event e;
 
@@ -120,6 +147,11 @@ public class EventManager implements Serializable {
         return -1;
     }
 
+    /**
+     * Returns the String representation of the title of the Event.
+     * @param id The UUID associated with the Event.
+     * @return String
+     */
     public String getEventTitle(UUID id){
         Event e = events.get(id);
         if(e != null) return e.getTitle();
@@ -140,6 +172,11 @@ public class EventManager implements Serializable {
         return null;
     }
 
+    /**
+     * Returns an ArrayList of the titles of the Events the User is attending.
+     * @param username The String that represents the User.
+     * @return ArrayList<String></String>
+     */
     public ArrayList<String> eventsAttending(String username){
         ArrayList<String> e = new ArrayList<>();
 
@@ -158,6 +195,12 @@ public class EventManager implements Serializable {
         return e;
     }
 
+    /**
+     * Adds the user to the desired Event's list of attendees..
+     * @param id The UUID of the Event.
+     * @param username The String that represents the user.
+     * @return boolean
+     */
     public boolean addAttendee(UUID id, String username){
         Event e = events.get(id);
         if(e != null) return e.addAttendees(username);
@@ -171,6 +214,12 @@ public class EventManager implements Serializable {
         return false;
     }
 
+    /**
+     * Removes the User from the Event's list of attendees.
+     * @param id The UUID of the EVent.
+     * @param username The String representing the User.
+     * @return boolean
+     */
     public boolean removeAttendee(UUID id, String username){
         Event e = events.get(id);
         if(e != null) return e.removeAttendees(username);
@@ -184,6 +233,12 @@ public class EventManager implements Serializable {
         return false;
     }
 
+    /**
+     * Sets the Speaker of the desired Talk.
+     * @param id The UUID of the Talk.
+     * @param username The String representing th Speaker.
+     * @return boolean
+     */
     public boolean setSpeaker(UUID id, String username){
         Talk talk = talks.get(id);
 
@@ -200,6 +255,11 @@ public class EventManager implements Serializable {
         return false;
     }
 
+    /**
+     * Returns String representation of the Speaker's associated Talks.
+     * @param username The String representing the Speaker.
+     * @return String
+     */
     public String getEventsOfSpeakerUsernameToString(String username){
         StringBuilder eventsString = new StringBuilder();
 
@@ -214,6 +274,11 @@ public class EventManager implements Serializable {
         return eventsString.toString();
     }
 
+    /**
+     * Returns an ArrayList of the Users who are attending the EVent.
+     * @param id The UUId of the Event.
+     * @return ArrayList<String></String>
+     */
     public ArrayList<String> getAttendees(UUID id){
         Event e = events.get(id);
         if(e!=null) return e.getAttendees();
