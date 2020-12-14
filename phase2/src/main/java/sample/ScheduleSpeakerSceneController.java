@@ -33,14 +33,6 @@ public class ScheduleSpeakerSceneController {
      */
     private UserLoginGateway userLoginGateway;
     /**
-     * BuildingManager object.
-     */
-    private BuildingManager buildingManager;
-    /**
-     * BuildingGateway that stores building information.
-     */
-    private BuildingGateway buildingGateway;
-    /**
      * EventManager object.
      */
     private EventManager eventManager;
@@ -81,12 +73,12 @@ public class ScheduleSpeakerSceneController {
             errorText.setText("Please fill in all of the fields.");
             return;
         }
-        this.username = speakerNameField.getText();
-        if (!userManager.checkUsername(this.username)){
-            errorText.setText("Not a valid speaker");
+        username = speakerNameField.getText();
+        if (!userManager.checkUsername(username)){
+            errorText.setText("Not a valid user");
             return;
         }
-        if (!userManager.getUserRole(speakerNameField.getText()).equalsIgnoreCase("speaker")){
+        if (!userManager.getUserRole(username).equalsIgnoreCase("speaker")){
             errorText.setText("This user is not a speaker");
             return;
         }
@@ -97,10 +89,19 @@ public class ScheduleSpeakerSceneController {
             errorText.setText("Invalid UUID format");
             return;
         }
-        if (eventManager.setSpeaker(id, this.username) & userManager.addTalk(this.username, id)){
-            errorText.setText("Speaker Successfully added!");
+        if(!eventManager.checkEvent(id)) {
+            errorText.setText("Invalid event ID");
+            return;
         }
-        this.buildingGateway.save(buildingManager);
+        if (!eventManager.setSpeaker(id, username)){
+            errorText.setText("Invalid talk/panel discussion ID or speaker already added");
+            return;
+        }
+        if(!userManager.addTalk(username, id)){
+            errorText.setText("Speaker already added");
+            return;
+        }
+        errorText.setText("Speaker set!");
         this.eventGateway.save(eventManager);
         this.userLoginGateway.save(userManager);
     }
@@ -118,20 +119,7 @@ public class ScheduleSpeakerSceneController {
     public void setEventGateway(EventGateway eventGateway){
         this.eventGateway = eventGateway;
     }
-    /**
-     * Setter method for the attribute buildingManager.
-     * @param building is an instance of the BuildingManager class.
-     */
-    public void setBuilding(BuildingManager building){
-        this.buildingManager = building;
-    }
-    /**
-     * Setter method for the attribute buildingGateway.
-     * @param buildingGateway is an instance of the BuildingGateway class.
-     */
-    public void setBuildingGateway(BuildingGateway buildingGateway){
-        this.buildingGateway = buildingGateway;
-    }
+
     /**
      * A setter to change the value of the attribute userManager.
      * @param userManager is an instance of UserManager class.

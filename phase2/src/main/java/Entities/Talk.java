@@ -1,7 +1,6 @@
 package main.java.Entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * <h1>Talk</h1>
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 public class Talk extends Event {
 
     /**
-     * The username of speaker as a string.
+     * The username of the speaker as a string
      */
     private String speaker;
 
@@ -32,8 +31,8 @@ public class Talk extends Event {
      * Returns the username of the speaker presenting in the talk as a string in an ArrayList
      * @return Speaker's username
      */
-    public String changeSpeaker() {
-        return this.speaker;
+    public String getSpeaker() {
+        return speaker;
     }
 
     /**
@@ -44,14 +43,12 @@ public class Talk extends Event {
         this.speaker = speaker;
     }
 
-    public String getSpeaker() { return this.speaker; }
-
+    /**
+     * @param speaker the username of the speaker
+     * @return true if the the speaker in this talk is the same as the speaker provided
+     */
     @Override
     public boolean containSpeaker(String speaker) {
-        if (this.speaker == null) {
-            return false;
-        } else {
-            return this.speaker.equals(speaker);
-        }
+        return this.speaker.equals(speaker);
     }
 }

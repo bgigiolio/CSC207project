@@ -14,6 +14,9 @@ import java.util.UUID;
  */
 public class Event implements Serializable {
 
+    /**
+     * The ID of the event
+     */
     protected final UUID uuid;
 
     /**
@@ -50,6 +53,14 @@ public class Event implements Serializable {
      */
     protected int eventCapacity;
 
+    /**
+     * The public constructor of the Event class
+     * @param title title of the event
+     * @param location name of room this event is taking place in
+     * @param datetime the event's start time & date
+     * @param duration duration of the event in minutes
+     * @param eventCapacity the maximum capacity of the event
+     */
     public Event(String title, String location,
                  LocalDateTime datetime, int duration, int eventCapacity){
         this.title = title;
@@ -63,11 +74,13 @@ public class Event implements Serializable {
     }
 
     /**
-     * Instantiates an Event object by taking the inputs title, location and datetime.
+     * The protected constructor of the Event class. It is meant to be used by the children of this class only
      * @param title is the title of the event
      * @param location is the location where the event will be held.
      * @param datetime tells when the event is happening.
-     * @param duration how long this event will be
+     * @param duration duration of the event in minutes
+     * @param eventCapacity the maximum capacity of the event
+     * @param type the type of this event (event, talk, panel discussion)
      */
     protected Event(String title, String location,
                  LocalDateTime datetime, int duration, int eventCapacity, String type){
@@ -200,13 +213,18 @@ public class Event implements Serializable {
     public UUID getUuid() { return uuid; }
 
     /**
-     * Changes the this.eventCapacity of the Event to newCapacity.
+     * Changes this event's capacity and removes the last few attendees if their number exceeds
+     * the new capacity.
      * @param newCapacity the new desired capacity, as an integer, of the Event.
      */
     public void setCapacity(int newCapacity){
+        while(usernames.size()>newCapacity) usernames.remove(usernames.size()-1);
         this.eventCapacity = newCapacity;
     }
 
+    /**
+     * @return the type of this event
+     */
     public String getType() { return type; }
 
     @Override
@@ -227,13 +245,17 @@ public class Event implements Serializable {
                 this.getLocation() + ", " + this.getDatetime().toString() + "\n";
     }
 
+    /**
+     * @param speaker the username of the speaker
+     * @return true if this event's speaker has the username provided
+     */
     public boolean containSpeaker(String speaker) { return false; }
 
-    public void removeAttendeesUntilCap(int newCap) {
-        while(usernames.size()>newCap) usernames.remove(usernames.size()-1);
-    }
-
-    public ArrayList<String> getUsernames() {
-        return usernames;
+    /**
+     * @param username username of attendee to check
+     * @return true if attendee with given username is registered
+     */
+    public boolean attendeeRegistered(String username){
+        return usernames.contains(username);
     }
 }

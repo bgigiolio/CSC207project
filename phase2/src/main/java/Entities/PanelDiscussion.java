@@ -23,8 +23,11 @@ public class PanelDiscussion extends Event {
         super(title, location, datetime, duration, capacity, "panelDiscussion");
     }
 
-    public ArrayList<String> getSpeakers() {return new ArrayList<>(speakers);}
-
+    /**
+     * Add multiple speakers to the list of speakers
+     * @param speakers the list of speaker usernames to add
+     * @return true if at least one speaker was added
+     */
     public boolean addSpeakers(ArrayList<String> speakers) {
         ArrayList<String> toAdd = new ArrayList<>();
 
@@ -36,6 +39,11 @@ public class PanelDiscussion extends Event {
         return speakers.addAll(toAdd);
     }
 
+    /**
+     * Add a single speaker to the list of speakers
+     * @param username the speaker's username
+     * @return true if the speaker was added
+     */
     public boolean addSpeaker(String username){
         if(!speakers.contains(username)){
             speakers.add(username);
@@ -44,14 +52,17 @@ public class PanelDiscussion extends Event {
         return false;
     }
 
+    /**
+     * Remove multiple speakers from the list of speakers
+     * @param speakers the list of speaker usernames to remove
+     * @return true if at least one speaker was removed
+     */
     public boolean removeSpeakers(ArrayList<String> speakers) {return this.speakers.removeAll(speakers);}
 
+    /**
+     * @param username the speaker's username
+     * @return true if this panel discussion contains the given speaker username in its list of speakers
+     */
     @Override
-    public boolean containSpeaker(String username) {
-        if (!this.speakers.isEmpty()) {
-            return this.speakers.contains(username);
-        } else {
-            return false;
-        }
-    }
+    public boolean containSpeaker(String username) { return this.speakers.contains(username);}
 }

@@ -371,8 +371,6 @@ public class HomeScreenController{
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("scheduleSpeakerScene.fxml"));
         Parent root = loader.load();
         ScheduleSpeakerSceneController SSSC = loader.getController();
-        SSSC.setBuilding(this.buildingManager);
-        SSSC.setBuildingGateway(this.buildingGateway);
         SSSC.setEventGateway(this.eventGateway);
         SSSC.setEventManager(this.eventManager);
         SSSC.setUserManager(this.userManager);

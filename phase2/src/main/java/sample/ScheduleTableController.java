@@ -259,27 +259,27 @@ public class ScheduleTableController {
                 switch (searchBy.getValue()) {
                     case "ID":
                         eventTableView.getFilteredListEvents().setPredicate(p -> p.getUuid().toString()
-                                .toLowerCase().contains(text) && p.getUsernames().contains(this.username));
+                                .toLowerCase().contains(text) && p.attendeeRegistered(this.username));
                         break;
                     case "Type":
                         eventTableView.getFilteredListEvents().setPredicate(p -> p.getType().toLowerCase()
-                                .contains(text) && p.getUsernames().contains(this.username)) ;
+                                .contains(text) && p.attendeeRegistered(this.username));
                         break;
                     case "Title":
                         eventTableView.getFilteredListEvents().setPredicate(p -> p.getTitle().toLowerCase()
-                                .contains(text) && p.getUsernames().contains(this.username));
+                                .contains(text) && p.attendeeRegistered(this.username));
                         break;
                     case "Location":
                         eventTableView.getFilteredListEvents().setPredicate(p -> p.getLocation().toLowerCase()
-                                .contains(text) && p.getUsernames().contains(this.username));
+                                .contains(text) && p.attendeeRegistered(this.username));
                         break;
                     case "Date Time":
                         eventTableView.getFilteredListEvents().setPredicate(p -> p.getDatetime().toString()
-                                .contains(text) && p.getUsernames().contains(this.username));
+                                .contains(text) && p.attendeeRegistered(this.username));
                         break;
                     case "Speaker":
                         eventTableView.getFilteredListEvents().setPredicate(p -> p.containSpeaker(text)
-                                && p.getUsernames().contains(this.username));
+                                && p.attendeeRegistered(this.username));
                         break;
                 }
             }
@@ -336,7 +336,7 @@ public class ScheduleTableController {
      * when this user click on the RatioButton yourSchedule.
      */
     public void handleYourSchedule() {
-        eventTableView.getFilteredListEvents().setPredicate(p -> p.getUsernames().contains(this.username));
+        eventTableView.getFilteredListEvents().setPredicate(p -> p.attendeeRegistered(this.username));
         searchText.setText("");
         searchBy.setValue("ID");
     }
