@@ -183,7 +183,7 @@ public class HomeScreenController{
             welcomeText.setText("Welcome " + this.username + "!");
             return username;
         }
-        return "invalid";
+        return null;
 
     }
 
@@ -227,7 +227,7 @@ public class HomeScreenController{
             welcomeText.setText("Welcome " + this.username + "!");
             return username;
         }
-        return "invalid";
+        return null;
     }
 
 
@@ -332,10 +332,9 @@ public class HomeScreenController{
      * Opens a new window when Message event attendees option is pressed, where the organizer can
      * message attendees of a particular event.
      * @param event is the action of the button, that is associated with the method, is clicked.
-     * @throws IOException to handle a possible exception in the input or the output.
      */
     @FXML
-    void messageEventAttendeesPressed(ActionEvent event) throws IOException{
+    void messageEventAttendeesPressed(ActionEvent event) {
 
     }
 

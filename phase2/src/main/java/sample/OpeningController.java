@@ -75,9 +75,7 @@ public class OpeningController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         userRole.getItems().addAll("organizer", "attendee", "speaker", "admin");
-
     }
 
     /**
@@ -114,26 +112,32 @@ public class OpeningController implements Initializable {
         primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Scene homeScene = new Scene(root,600,500);
 
-
-        String login_attempt = hSC.login(this.username.getText(),this.password.getText());
-
-        if (userType.getSelectedToggle() == newUser && userRole.getValue() != null){
-            if (hSC.register(userRole.getValue(), this.username.getText(), this.password.getText()).equalsIgnoreCase("invalid")){
-                this.invalidLoginText.setVisible(true);
-            }
-            else{
-                primaryStage.setScene(homeScene);
-                primaryStage.show();
-            }
-        }
-
-        else if (login_attempt.equalsIgnoreCase("invalid") || userType.getSelectedToggle() == null){
+        if(userType.getSelectedToggle() == null){
+            invalidLoginText.setText("Please select either returning or new user");
             this.invalidLoginText.setVisible(true);
+            return;
+        }
+        else if (userType.getSelectedToggle() == newUser){
+            if(userRole.getValue() != null) {
+                if (hSC.register(userRole.getValue(), this.username.getText(), this.password.getText()) == null) {
+                    invalidLoginText.setText("Username in use");
+                    this.invalidLoginText.setVisible(true);
+                    return;
+                }
+            }else{
+                invalidLoginText.setText("Please select a user role");
+                this.invalidLoginText.setVisible(true);
+                return;
+            }
         }
         else{
-
-            primaryStage.setScene(homeScene);
-            primaryStage.show();
+            if(hSC.login(this.username.getText(),this.password.getText())==null){
+                invalidLoginText.setText("Incorrect credentials");
+                this.invalidLoginText.setVisible(true);
+                return;
+            }
         }
+        primaryStage.setScene(homeScene);
+        primaryStage.show();
     }
 }
