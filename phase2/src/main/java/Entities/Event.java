@@ -251,6 +251,8 @@ public class Event implements Serializable {
      */
     public boolean containSpeaker(String speaker) { return false; }
 
+    public String getSpeaker(){return "-";}
+
     /**
      * @param username username of attendee to check
      * @return true if attendee with given username is registered

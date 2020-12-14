@@ -31,6 +31,7 @@ public class Talk extends Event {
      * Returns the username of the speaker presenting in the talk as a string in an ArrayList
      * @return Speaker's username
      */
+    @Override
     public String getSpeaker() {
         return speaker;
     }

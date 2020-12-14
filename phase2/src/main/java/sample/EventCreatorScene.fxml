@@ -15,7 +15,7 @@
       <DatePicker fx:id="eventDatePrompt" layoutX="226.0" layoutY="175.0" promptText="Event Date" />
       <TextField fx:id="startHourField" layoutX="226.0" layoutY="223.0" promptText="Starting Hour" />
       <TextField fx:id="startMinuteField" layoutX="400.0" layoutY="223.0" promptText="Starting Minute" />
-      <TextField fx:id="endHourField" layoutX="226.0" layoutY="265.0" promptText="Duration in Hours" />
+      <TextField fx:id="durationField" layoutX="226.0" layoutY="265.0" promptText="Duration in minutes" />
       <!--<TextField fx:id="endMinuteField" disable="true" layoutX="400.0" layoutY="265.0" promptText="Duration Minutes" />-->
       <Button fx:id="createEventButton" layoutX="259.0" layoutY="336.0" mnemonicParsing="false" onAction="#createEventButtonPressed" text="Create Event" />
       <Text fx:id="errorText" layoutX="164.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="324.4287109375">

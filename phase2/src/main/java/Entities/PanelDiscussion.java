@@ -52,6 +52,20 @@ public class PanelDiscussion extends Event {
         return false;
     }
 
+    @Override
+    public String getSpeaker(){
+        if(speakers.size()==0) return null;
+        StringBuilder toRet = new StringBuilder();
+        int i;
+
+        for(i = 0; i<speakers.size()-1; ++i)
+            toRet.append(speakers.get(i)).append(", ");
+
+        toRet.append(speakers.get(i));
+
+        return toRet.toString();
+    }
+
     /**
      * Remove multiple speakers from the list of speakers
      * @param speakers the list of speaker usernames to remove

@@ -101,7 +101,7 @@ public class EventCreatorSceneController {
      * TextField to put the ending hour of the event
      */
     @FXML
-    private TextField endHourField;
+    private TextField durationField;
     /**
      * Button to be clicked when information are ready to be submitted to create the event
      */
@@ -122,11 +122,10 @@ public class EventCreatorSceneController {
     void createEventButtonPressed(ActionEvent event) {
         //LocalDate rawDate = this.datePicker.getValue();
         int startHour;
-        int durHour;
+        int duration;
         int startMinute;
-        int durMinute;
         LocalDate rawStartDate;
-        if (startHourField.getText() == null || startMinuteField.getText() == null || endHourField.getText() == null
+        if (startHourField.getText() == null || startMinuteField.getText() == null || durationField.getText() == null
                 || roomNamePrompt.getText() == null || capacityPrompt.getText() == null ||
                 eventTitlePrompt.getText() == null || roomNamePrompt.getText() == null ||
                 eventDatePrompt.getValue() == null || eventTypeChoiceBox.getValue() == null){
@@ -156,9 +155,9 @@ public class EventCreatorSceneController {
         this.startDate = rawStartDate.atTime(startHour, startMinute);
 
         try{
-            durHour = Integer.parseInt(endHourField.getText());
+            duration = Integer.parseInt(durationField.getText());
         }catch (NumberFormatException e){
-            errorText.setText("Please input a valid ending hour");
+            errorText.setText("Please input a valid duration");
             return;
         }
 //        try{
@@ -172,7 +171,7 @@ public class EventCreatorSceneController {
         this.roomTitle = roomNamePrompt.getText();
         this.type = eventTypeChoiceBox.getValue();
         this.eventTitle = eventTitlePrompt.getText();
-        this.duration = durHour*60;
+        this.duration = duration;
         createEvent();
     }
     /**
@@ -195,7 +194,7 @@ public class EventCreatorSceneController {
                 return;
             }
 
-        }else if(this.type.equalsIgnoreCase("Panel")){
+        }else if(this.type.equalsIgnoreCase("Panel discussion")){
             if(!eventManager.addEvent(this.eventTitle, this.roomTitle, this.startDate, this.duration, eventCapacity,
                     "panelDiscussion", this.buildingManager)) {
                 errorText.setText("Event could not be created!");
@@ -257,7 +256,7 @@ public class EventCreatorSceneController {
         assert eventDatePrompt != null : "fx:id=\"eventDatePrompt\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         assert startHourField != null : "fx:id=\"startHourField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         assert startMinuteField != null : "fx:id=\"startMinuteField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
-        assert endHourField != null : "fx:id=\"endHourField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
+        assert durationField != null : "fx:id=\"durationField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         //assert endMinuteField != null : "fx:id=\"endMinuteField\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         assert createEventButton != null : "fx:id=\"createEventButton\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
         assert errorText != null : "fx:id=\"errorText\" was not injected: check your FXML file 'EventCreatorScene.fxml'.";
