@@ -18,57 +18,98 @@ import java.time.LocalDateTime;
 
 public class EventCreatorSceneController {
 
-
-
+    /**
+     * BuildingManager object
+     */
     private BuildingManager buildingManager;
-
+    /**
+     * BuildingGateway object that stores the building information.
+     */
     private BuildingGateway buildingGateway;
-
+    /**
+     * Starting date and time of the event
+     */
     private LocalDateTime startDate;
-
+    /**
+     * Ending date and time of the event
+     */
     private LocalDateTime endDate;
-
+    /**
+     * Title of the room
+     */
     private String roomTitle;
-
+    /**
+     * Title of the event
+     */
     private String eventTitle;
-
+    /**
+     * Type of the event
+     */
     private String type;
-
+    /**
+     * Duration of the event
+     */
     private int duration;
-
+    /**
+     * Attendee capacity of the event
+     */
     private int eventCapacity;
-
+    /**
+     * EventManager object.
+     */
     private EventManager eventManager;
-
+    /**
+     * EventGateway object that stores the events.
+     */
     private EventGateway eventGateway;
-
+    /**
+     * ChoiceBox that displays the possible types of events
+     */
     @FXML
     private ChoiceBox<String> eventTypeChoiceBox;
-
+    /**
+     * TextField to put the capacity information of the event
+     */
     @FXML
     private TextField capacityPrompt;
-
+    /**
+     * TextField to put the title of the event
+     */
     @FXML
     private TextField eventTitlePrompt;
-
+    /**
+     * TextField to put the name of the room that the event is held
+     */
     @FXML
     private TextField roomNamePrompt;
-
+    /**
+     * Calendar to choose the date of the event
+     */
     @FXML
     private DatePicker eventDatePrompt;
-
+    /**
+     * TextField to put the starting hour of the event
+     */
     @FXML
     private TextField startHourField;
-
+    /**
+     * TextField to put the ending minute of the event
+     */
     @FXML
     private TextField startMinuteField;
-
+    /**
+     * TextField to put the ending hour of the event
+     */
     @FXML
     private TextField endHourField;
-
+    /**
+     * Button to be clicked when information are ready to be submitted to create the event
+     */
     @FXML
     private Button createEventButton;
-
+    /**
+     * Text that is displayed if event creation is unsuccessful.
+     */
     @FXML
     private Text errorText;
 
