@@ -14,7 +14,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * <h1>OpeningController</h1>
+ * Controls ScheduleTable.fxml for viewing full schedule and events signed up by specific user.
+ *
+ * @author Qi Zheng
+ * @version Phase2
+ */
 public class OpeningController implements Initializable {
     /**
      * A ToggleGroup to collect the radio buttons of retUser and newUser option.

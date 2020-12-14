@@ -41,8 +41,6 @@ public class HomeScreenController{
      * EventManager object.
      */
     public EventManager eventManager;
-
-
     /**
      * BuildingGateway object that stores the building information.
      */
