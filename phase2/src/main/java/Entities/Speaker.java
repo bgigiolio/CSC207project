@@ -34,6 +34,7 @@ public class Speaker extends Attendee {
     /**
      * Adds a talk's id to the list of talks attending.
      * @param talkId the talk's id
+     * @return true if talk doesn't already exist in speaker's list
      */
     public boolean addTalk(UUID talkId){
         if(talks.contains(talkId))
@@ -43,10 +44,15 @@ public class Speaker extends Attendee {
         return true;
     }
 
-    public boolean removeTalk(UUID talkId) {return  talks.remove(talkId); }
+    /**
+     * Remove a talk ID from the list of talks this speaker is giving
+     * @param talkId the ID of the talk
+     * @return true if the talk ID was removed
+     */
+    public boolean removeTalk(UUID talkId) {return talks.remove(talkId); }
 
     /**
-     * Returns a shallow copy of the list containing talk IDs
+     * Returns a deep copy of the list containing talk IDs
      * @return shallow copy of <code>talks</code>
      */
     public ArrayList<UUID> getTalks(){

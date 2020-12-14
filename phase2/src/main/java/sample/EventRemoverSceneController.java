@@ -10,37 +10,47 @@ import main.java.Gateways.EventGateway;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class EventRemoverSceneController {
-
+    /**
+     * Unique id of an event
+     */
     private UUID id;
-
+    /**
+     * EventManager object.
+     */
     private EventManager eventManager;
-
+    /**
+     * EventGateway object that stores the events.
+     */
     private EventGateway eventGateway;
-
+    /**
+     * BuildingManager object
+     */
     private BuildingManager buildingManager;
-
+    /**
+     * BuildingGateway object that stores the building information.
+     */
     private BuildingGateway buildingGateway;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
+    /**
+     * Confirmation text to tell that the event removal action is successful
+     */
     @FXML
     private Text eventRemovedText;
-
+    /**
+     * TextField to put the ID of an event
+     */
     @FXML
     private TextField UUIDField;
-
+    /**
+     * The button that is clicked to submit the action of removing event
+     */
     @FXML
     private Button actionButton;
-
+    /**
+     * Text that informs the user about unsuccessful event removal attempt
+     */
     @FXML
     private Text errorText;
 

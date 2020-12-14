@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -22,107 +21,132 @@ import main.java.UseCases.UserManager;
 import java.io.IOException;
 
 public class HomeScreenController{
+
+
+    /**
+     * The main pane of the scene
+     */
     @FXML
-    private AnchorPane mainPane;
-
-    private String user;
-
+    public AnchorPane mainPane;
+    /**
+     * The top pain of the scene
+     */
+    @FXML
+    public AnchorPane topPane;
+    /**
+     * BuildingManager object
+     */
     public BuildingManager buildingManager;
+    /**
+     * EventManager object.
+     */
     public EventManager eventManager;
+    /**
+     * BuildingGateway object that stores the building information.
+     */
     BuildingGateway buildingGateway;
+    /**
+     * UserLoginGateway object that stores all users' information
+     */
     UserLoginGateway userLoginGateway;
+    /**
+     * UserManager object.
+     */
     public UserManager userManager;
+    /**
+     * EventGateway object that stores the events.
+     */
     EventGateway eventGateway;
+    /**
+     * Username of the user
+     */
     private String username;
+    /**
+     * Password of the user
+     */
     private String password;
+    /**
+     * Role of the user
+     */
     private String role;
-
-    private Scene openingScene;
-    private Stage primaryStage;
-    @FXML
-    private SplitPane multiPane;
-
-    @FXML
-    private AnchorPane topPane;
-
+    /**
+     * The text that says welcome
+     */
     @FXML
     private Text welcomeText;
-
+    /**
+     * Text of instruction prompt
+     */
     @FXML
     private Text instructionPrompt;
-
+    /**
+     * MenuButton that contains all the options
+     */
     @FXML
     private MenuButton menuOptions;
-
-    @FXML
-    private MenuItem seeEventSchedule;
-
+    /**
+     * Option to review event schedule
+     */
     @FXML
     private MenuItem reviewEventSchedule;
-
+    /**
+     * Option to take message actions
+     */
     @FXML
-    private MenuItem signUpForEvent;
-
-//    @FXML
-//    private MenuItem cancelEvent;
-
+    public MenuItem Message;
+    /**
+     * Option to log out
+     */
     @FXML
-    private MenuItem Message;
-
+    public MenuItem logout;
+    /**
+     * Option to see event schedule of the conference.
+     */
+    @FXML
+    public MenuItem seeEventSchedule;
+    /**
+     * Option to sign up for or leave an event
+     */
+    @FXML
+    public MenuItem signUpForEvent;
+    /**
+     * Option to manage friends list
+     */
     @FXML
     private MenuItem manageFriendsList;
-
-    @FXML
-    private MenuItem logout;
-
+    /**
+     * Option to create a user account
+     */
     @FXML
     private MenuItem createUserAccount;
 
+    /**
+     * Option to add room
+     */
     @FXML
     private MenuItem addRoom;
-
+    /**
+     * Option to schedule/assign a speaker to an event
+     */
     @FXML
     private MenuItem scheduleSpeaker;
-
+    /**
+     * Option to remove an event
+     */
     @FXML
     private MenuItem removeEvent;
-
+    /**
+     * Option to message event attendees
+     */
     @FXML
     private MenuItem messageEventAttendees;
-
+    /**
+     * Option to create an event
+     */
     @FXML
     private MenuItem createEvent;
 
-    @FXML
-    private AnchorPane bottomPane;
 
-    @FXML
-    private Text toPrint;
-
-//    public HomeScreenController(String username){
-//        this.user = username;
-//        EventGateway eventGateway = new EventGateway();
-//        UserLoginGateway userLoginGateway = new UserLoginGateway();
-//        this.buildingManager = eventGateway.read();
-//        this.userManager = userLoginGateway.read();
-//        welcomeText.setText("Welcome" + this.user);
-//
-//        String role = "attendee";
-//        main.java.Controllers.AttendeeMenuController AMC = new main.java.Controllers.AttendeeMenuController(username, role, this.buildingManager, this.userManager);
-//
-//    }
-
-//    public void setUsername(String username){
-//        this.username = username;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public void setRole(String role) {
-//        this.role = role;
-//    }
 
     /**
      * The method is called as soon as the program is run to prepare the necessary attributes before the scene that the
@@ -206,18 +230,6 @@ public class HomeScreenController{
         return "invalid";
     }
 
-    /*@FXML
-    void cancel(ActionEvent event) throws IOException {
-        Stage EventStage;
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("signUpScene.fxml"));
-        Parent root = loader.load();
-        signUpController SUC = loader.getController();
-        SUC.setUserManager(this.userManager);
-        SUC.setBuilding(this.buildingManager);
-        EventStage = new Stage();
-        EventStage.setScene(new Scene(root,500,500));
-        EventStage.show();
-    }*/
 
     /**
      * Logs the user out when the logout option is clicked and displays the login screen.
@@ -323,7 +335,7 @@ public class HomeScreenController{
      * @throws IOException to handle a possible exception in the input or the output.
      */
     @FXML
-    void messageEventAttendeesPressed(ActionEvent event) {
+    void messageEventAttendeesPressed(ActionEvent event) throws IOException{
 
     }
 
@@ -357,8 +369,6 @@ public class HomeScreenController{
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("scheduleSpeakerScene.fxml"));
         Parent root = loader.load();
         ScheduleSpeakerSceneController SSSC = loader.getController();
-        SSSC.setBuilding(this.buildingManager);
-        SSSC.setBuildingGateway(this.buildingGateway);
         SSSC.setEventGateway(this.eventGateway);
         SSSC.setEventManager(this.eventManager);
         SSSC.setUserManager(this.userManager);

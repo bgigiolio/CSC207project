@@ -11,27 +11,47 @@ import main.java.UseCases.*;
 
 
 public class friendsController {
+    /**
+     * UserManager object.
+     */
     private UserManager userManager;
+    /**
+     * Username of the account
+     */
     private String username;
-
+    /**
+     * RadioButton to be clicked to add friend
+     */
     @FXML
     private RadioButton addFriendButton;
-
+    /**
+     * ToggleGroup of actions to choose
+     */
     @FXML
     private ToggleGroup actionChoice;
-
+    /**
+     * RadioButton to be clicked to remove friend
+     */
     @FXML
     private RadioButton removeFriendButton;
-
+    /**
+     * Button that is pressed to submit adding or removing friend action
+     */
     @FXML
     private Button actionButton;
-
+    /**
+     * Text of informing an error
+     */
     @FXML
     private Text errorMessageText;
-
+    /**
+     * TextField to put the username of the friend
+     */
     @FXML
     private TextField friendUsername;
-
+    /**
+     * Boolean to check if the action is for removing or adding friend.
+     */
     private boolean add;
 
     /**

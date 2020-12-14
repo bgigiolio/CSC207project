@@ -197,7 +197,6 @@ public class Schedule2 implements Serializable {
         return true;
     }
 
-
     /*
     /**
      * Get all events the user with <code>username</code> is attending

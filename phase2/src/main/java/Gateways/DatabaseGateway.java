@@ -16,16 +16,32 @@ public abstract class DatabaseGateway<T> {
      */
     private String dbPath;
 
+    /**
+     * Initializes path to database file
+     * @param dbPath path to database file
+     */
     public DatabaseGateway(String dbPath){
         this.dbPath = dbPath;
     }
 
+    /**
+     * Getter for database path
+     * @return the database path
+     */
     public String getDbPath(){
         return this.dbPath;
     }
 
+    /**
+     * Saves an object to the database
+     * @param obj object to save
+     */
     public abstract void save(T obj);
 
+    /**
+     * Reads an object from the database
+     * @return the object read
+     */
     public abstract T read();
 
     /**

@@ -58,8 +58,8 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Return the desired Event.
-     * @param id The UUID associated with the EVent.
+     * Return the desired Event
+     * @param id The UUID associated with the Event.
      * @return Event
      */
     protected Event getEvent(UUID id){
@@ -71,6 +71,9 @@ public class EventManager implements Serializable {
         return e;
     }
 
+    /**
+     * @return an array list containing all events happening in the building
+     */
     public ArrayList<Event> getEvents(){
         ArrayList<Event> toReturn = new ArrayList<>();
 
@@ -111,12 +114,14 @@ public class EventManager implements Serializable {
         if(e==null) e = panelDiscussions.get(eventId);
         if(e==null) return false;
 
-        if(e.getAttendees().size()>newCap)
-            e.removeAttendeesUntilCap(newCap);
         e.setCapacity(newCap);
         return true;
     }
 
+    /**
+     * @param id ID of the event
+     * @return the DateTime object of the event with this ID
+     */
     public LocalDateTime getEventStartTime(UUID id){
         Event e = events.get(id);
         if(e != null) return e.getDatetime();
@@ -127,6 +132,10 @@ public class EventManager implements Serializable {
         return null;
     }
 
+    /**
+     * @param id ID of the event
+     * @return the duration of the event with this ID
+     */
     public int getEventDuration(UUID id){
         Event e = events.get(id);
         if(e != null) return e.getDuration();
@@ -137,6 +146,10 @@ public class EventManager implements Serializable {
         return -1;
     }
 
+    /**
+     * @param id ID of the event
+     * @return the capacity of the event with this ID
+     */
     public int getEventCapacity(UUID id){
         Event e = events.get(id);
         if(e != null) return e.getCapacity();
@@ -162,6 +175,10 @@ public class EventManager implements Serializable {
         return null;
     }
 
+    /**
+     * @param id ID of the event
+     * @return the room the event with this ID is taking place in
+     */
     public String getEventLocation(UUID id){
         Event e = events.get(id);
         if(e != null) return e.getLocation();
@@ -249,8 +266,7 @@ public class EventManager implements Serializable {
 
         PanelDiscussion p = panelDiscussions.get(id);
         if(p != null){
-            p.addSpeaker(username);
-            return true;
+            return p.addSpeaker(username);
         }
         return false;
     }
@@ -264,11 +280,11 @@ public class EventManager implements Serializable {
         StringBuilder eventsString = new StringBuilder();
 
         for(UUID id : talks.keySet()){
-            if(talks.get(id).getSpeaker().equals(username))
+            if(talks.get(id).containSpeaker(username))
                 eventsString.append(talks.get(id).toString());
         }
         for(UUID id : panelDiscussions.keySet()){
-            if(panelDiscussions.get(id).getAttendees().contains(username))
+            if(panelDiscussions.get(id).containSpeaker(username))
                 eventsString.append(panelDiscussions.get(id).toString());
         }
         return eventsString.toString();
@@ -289,6 +305,9 @@ public class EventManager implements Serializable {
         return null;
     }
 
+    /**
+     * @return an ArrayList with the IDs of the events with no attendees
+     */
     public ArrayList<UUID> getEventIDNoAttendees(){
         ArrayList<UUID> toReturn = new ArrayList<>();
 
@@ -306,5 +325,14 @@ public class EventManager implements Serializable {
         }
 
         return toReturn;
+    }
+
+    /**
+     * Check if event with given ID exists
+     * @param id the UUID of the event
+     * @return true if event exists
+     */
+    public boolean checkEvent(UUID id) {
+        return events.get(id) != null || talks.get(id) != null || panelDiscussions.get(id) != null;
     }
 }

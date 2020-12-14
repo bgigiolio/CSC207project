@@ -10,45 +10,60 @@ import javafx.scene.text.Text;
 import main.java.Gateways.UserLoginGateway;
 import main.java.UseCases.UserManager;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class CreateUserSceneController {
-
+    /**
+     * UserManager object.
+     */
     private UserManager userManager;
-
+    /**
+     * Username of the user account to be created
+     */
     private String username;
-
+    /**
+     * Password of the user account to be created
+     */
     private String password;
-
+    /**
+     * Role of the user account to be created
+     */
     private String role;
-
+    /**
+     * UserLoginGateway object that stores all users' information
+     */
     private UserLoginGateway userLoginGateway;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
+    /**
+     * ChoiceBox where possible roles are displayed
+     */
     @FXML
     private ChoiceBox<String> roleMenu;
-
+    /**
+     * A text
+     */
     @FXML
     private Text topText;
-
+    /**
+     * Text of user role
+     */
     @FXML
     private Text userRoleText;
-
+    /**
+     * TextField to put username
+     */
     @FXML
     private TextField usernameField;
-
+    /**
+     * TextField to put password
+     */
     @FXML
     private TextField passwordField;
-
+    /**
+     * Text that is showed to inform that the action is unsuccessful
+     */
     @FXML
     private Text errorText;
-
+    /**
+     * Button to be clicked when information is to be submitted
+     */
     @FXML
     private Button createButton;
 

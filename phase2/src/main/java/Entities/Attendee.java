@@ -27,13 +27,14 @@ public class Attendee implements Serializable {
      */
     private final ArrayList<String> friendList;
 
-    private final ArrayList<Message> messages;     //shouldn't contain entities
-
     /**
      * The role of current user.
      */
     private final String role;
 
+    /**
+     * The IDs of the events this user is registered in
+     */
     private final ArrayList<UUID> eventsRegistered;
 
     /**
@@ -50,15 +51,26 @@ public class Attendee implements Serializable {
         this.password = password;
         this.role = role;
         this.friendList = new ArrayList<>();
-        this.messages = new ArrayList<>();
         this.eventsRegistered = new ArrayList<>();
     }
 
-    public ArrayList<UUID> getEventsRegistered() {return new ArrayList<>(eventsRegistered); }
+    /**
+     * Adds the given event ID to this user's list of registered events
+     * @param id the event ID
+     * @return true if the event ID was not already in the list
+     */
+    public boolean registerForEvent(UUID id) {
+        if(!eventsRegistered.contains(id))
+            return eventsRegistered.add(id);
+        return false;
+    }
 
-    public void registerForEvent(UUID id) {eventsRegistered.add(id);}
-
-    public void cancelEnrollment(UUID id) {eventsRegistered.remove(id);}
+    /**
+     * Remove the given event ID from this user's list of registered events
+     * @param id the ID of the event
+     * @return true if the given ID was removed
+     */
+    public boolean cancelEnrollment(UUID id) {return eventsRegistered.remove(id);}
 
     /**
      * Return username.
@@ -70,20 +82,24 @@ public class Attendee implements Serializable {
     }
 
     /**
-     * Return password.
+     * Return password
      *
-     * @return password of current user.
+     * @return password of current user
      */
     public String getPassword(){
         return password;
     }
 
+    /**
+     * Change this user's password
+     * @param password the new password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * Return role.
+     * Return role
      *
      * @return role of current user.
      */
@@ -105,14 +121,22 @@ public class Attendee implements Serializable {
      */
     public ArrayList<String> getFriendList() { return new ArrayList<>(friendList); }
 
+    /**
+     * Add the given username to this user's friend list
+     * @param username the username to add
+     * @return true if the username was added to the friend list
+     */
     public boolean addFriend(String username){
-        if(!friendList.contains(username)) {
-            friendList.add(username);
-            return true;
-        }
+        if(!friendList.contains(username))
+            return friendList.add(username);
         return false;
     }
 
+    /**
+     * Removes the given username from this user's friend list
+     * @param username the username to remove
+     * @return true if the username was removed
+     */
     public boolean removeFriend(String username){
         return friendList.remove(username);
     }
