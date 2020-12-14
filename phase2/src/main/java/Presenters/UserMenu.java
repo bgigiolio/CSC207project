@@ -270,28 +270,54 @@ public class UserMenu {
         System.out.println("You Have Successfully Logged Out Of Your Account.");
     }
 
+    /**
+     * This is what the user sees when needing to set the Capacity of a new Event.
+     */
     public void createEventCapacity() {
         System.out.println("What is the maximum occupancy for this event?");
     }
 
+    /**
+     * This is what the user sees when needing to set the Capacity of a new room.
+     */
     public void createRoomCapacity() {
         System.out.println("What is the maximum occupancy for this room?");
     }
 
+    /**
+     * This is what the user sees when wanting to set a new Capacity for an Event.
+     */
     public void modifyEventCapacity(){
         System.out.println("What is the new Capacity?");
     }
 
+    /**
+     * This is what the user sees after calling for the schedule.
+     */
     public void scheduleDownload() { System.out.println("[1] Download schedule\n[2] Go back");}
 
+    /**
+     * This is what the user sees when they need to enter a UUId for an Event.
+     */
     public void enterEventID() { System.out.println("What is the Event's ID?");}
 
+    /**
+     * This is what a user sees when they have entered an invalid UUID format.
+     */
     public void invalidID() { System.out.println("Invalid ID format entered."); }
 
+    /**
+     * This prints the String representation of the List of Attendees for an Event.
+     * @param eventAttendees The String representation of the List of Attendees for an Event.
+     */
     public void printAttendees(String eventAttendees) {
         System.out.println(eventAttendees);
     }
 
+    /**
+     * This prints a list of Events that specifically have no users in their lists of attendees.
+     * @param em The current Event Manager initialized in the program.
+     */
     public void displayEventsWithNoAttendees(EventManager em){
         System.out.println("Here are the events with no attendees:");
         System.out.println("Event ID\t\t\t\t\t\t\t   Event name");
@@ -313,9 +339,15 @@ public class UserMenu {
         System.out.println("To delete a message, enter the sender, the receiver and the message body:");
     }
 
+    /**
+     * This is what the user sees when they want to make a request to the System.
+     */
     public void request() { System.out.println("Is your request [food], [transportation], or [vision]?");
     }
 
+    /**
+     * This is what the user sees after calling for the List of Requests.
+     */
     public void requestAction() {System.out.println("Would you like to [Reject], [Address], or [Leave]?");
     }
 

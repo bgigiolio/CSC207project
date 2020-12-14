@@ -207,6 +207,10 @@ public class Event implements Serializable {
         this.eventCapacity = newCapacity;
     }
 
+    /**
+     * Returns a String representation of the Event's type.
+     * @return String
+     */
     public String getType() { return type; }
 
     @Override
@@ -227,12 +231,25 @@ public class Event implements Serializable {
                 this.getLocation() + ", " + this.getDatetime().toString() + "\n";
     }
 
+    /**
+     * Returns true if the Event has the associated speaker.
+     * @param speaker The String representing the Speaker you wish to check for.
+     * @return boolean
+     */
     public boolean containSpeaker(String speaker) { return false; }
 
+    /**
+     * Removes the last users added to the list of attendees until the new capacity is reached.
+     * @param newCap The new desired capacity of the Event.
+     */
     public void removeAttendeesUntilCap(int newCap) {
         while(usernames.size()>newCap) usernames.remove(usernames.size()-1);
     }
 
+    /**
+     * Returns the lists of Strings representing the users attending this Event.
+     * @return this.usernames
+     */
     public ArrayList<String> getUsernames() {
         return usernames;
     }
