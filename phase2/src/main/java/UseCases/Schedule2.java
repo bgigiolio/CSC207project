@@ -39,6 +39,11 @@ public class Schedule2 implements Serializable {
     private int roomCapacity;
 
     /**
+     * The sum of the capacities of the events in this room
+     */
+    private int spaceUsed;
+
+    /**
      * Constructor for Schedule2
      *
      * @param startTime time room opens
@@ -50,6 +55,7 @@ public class Schedule2 implements Serializable {
         this.startTime = startTime; // When the room closes
         this.endTime = endTime; // When the room opens
         this.roomCapacity = roomCap;
+        spaceUsed = 0;
     }
 
     /**
@@ -62,11 +68,12 @@ public class Schedule2 implements Serializable {
         LocalDateTime endTime = e.getDatetime().plusMinutes(e.getDuration());
 
         if (endTime.toLocalTime().isAfter(this.endTime) || e.getDatetime().toLocalTime().isBefore(this.startTime)
-                || e.getCapacity() > this.roomCapacity)
+                || e.getCapacity() + spaceUsed > this.roomCapacity)
             return false;
 
         if (schedule.size() == 0) {
             schedule.add(e.getUuid());
+            spaceUsed += e.getCapacity();
             return true;
         }
 
@@ -78,6 +85,7 @@ public class Schedule2 implements Serializable {
             Event ev2 = em.getEvent(schedule.get(index));
             if (!endTime.isAfter(ev2.getDatetime())){
                 schedule.add(index, e.getUuid());
+                spaceUsed += e.getCapacity();
                 return true;
             }
             return false;
@@ -85,6 +93,7 @@ public class Schedule2 implements Serializable {
             Event ev1 = em.getEvent(schedule.get(index-1));
             if(!ev1.getDatetime().plusMinutes(e.getDuration()).isAfter(e.getDatetime())) {
                 schedule.add(index, e.getUuid());
+                spaceUsed += e.getCapacity();
                 return true;
             }
             return false;
@@ -100,6 +109,7 @@ public class Schedule2 implements Serializable {
             return false;
 
         schedule.add(index, e.getUuid());
+        spaceUsed += e.getCapacity();
         return true;
     }
 
