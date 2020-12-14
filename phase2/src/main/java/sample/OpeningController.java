@@ -75,7 +75,7 @@ public class OpeningController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userRole.getItems().addAll("organizer", "attendee", "speaker", "admin");
+        userRole.getItems().addAll("organizer", "attendee", "admin");
     }
 
     /**

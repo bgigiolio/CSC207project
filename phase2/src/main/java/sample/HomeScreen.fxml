@@ -21,7 +21,6 @@
                 <MenuItem fx:id="seeEventSchedule" mnemonicParsing="false" onAction="#showSchedule" text="See Event Schedule" />
                   <MenuItem fx:id="signUpForEvent" mnemonicParsing="false" onAction="#signUp" text="Manage My Events" />
                   <!--<MenuItem fx:id="cancelEvent" mnemonicParsing="false" onAction="#cancel" text="Cancel Event" />-->
-                  <MenuItem fx:id="signUpForEvent" mnemonicParsing="false" onAction="#signUp" text="Manage my events" />
                   <MenuItem fx:id="Message" mnemonicParsing="false" onAction="#Message" text="Message" />
                   <MenuItem fx:id="manageFriendsList" mnemonicParsing="false" onAction="#manageFriends" text="Manage Friends List" />
                   <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" />
