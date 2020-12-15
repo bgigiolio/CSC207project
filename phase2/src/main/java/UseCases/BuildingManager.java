@@ -77,12 +77,13 @@ public class BuildingManager implements Serializable{
     /**
      * Deletes an event with the following uuid from the schedule
      * @param id the UUID of the event to delete
+     * @param capacity the capacity of the event to remove
      * @return true if an event with this uuid was deleted from the schedule
      */
-    public boolean deleteEvent(UUID id){
+    public boolean deleteEvent(UUID id, int capacity){
         for(String room:building.keySet()){
             Schedule2 sched = building.get(room);
-            if(sched.removeEvent(id))
+            if(sched.removeEvent(id, capacity))
                 return true;
         }
         return false;

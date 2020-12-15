@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.HomeScreenController">
     <AnchorPane fx:id="topPane" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="598.0">
-            <Text fx:id="welcomeText" layoutX="207.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
+            <Text fx:id="welcomeText" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!" textAlignment="CENTER" wrappingWidth="600.0">
                <font>
                   <Font size="42.0" />
                </font>

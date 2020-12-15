@@ -67,15 +67,18 @@ public class EventRemoverSceneController {
             errorText.setText("Improper UUID");
             return;
         }
-
-        if (eventManager.deleteEvent(id) && buildingManager.deleteEvent(id)){
-            errorText.setText("Event successfully removed!");
-            this.eventGateway.save(this.eventManager);
-            this.buildingGateway.save(this.buildingManager);
-        }else{
-            errorText.setText("Event could not be removed or doesn't exist");
+        if(eventManager.checkEvent(id)) {
+            if (buildingManager.deleteEvent(id, eventManager.getEventCapacity(id)) & eventManager.deleteEvent(id)) {
+                errorText.setText("Event successfully removed!");
+                this.eventGateway.save(this.eventManager);
+                this.buildingGateway.save(this.buildingManager);
+            }
+            else
+                errorText.setText("Event could not be removed");
         }
-
+        else {
+            errorText.setText("Event doesn't exist");
+        }
     }
     /**
      * Setter method for the attribute buildingManager.

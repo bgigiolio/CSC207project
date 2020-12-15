@@ -139,9 +139,9 @@ public class EventCreatorSceneController {
             return;
         }
         try{
-            this.eventCapacity = Integer.parseInt(startHourField.getText());
+            this.eventCapacity = Integer.parseInt(capacityPrompt.getText());
         }catch (NumberFormatException e){
-            errorText.setText("Please input a capacity");
+            errorText.setText("Please input a valid capacity");
             return;
         }
         try{
@@ -150,6 +150,15 @@ public class EventCreatorSceneController {
             errorText.setText("Please input a valid starting minute");
             return;
         }
+        if(startHour < 0 || startHour > 23) {
+            errorText.setText("Please input a valid starting hour");
+            return;
+        }
+        if(startMinute<0 || startMinute > 59){
+            errorText.setText("Please input a valid starting minute");
+            return;
+        }
+
         rawStartDate = eventDatePrompt.getValue();
 
         this.startDate = rawStartDate.atTime(startHour, startMinute);

@@ -333,7 +333,7 @@ public class AttendeeMenuController {
         } catch (IllegalArgumentException e) {
             return false;
         }
-        boolean returnVal = eventManager.deleteEvent(id) & building.deleteEvent(id);
+        boolean returnVal = building.deleteEvent(id, eventManager.getEventCapacity(id)) & eventManager.deleteEvent(id);
         new EventGateway().save(eventManager);
         new BuildingGateway().save(building);
         return returnVal;
@@ -781,8 +781,9 @@ public class AttendeeMenuController {
                     menu.invalidResponse();
                     return;
                 }
-                if (!eventManager.deleteEvent(uuid)) {
-                    building.deleteEvent(uuid);
+                if (eventManager.checkEvent(uuid)) {
+                    building.deleteEvent(uuid, eventManager.getEventCapacity(uuid));
+                    eventManager.deleteEvent(uuid);
                     menu.operationComplete();
                     return;
                 }

@@ -25,6 +25,7 @@ public class Talk extends Event {
     public Talk(String title, String location,
                 LocalDateTime datetime, int duration, int capacity) {
         super(title, location, datetime, duration, capacity, "talk");
+        speaker = "";
     }
 
     /**

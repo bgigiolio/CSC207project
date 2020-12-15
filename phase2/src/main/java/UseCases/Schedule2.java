@@ -91,7 +91,7 @@ public class Schedule2 implements Serializable {
             return false;
         }else if(index == schedule.size()){
             Event ev1 = em.getEvent(schedule.get(index-1));
-            if(!ev1.getDatetime().plusMinutes(e.getDuration()).isAfter(e.getDatetime())) {
+            if(!ev1.getDatetime().plusMinutes(ev1.getDuration()).isAfter(e.getDatetime())) {
                 schedule.add(index, e.getUuid());
                 spaceUsed += e.getCapacity();
                 return true;
@@ -102,7 +102,7 @@ public class Schedule2 implements Serializable {
         Event ev1 = em.getEvent(schedule.get(index-1));
         Event ev2 = em.getEvent(schedule.get(index));   //the event starting right after the event we wanna add
 
-        if(ev1.getDatetime().plusMinutes(e.getDuration()).isAfter(e.getDatetime()))
+        if(ev1.getDatetime().plusMinutes(ev1.getDuration()).isAfter(e.getDatetime()))
             return false;
 
         if (endTime.isAfter(ev2.getDatetime()))
@@ -116,10 +116,15 @@ public class Schedule2 implements Serializable {
     /**
      * Remove event with specific uuid
      * @param id the uuid of the event to remove
+     * @param capacity the capacity of the room to remove
      * @return true if event was successfully removed
      */
-    public boolean removeEvent(UUID id){
-        return schedule.remove(id);
+    public boolean removeEvent(UUID id, int capacity){
+        if(schedule.remove(id)) {
+            spaceUsed -= capacity;
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -228,7 +228,7 @@ public class ScheduleTableController {
      */
     public void filterSchedule() {
         searchText.setOnKeyReleased(keyEvent -> {
-            String text = searchText.getText().toLowerCase().trim();
+            String text = searchText.getText().trim();
             if ((yourSchedule.selectedProperty().getValue().equals(false))) {
             switch (searchBy.getValue())
             {
