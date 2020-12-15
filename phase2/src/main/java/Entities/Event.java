@@ -231,6 +231,11 @@ public class Event implements Serializable {
      */
     public String getType() { return type; }
 
+    /**
+     * Returns true if every instance variable between the two objects is identical.
+     * @param obj An instance of Message.
+     * @return boolean
+     */
     @Override
     public boolean equals(Object obj){
         if(obj==null) return false;
@@ -242,6 +247,10 @@ public class Event implements Serializable {
                 this.location.equals(e.location);
     }
 
+    /**
+     * Returns the String representation of a Message.
+     * @return String
+     */
     @Override
     public String toString() {
         return "\nID: " + this.getUuid().toString() + " \n" +
