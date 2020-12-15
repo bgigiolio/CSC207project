@@ -186,6 +186,7 @@ public class MessageGateway {
 
     /**
      * Utility method to clear file contents if file contains corrupt data
+     * @param dbPath path to database file
      */
     private void clearFileContentsUtil(String dbPath) {
         try {

@@ -182,6 +182,7 @@ public class Schedule2 implements Serializable {
      * @param l left index
      * @param r right index
      * @param k date and time of event we want to add
+     * @param em  EventManager object to retrieve info about events
      * @return index of event starting after our event or -1 if event with same starting time already exists
      */
     private int getIndex(int l, int r, LocalDateTime k, EventManager em) {

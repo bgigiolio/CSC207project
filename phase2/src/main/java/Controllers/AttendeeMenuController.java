@@ -71,6 +71,7 @@ public class AttendeeMenuController {
 
     /**
      * This is what the user should see if they choose to sign up for an event.
+     * @return true if user successfully signed up for this event
      */
     private boolean signUpEvent() {
         menu.eventPrompt("sign up");
@@ -89,6 +90,7 @@ public class AttendeeMenuController {
 
     /**
      * Method responsible for removing user from Event.
+     * @return true if user successfully cancelled their attendance
      */
     private boolean cancelEnrolEvent() {
         menu.eventPrompt("cancel");
