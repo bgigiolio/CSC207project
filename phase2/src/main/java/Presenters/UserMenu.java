@@ -11,6 +11,7 @@ import java.util.UUID;
  * <h1>User Menu</h1>
  * This presenter contains the possible print statements the user should see in the user menu.
  * This should only be seen by the user after they have successfully logged in.
+ * This is used in the console version of our program.
  * @author Blake Gigiolio
  */
 public class UserMenu {
@@ -172,41 +173,73 @@ public class UserMenu {
         System.out.println("Please enter the hour (0-23) followed by the minute (0-59)");
     }
 
+    /**
+     * This is what the user sees when they need to assign a type to the newly created Event.
+     */
     public void createUserType() {
         System.out.println("Is the new user an Attendee, Admin, Organizer or Speaker?");
         System.out.println("Enter 'U' for Attendee, 'A' for Admin, 'O' for Organizer or 'S' for Speaker:");
     }
 
+    /**
+     * This is what the user sees when they need to assign a Speaker to a newly created Event.
+     */
     public void createSpeakerName(){
         System.out.println("Enter Speaker name:");
     }
 
+    /**
+     * This is what the user sees when they are logging in.
+     */
     public void createUserName(){
         System.out.println("Enter User name:");
     }
 
+    /**
+     * This is what the user sees when they have successfully made a new Speaker account.
+     * @param uname The String representing the Speaker.
+     */
     public void speakerMade(String uname){
         System.out.println("Speaker account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
 
+    /**
+     * This is what the user sees when they have successfully made a new Organizer account.
+     * @param uname The String representing the Organizer.
+     */
     public void organizerMade(String uname){
         System.out.println("Organizer account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
 
+    /**
+     * This is what the user sees when they have successfully made a new Attendee account.
+     * @param uname The String representing the Attendee.
+     */
     public void attendeeMade(String uname){
         System.out.println("Attendee account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
 
+    /**
+     * This is what the user sees when they have successfully made a new Admin account.
+     * @param uname The String representing the Admin.
+     */
     public void adminMade(String uname){
         System.out.println("Admin account for " + uname + " successfully created!");
         System.out.println("Default password is 'password'");
     }
 
+    /**
+     * This is what the user sees when an Event's name is required.
+     */
     public void enterEvent(){ System.out.println("Enter existing Event name:"); }
 
+    /**
+     * This prints out the String representation of the Messages as a list.
+     * @param messages The messages from DB.
+     */
     public void printMessages(ArrayList<String> messages){
         StringBuilder builder = new StringBuilder();
         builder.append("Your messages: \n");
@@ -216,56 +249,95 @@ public class UserMenu {
         System.out.println(builder);
     }
 
+    /**
+     * This is what the user sees when they need to enter the name of the new Event.
+     */
     public void createEventName(){
         System.out.println("What should this event be named?");
     }
 
+    /**
+     * This is what the user sees when they need to enter the new Event's designated room.
+     */
     public void createEventRoom(){
         System.out.println("Which room is this event taking place in?");
     }
 
+    /**
+     * This is what the user sees when they need to enter a Year for the new Event.
+     */
     public void createEventYear(){
         System.out.println("What year is this event taking place in?");
     }
 
+    /**
+     * This is what the user sees when they need to enter a Month for the new Event.
+     */
     public void createEventMonth(){
         System.out.println("What month is this event in?");
         System.out.println("please answer as a number between 1 and 12");
     }
 
+    /**
+     * This is what the user sees after performing an action.
+     */
     public void promptagainonly(){
         System.out.println("Type A to see menu again");
     }
 
+    /**
+     * This is what the user sees after performing an action successfully.
+     */
     public void operationComplete(){System.out.println("Operation Completed!");}
 
+    /**
+     * This is what the user sees when they need to enter a Day for the new Event.
+     */
     public void createEventDay(){
         System.out.println("What day is this event taking place in?");
         System.out.println("please answer as a number between 1 and 31");
     }
 
+    /**
+     * This is what the user sees when they need to enter the hour when the new Event starts..
+     */
     public void createEventHour(){
         System.out.println("What hour is this event taking place");
         System.out.println("Please enter a number between 0 and 23");
     }
 
+    /**
+     * This is what the user sees when they need to enter the minute the new Event starts.
+     */
     public void createEventMinute(){
         System.out.println("What minute is this event taking place");
         System.out.println("Please enter a number between 0 and 59");
     }
 
+    /**
+     * This is what the user sees when they need to enter duration of the Event.
+     */
     public void createEventDuration(){
         System.out.println("What is the duration of this event in minutes?");
     }
 
+    /**
+     * This is what the user sees after they have requested the friends list.
+     */
     public void friendsList(){
         System.out.println("Would you like to add or remove someone from the friends list? Type A or R");
     }
 
+    /**
+     * This si what the user sees when they need to enter a another user's username.
+     */
     public void friendsListUsername(){
         System.out.println("What is their username?");
     }
 
+    /**
+     * This is what the user sees when they have successfully logged out.
+     */
     public void logoutSuccess() {
         System.out.println("You Have Successfully Logged Out Of Your Account.");
     }
@@ -326,15 +398,26 @@ public class UserMenu {
         System.out.println("\n\nEnter the ID of the event you want to delete or 'q' to exit:");
     }
 
+    /**
+     * This prints out the String representation of the Events the Speaker, text, is speaking at.
+     * @param text The String representing the speaker.
+     */
     public void viewSpeakerEvents(String text){
         System.out.println("List of events I'm talking at:\n" + text);
     }
 
+    /**
+     * This prints out the String representation of all of the Messages stored in the DB.
+     * @param mc The current MessageController instance.
+     */
     public void viewAllMessages(MessageController mc){
         System.out.println("Here are all the messages sent in the system:");
         System.out.println(mc.getAllMessages());
     }
 
+    /**
+     * This is what the user sees when they want to delete a Message.
+     */
     public void deleteMessagePrompt(){
         System.out.println("To delete a message, enter the sender, the receiver and the message body:");
     }
@@ -351,17 +434,36 @@ public class UserMenu {
     public void requestAction() {System.out.println("Would you like to [Reject], [Address], or [Leave]?");
     }
 
+    /**
+     * This is what the User sees when they need to enter a username to perform an action on the request.
+     */
     public void enterUsername() { System.out.println("Please enter the username associated with the desired request");
     }
 
+    /**
+     * This is what the user sees when they need to enter the number of the request they wish to perform the action on.
+     */
     public void enterRequestNum() { System.out.println("Please enter the associated num with the desired request.");
     }
 
+    /**
+     * This is what the user sees when they have successfully downloaded the Schedule of Events.
+     * @param destination The String representing the file path where the Schedule is to be delivered.
+     */
     public void downloadSuccess(String destination) { System.out.println("Schedule has been successfully downloaded to " + destination + ".");}
 
+    /**
+     * This is what the user sees when the Schedule of Events failed to download.
+     */
     public void downloadFailed() { System.out.println("Failed to download schedule due to server error."); }
 
+    /**
+     * This is what the user sees when they have called the menu again.
+     */
     public void selectAnotherOption() { System.out.println("Please select another menu option."); }
 
+    /**
+     * This is what the user sees when the file location for the Schedule has not been given yet.
+     */
     public void downloadLocationNotSelected() { System.out.println("No file location was selected."); }
 }

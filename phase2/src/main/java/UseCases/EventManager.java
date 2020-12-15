@@ -306,7 +306,8 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * @return an ArrayList with the IDs of the events with no attendees
+     * Returns an ArrayList with the IDs of the events with no attendees
+     * @return ArrayList<UUID></UUID>
      */
     public ArrayList<UUID> getEventIDNoAttendees(){
         ArrayList<UUID> toReturn = new ArrayList<>();

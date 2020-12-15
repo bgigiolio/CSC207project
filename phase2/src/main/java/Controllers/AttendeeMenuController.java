@@ -559,6 +559,7 @@ public class AttendeeMenuController {
      * [6] Review Messages
      * [7] Manage Friends List
      * [8] Logout | added to GUI
+     * [20] Make Request
      * [q] Quit
      * ---AVAILABLE FOR ORGANIZERS ONLY---
      * [9] Create User Account | added to GUI
@@ -567,6 +568,9 @@ public class AttendeeMenuController {
      * [12] Remove Event
      * [13] Message Event Attendees
      * [14] Create Event | added to GUI
+     * [15] Modify Event Capacity
+     * [16] Get List of Attendees
+     * [17] Get List of Requests
      *
      * @return true if user chose to exit program, false if user just logged out
      */
