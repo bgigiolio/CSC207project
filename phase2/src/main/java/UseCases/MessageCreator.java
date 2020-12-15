@@ -45,5 +45,9 @@ public class MessageCreator {
         return message;
     }
 
+    /**
+     * Returns the String representing the receiver of the Message.
+     * @return String
+     */
     public String getReceiver(){return this.receiver;}
 }
