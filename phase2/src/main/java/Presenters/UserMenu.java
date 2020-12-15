@@ -81,8 +81,8 @@ public class UserMenu {
 
     /**
      * This prints the schedule for a given building.
-     *
      * @param building Which building we want to see the schedule of.
+     * @param em  EventManager object to retrieve info about events
      */
     public void printBuildingSchedule(BuildingManager building, EventManager em) {
         System.out.println(building.getToString(em));
@@ -90,28 +90,18 @@ public class UserMenu {
 
     /**
      * This is what the user should see if they choose to sign up for or cancel enrollment in an event.
+     * @param action the action the user chose (sign up/cancel registration)
      */
     public void eventPrompt(String action) {
         if (action.equals("sign up")) {
             System.out.println("Please enter the name of event you want to sign up for:");
         } else { System.out.println("Please enter the name of event you want to cancel:"); } }
 
-    /**
-     * This is what the user should see after signing up for an event.
-     */
-    public void signUpEventStatus(String eventTitle, String status) {
-        if (status.equals("1")) {
-        System.out.println("You have successfully signed up for the event " + eventTitle + ".");
-        } else if (status.equals("2")) {
-            System.out.println("Event is at capacity. Please choose a different event.\n" +
-                    "[1] Go back \n[2] Enter another event");
-        }else{
-            System.out.println("Event " + eventTitle + " does not exist.\n" +
-                    "[1] Go back \n[2] Enter another event");}
-    }
 
     /**
      * This is what the user should see after cancelling their enrollment in an event.
+     * @param eventTitle the event's title
+     * @param status status
      */
     public void cancelEnrolStatus(String eventTitle, String status) {
         if (status.equals("1")) {
@@ -145,6 +135,7 @@ public class UserMenu {
 
     /**
      * Print print on screen.
+     * @param print what to print
      */
     public void printSomething(String print){
         System.out.println(print);

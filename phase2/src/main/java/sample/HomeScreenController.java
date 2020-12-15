@@ -171,6 +171,8 @@ public class HomeScreenController{
     /**
      * Register a new user
      * @param role user's roles
+     * @param username the username of the user
+     * @param password the password of the user
      * @return the username of the registered user
      */
     public String register(String role, String username, String password){
@@ -215,6 +217,8 @@ public class HomeScreenController{
 
     /**
      * This is how a user will log in. Here we call the log in menu prompt.
+     * @param username the username of the user
+     * @param password the password of the user
      * @return username of user logged. Null if couldn't log in.
      */
     public String login(String username, String password) {

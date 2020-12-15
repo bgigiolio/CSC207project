@@ -33,6 +33,7 @@ public class BuildingManager implements Serializable{
      * @param name The desired name of the room.
      * @param startHour The desired starting hour for this schedule. (See Schedule for reference)
      * @param endHour The desired ending hour for this schedule. (See Schedule for reference)
+     * @param roomCapacity maximum room capacity
      * @return True if the room was successfully added and false if it wasn't.
      */
     public boolean addRoom(String name, LocalTime startHour, LocalTime endHour, int roomCapacity){
@@ -65,6 +66,7 @@ public class BuildingManager implements Serializable{
     /**
      * Add an event to this building
      * @param e the event
+     * @param em  EventManager object to retrieve info about events
      * @return True if the event was added successfully, False otherwise
      */
     protected boolean addEvent(Event e, EventManager em){
@@ -93,7 +95,7 @@ public class BuildingManager implements Serializable{
      * Returns the string format of this building. Each room takes up two lines in the format of:
      * [Room name]
      * schedule.toString();
-     *
+     * @param em  EventManager object to retrieve info about events
      * @return Returns the string format of this building.
      */
     public String getToString(EventManager em){

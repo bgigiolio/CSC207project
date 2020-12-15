@@ -46,6 +46,7 @@ public class EventTableView {
 
     /**
      * Get allEvents data from eventManager.
+     * @return Observable list of events
      */
     public ObservableList<Event> constructEventData() {
         ArrayList<Event> allEvents = eventManager.getEvents();

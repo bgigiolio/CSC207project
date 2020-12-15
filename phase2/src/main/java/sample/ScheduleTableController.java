@@ -182,6 +182,7 @@ public class ScheduleTableController {
     /**
      * Handle the action of downloading the text file of full schedule
      * Schedule.txt to the user's local computer.
+     * @exception IOException exception when writing the file
      */
     public void handleDownloadButton() throws IOException {
         downloadMessage.setText("Downloading...Please wait a few seconds");
