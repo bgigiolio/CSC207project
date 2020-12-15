@@ -57,7 +57,7 @@ public class Event implements Serializable {
      * The public constructor of the Event class
      * @param title title of the event
      * @param location name of room this event is taking place in
-     * @param datetime the event's start time & date
+     * @param datetime the event's start time and date
      * @param duration duration of the event in minutes
      * @param eventCapacity the maximum capacity of the event
      */
@@ -165,6 +165,7 @@ public class Event implements Serializable {
     /**
      * Adds one attendee to the existing list of attendees that is assigned to usernames.
      * @param username is an attendee's username that would like to attend the event.
+     * @return true if attendee was added to the list of attendees
      */
     public boolean addAttendees(String username) {
         if(!usernames.contains(username)) {
@@ -177,14 +178,16 @@ public class Event implements Serializable {
     /**
      * Adds a list of attendees to the existing list of attendees that is assigned to usernames.
      * @param usernames is the list of usernames of attendees that would like to attend the event.
+     * @return true if at least one attendee was added to the list of attendees
      */
-    public void addAttendees(ArrayList<String> usernames) {
-        this.usernames.addAll(usernames);
+    public boolean addAttendees(ArrayList<String> usernames) {
+        return this.usernames.addAll(usernames);
     }
 
     /**
      * Removes one attendee from the existing list of attendees that is assigned to usernames.
      * @param username is an attendee's username that would like to attend the event.
+     * @return true if attendee was removed
      */
     public boolean removeAttendees(String username) {
         return this.usernames.remove(username);
@@ -193,9 +196,10 @@ public class Event implements Serializable {
     /**
      * Removes a list of attendees from the existing list of attendees that is assigned to usernames.
      * @param usernames is the list of usernames of attendees that would like to attend the event.
+     * @return true if at least one attendee was removed
      */
-    public void removeAttendees(ArrayList<String> usernames) {
-        this.usernames.removeAll(usernames);
+    public boolean removeAttendees(ArrayList<String> usernames) {
+        return this.usernames.removeAll(usernames);
     }
 
     /**

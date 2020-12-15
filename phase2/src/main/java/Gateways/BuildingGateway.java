@@ -68,6 +68,7 @@ public class BuildingGateway extends DatabaseGateway<BuildingManager>{
 
     /**
      * Construct the text file Schedule.txt from database Building.ser.
+     * @param scheduleString the schedule in string format
      */
     public void constructScheduleTxt(String scheduleString) {
         FileWriter scheduleWriter;

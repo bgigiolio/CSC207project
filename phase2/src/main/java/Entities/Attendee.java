@@ -45,6 +45,7 @@ public class Attendee implements Serializable {
      *
      * @param username the username of the user.
      * @param password the password of the user.
+     * @param role the role of the attendee (attendee, admin, organizer)
      */
     public Attendee(String username, String password, String role){
         this.username = username;

@@ -62,6 +62,7 @@ public class MessageGateway {
      * @param sender is the user that sent the message
      * @param receiver is the user that received the message
      * @param message is the object that is created by sender, sent to receiver.
+     * @return true if message was removed
      */
     public boolean removeMessage(String sender, String receiver, Message message){
         if(!this.outbox.containsKey(sender) || !this.inbox.containsKey(receiver)) return false;

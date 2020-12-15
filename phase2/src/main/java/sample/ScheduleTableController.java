@@ -213,7 +213,8 @@ public class ScheduleTableController {
     ;}
 
     /**
-     * Construct the text file Schedule.txt from Building.ser.
+     * Construct the text file Schedule.txt from Building.ser
+     * @throws IOException exception during opening and writing file
      */
     public void constructScheduleTxt () throws IOException {
         BuildingManager buildingManager = new BuildingGateway().read();

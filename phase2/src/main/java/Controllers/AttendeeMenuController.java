@@ -39,8 +39,11 @@ public class AttendeeMenuController {
      * This constructor takes in the parameters needed to operate the menu.
      *
      * @param username    This is the username of the user who this menu is for.
+     * @param role the role of the user
      * @param building    This is the Building Manager for the building that the user is interested in.
      * @param userManager This is the user manager for the user that this menu is for.
+     * @param eventManager the event event manager object for this program
+     * @param accessibility the accessibility options controller for this project
      */
     public AttendeeMenuController(String username, String role, BuildingManager building, UserManager userManager,
                                   EventManager eventManager, AccessibilityOptionsController accessibility) {

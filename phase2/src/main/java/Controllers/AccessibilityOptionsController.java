@@ -81,6 +81,8 @@ public class AccessibilityOptionsController {
 
     /**
      * send the request from the sender to request list
+     * @param sender the sender of the request
+     * @param request the content of the request
      */
     public void sendRequest(String sender, String request){
         this.requestCreator.createRequest(sender, request);

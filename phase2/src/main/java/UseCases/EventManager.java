@@ -192,7 +192,7 @@ public class EventManager implements Serializable {
     /**
      * Returns an ArrayList of the titles of the Events the User is attending.
      * @param username The String that represents the User.
-     * @return ArrayList<String></String>
+     * @return list of events this user is attending
      */
     public ArrayList<String> eventsAttending(String username){
         ArrayList<String> e = new ArrayList<>();
@@ -293,7 +293,7 @@ public class EventManager implements Serializable {
     /**
      * Returns an ArrayList of the Users who are attending the EVent.
      * @param id The UUId of the Event.
-     * @return ArrayList<String></String>
+     * @return list with attendee usernames for those attending this event
      */
     public ArrayList<String> getAttendees(UUID id){
         Event e = events.get(id);

@@ -42,7 +42,7 @@ public class UserManager implements Serializable {
                 return true;
             }
             else if(role.equalsIgnoreCase("speaker")) {
-                credentialsMap.put(username, new Speaker(username, password, role));
+                credentialsMap.put(username, new Speaker(username, password));
                 return true;
             }
         }
@@ -120,6 +120,7 @@ public class UserManager implements Serializable {
      * Add user2 to user1's friend list
      * @param user1 username of user1
      * @param user2 username of user2
+     * @return true if user1 and user2 are valid users and user2 was added to user1's friend list
      */
     public boolean addFriend(String user1, String user2){
         Attendee at1 = credentialsMap.get(user1);
@@ -134,6 +135,7 @@ public class UserManager implements Serializable {
      * Remove user2 from user1's friend list
      * @param user1 username of user1
      * @param user2 username of user2
+     * @return true if both users are valid and user2 was removed from user1's friend list
      */
     public boolean removeFriend(String user1, String user2){
         Attendee at1 = credentialsMap.get(user1);
@@ -161,6 +163,7 @@ public class UserManager implements Serializable {
      * Sign up user of username for the event of event id
      * @param username of this user
      * @param id of the event to sign up for
+     * @return true if user successfully signed up for the event
      */
     public boolean signUpForEvent(String username, UUID id){
         Attendee a = credentialsMap.get(username);
@@ -173,6 +176,7 @@ public class UserManager implements Serializable {
      * Cancel event enrolment of event id for the user of username
      * @param username of this user
      * @param id of the event to cancel enrolment from
+     * @return true if user is valid and was removed the event from their registered events list
      */
     public boolean cancelEnrollment(String username, UUID id){
         Attendee a = credentialsMap.get(username);

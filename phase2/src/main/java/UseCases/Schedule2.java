@@ -62,6 +62,7 @@ public class Schedule2 implements Serializable {
      * Add an event to this schedule of this room
      *
      * @param e This is the event to be added
+     * @param em EventManager object to retrieve info about events
      * @return true if the event was successfully added, false if the event couldn't be added
      */
     public boolean addEvent(Event e, EventManager em) {

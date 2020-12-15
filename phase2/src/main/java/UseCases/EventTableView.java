@@ -56,6 +56,7 @@ public class EventTableView {
 
     /**
      * Get allEvents.
+     * @return an observable list of events
      */
     public ObservableList<Event> getAllEvents() {
         return this.allEvents;
@@ -63,6 +64,7 @@ public class EventTableView {
 
     /**
      * Get filteredListEvents.
+     * @return a filtered list of events
      */
     public FilteredList<Event> getFilteredListEvents () {
         return this.filteredListEvents;

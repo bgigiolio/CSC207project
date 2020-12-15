@@ -36,6 +36,7 @@ public class Schedule implements Serializable {
      * The constructor requires a start hour and end hour for how long the room is available
      * @param startHour The first hour (inclusive) that an event can be scheduled
      * @param endHour The hour (exclusive) when an event can not be created in this room
+     * @param roomCapacity the max room capacity
      */
     public Schedule(int startHour, int endHour, int roomCapacity){
         this.endHour = endHour; // When the room closes

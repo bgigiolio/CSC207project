@@ -21,6 +21,7 @@ public class Message implements Serializable {
      * This constructor creates a new instance of Message.
      * @param content The content of the Message.
      * @param sender The user who sent the Message.
+     * @param receiver the user who receives the message
      */
     public Message(String content, String sender, String receiver){
         this.content = content;

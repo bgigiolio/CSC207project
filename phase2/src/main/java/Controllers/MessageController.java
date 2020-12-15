@@ -99,6 +99,7 @@ public class MessageController {
 
     /**
      * Sends message and updates inbox and outbox through Message Gateway.
+     * @return true if message was sent
      */
     public boolean sendMessage() {
         if (this.userLoginGateway.read() == null || !this.userLoginGateway.read().checkUsername(this.receiver)){
@@ -136,6 +137,7 @@ public class MessageController {
 
     /**
      * Deletes message and updates inbox and outbox through Message Gateway.
+     * @return true if message was deleted
      */
     public boolean deleteMessage() {
         boolean retVal = this.allMessages.removeMessage(this.sender, this.receiver, messageSystem.getMessage());
@@ -147,7 +149,7 @@ public class MessageController {
     /**
      * Helper method to get all messages from the provided hashmap and returns it as an arraylist.
      * @param hm is a hashmap that contains messages of every user.
-     * @return
+     * @return all the messages sent in string format
      */
     private ArrayList<String> allMessageHelper(HashMap<String, ArrayList<Message>> hm) {
         ArrayList<String> ret = new ArrayList<>();
