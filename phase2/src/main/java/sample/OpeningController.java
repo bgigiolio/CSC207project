@@ -60,7 +60,7 @@ public class OpeningController implements Initializable {
      * TextField to put password
      */
     @FXML
-    public TextField password;
+    public PasswordField password;
     /**
      * A label that will show up if login is unsuccessful.
      */
