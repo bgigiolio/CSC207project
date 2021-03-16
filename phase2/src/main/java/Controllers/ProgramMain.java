@@ -9,7 +9,7 @@ import main.java.Presenters.*;
 import main.java.UseCases.BuildingManager;
 import main.java.UseCases.EventManager;
 import main.java.UseCases.UserManager;
-
+// ONLY FOR TEXT BASED RUNNING
 /**
  * <h1>ProgramMain</h1>
  * This controller facilitates logging in and creating new accounts.
